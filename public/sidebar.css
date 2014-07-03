@@ -1,0 +1,160 @@
+.pie_image_bg {
+  margin-left: auto;
+  margin-right: auto;
+  width: 8em;
+  background-image: url("/media/pie-chart-2-big.svg");
+  filter:progid:DXImageTransform.Microsoft.Alpha(opacity=50); 
+  -moz-opacity: 0.5;
+  -khtml-opacity: 0.5;
+  opacity: 0.5;
+  width: 512px;
+  height:512px;
+} 
+
+table.fixed {table-layout:fixed; width:100%;}/*Setting the table width is important!*/
+         table.fixed td {overflow:hidden;}/*Hide text outside the cell.*/
+         table.fixed td:nth-of-type(1) {width:100px;}/*Setting the width of column 1.*/
+         table.fixed td:nth-of-type(2) {width:100px;}/*Setting the width of column 2.*/
+         table.fixed td:nth-of-type(3) {width:100px;}/*Setting the width of column 3.*/
+         table.fixed td:nth-of-type(4) {width:100px;}
+         table.fixed td:nth-of-type(5) {width:100px;}
+
+
+ .input-xs {
+    height: 20px;
+    padding: 5px 5px;
+    font-size: 11px;
+    line-height: 1.5;
+    border-radius: 3px;
+    border: 0px solid;
+    }
+.input-xs:focus {outline: none; }
+.input-xs:hover {background-color: yellow;}
+
+#wrapper {
+  padding-left: 250px;
+  transition: all 0.4s ease 0s;
+}
+
+#sidebar-wrapper {
+  margin-left: -250px;
+  left: 250px;
+  width: 250px;
+  background: #f8f8f8;
+  position: fixed;
+  height: 100%;
+  overflow-y: auto;
+  z-index: 1000;
+  transition: all 0.4s ease 0s;
+}
+
+#page-content-wrapper {
+  width: 100%;
+}
+
+.sidebar-nav {
+  position: absolute;
+  top: 0;
+  width: 250px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar-nav li {
+  line-height: 30px;
+  text-indent: 5px;
+}
+
+.sidebar-nav li a {
+  color: #999999;
+  display: block;
+  text-decoration: none;
+}
+
+.sidebar-nav li a.active  {
+background: rgba(0, 185, 235, 1);
+}
+
+.sidebar-nav li a:hover {
+  color: #fff;
+  background: rgba(0, 185, 235, 1);
+  text-decoration: none;
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+  text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+  height: 65px;
+  line-height: 60px;
+  font-size: 18px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+  color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+  color: #fff;
+  background: rgba(0, 185, 235, 1);
+}
+
+.content-header {
+  height: 65px;
+  line-height: 65px;
+}
+
+.content-header h1 {
+  margin: 0;
+  margin-left: 20px;
+  line-height: 65px;
+  display: inline-block;
+}
+
+#menu-toggle {
+  display: none;
+}
+
+.inset {
+  padding: 20px;
+}
+
+@media (max-width:767px) {
+
+#wrapper {
+  padding-left: 0;
+}
+
+#sidebar-wrapper {
+  left: 0;
+}
+
+#wrapper.active {
+  position: relative;
+  left: 250px;
+}
+
+#wrapper.active #sidebar-wrapper {
+  left: 250px;
+  width: 250px;
+  transition: all 0.4s ease 0s;
+}
+
+#menu-toggle {
+  display: inline-block;
+}
+
+.inset {
+  padding: 15px;
+}
+
+}
+
+
+
+ 
+
+

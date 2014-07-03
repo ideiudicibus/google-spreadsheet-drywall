@@ -1,0 +1,224 @@
+<%
+
+
+function drawCharts(spreadsheet,activeSheet) {
+var activeSheetName=activeSheet;
+
+var query1 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&headers=-1&merge=COLS&range=L3:L12,M3:M12&pli=1'); 
+query1.send(handleQueryResponse1);
+
+var query2 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&headers=-1&merge=COLS&range=L3:L12,N3:N12&pli=1'); 
+
+query2.send(handleQueryResponse2);
+
+
+var query3 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=L3:N8&pli=1'); 
+query3.send(handleQueryResponse3);
+
+
+
+}
+
+
+function handleQueryResponse1(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+var j={"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"series":{"0":{"color":"#0070C0"}},"title":"Costo medio annuo","height":290,"legend":{"position":"none"},"width":380,"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{}}};
+google.visualization.drawChart(j, document.getElementById('chart1')); 
+
+}
+
+function handleQueryResponse2(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+var j={"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":response.getDataTable(),"options":{"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"series":{"0":{"color":"#7030A0"}},"height":290,"legend":{"position":"none"},"width":380,"useFirstColumnAsDomain":true,"hAxis":{}}};
+google.visualization.drawChart(j, document.getElementById('chart2')); 
+
+}
+
+function handleQueryResponse3(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+
+ var datatable = new google.visualization.DataView(response.getDataTable());
+  var table = new google.visualization.Table(document.getElementById('dataTable'));
+  table.draw(datatable,{'sort':'disable'});
+
+}
+
+
+drawCharts(data.record,activeSheetName);
+
+%>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='textNote'><%print(textNote);%></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='chart1' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+  </div>
+    <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='chart2' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+   <div class="col-md-6">
+      <div class="panel panel-default">
+      <div class="panel-heading"><i class="fa fa-table fa-fw"></i> 
+        <div class="pull-right">
+          <div class="btn-group">
+            <button type="button" data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle">Azioni<span class="caret"></span></button>
+            <ul role="menu" class="dropdown-menu pull-right">
+              <li><a  data-toggle="modal" data-target="#paramInputs">Modifica parametri</a></li>
+              <li><a  class="resetParamsBtn" data-toggle="modal" data-target="#">Reset parametri</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="panel-body">
+          <div id='dataTable' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+</div>
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-12">
+<a href="#" id="force-reload-sheet" class='btn btn-default '><i class="fa fa-refresh"></i>&nbsp;Ricarica parametri</a>
+<a href="#" class='btn btn-default saveSimulationBtn'><i class="fa fa-save"></i>&nbsp;Salva Simulazione</a>
+</div>
+</div>
+
+
+</br>
+<div class='row'>
+<div class="col-xs-12 col-sm-12 col-md-12 " >
+        
+        <!-- Modal -->
+<div  id="paramInputs"  class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modifica Parametri</h4>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive">
+              <table class="table table-striped table-bordered table-hover fixed" >
+                <thead>
+              <tr><th>&nbsp;</th><th>Aderenza</th>
+               </thead>
+               <tbody>
+
+              <%
+               var tmpRow1=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("1")>=0); 
+                })
+                var tmpRow2=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("2")>=0); 
+                })
+                 var tmpRow3=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("3")>=0); 
+                })
+                  var tmpRow4=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("4")>=0); 
+                })
+                   var tmpRow5=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("5")>=0); 
+                })
+               %>
+               <tr><td >Enbrel</td><%
+               _.each(tmpRow1,function(a,b,c){
+                var t=_.values(a)[0];
+                var id=_.keys(a)[0];
+               %>
+               <td ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text"  value="<%= t.value %>" class="input-xs"></input></td>
+            <% })   
+              %>
+              </tr><tr><td>Humira</td><%
+               _.each(tmpRow2,function(a,b,c){
+                var t=_.values(a)[0];
+                var id=_.keys(a)[0];
+               %>
+               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
+            <% })   
+              %>
+              </tr><tr><td>Remicade</td><%
+               _.each(tmpRow3,function(a,b,c){
+                var t=_.values(a)[0];
+                var id=_.keys(a)[0];
+               %>
+               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
+            <% })   
+              %>
+              </tr><tr><td>Simponi</td><%
+               _.each(tmpRow4,function(a,b,c){
+                var t=_.values(a)[0];
+                var id=_.keys(a)[0];
+               %>
+               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
+            <% })   
+              %>
+              </tr><tr><td>Stelara</td><%
+               _.each(tmpRow5,function(a,b,c){
+                var t=_.values(a)[0];
+                var id=_.keys(a)[0];
+               %>
+               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>"  class="input-xs"></input></td>
+            <% })   
+              %>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Chiudi</button>
+        <button type="button" class="btn btn-primary update updateParameterBtnFull">Salva</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+ </div>
+
+        
+      
+    </div>
+</row>

@@ -1,0 +1,33 @@
+extends ../../layouts/account
+
+block head
+  title Account Area
+
+block neck
+  link(rel='stylesheet', href='/sidebar.css?#{cacheBreaker}')
+
+block feet
+  script(type='text/javascript').
+            var initData = function(){ return !{JSON.stringify(data)} ; }
+  script(src='/views/spreadsheets/index.js?#{cacheBreaker}')
+
+block body
+ #wrapper
+    #sidebar-wrapper
+        ul#spreadsheets.sidebar-nav
+          li.sidebar-brand
+            a(href='#') Seleziona un modello
+          
+      #page-content-wrapper
+        .content-header
+          h1 Benvenuto/a  #{user.username}
+            a#menu-toggle.btn.btn-default(href='#')
+              i.icon-reorder
+            | 
+        .page-content.inset
+          .row
+            .col-md-8
+              h1 Utilizzo della dashboard dei modelli
+                img.pull-left.img-responsive.postImg.img-thumbnail.margin10(src='http://png-3.findicons.com/files/icons/1684/ravenna/256/pie_chart.png', width="200",height="200")
+              article
+                p(style="margin-left:210px") Seleziona uno dei modelli elencati a sinistra per accedere alla dashboard per l'analisi dati 

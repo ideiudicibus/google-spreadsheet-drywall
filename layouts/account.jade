@@ -1,0 +1,54 @@
+doctype html
+html
+  head
+    block head
+      title #{title}
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible', content='IE=EDGE')
+    link(rel='stylesheet', href='/layouts/core.min.css?#{cacheBreaker}')
+    block neck
+  body
+    div.navbar.navbar-default.navbar-fixed-top
+      div.container
+        div.navbar-header
+          a.navbar-brand(href='/account/')
+            img.navbar-logo(src='/media/logo-blue-square-64x64.png')
+            span.navbar-brand-label #{projectName}
+          button.navbar-toggle.collapsed(data-toggle='collapse', data-target='.my-navbar-collapse')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+        div.navbar-collapse.my-navbar-collapse.collapse
+          ul.nav.navbar-nav
+            li: a(href='/account/') My Account
+            li: a(href='/account/settings/') Settings
+            li: a(href='/spreadsheets') Spreadsheets
+          ul.nav.navbar-nav.pull-right
+            li: a(href='/logout/')
+              i.fa.fa-user
+              |  Sign Out
+            li 
+              #ajax-spinner(style="display: none;position: absolute;z-index: 100;")
+                img(src="/media/ajax-pulse.gif")  
+    div.page
+      div.container
+        block body
+
+    div.footer
+      div.container
+        div.inner
+          span.copyright.pull-right
+            |&#169; #{copyrightYear} #{copyrightName}
+          ul.links
+            li: a(href='/') Home
+            li: a(href='/logout/') Sign Out
+          div.clearfix
+
+    div.ajax-spinner
+      img(src='/media/ajax-pulse.gif')
+
+    //if lte IE 9
+      script(src='/layouts/ie-sucks.min.js?#{cacheBreaker}')
+    script(src='/layouts/core.min.js?#{cacheBreaker}')
+
+    block feet

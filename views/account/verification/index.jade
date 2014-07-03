@@ -1,0 +1,45 @@
+extends ../../../layouts/account
+
+block head
+  title Verification Required
+
+block neck
+  link(rel='stylesheet', href='/views/account/verification/index.min.css?#{cacheBreaker}')
+
+block feet
+  script(src='/views/account/verification/index.min.js?#{cacheBreaker}')
+
+block body
+  div.row
+    div.col-sm-6
+      div.page-header
+        h1 Verifica e-mail richiesta 
+      div.alert.alert-warning Il tuo account su #{projectName} è quasi pronto: è stata inviata una email automatica con un link di verifica
+      div#verify
+
+  script(type='text/template', id='tmpl-verify')
+    form
+      div.alerts
+        |<% _.each(errors, function(err) { %>
+        div.alert.alert-danger.alert-dismissable
+          button.close(type='button', data-dismiss='alert') &times;
+          |<%- err %>
+        |<% }); %>
+        |<% if (success) { %>
+        div.alert.alert-info.alert-dismissable
+          button.close(type='button', data-dismiss='alert') &times;
+          | Invio e-mail di verifica avvenuto con successo.
+        |<% } %>
+      |<% if (!success) { %>
+      div(class!='not-received<%= !keepFormOpen ? "" : " not-received-hidden" %>')
+        a.btn.btn-link.btn-ho controllato la mia posta e non ho ricevuto alcuna comunicazione di verifica.
+      div(class!='verify-form<%= keepFormOpen ? "" : " verify-form-hidden" %>')
+        div.form-group(class!='<%- errfor.email ? "has-error" : "" %>')
+          label la tua e-mail:
+          input.form-control(type='text', name='email', value!='<%= email %>')
+          span.help-block <%- errfor.email %>
+        div.form-group
+          button.btn.btn-primary.btn-verify(type='button') Invia nuovamente la verifica
+      |<% } %>
+
+  script(type='text/template', id='data-user') !{data.user}

@@ -1,0 +1,9 @@
+.DS_Store
+node_modules/*
+!node_modules/drywall-sendmail
+!node_modules/drywall-slugify
+!node_modules/drywall-workflow
+!node_modules/underscore
+!node_modules/edit-google-spreadsheet
+/config.js
+.nodemonignore

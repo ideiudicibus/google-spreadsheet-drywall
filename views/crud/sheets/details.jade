@@ -1,0 +1,76 @@
+extends ../../../layouts/admin
+
+block head
+  title Sheets / Details
+
+block feet
+  script(src='/views/crud/sheets/details.js?#{cacheBreaker}')
+
+block body
+  div.row
+    div.col-xs-12
+      div#header
+      div#details
+      div#delete
+
+  script(type='text/template', id='tmpl-header')
+    div.page-header
+      h1
+        a(href='/crud/sheets/') Sheets
+        |  / <%- name %>
+
+  script(type='text/template', id='tmpl-details')
+    fieldset
+      legend Details
+      div.alerts
+        |<% _.each(errors, function(err) { %>
+        div.alert.alert-danger.alert-dismissable
+          button.close(type='button', data-dismiss='alert') &times;
+          |<%- err %>
+        |<% }); %>
+        |<% if (success) { %>
+        div.alert.alert-info.alert-dismissable
+          button.close(type='button', data-dismiss='alert') &times;
+          | Changes have been saved.
+        |<% } %>
+      div.form-group(class!='<%- errfor.pivot ? "has-error" : "" %>')
+        label Pivot:
+        input.form-control(type='text', name='pivot', value!='<%- pivot %>')
+        span.help-block <%- errfor.pivot %>
+      div.form-group(class!='<%- errfor.name ? "has-error" : "" %>')
+        label Name:
+        input.form-control(type='text', name='name', value!='<%- name %>')
+        span.help-block <%- errfor.name %>
+      div.control-group(class!='<%- errfor.spreadsheetId ? "has-error" : "" %>')
+        label.control-label spreadsheetId:
+        input.form-control(type='text', name='spreadsheetId', value!='<%- spreadsheetId %>')
+        span.help-block <%- errfor.spreadsheetId %>
+      div.control-group(class!='<%- errfor.params ? "has-error" : "" %>')
+        label.control-label params:
+        input.form-control(type='text', name='params', value!='<%- params %>')
+        span.help-block <%- errfor.params %>
+      div.control-group(class!='<%- errfor.textNote ? "has-error" : "" %>')
+        label.control-label content:
+        textarea.form-control(id='textNote' name='textNote') <%- textNote %> 
+        span.help-block <%- errfor.textNote %>
+      div.form-group
+        button.btn.btn-primary.btn-update(type='button') Update
+
+  script(type='text/template', id='tmpl-delete')
+    fieldset
+      legend Danger Zone
+      div.alerts
+        |<% _.each(errors, function(err) { %>
+        div.alert.alert-danger.alert-dismissable
+          button.close(type='button', data-dismiss='alert') &times;
+          |<%- err %>
+        |<% }); %>
+      div.form-group
+        span.help-block
+          span.label.label-danger If you do this, it cannot be undone.
+          |&nbsp;
+          span.text-muted You may also create orphaned document relationships too.
+      div.form-group
+        button.btn.btn-danger.btn-delete(type='button') Delete
+
+  script(type='text/template', id='data-record') !{data.record}

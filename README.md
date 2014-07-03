@@ -1,4 +1,3 @@
-google-spreadsheet-drywall
-==========================
+Google spreadsheets viewer
+=============
 
-google spreadsheet drywall

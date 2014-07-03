@@ -1,0 +1,81 @@
+extends ../../../layouts/admin
+
+block head
+  title Spreadsheets / Details
+
+block feet
+  script(src='/views/crud/spreadsheets/details.js?#{cacheBreaker}')
+
+block body
+  div.row
+    div.col-xs-12
+      div#header
+      div#details
+      div#delete
+
+  script(type='text/template', id='tmpl-header')
+    div.page-header
+      h1
+        a(href='/crud/spreadsheets/') Spreadsheets
+        |  / <%- name %> 
+      
+ 
+  script(type='text/template', id='tmpl-details')
+    fieldset
+      legend Details
+      div.alerts
+        |<% _.each(errors, function(err) { %>
+        div.alert.alert-danger.alert-dismissable
+          button.close(type='button', data-dismiss='alert') &times;
+          |<%- err %>
+        |<% }); %>
+        |<% if (success) { %>
+        div.alert.alert-info.alert-dismissable
+          button.close(type='button', data-dismiss='alert') &times;
+          | Changes have been saved.
+        |<% } %>
+      div.form-group(class!='<%- errfor.pivot ? "has-error" : "" %>')
+        label Pivot:
+        input.form-control(type='text', name='pivot', value!='<%- pivot %>')
+        span.help-block <%- errfor.pivot %>
+      div.form-group(class!='<%- errfor.name ? "has-error" : "" %>')
+        label Name:
+        input.form-control(type='text', name='name', value!='<%- name %>')
+        span.help-block <%- errfor.name %>
+      div.control-group(class!='<%- errfor.googleId ? "has-error" : "" %>')
+        label.control-label googleId:
+        input.form-control(type='text', name='googleId', value!='<%- googleId %>')
+        span.help-block <%- errfor.googleId %>
+      div.control-group(class!='<%- errfor.activeSheet ? "has-error" : "" %>')
+        label.control-label activeSheet:
+        input.form-control(type='text', name='activeSheet', value!='<%- activeSheet %>')
+        span.help-block <%- errfor.activeSheet %>
+      div.control-group(class!='<%- errfor.sheets ? "has-error" : "" %>')
+        label.control-label sheets:
+        input.form-control(type='text', name='sheets', value!='<%- sheets %>')
+        span.help-block <%- errfor.sheets %>
+      div.control-group(class!='<%- errfor.ownersList ? "has-error" : "" %>')
+        label.control-label owners:
+        input.form-control(type='text', name='owners', value!='<%- ownersList %>')
+        span.help-block <%- errfor.ownersList %>
+      div.form-group
+        button.btn.btn-primary.btn-update(type='button') Update
+
+  script(type='text/template', id='tmpl-delete')
+    fieldset
+      legend Danger Zone
+      div.alerts
+        |<% _.each(errors, function(err) { %>
+        div.alert.alert-danger.alert-dismissable
+          button.close(type='button', data-dismiss='alert') &times;
+          |<%- err %>
+        |<% }); %>
+      div.form-group
+        span.help-block
+          span.label.label-danger If you do this, it cannot be undone.
+          |&nbsp;
+          span.text-muted You may also create orphaned document relationships too.
+      div.form-group
+        button.btn.btn-danger.btn-delete(type='button') Delete
+
+  script(type='text/template', id='data-record') !{data.record}
