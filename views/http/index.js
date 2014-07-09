@@ -3,7 +3,7 @@
 exports.http404 = function(req, res){
   res.status(404);
   if (req.xhr) {
-    res.send({ error: 'Resource not found.' });
+    res.send({ error: 'Contento non trovato.' });
   }
   else {
     res.render('http/404');
@@ -20,7 +20,7 @@ exports.http500 = function(err, req, res, next){
   }
 
   if (req.xhr) {
-    res.send({ error: 'Something went wrong.', details: data });
+    res.send({ error: 'Qualcosa non è andato per il verso giusto.', details: data });
   }
   else {
     res.render('http/500', data);

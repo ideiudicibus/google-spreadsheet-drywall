@@ -7,7 +7,7 @@ exports = module.exports = function(app, mongoose) {
     name: { type: String, default: '' }
 	,spreadsheetId: { type: String }
 	,params: { type: String, default: '[{"[]":{"row":"","col":"","value":"","label":""}}]' },
-      textNote:{ type: String, default:'<div class="col-md-10"><h1>Titolo</h1><p>paragrafo</p></div><hr>'},
+      textNote:{ type: String, default:'<div ><h1>Titolo</h1><p>paragrafo</p></div><hr>'},
       listOrder:{type: Number}
   });
   sheetSchema.plugin(require('./plugins/pagedFind'));

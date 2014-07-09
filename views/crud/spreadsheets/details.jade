@@ -17,7 +17,10 @@ block body
     div.page-header
       h1
         a(href='/crud/spreadsheets/') Spreadsheets
-        |  / <%- name %> 
+        |  / <%- name %>
+      h2
+        a(href !='/spreadsheets/<%= _id %>/') Preview <%- name %>
+     
       
  
   script(type='text/template', id='tmpl-details')

@@ -27,17 +27,18 @@ html
         ul.nav.navbar-top-links.navbar-right
           li.dropdown
             a.dropdown-toggle(href='#', data-toggle='dropdown')
-                i.fa.fa-wrench.fa-fw
+                i.fa.fa-list.fa-fw
+                i.fa.fa-caret-down
+              ul.dropdown-menu.dropdown-alerts#savedSimulations
+          li.dropdown
+            a.dropdown-toggle(href='#', data-toggle='dropdown')
+                i.fa.fa-puzzle-piece.fa-fw
                 i.fa.fa-caret-down
               ul.dropdown-menu.dropdown-user
                 li
                   a.notImplemented(href='#')
-                    i.fa.fa-file.fa-fw
+                    i.fa.fa-print.fa-fw
                     | Versione stampabile
-                li
-                  a.notImplemented(href='#')
-                    i.fa.fa-list.fa-fw
-                    | Simulazioni salvate
           li.dropdown
             a.dropdown-toggle(href='#', data-toggle='dropdown')
                 i.fa.fa-user.fa-fw
@@ -48,12 +49,12 @@ html
                     i.fa.fa-user.fa-fw
                     | profilo utente
                 li
-                  a(href='/account/settings')
+                  a(href='/account/settings/')
                     i.fa.fa-gear.fa-fw
                     | preferenze utente
                 li.divider
                 li
-                  a(href='/signout')
+                  a(href='/logout/')
                     i.fa.fa-sign-out.fa-fw
                     | Uscita
       .navbar-default.navbar-static-side(role='navigation')

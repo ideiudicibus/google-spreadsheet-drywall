@@ -1,7 +1,8 @@
 var Spreadsheet = require('edit-google-spreadsheet'); 
 var sys=require('sys'); 
 var _=require('underscore');
-
+var moment = require('moment');
+var mongoose = require('mongoose');
 'use strict';
 
 
@@ -62,6 +63,39 @@ function copyPureData(src_rows,mapping_col_idx,src_val_idx,src_label_idx,src_vec
 });
 return src_vect;
 
+}
+
+
+ /**
+given a set of rows from google spreadsheet
+returns an array of objects in the following format {row {col:value}} 
+which can be sent to the spreadsheet via the spreadsheet.add () method 
+the array rapresents the copy of src_col value into the target_col
+
+ex: getColumnFromRowsData(row,2,5,1) 
+it can be used to copy the column 5 cells into the column 2 one
+array contains the data to send to google-spreadsheet via the api
+getColumnFromRowsData(row,2,2,1) 
+@returns an array of object ready to be sent to the sheet
+*/
+function getColumnFromRowsData(rows,target_col_idx,src_col_idx,start_row){
+var retArray=[];
+
+_.each(rows,function(a,b){
+  if(Number(b)>start_row) {
+                 row= Number(b);
+                 col= Number(target_col_idx);
+                 value= String(getProperty(a,src_col_idx)!=null?getProperty(a,src_col_idx):'');
+                 value= value.indexOf('.')>0?value.split(".").join(""):value;
+                 value= value.indexOf('-')>0?value.split("-").join(""):value;
+                 value= value.trim();
+                 var o1={},o2={};
+                 o2[col]=value;
+                 o1[row]=o2;
+                 retArray.push(o1);
+  } 
+})
+return retArray;
 }
 
 
@@ -140,13 +174,14 @@ var workflow = req.app.utility.workflow(req, res);
 var param= req.body;
 
 workflow.on('updateGoogleSpreadsheet',function(p){
-  
+
   var params=JSON.parse(p.paramData);
   var sheetName='VV_UT';
   var activeSheet=p.activeSheet;
 
 if(activeSheet.indexOf('default')>0) sheetName='OPZ';
-//console.log('params to send are: '+ sys.inspect(prepareParamsForExcel(params)));
+console.log('params to tranform are: '+ sys.inspect(params));
+console.log('params to send are: '+ sys.inspect(prepareParamsForExcel(params)));
   
 updateSheet(p.googleId,prepareParamsForExcel(params),sheetName,workflow,req);
 
@@ -427,3 +462,367 @@ exports.setActiveSheet = function(req, res, next){
   workflow.emit('patchSpreadsheet',req);
 
 };
+
+
+
+exports.saveSimulation = function(req,res,next){
+ var workflow = req.app.utility.workflow(req, res);
+ 
+
+ workflow.on('saveSimulation', function(workflow,req,sprdsheet) {
+ var user=req.user.email;
+ var def=sprdsheet.sheetsList[0];
+var  simulationLabel=req.body.simulationLabel;
+ workflow.emit('saveSimulationOnParamObj',workflow,sprdsheet,simulationLabel,user);
+
+});
+
+ workflow.on('saveSimulationOnExcel',function(workflow,sprdsheet,simulationLabel,user){
+
+  saveSimulationOnExcel(workflow,sprdsheet,simulationLabel,user,sprdsheet.sheetsList[0].params);
+
+ })
+
+
+workflow.on('saveSimulationOnParamObj',function(  workflow,sprdsheet,simulationLabel,user){
+
+
+ var fieldsToSet = {
+      _id: mongoose.Types.ObjectId(),
+      pivot: sprdsheet.nextSaveCol,
+      name: user,
+      value: simulationLabel,
+      sheetId: sprdsheet._id
+    };
+
+    req.app.db.models.Param.create(fieldsToSet, function(err, param) {
+      if (err) {
+        return workflow.emit('exception', err);
+      }
+      console.log(param);
+    
+      return workflow.emit('saveSimulationOnExcel',workflow,sprdsheet,simulationLabel,user);
+    });
+
+})
+
+
+workflow.on('patchSpreadsheet', function(req) {
+ 
+    req.app.db.models.Spreadsheet.findByIdAndUpdate(req.body.record._id,{$inc: {nextSaveCol:1}}).populate('sheetsList').exec(function(err, spreadsheet) {
+      if (err) {
+        return workflow.emit('exception', err);
+      }
+     
+     
+      workflow.outcome.spreadsheet = spreadsheet;
+     
+      return workflow.emit('saveSimulation',workflow,req,spreadsheet);
+      
+    });
+  });
+
+
+ workflow.emit('patchSpreadsheet',req);
+
+};
+
+
+
+exports.saveSimulationOnDb = function(req,res,next){
+ var workflow = req.app.utility.workflow(req, res);
+ 
+
+ workflow.on('saveSimulation', function(workflow,req) {
+ var user=req.user.email;
+ var sprdsheet=req.body.record;
+ var def=sprdsheet.sheetsList[0];
+ var  simulationLabel=req.body.simulationLabel;
+ saveSimulationOnExcelAndDb(req,workflow,sprdsheet,simulationLabel,user,def.params);
+});
+
+ workflow.emit('saveSimulation',workflow,req);
+
+};
+
+
+function saveSimulationOnExcelAndDb(req,workflow,sprdsheet,simulationLabel,user,vv_opzParams){
+
+  Spreadsheet.load({
+    debug: true,
+    spreadsheetId:sprdsheet.googleId ,
+    worksheetName: 'VV_UT',
+
+    oauth : {
+        email: '36923579256-7pv511lb1odrijg1mtatnc0v5bsaeiiv@developer.gserviceaccount.com',
+        keyFile: './views/spreadsheets/nodejs-gdata-key-file.pem'
+    }
+
+}, function sheetReady(err,spreadsheet) {
+
+    if (err) {
+        return workflow.emit('exception',err) ;
+    }
+
+
+    spreadsheet.receive({getValues:true},function(err, rows, info) {
+        if (err) {
+            throw err;
+        }
+       
+        
+        var colToBeSaved=getColumnFromRowsData(rows,2,2,1)
+        colToBeSaved.pop();
+        var o3={},o4={};
+       o4[2]=vv_opzParams;
+       o3[197]=o4;
+
+       colToBeSaved.push(o3);
+      console.log(colToBeSaved);
+       var fieldsToSet = {
+      _id: mongoose.Types.ObjectId(),
+      pivot: user,
+      name: JSON.stringify(colToBeSaved),
+      value: simulationLabel,
+      sheetId: sprdsheet._id
+    };
+
+    req.app.db.models.Param.create(fieldsToSet, function(err, param) {
+      if (err) {
+        return workflow.emit('exception', err);
+      }
+      console.log(param.name);
+      workflow.outcome.infos.push('Simulazione salvata');
+      return workflow.emit('response');
+     
+    });
+
+       /*
+        for(var ii=0;ii<colToBeSaved.length;ii++){
+         spreadsheet.add(colToBeSaved[ii]);
+          } 
+                 
+         
+       spreadsheet.send(function(err) {
+        if(err) {console.log(err);
+                    return workflow.emit('exception',err) ;
+                  }
+           workflow.outcome.infos.push('Simulazione salvata');
+           return workflow.emit('response');
+        });*/
+    });
+    });
+
+}
+
+
+
+
+function saveSimulationOnExcel(workflow,sprdsheet,simulationLabel,user,vv_opzParams){
+ var nextCol= sprdsheet.nextSaveCol;
+  Spreadsheet.load({
+    debug: true,
+    spreadsheetId:sprdsheet.googleId ,
+    worksheetName: 'VV_UT',
+
+    oauth : {
+        email: '36923579256-7pv511lb1odrijg1mtatnc0v5bsaeiiv@developer.gserviceaccount.com',
+        keyFile: './views/spreadsheets/nodejs-gdata-key-file.pem'
+    }
+
+}, function sheetReady(err,spreadsheet) {
+
+    if (err) {
+        return workflow.emit('exception',err) ;
+    }
+
+
+    spreadsheet.receive({getValues:true},function(err, rows, info) {
+        if (err) {
+            throw err;
+        }
+       
+        nextCol=parseInt(nextCol);
+        var colToBeSaved=getColumnFromRowsData(rows,nextCol,2,1)
+        var now = moment();
+
+         var o1={},o2={},o3={},o4={};;
+                 o2[nextCol]='Simulazione salvata da: '+user+  ' data: '+now.format()+' descrizione: '+simulationLabel;
+                 o1[1]=o2;
+       
+
+       colToBeSaved.push(o1);
+
+
+       o4[nextCol]=vv_opzParams;
+       o3[197]=o4;
+
+       colToBeSaved.push(o3);
+       
+        for(var ii=0;ii<colToBeSaved.length;ii++){
+         spreadsheet.add(colToBeSaved[ii]);
+          } 
+                 
+         
+       spreadsheet.send(function(err) {
+        if(err) {console.log(err);
+                    return workflow.emit('exception',err) ;
+                  }
+           workflow.outcome.infos.push('Simulazione salvata');
+           return workflow.emit('response');
+        });
+    });
+    });
+
+}
+
+
+function fetchSimulationFromDbAndCopyIntoExcel(workflow,sprdsheet,simulation){
+
+
+
+
+}
+
+
+
+
+exports.getSimulations = function(req,res,next){
+ var workflow = req.app.utility.workflow(req, res);
+ 
+req.app.db.models.Param.find({sheetId:req.params.id}).exec(function(err, savedSimulations) {
+    if (err) {
+      workflow.emit("exception",err);
+    }
+      workflow.outcome.savedSimulations=savedSimulations;
+      workflow.emit("response");
+     
+  });
+
+
+};
+
+function  updateParametersSheets(googleId,simulationObj,varOpz,workflow,req){
+
+
+Spreadsheet.load({
+            debug: true,
+            spreadsheetId: googleId,
+            worksheetName: 'VV_UT',
+            oauth : {
+                email: '36923579256-7pv511lb1odrijg1mtatnc0v5bsaeiiv@developer.gserviceaccount.com',
+                keyFile: './views/spreadsheets/nodejs-gdata-key-file.pem'
+            }
+
+        }, function sheetReady(err, spreadsheet) {
+          
+          if (err) {
+            //throw err;
+            
+        return workflow.emit('exception', err);
+          }
+          
+          for(var jj= 0;jj<simulationObj.length;jj++){
+
+            spreadsheet.add(simulationObj[jj]);
+
+          }
+          
+          
+          spreadsheet.send(function(err) {
+            if(err) {
+            return workflow.emit('exception', err);
+            }
+       workflow.outcome.infos.push('aggiornamento dati in fase di completamento');
+
+           
+            });
+        });
+try{
+varOpz=_.values(varOpz);
+varOpz=varOpz[0];
+varOpz=JSON.parse(varOpz);
+varOpz=prepareParamsForExcel(varOpz);
+}
+catch(err){
+  console.log(err);
+   return workflow.emit('exception', 'Non è stato possibile caricare i dati Regione e Simulazione (P o R)');
+  }
+ Spreadsheet.load({
+            debug: true,
+            spreadsheetId: googleId,
+            worksheetName: 'OPZ',
+            oauth : {
+                email: '36923579256-7pv511lb1odrijg1mtatnc0v5bsaeiiv@developer.gserviceaccount.com',
+                keyFile: './views/spreadsheets/nodejs-gdata-key-file.pem'
+            }
+
+        }, function sheetReady(err, spreadsheet) {
+          
+          if (err) {
+            //throw err;
+            
+        return workflow.emit('exception', err);
+          }
+          
+          for(var jj= 0;jj<varOpz.length;jj++){
+
+            spreadsheet.add(varOpz[jj]);
+
+          }
+          
+          
+          spreadsheet.send(function(err) {
+            if(err) {
+            return workflow.emit('exception', err);
+            }
+            workflow.outcome.infos.push('i dati sono stati aggiornati, attendere l\' aggiornamento della pagina');
+           return workflow.emit('response');
+           
+            });
+        });
+ 
+
+
+
+}
+
+
+exports.getSimulation = function(req,res,next){
+ var workflow = req.app.utility.workflow(req, res);
+ //copy the specified column into column 2 
+//pull out row 197
+//patch OPZ 
+//patch VV_UTZ
+ // patch the spreadsheet as to restart from default 
+ //
+
+workflow.on('copyColumn',function(req,workflow,simulation){
+  var sprdsheet=req.body.record;  
+  var simulationObj=JSON.parse(simulation.name);
+  var varOpz=simulationObj.pop();
+  varOpz=_.values(varOpz)[0];
+
+  updateParametersSheets(sprdsheet.googleId,simulationObj,varOpz,workflow,req);
+  //updateSheet(sprdsheet.googleId,simulationObj,'VV_UT',workflow,req);
+
+})
+
+workflow.on('fetchSimulation',function(req,workflow){
+  req.app.db.models.Param.findOne({_id:req.params.simulationId}).exec(function(err, simulation) {
+    if (err) {
+      workflow.emit("exception",err);
+    }
+      workflow.emit('copyColumn',req,workflow,simulation);  
+      
+  })
+});
+
+workflow.emit('fetchSimulation',req,workflow);
+};
+
+
+
+
+
+

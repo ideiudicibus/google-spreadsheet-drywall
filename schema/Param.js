@@ -6,7 +6,8 @@ exports = module.exports = function(app, mongoose) {
     pivot: { type: String, default: '' },
     name: { type: String, default: '' }
 	,value: { type: String, default: '[]' }
-	,sheetId: { type: String,  ref: 'Spreadsheet' }
+	,sheetId: { type: String,  ref: 'Spreadsheet' },
+      creationTime: { type: Date, default: Date.now }
   });
   paramSchema.plugin(require('./plugins/pagedFind'));
   paramSchema.index({ pivot: 1 });

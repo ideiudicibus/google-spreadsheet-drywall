@@ -50,7 +50,7 @@ block body
           |<%- err %>
         |<% }); %>
       div.form-group(class!='<%- errfor.username ? "has-error" : "" %>')
-        label Username or Email:
+        label Nome Utente o Email:
         input.form-control(type='text', name='username', value!='<%= username %>')
         span.help-block <%- errfor.username %>
       div.form-group(class!='<%- errfor.password ? "has-error" : "" %>')
@@ -58,6 +58,6 @@ block body
         input.form-control(type='password', name='password', value!='<%= password %>')
         span.help-block <%- errfor.password %>
       div.form-actions
-        button.btn.btn-primary.btn-login(type='button') Sign In
+        button.btn.btn-primary.btn-login(type='button') Entra
         |&nbsp;
-        a.btn.btn-link(href='/login/forgot/') Forget your password?
+        a.btn.btn-link(href='/login/forgot/') Hai dimenticato la tua password?

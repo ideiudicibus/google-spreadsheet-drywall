@@ -21,7 +21,10 @@
     "passport-google-oauth": "~0.1.5",
     "helmet": "~0.1.2",
     "bcrypt": "~0.7.7",
-	"nodemon": "~1.0.17"
+    "nodemon": "~1.0.17",
+    "moment": "~2.7.0",
+    "underscore": "~1.6.0",
+    "edit-google-spreadsheet": "~0.2.6"
   },
   "devDependencies": {
     "grunt": "~0.4.1",

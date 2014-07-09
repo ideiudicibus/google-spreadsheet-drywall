@@ -10,7 +10,7 @@ block body
   div.row
     div.col-sm-6
       div.page-header
-        h1 Reset Your Password
+        h1 Password Reset
       div#reset
 
   script(type='text/template', id='tmpl-reset')
@@ -24,12 +24,12 @@ block body
         |<% if (success) { %>
         div.alert.alert-info.alert-dismissable
           button.close(type='button', data-dismiss='alert') &times;
-          | Your password has been reset. Please login to confirm.
+          | La tua password è stata rigenerata. Entra per confermare
         |<% } %>
         |<% if (id == undefined) { %>
         div.alert.alert-warning.alert-dismissable
           button.close(type='button', data-dismiss='alert') &times;
-          | You do not have a valid reset request.
+          | Non sei in possesso di un link di rigenerazione password.
         |<% } %>
       |<% if (!success && id != undefined) { %>
       div.form-group(class!='<%- errfor.password ? "has-error" : "" %>')
@@ -37,13 +37,13 @@ block body
         input.form-control(type='password', name='password', value!='<%= password %>')
         span.help-block <%- errfor.password %>
       div.form-group(class!='<%- errfor.confirm ? "has-error" : "" %>')
-        label Confirm Password:
+        label Conferma la Password:
         input.form-control(type='password', name='confirm', value!='<%= confirm %>')
         span.help-block <%- errfor.confirm %>
       |<% } %>
       div.form-group
         |<% if (!success && id != undefined) { %>
-        button.btn.btn-primary.btn-reset(type='button') Set Password
+        button.btn.btn-primary.btn-reset(type='button') Inserisci Password
         |<% } %>
         |&nbsp;
-        a.btn.btn-link(href='/login/') Back to Login
+        a.btn.btn-link(href='/login/') Torna al Login

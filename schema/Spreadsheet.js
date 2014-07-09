@@ -8,7 +8,8 @@ exports = module.exports = function(app, mongoose) {
 	,googleId: { type: String, default: '' }
 	,activeSheet: { type: String, default: '' }
       ,ownersList: [{ type: String, ref:'User'}],
-      sheetsList:[{ type: String, ref: 'Sheet' }]
+      sheetsList:[{ type: String, ref: 'Sheet' }],
+      nextSaveCol:{type:Number,default:6}
   });
   spreadsheetSchema.plugin(require('./plugins/pagedFind'));
   spreadsheetSchema.index({ pivot: 1 });

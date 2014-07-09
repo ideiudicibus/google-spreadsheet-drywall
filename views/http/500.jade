@@ -1,11 +1,11 @@
 extends ../../layouts/default
 
 block head
-  title Server Error
+  title Errore sul server
 
 block body
-  h1 Server Error
+  h1 Errore sul server
   p.lead
-    | Sorry something went wrong.
+    | Qualcosa non è andata per il verso giusto
   if err.stack
     pre #{err.stack}

@@ -30,7 +30,7 @@ function ensureAccount(req, res, next) {
 
 exports = module.exports = function(app, passport) {
   //front end
-  app.get('/', require('./views/index').init);
+  app.get('/', require('./views/login/index').init);
   app.get('/about/', require('./views/about/index').init);
   app.get('/contact/', require('./views/contact/index').init);
   app.post('/contact/', require('./views/contact/index').sendMessage);
@@ -193,6 +193,9 @@ exports = module.exports = function(app, passport) {
   app.get('/spreadsheets',require('./views/spreadsheets/index').init);
   app.get('/spreadsheets/:id/',require('./views/spreadsheets/index').readPopulateActiveSheet);
   app.post('/spreadsheets/:id/:sheetId/params',require('./views/spreadsheets/index').updateParams);
+  app.post('/spreadsheets/:id/s/simulation',require('./views/spreadsheets/index').saveSimulationOnDb);
+  app.post('/spreadsheets/:id/g/simulations',require('./views/spreadsheets/index').getSimulations);
+  app.post('/spreadsheets/:id/l/simulation/:simulationId',require('./views/spreadsheets/index').getSimulation);
 
   app.post('/spreadsheets/activesheet/g/:sheetId',require('./views/spreadsheets/index').getActiveSheet);
   app.post('/spreadsheets/activesheet/:sheetId',require('./views/spreadsheets/index').setActiveSheet);

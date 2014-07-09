@@ -9,6 +9,9 @@
     idAttribute: '_id',
     url: function() {
       return '/crud/spreadsheets/'+ this.id +'/';
+    },
+    publicUrl: function() {
+      return '/spreadsheets/'+ this.id +'/';
     }
   });
 
@@ -59,6 +62,7 @@
       this.render();
     },
     render: function() {
+      
       this.$el.html(this.template( this.model.attributes ));
     }
   });
