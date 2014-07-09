@@ -5,3 +5,5 @@ node_modules/*
 !node_modules/drywall-workflow
 /config.js
 .nodemonignore
+dump/*
+
