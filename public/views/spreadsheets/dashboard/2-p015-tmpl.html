@@ -31,7 +31,7 @@ function handleQueryResponse1(response) {
   }
 var dataTable=response.getDataTable();
 
-var j={"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"series":{"0":{"color":"#0070C0"}},"title":"Costo medio annuo","height":290,"legend":{"position":"none"},"width":380,"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{}}};
+var j={"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"series":{"0":{"color":"#1155cc"}},"title":"Costo medio annuo","height":290,"legend":{"position":"none"},"width":380,"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{}}};
 google.visualization.drawChart(j, document.getElementById('chart1')); 
 
 }
@@ -43,7 +43,7 @@ function handleQueryResponse2(response) {
     return;
   }
 
-var j={"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":response.getDataTable(),"options":{"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"series":{"0":{"color":"#7030A0"}},"height":290,"legend":{"position":"none"},"width":380,"useFirstColumnAsDomain":true,"hAxis":{}}};
+var j={"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":response.getDataTable(),"options":{"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"series":{"0":{"color":"#1155cc"}},"height":290,"legend":{"position":"none"},"width":380,"useFirstColumnAsDomain":true,"hAxis":{}}};
 google.visualization.drawChart(j, document.getElementById('chart2')); 
 
 }

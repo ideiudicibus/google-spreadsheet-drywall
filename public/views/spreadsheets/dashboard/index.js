@@ -99,7 +99,8 @@ elem.toggleClass('active');
              activeSheet=response.sheet;
 
 
-            
+            console.log(data.record);
+            console.log(activeSheet);
            var tmplFile=activeSheet._id;
            tmplFile=tmplFile.split('-')[1];
            tmplFile="2-"+tmplFile;
