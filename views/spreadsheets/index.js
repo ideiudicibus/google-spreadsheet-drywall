@@ -411,7 +411,6 @@ exports.init = function(req,res,next){
   
 
 
-
    req.app.db.models.Spreadsheet.find(fieldsToQuery).select('-ownersList').exec(function(err, spreadsheets) {
     
 

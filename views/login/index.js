@@ -29,11 +29,11 @@ exports.login = function(req, res){
 
   workflow.on('validate', function() {
     if (!req.body.username) {
-      workflow.outcome.errfor.username = 'required';
+      workflow.outcome.errfor.username = 'campo obbligatorio';
     }
 
     if (!req.body.password) {
-      workflow.outcome.errfor.password = 'required';
+      workflow.outcome.errfor.password = 'campo obbligatorio';
     }
 
     if (workflow.hasErrors()) {
@@ -72,7 +72,7 @@ exports.login = function(req, res){
       }
 
       if (results.ip >= req.app.config.loginAttempts.forIp || results.ipUser >= req.app.config.loginAttempts.forIpAndUser) {
-        workflow.outcome.errors.push('You\'ve reached the maximum number of login attempts. Please try again later.');
+        workflow.outcome.errors.push('Hai superato il limite massimo di tentativi di accesso: riprova più tardi...hai dimenticato la password??');
         return workflow.emit('response');
       }
       else {
@@ -96,7 +96,7 @@ exports.login = function(req, res){
             return workflow.emit('exception', err);
           }
 
-          workflow.outcome.errors.push('Username and password combination not found or your account is inactive.');
+          workflow.outcome.errors.push('La combinazione nome utente e password non è valida.');
           return workflow.emit('response');
         });
       }

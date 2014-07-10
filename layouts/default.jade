@@ -6,13 +6,14 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     meta(http-equiv='X-UA-Compatible', content='IE=EDGE')
     link(rel='stylesheet', href='/layouts/core.min.css?#{cacheBreaker}')
+    link(rel='stylesheet', href='/layouts/elements.css?#{cacheBreaker}')
     block neck
   body
     div.navbar.navbar-default.navbar-fixed-top
       div.container
         div.navbar-header
           a.navbar-brand(href='/')
-            img.navbar-logo(src='/media/logo-blue-square-64x64.png')
+            img(src='/media/logo-w32.jpg')
             span.navbar-brand-label #{projectName}
           button.navbar-toggle.collapsed(data-toggle='collapse', data-target='.my-navbar-collapse')
             span.icon-bar
@@ -21,9 +22,6 @@ html
         div.navbar-collapse.my-navbar-collapse.collapse
           ul.nav.navbar-nav
             li: a(href='/') Home
-            li: a(href='/about/') About
-            li: a(href='/signup/') Sign Up
-            li: a(href='/contact/') Contact
           ul.nav.navbar-nav.navbar-right
             if user && user.username
               li: a(href='#{user.defaultReturnUrl}')
@@ -32,7 +30,7 @@ html
             else
               li: a(href='/login/')
                 i.fa.fa-user
-                |  Sign In
+                |  Entra
 
     div.page
       div.container
@@ -44,7 +42,7 @@ html
           |&#169; #{copyrightYear} #{copyrightName}
         ul.links
           li: a(href='/') Home
-          li: a(href='/contact/') Contact
+          li: a(href='/contact/') Contattaci
         div.clearfix
 
     div.ajax-spinner

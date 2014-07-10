@@ -9,15 +9,15 @@ exports.sendMessage = function(req, res){
 
   workflow.on('validate', function() {
     if (!req.body.name) {
-      workflow.outcome.errfor.name = 'required';
+      workflow.outcome.errfor.name = 'nome obbligatorio';
     }
 
     if (!req.body.email) {
-      workflow.outcome.errfor.email = 'required';
+      workflow.outcome.errfor.email = 'email obbligatoria';
     }
 
     if (!req.body.message) {
-      workflow.outcome.errfor.message = 'required';
+      workflow.outcome.errfor.message = 'testo del messaggio obbligatorio';
     }
 
     if (workflow.hasErrors()) {
@@ -45,7 +45,7 @@ exports.sendMessage = function(req, res){
         workflow.emit('response');
       },
       error: function(err) {
-        workflow.outcome.errors.push('Error Sending: '+ err);
+        workflow.outcome.errors.push('Ooops qualcosa non è andato per il verso giusto...: '+ err);
         workflow.emit('response');
       }
     });
