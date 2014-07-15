@@ -355,3 +355,28 @@ color:#fff;
  #sheets li a.active:hover {
 color:#fff;
 }
+
+
+.blue-star {
+    color: #235BC3;
+    text-shadow: 1px 1px 1px #ccc;
+    font-size: 1.5em;
+}
+
+.red-star {
+    color: #C32323;
+    text-shadow: 1px 1px 1px #ccc;
+    font-size: 1.5em;
+}
+
+.yellow-star {
+    color: #FCFF00;
+    text-shadow: 1px 1px 1px #ccc;
+    font-size: 1.5em;
+}
+
+.green-star {
+    color: #33C323;
+    text-shadow: 1px 1px 1px #ccc;
+    font-size: 1.5em;
+}

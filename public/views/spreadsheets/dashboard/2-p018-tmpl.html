@@ -83,7 +83,16 @@ function handleQueryResponse4(response) {
   }
 var dataTable=response.getDataTable();
 
-var j={"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3,4,5,6]},"dataTable":response.getDataTable(),"options":{"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"series":{"3":{"color":"#92D050"},"2":{"color":"#0070C0"},"1":{"color":"#50FB33"},"0":{"color":"#00B0F0"},"5":{"color":"#00B050"},"4":{"color":"#002060"}},"title":"Budget impact - Val. %","width":380,"height":290,"legend":{"position":"bottom"},"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{}}};
+
+
+dataTable.setColumnLabel(1,"Sim. Base t1/t0");
+dataTable.setColumnLabel(2,"Sim. a demogr. cost. t1/t0");
+dataTable.setColumnLabel(3,"Sim. Base t2/t1");
+dataTable.setColumnLabel(4,"Sim. a demogr. cost. t2/t1");
+dataTable.setColumnLabel(5,"Sim. Base t2/t3");
+dataTable.setColumnLabel(6,"Sim. a demogr. cost. t2/t3");
+
+var j={"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3,4,5,6]},"dataTable":dataTable,"options":{"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"series":{"3":{"color":"#92D050"},"2":{"color":"#0070C0"},"1":{"color":"#50FB33"},"0":{"color":"#00B0F0"},"5":{"color":"#00B050"},"4":{"color":"#002060"}},"title":"Budget impact - Val. %","width":380,"height":290,"legendTextStyle":{"color":"#222","fontSize":"8"},"legend":{"position":"bottom"},"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{}}};
 
 google.visualization.drawChart(j, document.getElementById('chart4')); 
 
@@ -126,13 +135,17 @@ drawCharts(data.record,activeSheetName);
 <div class="row">
 <div class="col-md-6">
     <div class="panel panel-default">
+      <i class="fa fa-asterisk red-star pull-right" >&nbsp;</i>
       <div class="panel-body">
-        <div id="chart1" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+        <div id="chart1" >
+
+          <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
     </div>
   </div>
   <div class="col-md-6">
         <div class="panel panel-default">
+          <i class="fa fa-asterisk green-star pull-right" >&nbsp;</i>
         <div class="panel-body">
         <div id="chart2" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
@@ -144,6 +157,7 @@ drawCharts(data.record,activeSheetName);
 <div class="row">
     <div class="col-md-6">
     <div class="panel panel-default">
+      <i class="fa fa-asterisk blue-star pull-right" >&nbsp;</i>
       <div class="panel-body">
         <div id="chart3" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
@@ -151,6 +165,7 @@ drawCharts(data.record,activeSheetName);
   </div>
   <div class="col-md-6">
         <div class="panel panel-default">
+          <i class="fa fa-asterisk yellow-star pull-right" >&nbsp;</i>
         <div class="panel-body">
         <div id="chart4" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
