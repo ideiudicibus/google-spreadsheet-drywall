@@ -38,7 +38,7 @@ function handleQueryResponse2(response){
     return;
   }
 
-var j = {"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":response.getDataTable(),"options":{"height":290,"width":380,"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"series":{"0":{"color":"#1155cc"}},"legend":{"position":"none"},"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{}}};
+var j = {"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":response.getDataTable(),"options":{"title":"Pazienti in terapia con biologici","height":290,"width":380,"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"series":{"0":{"color":"#1155cc"}},"legend":{"position":"none"},"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{}}};
 
 google.visualization.drawChart(j, document.getElementById('chart2')); 
 
@@ -55,7 +55,7 @@ var dataTable=response.getDataTable();
 
 
 var j=
-{"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"height":290,"legend":{"position":"right"},"width":380,"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
+{"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"title":"Distribuzione % dei pazienti per tipologia di terapia","height":290,"legend":{"position":"right"},"width":380,"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
 google.visualization.drawChart(j, document.getElementById('chart1')); 
 
 }
