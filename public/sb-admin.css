@@ -107,6 +107,11 @@
     padding: 15px;
 }
 
+ .sidebar-brand {
+    padding: 5px;
+    font-weight: bolder;
+}
+
 .arrow {
     float: right;
 }

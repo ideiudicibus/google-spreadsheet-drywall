@@ -53,15 +53,23 @@ function initSideNav(spreadsheet){
 
 var array=spreadsheet.sheetsList;
 
-var root=$('#sheets');
-var brandHtml='<a href="#">'+spreadsheet.name+'</a> ';
-$(brandHtml).appendTo(root.children('li.sidebar-brand'));
-
-array=_.sortBy(array, function(item) { return item.listOrder; })
+var vroot=$('#v-sheets');
+var hroot=$('#h-sheets');
+var brandHtml='<li class="sidebar-brand"><a href="#">'+spreadsheet.name+'</a></li> ';
+$(brandHtml).appendTo(vroot);
 
 for(var i=0;i<array.length;i++){
+
+ console.log(array[i]._id.indexOf('autori')<0);
+if(array[i]._id.indexOf('autori')<0  && array[i]._id.indexOf('biblio')<0 ){
 var li='<li ><a href="#" id="'+array[i]._id+'" class="sheetId '+checkActiveSheetClass(array[i]._id,spreadsheet.activeSheet)+'" >'+array[i].spreadsheetId+'</a></li>';
-$(li).appendTo(root);
+$(li).appendTo(vroot);
+}
+else {
+  console.log(array[i]._id);
+  var li='<li ><a href="#" id="'+array[i]._id+'" class="sheetId '+checkActiveSheetClass(array[i]._id,spreadsheet.activeSheet)+'" >'+array[i].spreadsheetId+'</a></li>';
+  $(li).appendTo(hroot);
+}
 }
 console.log('8');
 loadActiveSheet(data.record);

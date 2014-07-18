@@ -21,7 +21,7 @@ html
           a.navbar-brand(href='/')
             img(src='/media/logo-w32.jpg')
             span.navbar-brand-label #{projectName}
-        ul.nav.navbar-top-links.navbar-left
+        ul#h-sheets.nav.navbar-top-links.navbar-left
           li
             a(href="/spreadsheets") 
                i.fa.fa-home.fa-fw
@@ -57,7 +57,7 @@ html
                     | Uscita
       .navbar-default.navbar-static-side(role='navigation')
         .sidebar-collapse
-          ul#sheets.nav
+          ul#v-sheets.nav
       #page-wrapper
             #activeSheet(style="margin-top:10px")
     div.footer
