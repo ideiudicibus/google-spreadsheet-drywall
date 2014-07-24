@@ -119,7 +119,7 @@ drawCharts(data.record,activeSheetName);
         <div class="table-responsive">
               <table class="table table-striped table-bordered table-hover fixed" >
                 <thead>
-              <tr><th>&nbsp;</th><th>Ricoveri ordinari</th><th>Ricoveri diurni</th><th>Diagnostica</th><th>Analisi di laboratorio</th><th>Visite</th><th>Altri farmaci</th><th>Altri costi non sanitari</th></tr>
+              <tr><th>&nbsp;</th><th>Ricoveri ordinari</th><th>Ricoveri diurni</th><th>Diagnostica</th><th>Analisi di laboratorio</th><th>Visite</th><th>Altri farmaci</th><th>Altri costi sanitari</th><th>Altri costi non sanitari</th></tr>
                </thead>
                <tbody>
 
@@ -143,6 +143,7 @@ drawCharts(data.record,activeSheetName);
                <tr><td >Enbrel</td><%
                _.each(tmpRow1,function(a,b,c){
                 var t=_.values(a)[0];
+                if(t.value.indexOf('-')>=0){t.value='0,00'}
                 var id=_.keys(a)[0];
                %>
                <td ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text"  value="<%= t.value %>" class="input-xs"></input></td>
@@ -151,6 +152,7 @@ drawCharts(data.record,activeSheetName);
               </tr><tr><td>Humira</td><%
                _.each(tmpRow2,function(a,b,c){
                 var t=_.values(a)[0];
+                if(t.value.indexOf('-')>=0){t.value='0,00'}
                 var id=_.keys(a)[0];
                %>
                <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
@@ -159,6 +161,9 @@ drawCharts(data.record,activeSheetName);
               </tr><tr><td>Remicade</td><%
                _.each(tmpRow3,function(a,b,c){
                 var t=_.values(a)[0];
+                
+                if(t.value.indexOf('-')>=0){t.value='0,00'}
+
                 var id=_.keys(a)[0];
                %>
                <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
@@ -167,6 +172,7 @@ drawCharts(data.record,activeSheetName);
               </tr><tr><td>Simponi</td><%
                _.each(tmpRow4,function(a,b,c){
                 var t=_.values(a)[0];
+                if(t.value.indexOf('-')>=0){t.value='0,00'}
                 var id=_.keys(a)[0];
                %>
                <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
@@ -174,7 +180,9 @@ drawCharts(data.record,activeSheetName);
               %>
               </tr><tr><td>Stelara</td><%
                _.each(tmpRow5,function(a,b,c){
+
                 var t=_.values(a)[0];
+                if(t.value.indexOf('-')>=0){t.value='0,00'}
                 var id=_.keys(a)[0];
                %>
                <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>"  class="input-xs"></input></td>

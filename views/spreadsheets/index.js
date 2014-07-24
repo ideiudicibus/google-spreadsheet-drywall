@@ -182,8 +182,8 @@ workflow.on('updateGoogleSpreadsheet',function(p){
   var activeSheet=p.activeSheet;
 
 if(activeSheet.indexOf('default')>0) sheetName='OPZ';
-console.log('params to tranform are: '+ sys.inspect(params));
-console.log('params to send are: '+ sys.inspect(prepareParamsForExcel(params)));
+//console.log('params to tranform are: '+ sys.inspect(params));
+//console.log('params to send are: '+ sys.inspect(prepareParamsForExcel(params)));
   
 updateSheet(p.googleId,prepareParamsForExcel(params),sheetName,workflow,req);
 
@@ -517,7 +517,7 @@ workflow.on('saveSimulationOnParamObj',function(  workflow,sprdsheet,simulationL
       if (err) {
         return workflow.emit('exception', err);
       }
-      console.log(param);
+      //console.log(param);
     
       return workflow.emit('saveSimulationOnExcel',workflow,sprdsheet,simulationLabel,user);
     });
@@ -607,7 +607,7 @@ function saveSimulationOnExcelAndDb(req,workflow,sprdsheet,simulationLabel,user,
         var o3={},o4={};
        o4[2]=vv_opzParams;
        o3[197]=o4;
-       console.log(vv_opzParams);
+       //console.log(vv_opzParams);
        colToBeSaved.push(o3);
      
        var fieldsToSet = {

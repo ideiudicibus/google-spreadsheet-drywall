@@ -6,7 +6,7 @@ var activeSheetName=activeSheet;
 
 
 var query1 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=A6:D13&pli=1'); 
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=A16:E21&pli=1'); 
 query1.send(handleQueryResponse1);
 
 
@@ -37,10 +37,9 @@ function handleQueryResponse1(response) {
     alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
     return;
   }
-var dataTable=response.getDataTable();
+var data_table=response.getDataTable();
 
-
- var datatable = new google.visualization.DataView(response.getDataTable());
+ var datatable = new google.visualization.DataView(data_table);
   var table = new google.visualization.Table(document.getElementById('dataTable'));
   table.draw(datatable,{'sort':'disable'});
 

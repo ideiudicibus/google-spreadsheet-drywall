@@ -9,7 +9,6 @@ if( templateLoader.localStorageAvailable()){
 
                 localStorage.removeItem("templates");
                 localStorage.removeItem("templateVersion");
-               
       }
 
 }
@@ -21,7 +20,7 @@ function loadTemplates(spreadsheet){
            tmplFile=tmplFile.split('-')[1];
            tmplFile="2-"+tmplFile;
        
-          templateLoader.loadRemoteTemplate(activeSheet._id, "/views/spreadsheets/dashboard/"+tmplFile+"-printable-tmpl.html?", 
+          templateLoader.loadRemoteTemplate(activeSheet._id+'-printable', "/views/spreadsheets/dashboard/"+tmplFile+"-printable-tmpl.html?", 
             function(data) {
               var compiled = _.template(data);
               $('#printable').html(compiled({textNote:activeSheet.textNote,activeSheetName:activeSheet.name,params:JSON.parse(activeSheet.params)}));
