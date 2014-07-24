@@ -188,10 +188,6 @@ function reloadParametersBtnBehaviour(){
   $('#force-reload-sheet').click(function(event){
       event.preventDefault();
     // confirm dialog
-   alertify.set({ labels: {
-    ok     : "Procedi",
-    cancel : "Annulla"
-    } });
   
   alertify.confirm("Ricaricare i parametri?", function (e) {
     if (e) {
@@ -888,9 +884,27 @@ function loadSimulationLinkBehaviour(){
 }
 
 
+function printablePage(spreadsheet){
+var url=window.location.pathname+'printable';
+$(location).attr('href',url);
+}
+
+
 $(function() {
 
+
+ alertify.set({ labels: {
+    ok     : "Procedi",
+    cancel : "Annulla"
+    } , 
+     delay: 10000 
+    });
  
+     $('#printablePage').click(function(e){
+      
+      printablePage(data.record);
+
+    });  
 
 
     $('.notImplemented').click(function(e){
