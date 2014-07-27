@@ -5,6 +5,7 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     title #{data.title}
   link(rel='stylesheet', href='/layouts/core.min.css?#{cacheBreaker}')
+  link(rel='stylesheet'  media='print' href='/layouts/core.min.css?#{cacheBreaker}')
   link(rel='stylesheet', href='/sb-admin.css?#{cacheBreaker}')
   link(rel='stylesheet', href='/vendor/alertify/alertify.core.css?#{cacheBreaker}')
   link(rel='stylesheet', href='/vendor/alertify/alertify.default.css?#{cacheBreaker}')
@@ -21,18 +22,33 @@ html
           a.navbar-brand(href='/')
             img(src='/media/logo-w32.jpg')
             span.navbar-brand-label #{projectName}
-      div#printable(style="margin:5px")
-      
+      div#printable-2-default(style="margin:5px")
+      div.endpage
+      div#printable-2-p011(style="margin:5px")
+      div.endpage
+      div#printable-2-p012(style="margin:5px")
+      div.endpage
+      div#printable-2-p013(style="margin:5px")
+      div.endpage
+      div#printable-2-p014(style="margin:5px")
+      div.endpage
+      div#printable-2-p015(style="margin:5px")
+      div.endpage
+      div#printable-2-p016(style="margin:5px")
+      div.endpage
+      div#printable-2-p017(style="margin:5px")
+      div.endpage
+      div#printable-2-p018(style="margin:5px")
+      div.endpage
+      div#printable-2-p019(style="margin:5px")
+      div.endpage
 
     div.footer
           div.container
             div.inner
               span.copyright.pull-right
                 |&#169; #{copyrightYear} #{copyrightName} #{projectName}
-              ul.links
-                li: a(href='/') Home
-                li: a(href='/logout/') Uscita
-              div.clearfix
+     div.endpage
     //
        Core Scripts - Include with every page
         //if lte IE 9

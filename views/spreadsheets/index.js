@@ -259,7 +259,7 @@ exports.getPrintablePage = function(req, res, next){
     if (err) {
       return next(err);
     }
-
+      console.log('getPrintablePage invoked');
       return res.render('spreadsheets/dashboard/index-printable', { data: { record: spreadsheet,title:spreadsheet.name} });
   });
 };

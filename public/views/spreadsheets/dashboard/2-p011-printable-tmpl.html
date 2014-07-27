@@ -1,0 +1,126 @@
+<%
+
+
+function drawCharts(spreadsheet,activeSheet) {
+var activeSheetName=activeSheet;
+var query1 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&headers=-1&merge=COLS&range=I6:I8,L6:L8&pli=1'); 
+query1.send(handleQueryResponse1);
+var query2 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=1&headers=-1&merge=ROWS&range=K3:N3,K8:N8&pli=1'); 
+query2.send(handleQueryResponse2);
+var query3 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=I3:N11&pli=1'); 
+query3.send(handleQueryResponse3);
+}
+
+
+function handleQueryResponse3(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+
+ var datatable = new google.visualization.DataView(response.getDataTable());
+  var table = new google.visualization.Table(document.getElementById('p011-dataTable'));
+  table.draw(datatable,{'sort':'disable'});
+
+}
+
+
+function handleQueryResponse1(response) {
+   
+
+      var chart_div = document.getElementById('p011-chart1');
+      var chart = new google.visualization.PieChart(chart_div);
+
+      google.visualization.events.addListener(chart, 'ready', function () {
+        chart_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
+      });
+
+
+
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+
+var options={"title":"Distribuzione % dei pazienti per tipologia di terapia","height":290,"legend":{"position":"right"},"width":380,"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage"};
+      chart.draw(dataTable, options);
+}
+
+
+
+function handleQueryResponse2(response) {
+   
+
+      var chart_div = document.getElementById('p011-chart2');
+      var chart = new google.visualization.ColumnChart(chart_div);
+    
+      google.visualization.events.addListener(chart, 'ready', function () {
+        chart_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
+      });
+
+
+
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+var options={"title":"Pazienti in terapia con biologici","height":290,"width":380,"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"series":{"0":{"color":"#1155cc"}},"legend":{"position":"none"},"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{}};
+
+      chart.draw(dataTable, options);
+}
+
+drawCharts(data.record,activeSheetName);
+
+%>
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='p011-textNote'><%print(textNote);%></div>
+      </div>
+    </div>
+</div>
+</div>
+<div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id="p011-chart1" ></div>
+      </div>
+    </div>
+  </div>
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id="p011-chart2" ></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="row">
+   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="panel panel-default">
+      <div class="panel-body">
+          <div id='p011-dataTable' ></div>
+      </div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+

@@ -393,3 +393,11 @@ color:#fff;
   opacity: 0.5;
   cursor: help;
 }
+
+
+
+@media print {
+        .endpage {
+            page-break-after: always;
+        }
+}

@@ -1,0 +1,184 @@
+<%
+
+
+function drawCharts(spreadsheet,activeSheet) {
+var activeSheetName=activeSheet;
+var query1 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=1&headers=-1&merge=ROWS&range=B11:F11,B12:F12,B13:F13,B14:F14,B15:F15,B16:F16,B17:F17,B18:F18,B19:F19,B20:F20&pli=1'); 
+query1.send(handleQueryResponse1);
+var query2 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&headers=-1&merge=COLS&range=B12:B16,C12:C16&pli=1'); 
+query2.send(handleQueryResponse2);
+
+var query3 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&headers=-1&merge=COLS&range=B12:B20,D12:D20&pli=1'); 
+query3.send(handleQueryResponse3);
+
+
+var query4 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&headers=-1&merge=COLS&range=B12:B20,E12:E20&pli=1'); 
+query4.send(handleQueryResponse4);
+
+var query5 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&headers=-1&merge=COLS&range=B12:B20,F12:F20&pli=1'); 
+query5.send(handleQueryResponse5);
+
+var query6 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=B11:F25&pli=1'); 
+query6.send(handleQueryResponse6);
+
+}
+
+function handleQueryResponse1(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+var j=
+{"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3,4,5]},"dataTable":response.getDataTable(),"options":{"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"series":{"3":{"color":"#FFC000"},"2":{"color":"#849F4C"},"1":{"color":"#301413"},"0":{"color":"#436EA1"},"7":{"color":"#C6625F"},"6":{"color":"#618EC4"},"5":{"color":"#D2803C"},"4":{"color":"#7030A0"},"8":{"color":"#A5C26A"}},"title":"Pazienti per terapia","height":290,"width":380,"legendTextStyle":{"color":"#222","fontSize":"8"},"legend":{"position":"right"},"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{},"isStacked":true}};
+google.visualization.drawChart(j, document.getElementById('chart1-p012')); 
+
+}
+
+
+function handleQueryResponse2(response){
+
+ if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":response.getDataTable(),"options":{"title":"Distribuzione % dei pazienti per terapia. Anno t0","height":290,"width":380,"legend":{"position":"right"},"is3D":false,"pieSliceTextStyle":{"fontSize":"9"},"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
+
+google.visualization.drawChart(j, document.getElementById('chart2-p012')); 
+
+
+}
+
+function handleQueryResponse3(response){
+
+ if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":response.getDataTable(),"options":{"title":"Distribuzione % dei pazienti per terapia. Anno t1","height":290,"width":380,"legend":{"position":"right"},"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
+
+google.visualization.drawChart(j, document.getElementById('chart3-p012')); 
+
+
+}
+
+function handleQueryResponse4(response){
+
+ if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":response.getDataTable(),"options":{"title":"Distribuzione % dei pazienti per terapia. Anno t2","height":290,"width":380,"legend":{"position":"right"},"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
+
+google.visualization.drawChart(j, document.getElementById('chart4-p012')); 
+
+
+}
+
+function handleQueryResponse5(response){
+
+ if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":response.getDataTable(),"options":{"title":"Distribuzione % dei pazienti per terapia. Anno t3","height":290,"width":380,"legend":{"position":"right"},"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
+
+google.visualization.drawChart(j, document.getElementById('chart5-p012')); 
+
+
+}
+
+
+function handleQueryResponse6(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+  var datatable = new google.visualization.DataView(response.getDataTable());
+  var table = new google.visualization.Table(document.getElementById('dataTable-p012'));
+  table.draw(datatable,{'sort':'disable'});
+
+}
+
+
+
+drawCharts(data.record,activeSheetName);
+
+%>
+<div class="row">
+  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        <div class="panel panel-default">
+      <div class="panel-body">
+        <div id="textNote-p012"><%print(textNote);%></div>
+      </div>
+    </div>
+</div>
+
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id="chart1-p012" ></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+
+  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id="chart2-p012" ></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id="chart3-p012" ></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id="chart4-p012" ></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id="chart5-p012" ></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="row">
+   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="panel panel-default">
+      <div class="panel-body">
+          <div id='dataTable-p012' ></div>
+      </div>
+</div>
+</div>
+</div>
+</div>
+</br>

@@ -17,7 +17,7 @@ if( templateLoader.localStorageAvailable()){
 
                 localStorage.removeItem("templates");
                 localStorage.removeItem("templateVersion");
-                
+
                
       }
 
@@ -885,10 +885,7 @@ function loadSimulationLinkBehaviour(){
 }
 
 
-function printablePage(spreadsheet){
-var url=window.location.pathname+'printable';
-$(location).attr('href',url);
-}
+
 
 
 $(function() {
@@ -901,11 +898,8 @@ $(function() {
      delay: 10000 
     });
  
-     $('#printablePage').click(function(e){
-      
-      printablePage(data.record);
-
-    });  
+     $('#printablePage').attr('href',window.location.pathname+'printable');
+     
 
 
     $('.notImplemented').click(function(e){
