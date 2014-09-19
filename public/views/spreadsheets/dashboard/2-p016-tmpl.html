@@ -124,6 +124,7 @@ drawCharts(data.record,activeSheetName);
                <tbody>
 
               <%
+              console.log(params);
                var tmpRow1=_.filter(params,function(a,b,c){
                 return (_.keys(a)[0].indexOf("1")>=0); 
                 })
@@ -143,7 +144,6 @@ drawCharts(data.record,activeSheetName);
                <tr><td >Enbrel</td><%
                _.each(tmpRow1,function(a,b,c){
                 var t=_.values(a)[0];
-                if(t.value.indexOf('-')>=0){t.value='0,00'}
                 var id=_.keys(a)[0];
                %>
                <td ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text"  value="<%= t.value %>" class="input-xs"></input></td>
@@ -152,7 +152,6 @@ drawCharts(data.record,activeSheetName);
               </tr><tr><td>Humira</td><%
                _.each(tmpRow2,function(a,b,c){
                 var t=_.values(a)[0];
-                if(t.value.indexOf('-')>=0){t.value='0,00'}
                 var id=_.keys(a)[0];
                %>
                <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
@@ -161,9 +160,6 @@ drawCharts(data.record,activeSheetName);
               </tr><tr><td>Remicade</td><%
                _.each(tmpRow3,function(a,b,c){
                 var t=_.values(a)[0];
-                
-                if(t.value.indexOf('-')>=0){t.value='0,00'}
-
                 var id=_.keys(a)[0];
                %>
                <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
@@ -172,7 +168,6 @@ drawCharts(data.record,activeSheetName);
               </tr><tr><td>Simponi</td><%
                _.each(tmpRow4,function(a,b,c){
                 var t=_.values(a)[0];
-                if(t.value.indexOf('-')>=0){t.value='0,00'}
                 var id=_.keys(a)[0];
                %>
                <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
@@ -180,9 +175,7 @@ drawCharts(data.record,activeSheetName);
               %>
               </tr><tr><td>Stelara</td><%
                _.each(tmpRow5,function(a,b,c){
-
                 var t=_.values(a)[0];
-                if(t.value.indexOf('-')>=0){t.value='0,00'}
                 var id=_.keys(a)[0];
                %>
                <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>"  class="input-xs"></input></td>

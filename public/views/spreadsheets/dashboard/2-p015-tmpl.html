@@ -32,7 +32,7 @@ function handleQueryResponse1(response) {
 var dataTable=response.getDataTable();
 
 var j={"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"series":{"0":{"color":"#0070C0"}},"animation":{"duration":0},"width":380,"is3D":false,"hAxis":{"useFormatFromData":true,"textStyle":{"color":"#222","fontSize":"7"}},"vAxes":[{"useFormatFromData":true,"minValue":null,"gridlines":{"color":"#B7B7B7"},"viewWindow":{"min":null,"max":null},"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null}],"booleanRole":"certainty","title":"Costo medio annuo","height":290,"legend":{"position":"none"},"useFirstColumnAsDomain":true,"isStacked":false,"tooltip":{}}};
-google.visualization.drawChart(j, document.getElementById('chart1')); 
+google.visualization.drawChart(j, document.getElementById('P015-chart1')); 
 
 }
 
@@ -44,7 +44,7 @@ function handleQueryResponse2(response) {
   }
 
 var j={"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":response.getDataTable(),"options":{"vAxes":[{"useFormatFromData":true,"minValue":null,"gridlines":{"color":"#B7B7B7"},"viewWindow":{"min":null,"max":null},"maxValue":"null"},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null}],"series":{"0":{"color":"#3366cc"}},"booleanRole":"certainty","height":290,"animation":{"duration":500},"legend":{"position":"none"},"width":380,"is3D":false,"useFirstColumnAsDomain":true,"title":"Aderenza","hAxis":{"useFormatFromData":true,"textStyle":{"color":"#222","fontSize":"7"}},"tooltip":{},"isStacked":false}};
-google.visualization.drawChart(j, document.getElementById('chart2')); 
+google.visualization.drawChart(j, document.getElementById('P015-chart2')); 
 
 }
 
@@ -54,11 +54,8 @@ function handleQueryResponse3(response) {
     alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
     return;
   }
-var dataTable=response.getDataTable();
-
-
- var datatable = new google.visualization.DataView(response.getDataTable());
-  var table = new google.visualization.Table(document.getElementById('dataTable'));
+  var datatable = new google.visualization.DataView(response.getDataTable());
+  var table = new google.visualization.Table(document.getElementById('P015-dataTable'));
   table.draw(datatable,{'sort':'disable'});
 
 }
@@ -82,14 +79,14 @@ drawCharts(data.record,activeSheetName);
   <div class="col-md-6">
     <div class="panel panel-default">
       <div class="panel-body">
-        <div id='chart1' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+        <div id='P015-chart1' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
     </div>
   </div>
     <div class="col-md-6">
     <div class="panel panel-default">
       <div class="panel-body">
-        <div id='chart2' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+        <div id='P015-chart2' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
     </div>
   </div>
@@ -111,7 +108,7 @@ drawCharts(data.record,activeSheetName);
         </div>
       </div>
       <div class="panel-body">
-          <div id='dataTable' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+          <div id='P015-dataTable' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
 </div>
 </div>
@@ -146,6 +143,7 @@ drawCharts(data.record,activeSheetName);
                <tbody>
 
               <%
+             
                var tmpRow1=_.filter(params,function(a,b,c){
                 return (_.keys(a)[0].indexOf("1")>=0); 
                 })
