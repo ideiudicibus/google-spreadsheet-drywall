@@ -17,7 +17,7 @@ if( templateLoader.localStorageAvailable()){
 
                 localStorage.removeItem("templates");
                 localStorage.removeItem("templateVersion");
-
+                if(localStorage.templates) {localStorage.templates=[];}
                
       }
 
