@@ -78,8 +78,8 @@ drawCharts(data.record,activeSheetName);
           <div class="btn-group">
             <button type="button" data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle">Azioni<span class="caret"></span></button>
             <ul role="menu" class="dropdown-menu pull-right">
-              <li><a  data-toggle="modal" data-target="#paramInputs">Modifica parametri</a></li>
-              <li><a  class="resetParamsBtn" data-toggle="modal" data-target="#">Reset parametri</a></li>
+              <li><a  data-toggle="modal" data-target="#paramInputs"><i class="fa fa-edit"></i>Modifica parametri</a></li>
+              <li><a  class="resetParamsBtn" data-toggle="modal" data-target="#"><i class="fa fa-eraser"></i>Reset parametri</a></li>
             </ul>
           </div>
         </div>
@@ -143,6 +143,7 @@ drawCharts(data.record,activeSheetName);
                <tr><td >Enbrel</td><%
                _.each(tmpRow1,function(a,b,c){
                 var t=_.values(a)[0];
+
                 var id=_.keys(a)[0];
                %>
                <td ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text"  value="<%= t.value %>" class="input-xs"></input></td>

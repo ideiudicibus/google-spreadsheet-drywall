@@ -32,11 +32,12 @@ function copyData(src_rows,mapping_col_idx,src_val_idx,src_label_idx,src_vect){
       var tmpVal=getProperty(a,src_val_idx);
 
       if(_.isString(tmpVal)){
-         tmpVal=tmpVal.trim();
+        tmpVal=tmpVal.trim();
         obj.value=tmpVal.indexOf('%')<0?tmpVal.split(".").join(""):tmpVal;
 
       }
       else{
+           
            obj.value=tmpVal;
       }
       obj.label=getProperty(a,src_label_idx);
