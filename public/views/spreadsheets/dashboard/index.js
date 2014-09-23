@@ -519,7 +519,7 @@ if($(this).attr('class').indexOf('checkNumber')>0){
         for(kk in a ){
           var v=a[kk];
 
-           var reg = new RegExp('[0-9]+(\.[0-9][0-9]?)?');
+           var reg = new RegExp(/^(?:\d*,\d{1,2}|\d+)$/);
           if(!reg.test(v.value)){
              alertify.alert('il parametro '+v.label+' non è riconosciuto come numero decimale (es: 21,05)');
              return false;
