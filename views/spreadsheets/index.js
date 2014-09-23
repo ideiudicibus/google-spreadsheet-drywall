@@ -19,6 +19,7 @@ return obj;
 /**
 copys the values from the column identified by the src_val_idx values into src_vect 
 the mapping_col_idx does the join 
+row 1,4,3 params
 **/
 function copyData(src_rows,mapping_col_idx,src_val_idx,src_label_idx,src_vect){
 
@@ -27,11 +28,16 @@ function copyData(src_rows,mapping_col_idx,src_val_idx,src_label_idx,src_vect){
   _.each(src_rows,function(a,b){
    if(_.keys(i)[0] == getProperty(a,mapping_col_idx)){
       obj=_.clone(_.values(i)[0]);
-     
+    
       var tmpVal=getProperty(a,src_val_idx);
+
       if(_.isString(tmpVal)){
          tmpVal=tmpVal.trim();
         obj.value=tmpVal.indexOf('%')<0?tmpVal.split(".").join(""):tmpVal;
+
+      }
+      else{
+           obj.value=tmpVal;
       }
       obj.label=getProperty(a,src_label_idx);
     }
@@ -39,8 +45,8 @@ function copyData(src_rows,mapping_col_idx,src_val_idx,src_label_idx,src_vect){
     });
     if(obj!=null){   
      i=setProperty(i,_.keys(i)[0] ,obj);}
+
 });
-  ;
 return src_vect;
 
 }
@@ -130,6 +136,7 @@ function synchDataParamsWithExcel(data,dataParam,excel_param_name_idx,label_idx,
      i=setProperty(i,_.keys(i)[0] ,obj);
     }
 });
+
 return dataParam;
 }
 
@@ -394,7 +401,7 @@ if(activeSheet.indexOf('default')>=0) sheetName='OPZ';
             return workflow.emit('exception', err);
         }
         var updatedParams={};
-     
+        //if(sheetName=='VV_UT') updatedParams=copyData(rows,1,4,3,JSON.parse(sheet.params));
         if(sheetName=='VV_UT') updatedParams=copyData(rows,1,4,3,JSON.parse(sheet.params));
         if(sheetName=='OPZ')  updatedParams=synchDataParamsWithExcel(rows,JSON.parse(sheet.params),3,2,4);
         

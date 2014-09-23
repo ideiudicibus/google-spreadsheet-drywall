@@ -124,7 +124,6 @@ drawCharts(data.record,activeSheetName);
                <tbody>
 
               <%
-             
                var tmpRow1=_.filter(params,function(a,b,c){
                 return (_.keys(a)[0].indexOf("1")>=0); 
                 })
@@ -188,7 +187,7 @@ drawCharts(data.record,activeSheetName);
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Chiudi</button>
-        <button type="button" class="btn btn-primary update updateParameterBtnFull">Salva</button>
+        <button type="button" class="btn btn-primary update updateParameterBtnFull checkNumber">Salva</button>
       </div>
     </div>
   </div>

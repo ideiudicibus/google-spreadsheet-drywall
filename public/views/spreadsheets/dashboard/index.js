@@ -127,19 +127,19 @@ elem.toggleClass('active');
                       loadSimulationLinkBehaviour();
                       if((activeSheet.name).indexOf('default')<0 ){
                            if((activeSheet.name).indexOf('P016')>=0 ){
-                            loadUpdateParameterBtnBehaviourFull();
+                            loadUpdateParameterBtnBehaviourFullP016();
                             resetParamsActiveSheetBtnBehaviour();
                             saveSimulationBtnBehaviour();
                             reloadParametersBtnBehaviour();
                             }
                           if((activeSheet.name).indexOf('P015')>=0 ){
-                            loadUpdateParameterBtnBehaviourFull();
+                            loadUpdateParameterBtnBehaviourFullP014();
                             resetParamsActiveSheetBtnBehaviour();
                             saveSimulationBtnBehaviour();
                             reloadParametersBtnBehaviour();
                             }
                            if((activeSheet.name).indexOf('P014')>=0 ){
-                            loadUpdateParameterBtnBehaviourFull();
+                            loadUpdateParameterBtnBehaviourFullP014();
                             resetParamsActiveSheetBtnBehaviour();
                             saveSimulationBtnBehaviour();
                             reloadParametersBtnBehaviour();
@@ -347,9 +347,10 @@ else{
 
         }
  
-  if(i>100.00){ alertify.alert('Attenzione la somma dei parametri è maggiore del 100% ');
+  if(i>100.00){ alertify.alert('Attenzione parametri non validi: la somma dei parametri è maggiore del 100% ');
   return false;}
- 
+   if(i!=100.00){ alertify.alert('Attenzione parametri non validi: la somma dei parametri è diversa dal 100% ');
+  return false;}
 }
 
  $.ajax({
@@ -385,6 +386,188 @@ else{
 })
 
 }
+
+function loadUpdateParameterBtnBehaviourFullP014() {
+
+
+  $('.updateParameterBtnFull').click(function(event){
+  event.preventDefault();
+
+   var tmp=$(this).parent().parent().parent().parent();
+   console.log(tmp.attr('id'));
+
+   $(tmp).modal('toggle');
+
+var paramData = [];
+var params={};
+
+    $(tmp).find('input, textarea, select').each(function(i, field) {
+    var obj={};
+            var v={};
+            v.row=$(field).attr('row');
+            v.col=$(field).attr('col');
+            v.value=field.value;
+            v.label=$(field).attr('label');
+            obj[field.name]=v
+            paramData.push(obj);
+  });
+  
+params.googleId=data.record.googleId;
+params.activeSheet=data.record.activeSheet;
+params.paramData=JSON.stringify(paramData);
+
+
+if($(this).attr('class').indexOf('checkPercentage')>0){
+
+  var i=0;
+ for (k in paramData){
+  
+    var a=paramData[k];
+        for(kk in a ){
+          var v=a[kk];
+
+             if(v.value.indexOf('%')<0) { 
+              alertify.alert('il parametro '+v.label+' non contiene %'); 
+              return false;}
+else{
+   v.value=v.value.indexOf(',')>0?v.value.replace(/,/g, '.'):v.value;
+   v.value=v.value.trim();
+   var tmp=v.value.split("%").join("");
+   i=parseFloat(tmp);
+  if(i>100.00){ alertify.alert('Attenzione parametri non validi: il valore '+i+'% inserito per '+v.label+' è maggiore del 100% ');
+  return false;}
+   }
+    
+        }
+
+        }
+ 
+
+}
+
+ $.ajax({
+        
+        data:params,
+        type: "POST",
+        url: '/spreadsheets/'+data.record._id+'/'+data.record.activeSheet+'/params',
+        dataType:"json",
+        success:  function (response) {
+          
+          switch(response.success)
+          {
+            case  false:
+              var errs=response.errors;
+              for(var j=0;j<errs.length;j++){
+                alertify.error(errs[j]);
+      }
+              break;
+            case  true:
+              var infos=response.infos;
+              for(var j=0;j<infos.length;j++){
+                alertify.log(infos[j]);
+      }     console.log('2');
+            loadActiveSheet(data.record);
+           
+          }
+        }
+
+    })
+   
+    return false;
+
+})
+
+}
+
+
+function loadUpdateParameterBtnBehaviourFullP016() {
+
+
+  $('.updateParameterBtnFull').click(function(event){
+  event.preventDefault();
+
+   var tmp=$(this).parent().parent().parent().parent();
+   console.log(tmp.attr('id'));
+
+   $(tmp).modal('toggle');
+
+var paramData = [];
+var params={};
+
+    $(tmp).find('input, textarea, select').each(function(i, field) {
+    var obj={};
+            var v={};
+            v.row=$(field).attr('row');
+            v.col=$(field).attr('col');
+            v.value=field.value;
+            v.label=$(field).attr('label');
+            obj[field.name]=v
+            paramData.push(obj);
+  });
+  
+params.googleId=data.record.googleId;
+params.activeSheet=data.record.activeSheet;
+params.paramData=JSON.stringify(paramData);
+
+
+if($(this).attr('class').indexOf('checkNumber')>0){
+
+  var i=0;
+ for (k in paramData){
+  
+    var a=paramData[k];
+        for(kk in a ){
+          var v=a[kk];
+
+           var reg = new RegExp('[0-9]+(\.[0-9][0-9]?)?');
+          if(!reg.test(v.value)){
+             alertify.alert('il parametro '+v.label+' non è riconosciuto come numero decimale (es: 21,05)');
+             return false;
+            }
+
+    
+        }
+
+        }
+ 
+
+}
+
+ $.ajax({
+        
+        data:params,
+        type: "POST",
+        url: '/spreadsheets/'+data.record._id+'/'+data.record.activeSheet+'/params',
+        dataType:"json",
+        success:  function (response) {
+          
+          switch(response.success)
+          {
+            case  false:
+              var errs=response.errors;
+              for(var j=0;j<errs.length;j++){
+                alertify.error(errs[j]);
+      }
+              break;
+            case  true:
+              var infos=response.infos;
+              for(var j=0;j<infos.length;j++){
+                alertify.log(infos[j]);
+      }     console.log('2');
+            loadActiveSheet(data.record);
+           
+          }
+        }
+
+    })
+   
+    return false;
+
+})
+
+}
+
+
 
 function loadButtonsBehaviourDefaultOpz(){
 
