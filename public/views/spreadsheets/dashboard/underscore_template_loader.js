@@ -5,6 +5,7 @@
           loadRemoteTemplate: function(templateName, filename, callback) {
             if (!this.templates[templateName]) {
               var self = this;
+              console.log(filename);
               jQuery.get(filename, function(data) {
                 self.addTemplate(templateName, data);
                 self.saveLocalTemplates();

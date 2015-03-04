@@ -17,7 +17,7 @@ if( templateLoader.localStorageAvailable()){
 
                 localStorage.removeItem("templates");
                 localStorage.removeItem("templateVersion");
-                if(localStorage.templates) {localStorage.templates=[];}
+                if(localStorage.templates) {localStorage.templates=null;}
                
       }
 
@@ -108,13 +108,15 @@ elem.toggleClass('active');
              activeSheet=response.sheet;
 
 
-           // console.log(data.record);
+           console.log(data.record.pivot);
            // console.log(activeSheet);
+           var pivot=data.record.pivot;
            var tmplFile=activeSheet._id;
            tmplFile=tmplFile.split('-')[1];
            tmplFile="2-"+tmplFile;
-       
-          templateLoader.loadRemoteTemplate(activeSheet._id, "/views/spreadsheets/dashboard/"+tmplFile+"-tmpl.html?", 
+           console.log(tmplFile);
+           console.log(activeSheet._id);
+           templateLoader.loadRemoteTemplate(activeSheet._id, "/views/spreadsheets/dashboard/"+activeSheet._id+"-tmpl.html?", 
             function(data) {
               var compiled = _.template(data);
              
@@ -125,6 +127,7 @@ elem.toggleClass('active');
                      
                       loadSavedSimulations();
                       loadSimulationLinkBehaviour();
+                      console.log(activeSheet.name);
                       if((activeSheet.name).indexOf('default')<0 ){
                            if((activeSheet.name).indexOf('P016')>=0 ){
                             loadUpdateParameterBtnBehaviourFullP016();
@@ -161,7 +164,7 @@ elem.toggleClass('active');
                             }
 
                             if((activeSheet.name).indexOf('P011')>=0 ){
-
+                            console.log('P011 loaded');
                             loadUpdateParameterBtnBehaviourSingleP011();
                             resetParamsActiveSheetBtnBehaviour();
                             saveSimulationBtnBehaviour();
