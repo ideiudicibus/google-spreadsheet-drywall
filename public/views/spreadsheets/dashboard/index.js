@@ -61,18 +61,18 @@ $(brandHtml).appendTo(vroot);
 
 for(var i=0;i<array.length;i++){
 
- console.log(array[i]._id.indexOf('autori')<0);
+ //console.log(array[i]._id.indexOf('autori')<0);
 if(array[i]._id.indexOf('autori')<0  && array[i]._id.indexOf('biblio')<0 ){
 var li='<li ><a href="#" id="'+array[i]._id+'" class="sheetId '+checkActiveSheetClass(array[i]._id,spreadsheet.activeSheet)+'" >'+array[i].spreadsheetId+'</a></li>';
 $(li).appendTo(vroot);
 }
 else {
-  console.log(array[i]._id);
+  //console.log(array[i]._id);
   var li='<li ><a href="#" id="'+array[i]._id+'" class="sheetId '+checkActiveSheetClass(array[i]._id,spreadsheet.activeSheet)+'" >'+array[i].spreadsheetId+'</a></li>';
   $(li).appendTo(hroot);
 }
 }
-console.log('8');
+//console.log('8');
 loadActiveSheet(data.record);
 
 }
@@ -108,14 +108,14 @@ elem.toggleClass('active');
              activeSheet=response.sheet;
 
 
-           console.log(data.record.pivot);
+           //console.log(data.record.pivot);
            // console.log(activeSheet);
            var pivot=data.record.pivot;
            var tmplFile=activeSheet._id;
            tmplFile=tmplFile.split('-')[1];
            tmplFile="2-"+tmplFile;
-           console.log(tmplFile);
-           console.log(activeSheet._id);
+           //console.log(tmplFile);
+           //console.log(activeSheet._id);
            templateLoader.loadRemoteTemplate(activeSheet._id, "/views/spreadsheets/dashboard/"+activeSheet._id+"-tmpl.html?", 
             function(data) {
               var compiled = _.template(data);
@@ -127,7 +127,7 @@ elem.toggleClass('active');
                      
                       loadSavedSimulations();
                       loadSimulationLinkBehaviour();
-                      console.log(activeSheet.name);
+                      //console.log(activeSheet.name);
                       if((activeSheet.name).indexOf('default')<0 ){
                            if((activeSheet.name).indexOf('P016')>=0 ){
                             loadUpdateParameterBtnBehaviourFullP016();
@@ -164,7 +164,7 @@ elem.toggleClass('active');
                             }
 
                             if((activeSheet.name).indexOf('P011')>=0 ){
-                            console.log('P011 loaded');
+                            //console.log('P011 loaded');
                             loadUpdateParameterBtnBehaviourSingleP011();
                             resetParamsActiveSheetBtnBehaviour();
                             saveSimulationBtnBehaviour();
@@ -195,7 +195,7 @@ function reloadParametersBtnBehaviour(){
   
   alertify.confirm("Ricaricare i parametri?", function (e) {
     if (e) {
-        console.log('9');
+        //console.log('9');
         loadActiveSheet(data.record);
     } else {
         return false;
@@ -212,7 +212,7 @@ function loadUpdateParameterBtnBehaviourFullP012() {
   event.preventDefault();
 
    var tmp=$(this).parent().parent().parent().parent();
-   console.log(tmp.attr('id'));
+   //console.log(tmp.attr('id'));
 
    $(tmp).modal('toggle');
 
@@ -282,7 +282,7 @@ else{
               var infos=response.infos;
               for(var j=0;j<infos.length;j++){
                 alertify.log(infos[j]);
-      }     console.log('1');
+      }     //console.log('1');
             loadActiveSheet(data.record);
            
           }
@@ -305,7 +305,7 @@ function loadUpdateParameterBtnBehaviourFullP013() {
   event.preventDefault();
 
    var tmp=$(this).parent().parent().parent().parent();
-   console.log(tmp.attr('id'));
+   //console.log(tmp.attr('id'));
 
    $(tmp).modal('toggle');
 
@@ -376,7 +376,7 @@ else{
               var infos=response.infos;
               for(var j=0;j<infos.length;j++){
                 alertify.log(infos[j]);
-      }     console.log('2');
+      }     //console.log('2');
             loadActiveSheet(data.record);
            
           }
@@ -397,7 +397,7 @@ function loadUpdateParameterBtnBehaviourFullP014() {
   event.preventDefault();
 
    var tmp=$(this).parent().parent().parent().parent();
-   console.log(tmp.attr('id'));
+   //console.log(tmp.attr('id'));
 
    $(tmp).modal('toggle');
 
@@ -468,7 +468,7 @@ else{
               var infos=response.infos;
               for(var j=0;j<infos.length;j++){
                 alertify.log(infos[j]);
-      }     console.log('2');
+      }     //console.log('2');
             loadActiveSheet(data.record);
            
           }
@@ -490,7 +490,7 @@ function loadUpdateParameterBtnBehaviourFullP016() {
   event.preventDefault();
 
    var tmp=$(this).parent().parent().parent().parent();
-   console.log(tmp.attr('id'));
+   //console.log(tmp.attr('id'));
 
    $(tmp).modal('toggle');
 
@@ -556,7 +556,7 @@ if($(this).attr('class').indexOf('checkNumber')>0){
               var infos=response.infos;
               for(var j=0;j<infos.length;j++){
                 alertify.log(infos[j]);
-      }     console.log('2');
+      }     //console.log('2');
             loadActiveSheet(data.record);
            
           }
@@ -616,7 +616,7 @@ params.paramData=JSON.stringify(paramData);
               var infos=response.infos;
               for(var j=0;j<infos.length;j++){
                 alertify.log(infos[j]);
-      }     console.log('4');
+      }    // console.log('4');
             loadActiveSheet(data.record);
            
           }
@@ -677,7 +677,7 @@ params.paramData=JSON.stringify(paramData);
               var infos=response.infos;
               for(var j=0;j<infos.length;j++){
                 alertify.log(infos[j]);
-      }     console.log('5');
+      }     //console.log('5');
             loadActiveSheet(data.record);
            
           }
@@ -727,7 +727,7 @@ params.paramData=JSON.stringify(paramData);
               var infos=response.infos;
               for(var j=0;j<infos.length;j++){
                 alertify.log(infos[j]);
-      }    console.log('13');
+      }    //console.log('13');
            loadActiveSheet(data.record);
          
           }
@@ -768,7 +768,7 @@ function resetParamsActiveSheetBtnBehaviour(){
               var infos=response.infos;
               for(var j=0;j<infos.length;j++){
                 alertify.log(infos[j]);
-      }      console.log('6');
+      }      //console.log('6');
             loadActiveSheet(data.record);
          
           }
@@ -864,7 +864,7 @@ if($(this).attr('class').indexOf('checkPercentage')>0){
               var infos=response.infos;
               for(var j=0;j<infos.length;j++){
                 alertify.log(infos[j]);
-      }       console.log('7')
+      }       //console.log('7')
             loadActiveSheet(data.record);
          
           }
@@ -954,7 +954,7 @@ else{
               var infos=response.infos;
               for(var j=0;j<infos.length;j++){
                 alertify.log(infos[j]);
-      }     console.log('10');
+      }     //console.log('10');
             loadActiveSheet(data.record);
          
           }
@@ -1131,7 +1131,7 @@ var activeSheetID=$(this).attr('id');
                 alertify.log(infos[j]);
                 }
              data.record=response.spreadsheet; 
-             console.log('12');       
+             //console.log('12');       
              loadActiveSheet(data.record);
           }
         }

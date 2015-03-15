@@ -126,22 +126,6 @@ drawCharts(data.record,activeSheetName);
                <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
             <% })   
               %>
-              </tr><tr><td>Simponi</td><%
-               _.each(tmpRow4,function(a,b,c){
-                var t=_.values(a)[0];
-                var id=_.keys(a)[0];
-               %>
-               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
-            <% })   
-              %>
-              </tr><tr><td>Stelara</td><%
-               _.each(tmpRow5,function(a,b,c){
-                var t=_.values(a)[0];
-                var id=_.keys(a)[0];
-               %>
-               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>"  class="input-xs"></input></td>
-            <% })   
-              %>
               </tr>
             </tbody>
           </table>
