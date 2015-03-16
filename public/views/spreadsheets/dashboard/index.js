@@ -256,8 +256,9 @@ else{
         }
 
         }
- 
-  if(i!=100.00){ alertify.alert('Attenzione la somma dei parametri è diversa dal 100% ');
+ console.log(Math.ceil(i));
+
+  if(Math.ceil(i)!=100.00){ alertify.alert('Attenzione la somma dei parametri è diversa dal 100% ');
   return false;}
  
 }
@@ -349,12 +350,14 @@ else{
         }
 
         }
+
  
   if(i>100.00){ alertify.alert('Attenzione parametri non validi: la somma dei parametri è maggiore del 100% ');
   return false;}
-   if(i!=100.00){ alertify.alert('Attenzione parametri non validi: la somma dei parametri è diversa dal 100% ');
+   if(Math.ceil(i)!=100.00){ alertify.alert('Attenzione parametri non validi: la somma dei parametri è diversa dal 100% ');
   return false;}
 }
+
 
  $.ajax({
         
