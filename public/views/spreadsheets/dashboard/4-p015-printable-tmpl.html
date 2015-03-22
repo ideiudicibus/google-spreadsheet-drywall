@@ -1,0 +1,107 @@
+<%
+
+
+function drawCharts(spreadsheet,activeSheet) {
+var activeSheetName=activeSheet;
+
+var query1 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&headers=-1&merge=COLS&range=L3:L12,M3:M12&pli=1'); 
+query1.send(handleQueryResponse1);
+
+var query2 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&headers=-1&merge=COLS&range=L3:L12,N3:N12&pli=1'); 
+
+query2.send(handleQueryResponse2);
+
+
+var query3 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=L3:N8&pli=1'); 
+query3.send(handleQueryResponse3);
+
+
+
+}
+
+
+function handleQueryResponse1(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+var j={"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"series":{"0":{"color":"#0070C0"}},"animation":{"duration":0},"width":380,"is3D":false,"hAxis":{"useFormatFromData":true,"textStyle":{"color":"#222","fontSize":"12"}},"vAxes":[{"useFormatFromData":true,"minValue":null,"gridlines":{"color":"#B7B7B7"},"viewWindow":{"min":null,"max":null},"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null}],"booleanRole":"certainty","title":"Costo medio annuo","height":290,"legend":{"position":"none"},"useFirstColumnAsDomain":true,"isStacked":false,"tooltip":{}}};
+google.visualization.drawChart(j, document.getElementById('chart1P015')); 
+
+}
+
+function handleQueryResponse2(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+var j={"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":response.getDataTable(),"options":{"vAxes":[{"useFormatFromData":true,"minValue":null,"gridlines":{"color":"#B7B7B7"},"viewWindow":{"min":null,"max":null},"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null}],"series":{"0":{"color":"#3366cc"}},"booleanRole":"certainty","height":290,"animation":{"duration":500},"legend":{"position":"none"},"width":380,"is3D":false,"useFirstColumnAsDomain":true,"title":"Aderenza","hAxis":{"useFormatFromData":true,"textStyle":{"color":"#222","fontSize":"12"}},"tooltip":{},"isStacked":false}};
+google.visualization.drawChart(j, document.getElementById('chart2P015')); 
+
+}
+
+function handleQueryResponse3(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+  var datatable = new google.visualization.DataView(response.getDataTable());
+  var table = new google.visualization.Table(document.getElementById('dataTableP015'));
+  table.draw(datatable,{'sort':'disable'});
+
+}
+
+
+drawCharts(data.record,activeSheetName);
+
+%>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='textNote'><%print(textNote);%></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='chart1P015' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+  </div>
+    <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='chart2P015' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+   <div class="col-md-6">
+      <div class="panel panel-default">
+      <div class="panel-heading"><i class="fa fa-table fa-fw"></i> 
+      </div>
+      <div class="panel-body">
+          <div id='dataTableP015' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+</div>
+</div>
+</div>
+</br>

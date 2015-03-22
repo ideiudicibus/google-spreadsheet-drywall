@@ -1,0 +1,54 @@
+<%
+
+
+function drawCharts(spreadsheet,activeSheet) {
+var activeSheetName=activeSheet;
+
+var query1 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=C3:E8&pli=1'); 
+query1.send(handleQueryResponse1);
+
+}
+
+
+function handleQueryResponse1(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+
+ var datatable = new google.visualization.DataView(response.getDataTable());
+  var table = new google.visualization.Table(document.getElementById('dataTableP014'));
+  table.draw(datatable,{'sort':'disable'});
+
+}
+
+drawCharts(data.record,activeSheetName);
+
+%>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='textNote'><%print(textNote);%></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+   <div class="col-md-12">
+      <div class="panel panel-default">
+      <div class="panel-heading"><i class="fa fa-table fa-fw"></i> 
+      </div>
+      <div class="panel-body">
+          <div id='dataTableP014' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+</div>
+</div>
+</div>
+
+</br>

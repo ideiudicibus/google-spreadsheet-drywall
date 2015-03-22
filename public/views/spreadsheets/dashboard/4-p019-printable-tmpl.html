@@ -1,0 +1,196 @@
+<%
+
+function drawCharts(spreadsheet,activeSheet) {
+var activeSheetName=activeSheet;
+
+
+var query1 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&headers=-1&merge=COLS&range=A11:A16,B11:B16,C11:C16,D11:D16,E11:E16&pli=1'); 
+
+query1.send(handleQueryResponse1);
+
+query2 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&headers=-1&merge=COLS&range=A4:A10,F4:F12,G4:G12,H4:H12&pli=1'); 
+
+query2.send(handleQueryResponse2);
+
+
+
+var query3 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&headers=-1&merge=COLS&range=A5:A10,F5:F12,F19:F24,G5:G12,G19:G24,H5:H12,H19:H24&pli=1'); 
+
+query3.send(handleQueryResponse3);
+
+
+var query4 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A4:H16&pli=1'); 
+query4.send(handleQueryResponse4);
+
+var query5 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A18:H24&pli=1'); 
+query5.send(handleQueryResponse5);
+
+
+}
+
+
+function handleQueryResponse1(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+
+dataTable.setColumnLabel(1,"t0");
+dataTable.setColumnLabel(2,"t1");
+dataTable.setColumnLabel(3,"t2");
+dataTable.setColumnLabel(4,"t3");
+
+var j=
+{"chartType":"ColumnChart","isDefaultVisualization":true,"state":{},"view":{"columns":[0,1,2,3,4]},"dataTable":dataTable,"options":{"series":{"3":{"color":"#002060"},"2":{"color":"#0070C0"},"1":{"color":"#00B0F0"},"0":{"color":"#595959"}},"animation":{"duration":0},"width":600,"is3D":false,"hAxis":{"useFormatFromData":true,"textStyle":{"color":"#222","fontSize":"9"}},"chartArea":{"height":"","width":"","left":"","top":""},"vAxes":[{"useFormatFromData":true,"minValue":100,"viewWindowMode":"explicit","gridlines":{"color":"#B7B7B7"},"viewWindow":{"min":100,"max":null},"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null}],"booleanRole":"certainty","title":"Impatto su outcome e utilzzo dei servizi","width":380,"height":290,"legend":{"position":"right",maxLines: 5},"useFirstColumnAsDomain":true,"tooltip":{},"isStacked":false}};
+google.visualization.drawChart(j, document.getElementById('chart1P019')); 
+
+}
+
+
+
+function handleQueryResponse2(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+
+
+var j={"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3]},"dataTable":dataTable,"options":{"chartArea":{"height":"47.187578564173734%","width":"88.06556323316731%","left":"9.213348331458567%","top":"23.523681698878544%"},"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"series":{"2":{"color":"#002060"},"1":{"color":"#0070C0"},"0":{"color":"#00B0F0"}},"title":"Impatto % su outcome e utilizzo dei servizi","legend":{"position":"bottom"},"width":380,"height":290,"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{"textStyle":{"color":"#222","fontSize":"9"}}}};
+google.visualization.drawChart(j, document.getElementById('chart2P019')); 
+
+}
+
+
+function handleQueryResponse3(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+dataTable.setColumnLabel(1,"Sim. Base t1/t0");
+dataTable.setColumnLabel(2,"Sim. a demogr. cost. t1/t0");
+dataTable.setColumnLabel(3,"Sim. Base t2/t1");
+dataTable.setColumnLabel(4,"Sim. a demogr. cost. t2/t1");
+dataTable.setColumnLabel(5,"Sim. Base t2/t3");
+dataTable.setColumnLabel(6,"Sim. a demogr. cost. t2/t3");
+
+
+
+var j={"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3,4,5,6]},"dataTable":dataTable,"options":{"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"series":{"3":{"color":"#92D050"},"2":{"color":"#0070C0"},"1":{"color":"#50FB33"},"0":{"color":"#00B0F0"},"5":{"color":"#00B050"},"4":{"color":"#002060"}},"title":"Impatto su outcome e utilizzo servizi  Sim. base  e a demogr. costante","width":380,"height":290,"legend":{"position":"bottom"},"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{"textStyle":{"color":"#222","fontSize":"7"}}}};
+google.visualization.drawChart(j, document.getElementById('chart3P019')); 
+
+}
+
+
+function handleQueryResponse4(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+
+ var datatable = new google.visualization.DataView(response.getDataTable());
+  var table = new google.visualization.Table(document.getElementById('dataTable1P019'));
+  table.draw(datatable,{'sort':'disable'});
+
+}
+
+function handleQueryResponse5(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+
+ var datatable = new google.visualization.DataView(response.getDataTable());
+  var table = new google.visualization.Table(document.getElementById('dataTable2P019'));
+  table.draw(datatable,{'sort':'disable'});
+
+}
+
+
+
+
+drawCharts(data.record,activeSheetName);
+
+%>
+<div class="row">
+  <div class="col-md-6">
+        <div class="panel panel-default">
+        <div class="panel-body">
+        <div id='textNote'><%print(textNote);%></div>
+      </div>
+    </div>
+ 
+</div>
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id="chart1P019" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+        <div class="panel panel-default">
+        <div class="panel-body">
+         <div id="chart2P019" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+ 
+</div>
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id="chart3P019" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+        <div class="panel panel-default">
+        <div class="panel-body">
+         <div id="dataTable1P019" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+ 
+</div>
+  
+
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+        <div class="panel panel-default">
+        <div class="panel-body">
+         <div id="dataTable2P019" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+ 
+</div>
+  
+
+</div>

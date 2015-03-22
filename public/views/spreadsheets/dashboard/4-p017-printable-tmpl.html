@@ -1,0 +1,86 @@
+<%
+
+
+function drawCharts(spreadsheet,activeSheet) {
+var activeSheetName=activeSheet;
+
+
+var query1 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=A6:E14&pli=1'); 
+query1.send(handleQueryResponse1);
+
+
+var query2 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=A16:E21&pli=1'); 
+query2.send(handleQueryResponse2);
+
+
+}
+
+function handleQueryResponse2(response) {
+
+    if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+var j={"chartType":"ColumnChart","isDefaultVisualization":false,"chartName":"Grafico 22","state":{},"view":{"columns":[0,1,2,3,4]},"dataTable":dataTable,"options":{"titleTextStyle":{"bold":true,"color":"#000","fontSize":16},"vAxes":[{"title":null,"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null}],"series":{"3":{"color":"#1155cc"},"2":{"color":"#3c78d8"},"1":{"color":"#9fc5e8"},"0":{"color":"#d9d9d9"}},"title":"Costi Annui","booleanRole":"certainty","animation":{"duration":500},"legend":"bottom","width":580,"height":370,"hAxis":{"useFormatFromData":true,"textStyle":{"color":"#222","fontSize":"9"}},"isStacked":false,"tooltip":{}}}
+
+google.visualization.drawChart(j, document.getElementById('chart1P017')); 
+
+}
+
+function handleQueryResponse1(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var data_table=response.getDataTable();
+
+ var datatable = new google.visualization.DataView(data_table);
+  var table = new google.visualization.Table(document.getElementById('dataTableP017'));
+  table.draw(datatable,{'sort':'disable'});
+
+}
+
+
+drawCharts(data.record,activeSheetName);
+
+%>
+<div class="row">
+  <div class="col-md-12">
+        <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='textNote'><%print(textNote);%></div>
+      </div>
+    </div>
+ 
+</div>
+
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id="dataTableP017" >
+          <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="row">
+    <div class="col-md-8">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id="chart1P017" >
+          <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
