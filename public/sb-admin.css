@@ -352,6 +352,7 @@ table.fixed {table-layout:fixed; width:100%;}/*Setting the table width is import
 .input-xs:focus {outline: none; }
 .input-xs:hover {background-color: yellow;}
 
+.disabled:hover {background-color: white;}
 
  #sheets li a.active {
 background: rgba(0, 185, 235, 1);

@@ -38,7 +38,8 @@
 	  activeSheet: '',
 	  sheetsList: '',
         ownersList:'',
-        name: ''
+        name: '',
+        apiVersion:''
     },
     url: function() {
       return '/crud/spreadsheets/'+ app.mainView.model.id +'/';
@@ -85,6 +86,7 @@
         _id: app.mainView.model.id,
         sheets: app.mainView.model.get('sheetsList'),
         ownersList:app.mainView.model.get('ownersList'),
+        apiVersion:app.mainView.model.get('apiVersion'),
 		activeSheet: app.mainView.model.get('activeSheet'),
 		googleId: app.mainView.model.get('googleId'),
 		pivot: app.mainView.model.get('pivot'),
@@ -109,14 +111,15 @@
       var ownersList=this.$el.find('[name="owners"]').val();
       ownersList=ownersList.split(',');
       ownersList=_.uniq(ownersList);
-
+console.log(this.$el.find('[name="apiVersion"]').val());
       this.model.save({
         sheetsList: sheetsList,
         ownersList:ownersList,
 		activeSheet: this.$el.find('[name="activeSheet"]').val(),
 		googleId: this.$el.find('[name="googleId"]').val(),
 		pivot: this.$el.find('[name="pivot"]').val(),
-        name: this.$el.find('[name="name"]').val()
+    name: this.$el.find('[name="name"]').val(),
+    apiVersion:this.$el.find('[name="apiVersion"]').val()
       });
     }
   });

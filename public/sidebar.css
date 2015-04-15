@@ -32,6 +32,8 @@ table.fixed {table-layout:fixed; width:100%;}/*Setting the table width is import
 .input-xs:focus {outline: none; }
 .input-xs:hover {background-color: yellow;}
 
+.input-xs:hover {background-color: yellow;}
+
 #wrapper {
   padding-left: 250px;
   transition: all 0.4s ease 0s;

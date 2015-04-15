@@ -203,6 +203,21 @@ exports = module.exports = function(app, passport) {
 
   app.get('/spreadsheets/:id/printable',require('./views/spreadsheets/index').getPrintablePage);
 
+   //show > sheets
+  app.all('/spreadsheets_v2*',ensureAuthenticated);
+  app.get('/spreadsheets_v2/',require('./views/spreadsheets_v2/index').init);
+  app.get('/spreadsheets_v2',require('./views/spreadsheets_v2/index').init);
+  app.get('/spreadsheets_v2/:id/',require('./views/spreadsheets_v2/index').readPopulateActiveSheet);
+  app.post('/spreadsheets_v2/:id/:sheetId/params',require('./views/spreadsheets_v2/index').updateParams);
+  app.post('/spreadsheets_v2/:id/s/simulation',require('./views/spreadsheets_v2/index').saveSimulationOnDb);
+  app.post('/spreadsheets_v2/:id/g/simulations',require('./views/spreadsheets_v2/index').getSimulations);
+  app.post('/spreadsheets_v2/:id/l/simulation/:simulationId',require('./views/spreadsheets_v2/index').getSimulation);
+
+  app.post('/spreadsheets_v2/activesheet/g/:sheetId',require('./views/spreadsheets_v2/index').getActiveSheet);
+  app.post('/spreadsheets_v2/activesheet/:sheetId',require('./views/spreadsheets_v2/index').setActiveSheet);
+  app.post('/spreadsheets_v2/activesheet/r/:sheetId',require('./views/spreadsheets_v2/index').resetActiveSheet);
+
+  app.get('/spreadsheets_v2/:id/printable',require('./views/spreadsheets_v2/index').getPrintablePage);
 
   
 //route not found

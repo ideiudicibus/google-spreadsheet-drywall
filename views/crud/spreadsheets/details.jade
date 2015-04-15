@@ -19,7 +19,7 @@ block body
         a(href='/crud/spreadsheets/') Spreadsheets
         |  / <%- name %>
       h2
-        a(href !='/spreadsheets/<%= _id %>/') Preview <%- name %>
+        a(href !='/spreadsheets<%= apiVersion %>/<%= _id %>/') Preview <%- name %>
      
       
  
@@ -61,6 +61,10 @@ block body
         label.control-label owners:
         input.form-control(type='text', name='owners', value!='<%- ownersList %>')
         span.help-block <%- errfor.ownersList %>
+      div.control-group(class!='<%- errfor.apiVersion ? "has-error" : "" %>')
+        label.control-label apiVersion(_v2 , v3 etc) :
+        input.form-control(type='text', name='apiVersion', value!='<%- apiVersion %>')
+        span.help-block <%- errfor.apiVersion %>
       div.form-group
         button.btn.btn-primary.btn-update(type='button') Update
 

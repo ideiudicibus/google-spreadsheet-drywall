@@ -1,0 +1,88 @@
+<%
+
+function drawCharts(spreadsheet,activeSheet) {
+var activeSheetName=activeSheet;
+
+var query1 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=1&headers=-1&merge=ROWS&range=A6:E6,A8:E8,A9:E9,A10:E10,A11:E11,A12:E12,A13:E13,A14:E14,A15:E15&pli=1'); 
+
+query1.send(handleQueryResponse1);
+
+
+var query2 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&headers=-1&merge=COLS&range=A8:A15,F8:F15,G8:G15,H8:H15&pli=1'); 
+
+query2.send(handleQueryResponse2);
+}
+
+
+
+function handleQueryResponse1(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+var j= {"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3,4,5,6,7,8]},"dataTable":response.getDataTable(),"options":{"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"titleTextStyle":{"bold":true,"color":"#002060","italic":false},"series":{"3":{"color":"#132B32"},"2":{"color":"#14202F"},"1":{"color":"#265663"},"0":{"color":"#10253F"},"7":{"color":"#3C3B38"},"6":{"color":"#595959"},"5":{"color":"#93CDDD"},"4":{"color":"#7992B1"},"8":{"color":"#181817"}},"title":"Budget impact per molecola","height":400,"legendTextStyle":{"bold":true,"italic":false,"fontSize":9},"legend":{"position":"right"},"width":690,"useFirstColumnAsDomain":true,"is3D":false,"hAxis":{"gridlines":{"color":"#FFFFFF"}},"isStacked":true}}
+google.visualization.drawChart(j, document.getElementById('chart1')); 
+
+}
+
+function handleQueryResponse2(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+dataTable.setColumnLabel(1,"t1/t0");
+dataTable.setColumnLabel(2,"t2/t1");
+dataTable.setColumnLabel(3,"t3/t2");
+
+var j= {"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3]},"dataTable":dataTable,"options":{"titleTextStyle":{"bold":true,"italic":false},"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"series":{"2":{"color":"#93CDDD"},"1":{"color":"#7992B1"},"0":{"color":"#10253F"}},"title":"Budget impact per molecola ","legendTextStyle":{"bold":true,"italic":false,"fontSize":12},"height":500,"legend":{"position":"right"},"width":690,"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{"textStyle":{"bold":true,"italic":false,"fontSize":14},"gridlines":{"color":"#FFFFFF"}}}};
+google.visualization.drawChart(j, document.getElementById('chart2')); 
+
+}
+
+drawCharts(data.record,activeSheetName);
+%>
+<div class="row">
+  <div class="col-md-12">
+        <div class="panel panel-default">
+        <div class="panel-body">
+        <div id='textNote'><%print(textNote)%></div>
+      </div>
+    </div>
+ </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-12">
+      <div class="panel panel-default">
+      <i class="fa fa-asterisk red-star pull-right" >&nbsp;</i>
+      <div class="panel-body">
+        <div id="chart1" >
+
+          <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+    </div>
+ </div>
+<div class="row">
+  <div class="col-md-12">
+      <div class="panel panel-default">
+      <i class="fa fa-asterisk green-star pull-right" >&nbsp;</i>
+      <div class="panel-body">
+        <div id="chart2" >
+
+          <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+    </div>
+ </div>
+
+
+

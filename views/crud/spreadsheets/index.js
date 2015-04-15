@@ -164,12 +164,10 @@ exports.update = function(req, res, next){
       ,googleId: req.body.googleId
       ,activeSheet: req.body.activeSheet
       ,sheetsList: req.body.sheetsList
-      ,ownersList:req.body.ownersList
+      ,ownersList:req.body.ownersList,
+      apiVersion:req.body.apiVersion
     };
-
    
-      
-     
 
     req.app.db.models.Spreadsheet.findByIdAndUpdate(req.params.id, fieldsToSet, function(err, spreadsheet) {
       if (err) {
