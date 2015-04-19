@@ -638,7 +638,7 @@ function saveSimulationOnExcelAndDb(req,workflow,sprdsheet,simulationLabel,user,
        
        colToBeSaved.push(o3);
        
-       console.log(colToBeSaved);
+         console.log(colToBeSaved);
 
        //return workflow.emit('exception', err);
 
@@ -805,6 +805,7 @@ Spreadsheet.load({
            
             });
         });
+
 try{
 varOpz=_.values(varOpz);
 varOpz=varOpz[0];
@@ -815,6 +816,7 @@ catch(err){
   console.log(err);
    return workflow.emit('exception', 'Non è stato possibile caricare i dati Regione e Tipologia simulazione (P o R)');
   }
+  /*
  Spreadsheet.load({
             debug: true,
             spreadsheetId: googleId,
@@ -848,7 +850,7 @@ catch(err){
            
             });
         });
- 
+ */
 
 
 
