@@ -608,7 +608,7 @@ function saveSimulationOnExcelAndDb(req,workflow,sprdsheet,simulationLabel,user,
   Spreadsheet.load({
     debug: true,
     spreadsheetId:sprdsheet.googleId ,
-    worksheetName: 'VV_UT',
+    worksheetName: 'INPUT',
 
     oauth : {
         email: '36923579256-7pv511lb1odrijg1mtatnc0v5bsaeiiv@developer.gserviceaccount.com',
@@ -680,7 +680,7 @@ function saveSimulationOnExcel(workflow,sprdsheet,simulationLabel,user,vv_opzPar
   Spreadsheet.load({
     debug: true,
     spreadsheetId:sprdsheet.googleId ,
-    worksheetName: 'VV_UT',
+    worksheetName: 'INPUT',
 
     oauth : {
         email: '36923579256-7pv511lb1odrijg1mtatnc0v5bsaeiiv@developer.gserviceaccount.com',

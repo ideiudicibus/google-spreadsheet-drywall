@@ -129,42 +129,48 @@ elem.toggleClass('active');
                       loadSimulationLinkBehaviour();
                       //console.log(activeSheet.name);
                       if((activeSheet.name).indexOf('default')<0 ){
+                           if((activeSheet.name).indexOf('P017')>=0 ){
+                            loadUpdateParameterBtnBehaviourFullP017();
+                            resetParamsActiveSheetBtnBehaviour();
+                            //saveSimulationBtnBehaviour();
+                            reloadParametersBtnBehaviour();
+                            }
                            if((activeSheet.name).indexOf('P016')>=0 ){
                             loadUpdateParameterBtnBehaviourFullP016();
                             resetParamsActiveSheetBtnBehaviour();
-                            saveSimulationBtnBehaviour();
+                            //saveSimulationBtnBehaviour();
                             reloadParametersBtnBehaviour();
                             }
                           if((activeSheet.name).indexOf('P015')>=0 ){
-                            loadUpdateParameterBtnBehaviourFullP014();
+                            loadUpdateParameterBtnBehaviourFullP015();
                             resetParamsActiveSheetBtnBehaviour();
-                            saveSimulationBtnBehaviour();
+                            //saveSimulationBtnBehaviour();
                             reloadParametersBtnBehaviour();
                             }
                            if((activeSheet.name).indexOf('P014')>=0 ){
                             loadUpdateParameterBtnBehaviourFullP014();
                             resetParamsActiveSheetBtnBehaviour();
-                            saveSimulationBtnBehaviour();
+                            //saveSimulationBtnBehaviour();
                             reloadParametersBtnBehaviour();
                             }
                             if((activeSheet.name).indexOf('P013')>=0 ){
 
-                            //loadUpdateParameterBtnBehaviourFullP013();
-                            //resetParamsActiveSheetBtnBehaviour();
+                            loadUpdateParameterBtnBehaviourFullP013();
+                            resetParamsActiveSheetBtnBehaviour();
                             //saveSimulationBtnBehaviour();
-                            //reloadParametersBtnBehaviour();
+                            reloadParametersBtnBehaviour();
                            
                             }
                             if((activeSheet.name).indexOf('P012')>=0 ){
-                            console.log('TEST P012 loaded');
+                            
                             loadUpdateParameterBtnBehaviourFullP012();
-                            //resetParamsActiveSheetBtnBehaviour();
+                            resetParamsActiveSheetBtnBehaviour();
                             //saveSimulationBtnBehaviour();
                             reloadParametersBtnBehaviour();
                             }
-                            //test here 
+                             
                             if((activeSheet.name).indexOf('P011')>=0 ){
-                            console.log('TEST P011 loaded');
+                            
                             loadUpdateParameterBtnBehaviourSingleP011();
                             resetParamsActiveSheetBtnBehaviour();
                             //saveSimulationBtnBehaviour();
@@ -175,7 +181,7 @@ elem.toggleClass('active');
                               loadButtonsBehaviourDefaultOpz();
                               setSelectedInputs();
                               resetParamsActiveSheetBtnBehaviour();
-                              saveSimulationBtnBehaviour();
+                              //saveSimulationBtnBehaviour();
 
                       };
                     
@@ -394,6 +400,207 @@ else{
 
 }
 
+function loadUpdateParameterBtnBehaviourFullP015() {
+
+  $('.updateParameterBtnFull').click(function(event){
+  event.preventDefault();
+
+   var tmp=$(this).parent().parent().parent().parent();
+   //console.log(tmp.attr('id'));
+
+   $(tmp).modal('toggle');
+
+var paramData = [];
+var params={};
+
+    $(tmp).find('input, textarea, select').each(function(i, field) {
+    var obj={};
+            var v={};
+            v.row=$(field).attr('row');
+            v.col=$(field).attr('col');
+            v.value=field.value;
+            v.label=$(field).attr('label');
+            obj[field.name]=v
+            paramData.push(obj);
+  });
+  
+params.googleId=data.record.googleId;
+params.activeSheet=data.record.activeSheet;
+params.paramData=JSON.stringify(paramData);
+
+
+if($(this).attr('class').indexOf('checkPercentage')>0){
+
+  var i=0;
+ for (k in paramData){
+  
+    var a=paramData[k];
+        for(kk in a ){
+          var reg = new RegExp(/Prezzo|scat/);
+          var v=a[kk];
+          if(v.label.indexOf('%')>=0){  
+
+             if(v.value!=null && v.value.length>0 && v.value.indexOf('%')<0) { 
+              alertify.alert('il parametro '+v.label+' non contiene %'); 
+              return false;}
+          else{
+             v.value=v.value.indexOf(',')>0?v.value.replace(/,/g, '.'):v.value;
+             v.value=v.value.trim();
+             var tmp=v.value.split("%").join("");
+             i=parseFloat(tmp);
+            if(i>100.00){ alertify.alert('Attenzione parametri non validi: il valore '+i+'% inserito per '+v.label+' è maggiore del 100% ');
+            return false;}
+             }
+ }
+ else {
+   var reg1 = new RegExp(/^(?:\d*,\d{1,2}|\d+)$/);
+   v.value=v.value.trim();
+
+          if(v.value!=null && v.value.length>0 && !reg1.test(v.value)){
+             alertify.alert('il parametro '+v.value+' - '+v.label+' non è riconosciuto come numero decimale (es: 21,05)');
+             return false;
+            }
+
+ }
+
+    
+        }
+
+        }
+ 
+
+}
+
+ $.ajax({
+        
+        data:params,
+        type: "POST",
+        url: '/spreadsheets_v2/'+data.record._id+'/'+data.record.activeSheet+'/params',
+        dataType:"json",
+        success:  function (response) {
+          
+          switch(response.success)
+          {
+            case  false:
+              var errs=response.errors;
+              for(var j=0;j<errs.length;j++){
+                alertify.error(errs[j]);
+      }
+              break;
+            case  true:
+              var infos=response.infos;
+              for(var j=0;j<infos.length;j++){
+                alertify.log(infos[j]);
+      }     //console.log('2');
+            loadActiveSheet(data.record);
+           
+          }
+        }
+
+    })
+   
+    return false;
+
+})
+
+}
+
+
+
+
+function loadUpdateParameterBtnBehaviourFullP017() {
+
+ $('.updateParameterBtnFull').click(function(event){
+  event.preventDefault();
+
+   var tmp=$(this).parent().parent().parent().parent();
+   //console.log(tmp.attr('id'));
+
+   $(tmp).modal('toggle');
+
+var paramData = [];
+var params={};
+
+    $(tmp).find('input, textarea, select').each(function(i, field) {
+    var obj={};
+            var v={};
+            v.row=$(field).attr('row');
+            v.col=$(field).attr('col');
+            v.value=field.value;
+            v.label=$(field).attr('label');
+            obj[field.name]=v
+            paramData.push(obj);
+  });
+  
+params.googleId=data.record.googleId;
+params.activeSheet=data.record.activeSheet;
+params.paramData=JSON.stringify(paramData);
+
+
+if($(this).attr('class').indexOf('checkNumber')>0){
+
+  var i=0;
+ for (k in paramData){
+  
+    var a=paramData[k];
+        for(kk in a ){
+          var v=a[kk];
+   var reg1 = new RegExp(/^(?:\d*,\d{1,2}|\d+)$/);
+   v.value=v.value.trim();
+
+          if(v.value!=null && v.value.length>0 && !reg1.test(v.value)){
+             alertify.alert('il parametro '+v.value+' - '+v.label+' non è riconosciuto come numero decimale (es: 21,05)');
+             return false;
+            }
+    
+        }
+
+        }
+ 
+
+}
+
+ $.ajax({
+        
+        data:params,
+        type: "POST",
+        url: '/spreadsheets_v2/'+data.record._id+'/'+data.record.activeSheet+'/params',
+        dataType:"json",
+        success:  function (response) {
+          
+          switch(response.success)
+          {
+            case  false:
+              var errs=response.errors;
+              for(var j=0;j<errs.length;j++){
+                alertify.error(errs[j]);
+      }
+              break;
+            case  true:
+              var infos=response.infos;
+              for(var j=0;j<infos.length;j++){
+                alertify.log(infos[j]);
+      }     //console.log('2');
+            loadActiveSheet(data.record);
+           
+          }
+        }
+
+    })
+   
+    return false;
+
+})
+
+
+}
+
+
+
+
+
+
+
 function loadUpdateParameterBtnBehaviourFullP014() {
 
 
@@ -517,27 +724,28 @@ params.activeSheet=data.record.activeSheet;
 params.paramData=JSON.stringify(paramData);
 
 
-if($(this).attr('class').indexOf('checkNumber')>0){
-
-  var i=0;
- for (k in paramData){
-  
+if($(this).attr('class').indexOf('checkPercentage')>0){
+  for (k in paramData){
     var a=paramData[k];
         for(kk in a ){
           var v=a[kk];
-
-           var reg = new RegExp(/^(?:\d*,\d{1,2}|\d+)$/);
-          if(!reg.test(v.value)){
-             alertify.alert('il parametro '+v.label+' non è riconosciuto come numero decimale (es: 21,05)');
-             return false;
-            }
-
-    
+               if(v.value.indexOf('%')<0) { 
+                  alertify.alert('il parametro '+v.label+' non contiene %'); 
+                  return false;}
+                v.value=v.value.indexOf(',')>0?v.value.replace(/,/g, '.'):v.value;
+                v.value=v.value.trim();
+                var tmp=v.value.split("%").join("");
+                tmp=parseFloat(tmp); 
+                if (isNaN(tmp)) { 
+                  alertify.alert('il parametro '+v.label+' non è riconosciuto come numero (es: 21.5 oppure 21,5) '); 
+                  return false; 
+                }
+                if(tmp>100.00){
+                   alertify.alert('il parametro '+v.label+' è superiore a 100.00'); 
+                  return false; 
+                }
         }
-
-        }
- 
-
+}
 }
 
  $.ajax({
@@ -781,6 +989,16 @@ function resetParamsActiveSheetBtnBehaviour(){
     })
 return false;
   })
+
+}
+
+function resetParamsActiveSheetP017BtnBehaviour(){
+
+$('.resetParamsBtn').click(function(event){
+ alertNotImplemented();
+ return false;
+})
+
 
 }
 

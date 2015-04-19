@@ -5,7 +5,7 @@ function drawCharts(spreadsheet,activeSheet) {
 var activeSheetName=activeSheet;
 
 var query1 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=B7:F16&pli=1'); 
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=B7:F17&pli=1'); 
 query1.send(handleQueryResponse1);
 
 }
@@ -83,7 +83,7 @@ drawCharts(data.record,activeSheetName);
         <div class="table-responsive">
               <table class="table table-striped table-bordered table-hover fixed" >
                 <thead>
-              <tr><th>&nbsp;</th><th>Prezzo</th><th>% Sconto</th><th>% Sconto a Confezione</th></tr>
+              <tr><th>&nbsp;</th><th>Prezzo €</th><th>% Sconto</th><th> Sconto a Confezione € </th></tr>
                </thead>
                <tbody>
 
@@ -125,7 +125,7 @@ drawCharts(data.record,activeSheetName);
                 var t=_.values(a)[0];
                 var id=_.keys(a)[0];
                %>
-               <td ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text"  value="<%= t.value %>" class="input-xs"></input></td>
+               <td ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text"  value="<%= t.value %>" class="input-xs" disabled></input></td>
             <% })%>
               </tr>
               <tr><td>Abatacept 125 mg</td><%
@@ -133,7 +133,7 @@ drawCharts(data.record,activeSheetName);
                 var t=_.values(a)[0];
                 var id=_.keys(a)[0];
                %>
-               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
+               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs" disabled></input></td>
             <% })   
               %>
               </tr><tr><td>Adalimumab 40 mg</td><%
@@ -142,7 +142,7 @@ drawCharts(data.record,activeSheetName);
                 var id=_.keys(a)[0];
                %>
                
-               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
+               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs" disabled></input></td>
             <% })   
               %>
              </tr>
@@ -152,7 +152,7 @@ drawCharts(data.record,activeSheetName);
                 var id=_.keys(a)[0];
                %>
                
-               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
+               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs" disabled></input></td>
             <% })   
               %>
              </tr>
@@ -182,7 +182,7 @@ drawCharts(data.record,activeSheetName);
                 var id=_.keys(a)[0];
                %>
                
-               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
+               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs" disabled></input></td>
             <% })   
               %>
              </tr>
@@ -192,7 +192,7 @@ drawCharts(data.record,activeSheetName);
                 var id=_.keys(a)[0];
                %>
                
-               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
+               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs" disabled></input></td>
             <% })   
               %>
              </tr>
@@ -202,7 +202,7 @@ drawCharts(data.record,activeSheetName);
                 var id=_.keys(a)[0];
                %>
                
-               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
+               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs" disabled></input></td>
             <% })   
               %>
              </tr>
@@ -212,7 +212,7 @@ drawCharts(data.record,activeSheetName);
                 var id=_.keys(a)[0];
                %>
                
-               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
+               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs" disabled></input></td>
             <% })   
               %>
              </tr>

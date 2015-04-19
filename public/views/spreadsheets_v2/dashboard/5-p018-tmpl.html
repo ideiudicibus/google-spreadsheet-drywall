@@ -11,7 +11,7 @@ query1.send(handleQueryResponse1);
 
 
 var query2 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=A16:E21&pli=1'); 
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=A6:E14&pli=1'); 
 query2.send(handleQueryResponse2);
 
 
@@ -25,7 +25,7 @@ function handleQueryResponse2(response) {
   }
 var dataTable=response.getDataTable();
 
-var j={"chartType":"ColumnChart","isDefaultVisualization":false,"chartName":"Grafico 22","state":{},"view":{"columns":[0,1,2,3,4]},"dataTable":dataTable,"options":{"titleTextStyle":{"bold":true,"color":"#000","fontSize":16},"vAxes":[{"title":null,"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null}],"series":{"3":{"color":"#1155cc"},"2":{"color":"#3c78d8"},"1":{"color":"#9fc5e8"},"0":{"color":"#d9d9d9"}},"title":"Costi Annui","booleanRole":"certainty","animation":{"duration":500},"legend":"bottom","width":580,"height":370,"hAxis":{"useFormatFromData":true,"textStyle":{"color":"#222","fontSize":"9"}},"isStacked":false,"tooltip":{}}}
+var j={"chartType":"ColumnChart","isDefaultVisualization":false,"chartName":"Grafico 24","state":{},"view":{"columns":[0,1,2,3,4]},"dataTable":response.getDataTable(),"options":{"titleTextStyle":{"bold":true,"color":"#000","fontSize":16},"vAxes":[{"title":"","useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null}],"series":{"3":{"color":"#073763"},"2":{"color":"#6d9eeb"},"1":{"color":"#76a5af"},"0":{"color":"#cccccc"}},"title":"Costi Annui","booleanRole":"certainty","height":371,"animation":{"duration":500},"legend":"right","width":600,"hAxis":{"title":"","useFormatFromData":true,"textStyle":{"color":"#222","fontSize":"9"}},"isStacked":false,"tooltip":{}}}
 
 google.visualization.drawChart(j, document.getElementById('chart1')); 
 

@@ -13,6 +13,12 @@ var query2 = new google.visualization.Query(
       'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&headers=-1&merge=COLS&range=A8:A15,F8:F15,G8:G15,H8:H15&pli=1'); 
 
 query2.send(handleQueryResponse2);
+
+var query3 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=A6:H15&pli=1'); 
+query3.send(handleQueryResponse3);
+
+
 }
 
 
@@ -43,6 +49,20 @@ dataTable.setColumnLabel(3,"t3/t2");
 
 var j= {"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3]},"dataTable":dataTable,"options":{"titleTextStyle":{"bold":true,"italic":false},"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"series":{"2":{"color":"#93CDDD"},"1":{"color":"#7992B1"},"0":{"color":"#10253F"}},"title":"Budget impact per molecola ","legendTextStyle":{"bold":true,"italic":false,"fontSize":12},"height":500,"legend":{"position":"right"},"width":690,"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{"textStyle":{"bold":true,"italic":false,"fontSize":14},"gridlines":{"color":"#FFFFFF"}}}};
 google.visualization.drawChart(j, document.getElementById('chart2')); 
+
+}
+
+function handleQueryResponse3(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var data_table=response.getDataTable();
+
+ var datatable = new google.visualization.DataView(data_table);
+  var table = new google.visualization.Table(document.getElementById('dataTable'));
+  table.draw(datatable,{'sort':'disable'});
 
 }
 
@@ -84,5 +104,17 @@ drawCharts(data.record,activeSheetName);
     </div>
  </div>
 
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id="dataTable" >
+          <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
 
 

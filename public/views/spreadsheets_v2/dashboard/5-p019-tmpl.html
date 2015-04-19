@@ -81,7 +81,7 @@ function handleQueryResponse4(response) {
     alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
     return;
   }
-var dataTable=response.getDataTable().toJSON();
+var dataTable=response.getDataTable();
 
 
 
