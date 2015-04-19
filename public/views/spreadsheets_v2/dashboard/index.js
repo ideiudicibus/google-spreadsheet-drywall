@@ -961,7 +961,10 @@ function resetParamsActiveSheetBtnBehaviour(){
   $('.resetParamsBtn').click(function(event){
   event.preventDefault();
 
-   $.ajax({
+    alertify.confirm("Eseguire il reset a valori di default?", function (e) {
+    if (e) {
+
+       $.ajax({
        data:data,
         type: "POST",
         url: '/spreadsheets_v2/activesheet/r/'+data.record.activeSheet,
@@ -987,21 +990,18 @@ function resetParamsActiveSheetBtnBehaviour(){
         }
 
     })
+
+    } else {
+        return false;
+    }
+});
+
+
+  
 return false;
   })
 
 }
-
-function resetParamsActiveSheetP017BtnBehaviour(){
-
-$('.resetParamsBtn').click(function(event){
- alertNotImplemented();
- return false;
-})
-
-
-}
-
 
 
 
