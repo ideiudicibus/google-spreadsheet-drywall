@@ -816,7 +816,6 @@ catch(err){
   console.log(err);
    return workflow.emit('exception', 'Non è stato possibile caricare i dati Regione e Tipologia simulazione (P o R)');
   }
-  /*
  Spreadsheet.load({
             debug: true,
             spreadsheetId: googleId,
@@ -850,7 +849,7 @@ catch(err){
            
             });
         });
- */
+ 
 
 
 
