@@ -132,32 +132,32 @@ elem.toggleClass('active');
                            if((activeSheet.name).indexOf('P017')>=0 ){
                             loadUpdateParameterBtnBehaviourFullP017();
                             resetParamsActiveSheetBtnBehaviour();
-                            //saveSimulationBtnBehaviour();
+                            saveSimulationBtnBehaviour();
                             reloadParametersBtnBehaviour();
                             }
                            if((activeSheet.name).indexOf('P016')>=0 ){
                             loadUpdateParameterBtnBehaviourFullP016();
                             resetParamsActiveSheetBtnBehaviour();
-                            //saveSimulationBtnBehaviour();
+                            saveSimulationBtnBehaviour();
                             reloadParametersBtnBehaviour();
                             }
                           if((activeSheet.name).indexOf('P015')>=0 ){
                             loadUpdateParameterBtnBehaviourFullP015();
                             resetParamsActiveSheetBtnBehaviour();
-                            //saveSimulationBtnBehaviour();
+                            saveSimulationBtnBehaviour();
                             reloadParametersBtnBehaviour();
                             }
                            if((activeSheet.name).indexOf('P014')>=0 ){
                             loadUpdateParameterBtnBehaviourFullP014();
                             resetParamsActiveSheetBtnBehaviour();
-                            //saveSimulationBtnBehaviour();
+                            saveSimulationBtnBehaviour();
                             reloadParametersBtnBehaviour();
                             }
                             if((activeSheet.name).indexOf('P013')>=0 ){
 
                             loadUpdateParameterBtnBehaviourFullP013();
                             resetParamsActiveSheetBtnBehaviour();
-                            //saveSimulationBtnBehaviour();
+                            saveSimulationBtnBehaviour();
                             reloadParametersBtnBehaviour();
                            
                             }
@@ -165,7 +165,7 @@ elem.toggleClass('active');
                             
                             loadUpdateParameterBtnBehaviourFullP012();
                             resetParamsActiveSheetBtnBehaviour();
-                            //saveSimulationBtnBehaviour();
+                            saveSimulationBtnBehaviour();
                             reloadParametersBtnBehaviour();
                             }
                              
@@ -173,7 +173,7 @@ elem.toggleClass('active');
                             
                             loadUpdateParameterBtnBehaviourSingleP011();
                             resetParamsActiveSheetBtnBehaviour();
-                            //saveSimulationBtnBehaviour();
+                            saveSimulationBtnBehaviour();
                             reloadParametersBtnBehaviour();
                             }
                         }
@@ -181,7 +181,7 @@ elem.toggleClass('active');
                               loadButtonsBehaviourDefaultOpz();
                               setSelectedInputs();
                               resetParamsActiveSheetBtnBehaviour();
-                              //saveSimulationBtnBehaviour();
+                              saveSimulationBtnBehaviour();
 
                       };
                     

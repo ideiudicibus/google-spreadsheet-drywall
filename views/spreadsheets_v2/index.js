@@ -586,7 +586,9 @@ exports.saveSimulationOnDb = function(req,res,next){
  
  req.app.db.models.Spreadsheet.findOne({_id:sprdsheet._id}).populate('sheetsList').exec(function(err, spreadsheet) {
 
- var firstSheet=spreadsheet.sheetsList[0];
+ var firstSheet=spreadsheet.sheetsList[1];
+
+ console.log('first-sheet-params are: '+firstSheet);
 
   saveSimulationOnExcelAndDb(req,workflow,sprdsheet,simulationLabel,user,firstSheet.params);
 
@@ -628,14 +630,18 @@ function saveSimulationOnExcelAndDb(req,workflow,sprdsheet,simulationLabel,user,
         }
        
         
-        var colToBeSaved=getColumnFromRowsData(rows,2,2,1)
+        var colToBeSaved=getColumnFromRowsData(rows,11,11,1)
         colToBeSaved.pop();
         var o3={},o4={};
        o4[2]=vv_opzParams;
-       o3[197]=o4;
-       //console.log(vv_opzParams);
+       o3[359]=o4;
+       
        colToBeSaved.push(o3);
-     
+       
+       console.log(colToBeSaved);
+
+       //return workflow.emit('exception', err);
+
        var fieldsToSet = {
       _id: mongoose.Types.ObjectId(),
       pivot: user,
@@ -758,14 +764,18 @@ req.app.db.models.Param.find({sheetId:req.params.id}).exec(function(err, savedSi
 
 
 };
+
 /*
+used by getSimulation
+*/
+
 function  updateParametersSheets(googleId,simulationObj,varOpz,workflow,req){
 
 
 Spreadsheet.load({
             debug: true,
             spreadsheetId: googleId,
-            worksheetName: 'VV_UT',
+            worksheetName: 'INPUT',
             oauth : {
                 email: '36923579256-7pv511lb1odrijg1mtatnc0v5bsaeiiv@developer.gserviceaccount.com',
                 keyFile: './views/spreadsheets/nodejs-gdata-key-file.pem'
@@ -803,7 +813,7 @@ varOpz=prepareParamsForExcel(varOpz);
 }
 catch(err){
   console.log(err);
-   return workflow.emit('exception', 'Non è stato possibile caricare i dati Regione e Simulazione (P o R)');
+   return workflow.emit('exception', 'Non è stato possibile caricare i dati Regione e Tipologia simulazione (P o R)');
   }
  Spreadsheet.load({
             debug: true,
@@ -833,7 +843,7 @@ catch(err){
             if(err) {
             return workflow.emit('exception', err);
             }
-            workflow.outcome.infos.push('i dati sono stati aggiornati, attendere l\' aggiornamento della pagina');
+            workflow.outcome.infos.push('i dati di simulazione sono stati aggiornati, attendere l\' aggiornamento della pagina');
            return workflow.emit('response');
            
             });
@@ -842,7 +852,7 @@ catch(err){
 
 
 
-}*/
+}
 
 
 exports.getSimulation = function(req,res,next){
