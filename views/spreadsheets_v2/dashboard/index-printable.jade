@@ -22,7 +22,7 @@ html
           a.navbar-brand(href='/')
             img(src='/media/logo-w32.jpg')
             span.navbar-brand-label #{projectName}
-      div#printable-introduzione(style="margin:5px")
+      div#printable-homepage(style="margin:5px")
       div.endpage
       div#printable-default(style="margin:5px")
       div.endpage
@@ -44,6 +44,8 @@ html
       div.endpage
       div#printable-p019(style="margin:5px")
       div.endpage
+      div#printable-p021(style="margin:5px")
+      div.endpage
 
     div.footer
           div.container
@@ -60,8 +62,8 @@ html
     script(src='https://www.google.com/jsapi')
     script(type='text/javascript').
             var initData = function(){ return !{JSON.stringify(data)} ; }
-    script(src='/views/spreadsheets/dashboard/underscore_template_loader.js?#{cacheBreaker}')
-    script(src='/views/spreadsheets/dashboard/index-printable.js?#{cacheBreaker}')
+    script(src='/views/spreadsheets_v2/dashboard/underscore_template_loader.js?#{cacheBreaker}')
+    script(src='/views/spreadsheets_v2/dashboard/index-printable.js?#{cacheBreaker}')
 
 
 

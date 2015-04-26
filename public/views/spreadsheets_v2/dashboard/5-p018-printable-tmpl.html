@@ -27,7 +27,7 @@ var dataTable=response.getDataTable();
 
 var j={"chartType":"ColumnChart","isDefaultVisualization":false,"chartName":"Grafico 24","state":{},"view":{"columns":[0,1,2,3,4]},"dataTable":response.getDataTable(),"options":{"titleTextStyle":{"bold":true,"color":"#000","fontSize":16},"vAxes":[{"title":"","useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null}],"series":{"3":{"color":"#073763"},"2":{"color":"#6d9eeb"},"1":{"color":"#76a5af"},"0":{"color":"#cccccc"}},"title":"Costi annui. Valori in €","booleanRole":"certainty","height":371,"animation":{"duration":500},"legend":"right","width":600,"hAxis":{"title":"","useFormatFromData":true,"textStyle":{"color":"#222","fontSize":"9"}},"isStacked":false,"tooltip":{}}}
 
-google.visualization.drawChart(j, document.getElementById('chart1')); 
+google.visualization.drawChart(j, document.getElementById('chart1P018')); 
 
 }
 
@@ -40,7 +40,7 @@ function handleQueryResponse1(response) {
 var data_table=response.getDataTable();
 
  var datatable = new google.visualization.DataView(data_table);
-  var table = new google.visualization.Table(document.getElementById('dataTable'));
+  var table = new google.visualization.Table(document.getElementById('dataTableP018'));
   table.draw(datatable,{'sort':'disable'});
 
 }
@@ -61,10 +61,10 @@ drawCharts(data.record,activeSheetName);
 
 </div>
 <div class="row">
-  <div class="col-md-12">
+    <div class="col-md-8">
     <div class="panel panel-default">
       <div class="panel-body">
-        <div id="dataTable" >
+        <div id="chart1P018" >
           <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div>
         </div>
       </div>
@@ -73,10 +73,10 @@ drawCharts(data.record,activeSheetName);
 
 </div>
 <div class="row">
-    <div class="col-md-8">
+  <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-body">
-        <div id="chart1" >
+        <div id="dataTableP018" >
           <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div>
         </div>
       </div>

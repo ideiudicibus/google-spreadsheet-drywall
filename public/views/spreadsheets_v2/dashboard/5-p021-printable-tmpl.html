@@ -30,8 +30,8 @@ function handleQueryResponse1(response) {
     return;
   }
 
-var j= {"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3,4,5,6,7,8]},"dataTable":response.getDataTable(),"options":{"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"titleTextStyle":{"bold":true,"color":"#002060","italic":false},"series":{"3":{"color":"#132B32"},"2":{"color":"#14202F"},"1":{"color":"#265663"},"0":{"color":"#10253F"},"7":{"color":"#3C3B38"},"6":{"color":"#595959"},"5":{"color":"#93CDDD"},"4":{"color":"#7992B1"},"8":{"color":"#181817"}},"title":"Budget impact per molecola","height":400,"legendTextStyle":{"bold":true,"italic":false,"fontSize":9},"legend":{"position":"right"},"width":690,"useFirstColumnAsDomain":true,"is3D":false,"hAxis":{"gridlines":{"color":"#FFFFFF"}},"isStacked":true}}
-google.visualization.drawChart(j, document.getElementById('chart1')); 
+var j= {"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3,4,5,6,7,8]},"dataTable":response.getDataTable(),"options":{"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"titleTextStyle":{"bold":true,"color":"#002060","italic":false},"series":{"3":{"color":"#132B32"},"2":{"color":"#14202F"},"1":{"color":"#265663"},"0":{"color":"#10253F"},"7":{"color":"#3C3B38"},"6":{"color":"#595959"},"5":{"color":"#93CDDD"},"4":{"color":"#7992B1"},"8":{"color":"#181817"}},"title":"Budget impact per farmaco (esclusi costi extra terapia). Valori in €","height":400,"legendTextStyle":{"bold":true,"italic":false,"fontSize":9},"legend":{"position":"right"},"width":690,"useFirstColumnAsDomain":true,"is3D":false,"hAxis":{"gridlines":{"color":"#FFFFFF"}},"isStacked":true}}
+google.visualization.drawChart(j, document.getElementById('chart1P021')); 
 
 }
 
@@ -47,8 +47,8 @@ dataTable.setColumnLabel(1,"t1/t0");
 dataTable.setColumnLabel(2,"t2/t1");
 dataTable.setColumnLabel(3,"t3/t2");
 
-var j= {"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3]},"dataTable":dataTable,"options":{"titleTextStyle":{"bold":true,"italic":false},"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"series":{"2":{"color":"#93CDDD"},"1":{"color":"#7992B1"},"0":{"color":"#10253F"}},"title":"Budget impact per farmaco (esclusi costi extra terapia). Valori in €","legendTextStyle":{"bold":true,"italic":false,"fontSize":12},"height":500,"legend":{"position":"right"},"width":690,"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{"textStyle":{"bold":true,"italic":false,"fontSize":14},"gridlines":{"color":"#FFFFFF"}}}};
-google.visualization.drawChart(j, document.getElementById('chart2')); 
+var j= {"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3]},"dataTable":dataTable,"options":{"titleTextStyle":{"bold":true,"italic":false},"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"series":{"2":{"color":"#93CDDD"},"1":{"color":"#7992B1"},"0":{"color":"#10253F"}},"title":"","legendTextStyle":{"bold":true,"italic":false,"fontSize":12},"height":500,"legend":{"position":"right"},"width":690,"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{"textStyle":{"bold":true,"italic":false,"fontSize":14},"gridlines":{"color":"#FFFFFF"}}}};
+google.visualization.drawChart(j, document.getElementById('chart2P021')); 
 
 }
 
@@ -61,7 +61,7 @@ function handleQueryResponse3(response) {
 var data_table=response.getDataTable();
 
  var datatable = new google.visualization.DataView(data_table);
-  var table = new google.visualization.Table(document.getElementById('dataTable'));
+  var table = new google.visualization.Table(document.getElementById('dataTableP021'));
   table.draw(datatable,{'sort':'disable'});
 
 }
@@ -84,7 +84,7 @@ drawCharts(data.record,activeSheetName);
       <div class="panel panel-default">
       <i class="fa fa-asterisk red-star pull-right" >&nbsp;</i>
       <div class="panel-body">
-        <div id="chart1" >
+        <div id="chart1P021" >
 
           <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
@@ -96,7 +96,7 @@ drawCharts(data.record,activeSheetName);
       <div class="panel panel-default">
       <i class="fa fa-asterisk green-star pull-right" >&nbsp;</i>
       <div class="panel-body">
-        <div id="chart2" >
+        <div id="chart2P021" >
 
           <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
@@ -108,7 +108,7 @@ drawCharts(data.record,activeSheetName);
   <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-body">
-        <div id="dataTable" >
+        <div id="dataTableP021" >
           <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div>
         </div>
       </div>

@@ -271,8 +271,8 @@ exports.getPrintablePage = function(req, res, next){
     if (err) {
       return next(err);
     }
-      console.log('getPrintablePage invoked');
-      return res.render('spreadsheets/dashboard/index-printable', { data: { record: spreadsheet,title:spreadsheet.name} });
+      console.log('getPrintablePage invoked spreadsheets_v2');
+      return res.render('spreadsheets_v2/dashboard/index-printable', { data: { record: spreadsheet,title:spreadsheet.name} });
   });
 };
 
