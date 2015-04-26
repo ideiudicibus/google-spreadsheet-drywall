@@ -395,8 +395,6 @@ color:#fff;
   cursor: help;
 }
 
-
-
 @media print {
         .endpage {
             page-break-after: always;
