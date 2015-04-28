@@ -15,9 +15,17 @@ var query2 = new google.visualization.Query(
 query2.send(handleQueryResponse2);
 
 var query3 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=A6:H15&pli=1'); 
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=A6:H36&pli=1'); 
 query3.send(handleQueryResponse3);
 
+var query4 = new google.visualization.Query('https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=1&headers=-1&merge=COLS&range=A18:E27&pli=1');
+
+query4.send(handleQueryResponse4);
+
+
+var query5 = new google.visualization.Query('https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&headers=-1&merge=COLS&range=A18:A25,F18:H25&pli=1');
+
+query5.send(handleQueryResponse5);
 
 }
 
@@ -65,6 +73,37 @@ var data_table=response.getDataTable();
   table.draw(datatable,{'sort':'disable'});
 
 }
+function handleQueryResponse4(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+var dataTable=response.getDataTable();
+
+var j= {"chartType":"ColumnChart","isDefaultVisualization":false,"chartName":"Budget Impact per molecola costi extra terapie. Valori in \u20ac","state":{},"view":{"columns":[{"calc":"emptyString","type":"string","sourceColumn":0},0,1,2,3,4,5,6,7]},"dataTable":dataTable,"options":{"titleTextStyle":{"bold":true,"color":"#000","fontSize":16},"vAxes":[{"title":null,"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"logScale":false,"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"logScale":false,"maxValue":null}],"title":"Budget Impact per molecola costi extra terapie. Valori in \u20ac","legendTextStyle":{"bold":true,"italic":false,"fontSize":9},"legend":{"position":"right"},"booleanRole":"certainty","height":500,"animation":{"duration":500},"legend":"right","width":690,"hAxis":{"useFormatFromData":true},"isStacked":true,"tooltip":{},"mode":"edit"}};
+google.visualization.drawChart(j, document.getElementById('chart3')); 
+
+}
+
+function handleQueryResponse5(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+dataTable.setColumnLabel(1,"t1/t0");
+dataTable.setColumnLabel(2,"t2/t1");
+dataTable.setColumnLabel(3,"t3/t2");
+
+var j={"chartType":"ColumnChart","isDefaultVisualization":false,"chartName":"Budget impact per molecola. Costi extra terapie. Variazioni %","state":{},"view":{"columns":[0,1,2,3]},"dataTable":dataTable,"options":{"titleTextStyle":{"bold":true,"color":"#000","fontSize":9},"vAxes":[{"title":null,"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null}],"title":"Budget impact per molecola. Costi extra terapie. Variazioni %","booleanRole":"certainty","height":500,"animation":{"duration":0},"legend":"right","width":600,"hAxis":{"useFormatFromData":true},"isStacked":false,"tooltip":{}}};
+ 
+google.visualization.drawChart(j, document.getElementById('chart4')); 
+
+}
 
 drawCharts(data.record,activeSheetName);
 %>
@@ -97,6 +136,32 @@ drawCharts(data.record,activeSheetName);
       <i class="fa fa-asterisk green-star pull-right" >&nbsp;</i>
       <div class="panel-body">
         <div id="chart2" >
+
+          <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+    </div>
+ </div>
+
+ <div class="row">
+  <div class="col-md-12">
+      <div class="panel panel-default">
+      <i class="fa fa-asterisk green-star pull-right" >&nbsp;</i>
+      <div class="panel-body">
+        <div id="chart3" >
+
+          <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+    </div>
+ </div>
+
+ <div class="row">
+  <div class="col-md-12">
+      <div class="panel panel-default">
+      <i class="fa fa-asterisk green-star pull-right" >&nbsp;</i>
+      <div class="panel-body">
+        <div id="chart4" >
 
           <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
