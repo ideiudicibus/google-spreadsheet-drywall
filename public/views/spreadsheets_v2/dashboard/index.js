@@ -1302,6 +1302,7 @@ function loadSimulationLinkBehaviour(){
 $(function() {
 
 
+
  alertify.set({ labels: {
     ok     : "Procedi",
     cancel : "Annulla"
