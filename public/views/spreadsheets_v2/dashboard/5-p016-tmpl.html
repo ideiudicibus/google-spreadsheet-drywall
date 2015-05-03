@@ -31,7 +31,7 @@ function handleQueryResponse1(response) {
   }
 var dataTable=response.getDataTable();
 
-var j={"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"series":{"0":{"color":"#0070C0"}},"animation":{"duration":0},"width":380,"is3D":false,"hAxis":{"useFormatFromData":true,"textStyle":{"color":"#222","fontSize":"12"}},"vAxes":[{"useFormatFromData":true,"minValue":null,"gridlines":{"color":"#B7B7B7"},"viewWindow":{"min":null,"max":null},"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null}],"booleanRole":"certainty","title":"Costo medio annuo. Valori in €","height":290,"legend":{"position":"none"},"useFirstColumnAsDomain":true,"isStacked":false,"tooltip":{}}};
+var j={"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"series":{"0":{"color":"#0070C0"}},"animation":{"duration":0},"width":380,"is3D":false,"hAxis":{"useFormatFromData":true,"textStyle":{"color":"#222","fontSize":"12"}},"vAxes":[{"useFormatFromData":true,"minValue":null,"gridlines":{"color":"#B7B7B7"},"viewWindow":{"min":null,"max":null},"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null}],"booleanRole":"certainty","title":"Costo medio annuo. Valori in €.","height":290,"legend":{"position":"none"},"useFirstColumnAsDomain":true,"isStacked":false,"tooltip":{}}};
 google.visualization.drawChart(j, document.getElementById('P015-chart1')); 
 
 }
@@ -43,7 +43,7 @@ function handleQueryResponse2(response) {
     return;
   }
 
-var j={"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":response.getDataTable(),"options":{"vAxes":[{"useFormatFromData":true,"minValue":null,"gridlines":{"color":"#B7B7B7"},"viewWindow":{"min":null,"max":null},"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null}],"series":{"0":{"color":"#3366cc"}},"booleanRole":"certainty","height":290,"animation":{"duration":500},"legend":{"position":"none"},"width":380,"is3D":false,"useFirstColumnAsDomain":true,"title":"Aderenza","hAxis":{"useFormatFromData":true,"textStyle":{"color":"#222","fontSize":"12"}},"tooltip":{},"isStacked":false}};
+var j={"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":response.getDataTable(),"options":{"vAxes":[{"useFormatFromData":true,"minValue":null,"gridlines":{"color":"#B7B7B7"},"viewWindow":{"min":null,"max":null},"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null}],"series":{"0":{"color":"#3366cc"}},"booleanRole":"certainty","height":290,"animation":{"duration":500},"legend":{"position":"none"},"width":380,"is3D":false,"useFirstColumnAsDomain":true,"title":"Aderenza.","hAxis":{"useFormatFromData":true,"textStyle":{"color":"#222","fontSize":"12"}},"tooltip":{},"isStacked":false}};
 google.visualization.drawChart(j, document.getElementById('P015-chart2')); 
 
 }

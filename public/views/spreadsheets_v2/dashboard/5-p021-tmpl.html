@@ -42,7 +42,7 @@ function handleQueryResponse1(response) {
     return;
   }
 
-var j= {"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3,4,5,6,7,8]},"dataTable":response.getDataTable(),"options":{"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"title":"Budget impact per molecola (esclusi costi extra terapia). Valori in €","height":400,"legendTextStyle":{"bold":false,"italic":false,"fontSize":9},"legend":{"position":"right"},"width":690,"useFirstColumnAsDomain":true,"is3D":false,"hAxis":{"gridlines":{"color":"#FFFFFF"}},"isStacked":true}}
+var j= {"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3,4,5,6,7,8]},"dataTable":response.getDataTable(),"options":{"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"title":"Budget impact per molecola (esclusi costi extra terapia). Valori in €.","height":400,"legendTextStyle":{"bold":false,"italic":false,"fontSize":9},"legend":{"position":"right"},"width":690,"useFirstColumnAsDomain":true,"is3D":false,"hAxis":{"gridlines":{"color":"#FFFFFF"}},"isStacked":true}}
 google.visualization.drawChart(j, document.getElementById('chart1')); 
 
 }
@@ -59,7 +59,7 @@ dataTable.setColumnLabel(1,"t1/t0");
 dataTable.setColumnLabel(2,"t2/t1");
 dataTable.setColumnLabel(3,"t3/t2");
 
-var j= {"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3]},"dataTable":dataTable,"options":{"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"title":"Budget impact per farmaco (esclusi costi extra terapia). Valori %","legendTextStyle":{"bold":false,"italic":false,"fontSize":12},"height":400,"legend":{"position":"right"},"width":690,"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{"textStyle":{"bold":false,"italic":false,"fontSize":12},"gridlines":{"color":"#FFFFFF"}}}};
+var j= {"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3]},"dataTable":dataTable,"options":{"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"title":"Budget impact per farmaco (esclusi costi extra terapia). Valori %.","legendTextStyle":{"bold":false,"italic":false,"fontSize":12},"height":400,"legend":{"position":"right"},"width":690,"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{"textStyle":{"bold":false,"italic":false,"fontSize":12},"gridlines":{"color":"#FFFFFF"}}}};
 google.visualization.drawChart(j, document.getElementById('chart2')); 
 
 }
@@ -105,7 +105,7 @@ function handleQueryResponse4(response) {
 
 var dataTable=response.getDataTable();
 
-var j= {"chartType":"ColumnChart","isDefaultVisualization":false,"chartName":"Budget Impact per molecola costi extra terapie. Valori in \u20ac","state":{},"view":{"columns":[{"calc":"emptyString","type":"string","sourceColumn":0},0,1,2,3,4,5,6,7]},"dataTable":dataTable,"options":{"vAxes":[{"title":null,"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"logScale":false,"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"logScale":false,"maxValue":null}],"title":"Budget Impact per molecola costi extra terapie. Valori in \u20ac","legendTextStyle":{"bold":false,"italic":false,"fontSize":9},"legend":{"position":"right"},"booleanRole":"certainty","height":500,"animation":{"duration":500},"legend":"right","width":690,"hAxis":{"useFormatFromData":true},"isStacked":true,"tooltip":{},"mode":"edit"}};
+var j= {"chartType":"ColumnChart","isDefaultVisualization":false,"chartName":"Budget Impact per molecola costi extra terapie. Valori in \u20ac.","state":{},"view":{"columns":[{"calc":"emptyString","type":"string","sourceColumn":0},0,1,2,3,4,5,6,7]},"dataTable":dataTable,"options":{"vAxes":[{"title":null,"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"logScale":false,"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"logScale":false,"maxValue":null}],"title":"Budget Impact per molecola costi extra terapie. Valori in \u20ac","legendTextStyle":{"bold":false,"italic":false,"fontSize":9},"legend":{"position":"right"},"booleanRole":"certainty","height":500,"animation":{"duration":500},"legend":"right","width":690,"hAxis":{"useFormatFromData":true},"isStacked":true,"tooltip":{},"mode":"edit"}};
 google.visualization.drawChart(j, document.getElementById('chart3')); 
 
 }
@@ -122,7 +122,7 @@ dataTable.setColumnLabel(1,"t1/t0");
 dataTable.setColumnLabel(2,"t2/t1");
 dataTable.setColumnLabel(3,"t3/t2");
 
-var j={"chartType":"ColumnChart","isDefaultVisualization":false,"chartName":"Budget impact per molecola. Costi extra terapie. Variazioni %","state":{},"view":{"columns":[0,1,2,3]},"dataTable":dataTable,"options":{"vAxes":[{"title":null,"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null}],"title":"Budget impact per molecola. Costi extra terapie. Variazioni %","booleanRole":"certainty","height":400,"animation":{"duration":0},"legend":"right","width":600,"hAxis":{"useFormatFromData":true},"isStacked":false,"tooltip":{}}};
+var j={"chartType":"ColumnChart","isDefaultVisualization":false,"chartName":"Budget impact per molecola. Costi extra terapie. Variazioni %.","state":{},"view":{"columns":[0,1,2,3]},"dataTable":dataTable,"options":{"vAxes":[{"title":null,"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null}],"title":"Budget impact per molecola. Costi extra terapie. Variazioni %","booleanRole":"certainty","height":400,"animation":{"duration":0},"legend":"right","width":600,"hAxis":{"useFormatFromData":true},"isStacked":false,"tooltip":{}}};
  
 google.visualization.drawChart(j, document.getElementById('chart4')); 
 

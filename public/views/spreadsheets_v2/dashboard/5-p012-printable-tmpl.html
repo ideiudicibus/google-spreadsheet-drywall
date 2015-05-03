@@ -51,7 +51,7 @@ function handleQueryResponse2(response){
     return;
   }
 
-var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":response.getDataTable(),"options":{"title":"Distribuzione % dei pazienti per terapia. Anno t0","height":290,"width":400,"legend":{"position":"right"},"is3D":false,"pieSliceTextStyle":{"fontSize":"9"},"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
+var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":response.getDataTable(),"options":{"title":"Distribuzione % dei pazienti per terapia. Anno t0.","height":500,"width":500,"legend":{"position":"right"},"is3D":false,"pieSliceTextStyle":{"fontSize":"7"},"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
 
 google.visualization.drawChart(j, document.getElementById('chart2P012')); 
 
@@ -65,7 +65,7 @@ function handleQueryResponse3(response){
     return;
   }
 
-var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":response.getDataTable(),"options":{"title":"Distribuzione % dei pazienti per terapia. Anno t1","height":290,"width":400,"legend":{"position":"right"},"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
+var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":response.getDataTable(),"options":{"title":"Distribuzione % dei pazienti per terapia. Anno t1.","height":500,"width":500,"legend":{"position":"right"},"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage","pieSliceTextStyle":{"fontSize":"7"}}};
 
 google.visualization.drawChart(j, document.getElementById('chart3P012')); 
 
@@ -79,7 +79,7 @@ function handleQueryResponse4(response){
     return;
   }
 
-var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":response.getDataTable(),"options":{"title":"Distribuzione % dei pazienti per terapia. Anno t2","height":290,"width":400,"legend":{"position":"right"},"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
+var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":response.getDataTable(),"options":{"title":"Distribuzione % dei pazienti per terapia. Anno t2.","height":500,"width":500,"legend":{"position":"right"},"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage","pieSliceTextStyle":{"fontSize":"7"}}};
 
 google.visualization.drawChart(j, document.getElementById('chart4P012')); 
 
@@ -93,7 +93,7 @@ function handleQueryResponse5(response){
     return;
   }
 
-var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":response.getDataTable(),"options":{"title":"Distribuzione % dei pazienti per terapia. Anno t3","height":290,"width":400,"legend":{"position":"right"},"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
+var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":response.getDataTable(),"options":{"title":"Distribuzione % dei pazienti per terapia. Anno t3.","height":500,"width":500,"legend":{"position":"right"},"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage","pieSliceTextStyle":{"fontSize":"7"}}};
 
 google.visualization.drawChart(j, document.getElementById('chart5P012')); 
 
@@ -139,15 +139,17 @@ drawCharts(data.record,activeSheetName);
 </div>
 
 <div class="row">
-
-  <div class="col-md-6">
+<div class="col-md-8">
     <div class="panel panel-default">
       <div class="panel-body">
         <div id="chart2P012" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
     </div>
   </div>
-  <div class="col-md-6">
+</div>
+
+<div class="row">
+  <div class="col-md-8">
     <div class="panel panel-default">
       <div class="panel-body">
         <div id="chart3P012" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
@@ -157,14 +159,17 @@ drawCharts(data.record,activeSheetName);
 </div>
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-8">
     <div class="panel panel-default">
       <div class="panel-body">
         <div id="chart4P012" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
     </div>
   </div>
-  <div class="col-md-6">
+</div>
+
+<div class="row">
+  <div class="col-md-8">
     <div class="panel panel-default">
       <div class="panel-body">
         <div id="chart5P012" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
@@ -172,8 +177,7 @@ drawCharts(data.record,activeSheetName);
     </div>
   </div>
 </div>
-
-  <div class="row">
+<div class="row">
    <div class="col-md-12">
       <div class="panel panel-default">
       <div class="panel-body">

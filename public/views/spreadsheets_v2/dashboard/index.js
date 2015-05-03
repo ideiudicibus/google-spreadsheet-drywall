@@ -1302,6 +1302,7 @@ function loadSimulationLinkBehaviour(){
 $(function() {
 
 
+ $('#simList').hide();
 
  alertify.set({ labels: {
     ok     : "Procedi",

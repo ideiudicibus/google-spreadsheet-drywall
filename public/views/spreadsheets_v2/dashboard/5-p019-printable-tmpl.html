@@ -56,7 +56,7 @@ function handleQueryResponse2(response) {
   }
 var dataTable=response.getDataTable();
 
-var j={"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3]},"dataTable":response.getDataTable(),"options":{"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"series":{"2":{"color":"#002060"},"1":{"color":"#0070C0"},"0":{"color":"#00B0F0"}},"title":"Budget impact - Var. %","width":380,"height":290,"legend":{"position":"bottom"},"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{}}};
+var j={"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3]},"dataTable":response.getDataTable(),"options":{"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"series":{"2":{"color":"#002060"},"1":{"color":"#0070C0"},"0":{"color":"#00B0F0"}},"title":"Budget impact - Var. %.","width":380,"height":290,"legend":{"position":"bottom"},"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{}}};
 google.visualization.drawChart(j, document.getElementById('chart2P019')); 
 
 }
@@ -70,7 +70,7 @@ function handleQueryResponse3(response) {
   }
 var dataTable=response.getDataTable();
 
-var j={"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2]},"dataTable":response.getDataTable(),"options":{"chartArea":{"height":"59.74597465979582%","width":"71.6730674574948%","left":"21.8252624671916%","top":"20.462455666617288%"},"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"},"viewWindow":{"max":1}}},"series":{"1":{"color":"#00B050"},"0":{"color":"#4F81BD"}},"title":"Composizione costi","width":380,"height":290,"legend":{"position":"bottom"},"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{},"isStacked":true}};
+var j={"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2]},"dataTable":response.getDataTable(),"options":{"chartArea":{"height":"59.74597465979582%","width":"71.6730674574948%","left":"21.8252624671916%","top":"20.462455666617288%"},"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"},"viewWindow":{"max":1}}},"series":{"1":{"color":"#00B050"},"0":{"color":"#4F81BD"}},"title":"Composizione costi.","width":380,"height":290,"legend":{"position":"bottom"},"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{},"isStacked":true}};
 google.visualization.drawChart(j, document.getElementById('chart3P019')); 
 
 }
@@ -92,7 +92,7 @@ dataTable.setColumnLabel(4,"Sim. a demogr. cost. t2/t1");
 dataTable.setColumnLabel(5,"Sim. Base t2/t3");
 dataTable.setColumnLabel(6,"Sim. a demogr. cost. t2/t3");
 
-var j={"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3,4,5,6]},"dataTable":dataTable,"options":{"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"series":{"3":{"color":"#92D050"},"2":{"color":"#0070C0"},"1":{"color":"#50FB33"},"0":{"color":"#00B0F0"},"5":{"color":"#00B050"},"4":{"color":"#002060"}},"title":"Budget impact - Val. %","width":380,"height":290,"legendTextStyle":{"color":"#222","fontSize":"8"},"legend":{"position":"bottom"},"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{}}};
+var j={"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3,4,5,6]},"dataTable":dataTable,"options":{"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"series":{"3":{"color":"#92D050"},"2":{"color":"#0070C0"},"1":{"color":"#50FB33"},"0":{"color":"#00B0F0"},"5":{"color":"#00B050"},"4":{"color":"#002060"}},"title":"Budget impact - Val. %.","width":380,"height":290,"legendTextStyle":{"color":"#222","fontSize":"8"},"legend":{"position":"bottom"},"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{}}};
 
 google.visualization.drawChart(j, document.getElementById('chart4P019')); 
 
