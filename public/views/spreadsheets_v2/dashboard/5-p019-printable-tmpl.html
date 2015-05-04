@@ -43,7 +43,7 @@ function handleQueryResponse1(response) {
   }
 var dataTable=response.getDataTable();
 
-var j= {"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3,4]},"dataTable":response.getDataTable(),"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"series":{"3":{"color":"#002060"},"2":{"color":"#0070C0"},"1":{"color":"#00B0F0"},"0":{"color":"#595959"}},"title":"Budget Impact.Valori in €.","legend":{"position":"bottom"},"width":380,"height":290,"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{}}};
+var j= {"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3,4]},"dataTable":response.getDataTable(),"options":{"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"series":{"3":{"color":"#002060"},"2":{"color":"#0070C0"},"1":{"color":"#00B0F0"},"0":{"color":"#595959"}},"title":"Budget Impact.Valori in €.","legend":{"position":"bottom"},"width":380,"height":290,"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{}}};
 google.visualization.drawChart(j, document.getElementById('chart1P019')); 
 
 }
