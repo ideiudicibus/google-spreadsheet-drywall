@@ -5,13 +5,13 @@ function drawCharts(spreadsheet,activeSheet) {
 var activeSheetName=activeSheet;
 
 var query1 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&headers=-1&merge=COLS&range=A5:A13,B5:B13,E5:E13,G5:G13,H5:H13,I5:I13,J5:J13,K5:K13,L5:L13&pli=1'); 
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&headers=-1&merge=COLS&range=A5:A14,B5:B14,E5:E14,G5:G14,H5:H14,I5:I14,J5:J14,K5:K14,L5:L14&pli=1'); 
 
 
 query1.send(handleQueryResponse1);
 
 var query2 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A5:B13,E5:E13,G5:L13&pli=1'); 
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A5:B14,E5:E14,G5:L14&pli=1'); 
 query2.send(handleQueryResponse2);
 
 
@@ -27,7 +27,7 @@ function handleQueryResponse1(response) {
   }
 var dataTable=response.getDataTable();
 
-var j={"chartType":"ColumnChart","isDefaultVisualization":true,"state":{},"view":{"columns":[0,1,2,3,4,5,6,7]},"dataTable":dataTable,"options":{"legendTextStyle":{"fontSize":"10"},"animation":{"duration":500},"width":700,"is3D":false,"hAxis":{"useFormatFromData":true,"textStyle":{"fontSize":"10"}},"chartArea":{"height":"50%","width":"80%","left":"15%","top":"20%"},"vAxes":[{"useFormatFromData":true,"minValue":null,"gridlines":{"color":"#B7B7B7"},"viewWindow":{"min":null,"max":null},"logScale":false,"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"logScale":false,"maxValue":null}],"title":"Altri costi medi annui. Valori in €.","booleanRole":"certainty","height":400,"legend":"bottom","useFirstColumnAsDomain":true,"isStacked":true}}
+var j={"chartType":"ColumnChart","isDefaultVisualization":true,"state":{},"view":{"columns":[0,1,2,3,4,5,6,7,8]},"dataTable":dataTable,"options":{"legendTextStyle":{"fontSize":"9"},"animation":{"duration":500},"width":700,"is3D":false,"hAxis":{"useFormatFromData":true,"textStyle":{"fontSize":"9"}},"chartArea":{"height":"50%","width":"80%","left":"15%","top":"20%"},"vAxes":[{"useFormatFromData":true,"minValue":null,"gridlines":{"color":"#B7B7B7"},"viewWindow":{"min":null,"max":null},"logScale":false,"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"logScale":false,"maxValue":null}],"title":"Altri costi medi annui. Valori in €.","booleanRole":"certainty","height":400,"legend":"bottom","useFirstColumnAsDomain":true,"isStacked":true}}
 google.visualization.drawChart(j, document.getElementById('chart1')); 
 
 }
@@ -151,7 +151,9 @@ drawCharts(data.record,activeSheetName);
                 return (_.keys(a)[0].indexOf("8")>=0); 
                 })
 
-      
+                 var tmpRow9=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("9")>=0); 
+                })
                %>
                <tr><td >Abatacept</td><%
                _.each(tmpRow1,function(a,b,c){
@@ -218,7 +220,15 @@ drawCharts(data.record,activeSheetName);
                <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
             <% })   
               %>
-              </tr>
+              </tr><tr><td>Infliximab (bios)</td><%
+               _.each(tmpRow9,function(a,b,c){
+                var t=_.values(a)[0];
+                var id=_.keys(a)[0];
+               %>
+               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
+            <% })   
+              %>
+              </tr
             </tbody>
           </table>
           </div>

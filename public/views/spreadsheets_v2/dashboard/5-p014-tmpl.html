@@ -5,7 +5,7 @@ function drawCharts(spreadsheet,activeSheet) {
 var activeSheetName=activeSheet;
 
 var query1 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=C3:E11&pli=1'); 
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=C3:E12&pli=1'); 
 query1.send(handleQueryResponse1);
 
 }
@@ -110,6 +110,9 @@ drawCharts(data.record,activeSheetName);
                   var tmpRow8=_.filter(params,function(a,b,c){
                 return (_.keys(a)[0].indexOf("8")>=0); 
                 })
+                 var tmpRow9=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("9")>=0); 
+                })
                %>
                <tr><td >Abatacept</td><%
                _.each(tmpRow1,function(a,b,c){
@@ -170,6 +173,15 @@ drawCharts(data.record,activeSheetName);
               </tr>
               <tr><td>Tocilizumab</td><%
                _.each(tmpRow8,function(a,b,c){
+                var t=_.values(a)[0];
+                var id=_.keys(a)[0];
+               %>
+               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
+            <% })   
+              %>
+              </tr>
+               <tr><td>Inflixmab (bios)</td><%
+               _.each(tmpRow9,function(a,b,c){
                 var t=_.values(a)[0];
                 var id=_.keys(a)[0];
                %>

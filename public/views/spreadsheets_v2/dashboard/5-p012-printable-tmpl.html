@@ -7,7 +7,7 @@ var query1 = new google.visualization.Query(
       'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=1&headers=-1&merge=ROWS&range=B11:F11,B12:F12,B13:F13,B14:F14,B15:F15,B16:F16,B17:F17,B18:F18,B19:F19,B20:F20&pli=1'); 
 query1.send(handleQueryResponse1);
 var query2 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&headers=-1&merge=COLS&range=B12:B19,C12:C19&pli=1'); 
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&headers=-1&merge=COLS&range=B12:B20,C12:C20&pli=1'); 
 query2.send(handleQueryResponse2);
 
 var query3 = new google.visualization.Query(
@@ -24,7 +24,7 @@ var query5 = new google.visualization.Query(
 query5.send(handleQueryResponse5);
 
 var query6 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=B11:F28&pli=1'); 
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=B11:F29&pli=1'); 
 query6.send(handleQueryResponse6);
 
 }
@@ -38,7 +38,7 @@ function handleQueryResponse1(response) {
 
 var j=
 
-{"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3,4,5,6,7,8]},"dataTable":response.getDataTable(),"options":{"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"series":{"3":{"color":"#FFC000"},"2":{"color":"#849F4C"},"1":{"color":"#301413"},"0":{"color":"#436EA1"},"7":{"color":"#C6625F"},"6":{"color":"#618EC4"},"5":{"color":"#D2803C"},"4":{"color":"#7030A0"},"8":{"color":"#A5C26A"}},"title":"Pazienti per terapia","height":390,"width":780,"legendTextStyle":{"color":"#222","fontSize":"9"},"legend":{"position":"right", textStyle: {fontSize: 12}},"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{},"isStacked":true}};
+{"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3,4,5,6,7,8,9]},"dataTable":response.getDataTable(),"options":{"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"series":{"3":{"color":"#FFC000"},"2":{"color":"#849F4C"},"1":{"color":"#301413"},"0":{"color":"#436EA1"},"7":{"color":"#C6625F"},"6":{"color":"#618EC4"},"5":{"color":"#D2803C"},"4":{"color":"#7030A0"},"8":{"color":"#A5C26A"}},"title":"Pazienti per terapia","height":390,"width":780,"legendTextStyle":{"color":"#222","fontSize":"9"},"legend":{"position":"right", textStyle: {fontSize: 12}},"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{},"isStacked":true}};
 google.visualization.drawChart(j, document.getElementById('chart1P012')); 
 
 }
