@@ -13,7 +13,7 @@ function ensureAdmin(req, res, next) {
   if (req.user.canPlayRoleOf('admin')) {
     return next();
   }
-  res.redirect('/');
+  res.redirect('/admin/');
 }
 
 function ensureAccount(req, res, next) {
