@@ -1,4 +1,4 @@
-<div class='row'>
+  <div class='row'>
   <div class="col-xs-6 col-sm6 col-md-6 col-lg-6">
         <div class="panel panel-default">
       <div class="panel-body">
@@ -22,40 +22,10 @@
                               <tr>
                               <td><%= e.label %></td>
                                <td> 
-                                            <% if(k.indexOf('[regione]')<0){
-                                  %>
-                                <select id="<%= k %>" name="<%= k %>"  label="<%= e.label%>" row="<%= e.row%>" col="<%= e.col%>" type="text" placeholder="" value="<%= e.value %>" class="form-control" disabled="disabled">
-                               <option value="P">Regionale</option>
-                               <option value="R">Reparto</option>
-                             </select>
-                                <%} else {%>
+                          
 
-                                 <select id="<%= k %>" name="<%= k %>"  label="<%= e.label%>" row="<%= e.row%>" col="<%= e.col%>" type="text" placeholder="" value="<%= e.value %>" class="form-control " disabled="disabled">
-                                    <option>Italia</option>
-                                    <option>Piemonte</option>
-                                    <option>Valle d'Aosta</option>
-                                    <option>Lombardia</option>
-                                    <option>P.A. di Bolzano</option>
-                                    <option>P.A. di Trento</option>
-                                    <option>Veneto</option>
-                                    <option>Friuli Venezia Giulia</option>
-                                    <option>Liguria</option>
-                                    <option>Emilia Romagna</option>
-                                    <option>Toscana</option>
-                                    <option>Umbria</option>
-                                    <option>Marche</option>
-                                    <option>Lazio</option>
-                                    <option>Abruzzo</option>
-                                    <option>Molise</option>
-                                    <option>Campania</option>
-                                    <option>Puglia</option>
-                                    <option>Basilicata</option>
-                                    <option>Calabria</option>
-                                    <option>Sicilia</option>
-                                    <option>Sardegna</option>
-                                 </select>
-                                <% }
-                                %>
+                                <%= e.value %>
+                              
                                </td> 
 
                               </tr>
