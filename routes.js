@@ -14,6 +14,8 @@ function ensureAdmin(req, res, next) {
     return next();
   }
   res.redirect('/admin/');
+
+  
 }
 
 function ensureAccount(req, res, next) {
