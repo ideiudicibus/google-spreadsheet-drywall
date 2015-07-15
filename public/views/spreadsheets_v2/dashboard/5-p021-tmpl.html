@@ -4,32 +4,24 @@ function drawCharts(spreadsheet,activeSheet) {
 var activeSheetName=activeSheet;
 
 var query1 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=1&headers=-1&merge=ROWS&range=A6:E6,A8:E8,A9:E9,A10:E10,A11:E11,A12:E12,A13:E13,A14:E14,A15:E15&pli=1'); 
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A62:A69,C62:D69&pli=1'); 
+
+
 
 query1.send(handleQueryResponse1);
 
 
 var query2 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&headers=-1&merge=COLS&range=A8:A15,F8:F15,G8:G15,H8:H15&pli=1'); 
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A62:B69,D62:D69&pli=1'); 
 
 query2.send(handleQueryResponse2);
 
-var query3_1 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=A6:H25&pli=1'); 
-query3_1.send(handleQueryResponse3_1);
-
-var query3_2 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=A27:H36&pli=1'); 
-query3_2.send(handleQueryResponse3_2);
-
-var query4 = new google.visualization.Query('https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=1&headers=-1&merge=COLS&range=A18:E27&pli=1');
-
-query4.send(handleQueryResponse4);
+var query3 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=A6:H47&pli=1'); 
+query3.send(handleQueryResponse3);
 
 
-var query5 = new google.visualization.Query('https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&headers=-1&merge=COLS&range=A18:A25,F18:H25&pli=1');
 
-query5.send(handleQueryResponse5);
 
 }
 
@@ -41,8 +33,10 @@ function handleQueryResponse1(response) {
     alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
     return;
   }
-
-var j= {"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3,4,5,6,7,8]},"dataTable":response.getDataTable(),"options":{"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"title":"Budget impact per molecola (esclusi costi extra terapia). Valori in €.","height":400,"legendTextStyle":{"bold":false,"italic":false,"fontSize":9},"legend":{"position":"right"},"width":690,"useFirstColumnAsDomain":true,"is3D":false,"hAxis":{"gridlines":{"color":"#FFFFFF"}},"isStacked":true}}
+  var dataTable=response.getDataTable();
+dataTable.setColumnLabel(1,"Costi Medi Terapia");
+dataTable.setColumnLabel(2,"Costi Medi Numero Pazienti");
+var j= {"view":{"columns":[0,1,2]},"chartName":"Gr12","dataTable":dataTable,"options":{"hasHiddenData":false,"treatLabelsAsText":true,"vAxes":[{"useFormatFromData":true,"minValue":null,"maxValue":null,"title":null,"viewWindow":{"min":null,"max":null}},{"useFormatFromData":true,"minValue":null,"maxValue":null,"viewWindow":{"min":null,"max":null}}],"legend":"right","isStacked":false,"tooltip":{},"legacyScatterChartLabels":true,"title":"Costi medi terapia e numero pazienti","titleTextStyle":{"color":"#000","fontSize":16,"bold":true},"hAxis":{"useFormatFromData":true,"textStyle":{"color":"#222","fontSize":"8"}},"width":699,"legacyContinuousAxisRemoved":true,"booleanRole":"certainty","height":371},"chartType":"ColumnChart","state":{},"isDefaultVisualization":true}
 google.visualization.drawChart(j, document.getElementById('chart1')); 
 
 }
@@ -55,16 +49,14 @@ function handleQueryResponse2(response) {
   }
 var dataTable=response.getDataTable();
 
-dataTable.setColumnLabel(1,"t1/t0");
-dataTable.setColumnLabel(2,"t2/t1");
-dataTable.setColumnLabel(3,"t3/t2");
-
-var j= {"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3]},"dataTable":dataTable,"options":{"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"title":"Budget impact per farmaco (esclusi costi extra terapia). Valori %.","legendTextStyle":{"bold":false,"italic":false,"fontSize":12},"height":400,"legend":{"position":"right"},"width":690,"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{"textStyle":{"bold":false,"italic":false,"fontSize":12},"gridlines":{"color":"#FFFFFF"}}}};
+dataTable.setColumnLabel(1,"Costi Extra Terapie");
+dataTable.setColumnLabel(2,"Costi Extra Numero Pazienti");
+var j=  {"view":{"columns":[0,1,2]},"chartName":"Grafico 24","dataTable":dataTable,"options":{"hasHiddenData":false,"treatLabelsAsText":false,"vAxes":[{"useFormatFromData":true,"minValue":null,"maxValue":null,"title":"","viewWindow":{"min":null,"max":null}},{"useFormatFromData":true,"minValue":null,"maxValue":null,"viewWindow":{"min":null,"max":null}}],"legend":"right","isStacked":false,"tooltip":{},"legacyScatterChartLabels":true,"title":"Costi extra terapie e numero pazienti","titleTextStyle":{"color":"#000","fontSize":16,"bold":true},"hAxis":{"useFormatFromData":true,"textStyle":{"color":"#222","fontSize":"8"},"title":""},"useFirstColumnAsDomain":true,"width":698,"legacyContinuousAxisRemoved":true,"booleanRole":"certainty","height":371},"chartType":"ColumnChart","state":{},"isDefaultVisualization":true};
 google.visualization.drawChart(j, document.getElementById('chart2')); 
 
 }
 
-function handleQueryResponse3_1(response) {
+function handleQueryResponse3(response) {
    
   if (response.isError()) {
     alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
@@ -79,54 +71,14 @@ var data_table=response.getDataTable();
 }
 
 
-function handleQueryResponse3_2(response) {
-   
-  if (response.isError()) {
-    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
-    return;
-  }
-var data_table=response.getDataTable();
-
- var datatable = new google.visualization.DataView(data_table);
-  var table = new google.visualization.Table(document.getElementById('dataTable2'));
-  table.draw(datatable,{'sort':'disable'});
-
-}
 
 
 
 
-function handleQueryResponse4(response) {
-   
-  if (response.isError()) {
-    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
-    return;
-  }
 
-var dataTable=response.getDataTable();
 
-var j= {"chartType":"ColumnChart","isDefaultVisualization":false,"chartName":"Budget Impact per molecola costi extra terapie. Valori in \u20ac.","state":{},"view":{"columns":[{"calc":"emptyString","type":"string","sourceColumn":0},0,1,2,3,4,5,6,7]},"dataTable":dataTable,"options":{"vAxes":[{"title":null,"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"logScale":false,"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"logScale":false,"maxValue":null}],"title":"Budget Impact per molecola costi extra terapie. Valori in \u20ac","legendTextStyle":{"bold":false,"italic":false,"fontSize":9},"legend":{"position":"right"},"booleanRole":"certainty","height":500,"animation":{"duration":500},"legend":"right","width":690,"hAxis":{"useFormatFromData":true},"isStacked":true,"tooltip":{},"mode":"edit"}};
-google.visualization.drawChart(j, document.getElementById('chart3')); 
 
-}
 
-function handleQueryResponse5(response) {
-   
-  if (response.isError()) {
-    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
-    return;
-  }
-var dataTable=response.getDataTable();
-
-dataTable.setColumnLabel(1,"t1/t0");
-dataTable.setColumnLabel(2,"t2/t1");
-dataTable.setColumnLabel(3,"t3/t2");
-
-var j={"chartType":"ColumnChart","isDefaultVisualization":false,"chartName":"Budget impact per molecola. Costi extra terapie. Variazioni %.","state":{},"view":{"columns":[0,1,2,3]},"dataTable":dataTable,"options":{"vAxes":[{"title":null,"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null}],"title":"Budget impact per molecola. Costi extra terapie. Variazioni %","booleanRole":"certainty","height":400,"animation":{"duration":0},"legend":"right","width":600,"hAxis":{"useFormatFromData":true},"isStacked":false,"tooltip":{}}};
- 
-google.visualization.drawChart(j, document.getElementById('chart4')); 
-
-}
 
 drawCharts(data.record,activeSheetName);
 %>
@@ -166,49 +118,12 @@ drawCharts(data.record,activeSheetName);
     </div>
  </div>
 
- <div class="row">
-  <div class="col-md-12">
-      <div class="panel panel-default">
-      <i class="fa fa-asterisk blue-star pull-right" >&nbsp;</i>
-      <div class="panel-body">
-        <div id="chart3" >
-
-          <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
-      </div>
-    </div>
-    </div>
- </div>
-
- <div class="row">
-  <div class="col-md-12">
-      <div class="panel panel-default">
-      <i class="fa fa-asterisk yellow-star pull-right" >&nbsp;</i>
-      <div class="panel-body">
-        <div id="chart4" >
-
-          <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
-      </div>
-    </div>
-    </div>
- </div>
 
 <div class="row">
   <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-body">
         <div id="dataTable1" >
-          <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-<div class="row">
-  <div class="col-md-12">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <div id="dataTable2" >
           <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div>
         </div>
       </div>
