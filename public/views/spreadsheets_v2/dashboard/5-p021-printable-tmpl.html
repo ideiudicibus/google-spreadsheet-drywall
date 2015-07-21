@@ -35,7 +35,7 @@ function handleQueryResponse1(response) {
   }
   var dataTable=response.getDataTable();
 dataTable.setColumnLabel(1,"Costi Medi Terapia");
-dataTable.setColumnLabel(2,"Costi Medi Numero Pazienti");
+dataTable.setColumnLabel(2,"Numero Pazienti");
 var j= {"view":{"columns":[0,1,2]},"chartName":"Gr12","dataTable":dataTable,"options":{"hasHiddenData":false,"treatLabelsAsText":true,"vAxes":[{"useFormatFromData":true,"minValue":null,"maxValue":null,"title":null,"viewWindow":{"min":null,"max":null}},{"useFormatFromData":true,"minValue":null,"maxValue":null,"viewWindow":{"min":null,"max":null}}],"legend":"right","isStacked":false,"tooltip":{},"legacyScatterChartLabels":true,"title":"Costi medi terapia e numero pazienti","titleTextStyle":{"color":"#000","fontSize":16,"bold":true},"hAxis":{"useFormatFromData":true,"textStyle":{"color":"#222","fontSize":"8"}},"width":699,"legacyContinuousAxisRemoved":true,"booleanRole":"certainty","height":371},"chartType":"ColumnChart","state":{},"isDefaultVisualization":true}
 google.visualization.drawChart(j, document.getElementById('chart1P201')); 
 
@@ -50,7 +50,7 @@ function handleQueryResponse2(response) {
 var dataTable=response.getDataTable();
 
 dataTable.setColumnLabel(1,"Costi Extra Terapie");
-dataTable.setColumnLabel(2,"Costi Extra Numero Pazienti");
+dataTable.setColumnLabel(2,"Numero Pazienti");
 var j=  {"view":{"columns":[0,1,2]},"chartName":"Grafico 24","dataTable":dataTable,"options":{"hasHiddenData":false,"treatLabelsAsText":false,"vAxes":[{"useFormatFromData":true,"minValue":null,"maxValue":null,"title":"","viewWindow":{"min":null,"max":null}},{"useFormatFromData":true,"minValue":null,"maxValue":null,"viewWindow":{"min":null,"max":null}}],"legend":"right","isStacked":false,"tooltip":{},"legacyScatterChartLabels":true,"title":"Costi extra terapie e numero pazienti","titleTextStyle":{"color":"#000","fontSize":16,"bold":true},"hAxis":{"useFormatFromData":true,"textStyle":{"color":"#222","fontSize":"8"},"title":""},"useFirstColumnAsDomain":true,"width":698,"legacyContinuousAxisRemoved":true,"booleanRole":"certainty","height":371},"chartType":"ColumnChart","state":{},"isDefaultVisualization":true};
 google.visualization.drawChart(j, document.getElementById('chart2P201')); 
 
