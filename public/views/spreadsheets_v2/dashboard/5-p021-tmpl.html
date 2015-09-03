@@ -3,7 +3,7 @@
 function drawCharts(spreadsheet,activeSheet) {
 var activeSheetName=activeSheet;
 
-var query1 = new google.visualization.Query(
+/*var query1 = new google.visualization.Query(
       'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A62:A69,C62:D69&pli=1'); 
 
 
@@ -15,14 +15,21 @@ var query2 = new google.visualization.Query(
       'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A62:B69,D62:D69&pli=1'); 
 
 query2.send(handleQueryResponse2);
-
+*/
 var query3 = new google.visualization.Query(
       'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=A6:H47&pli=1'); 
 query3.send(handleQueryResponse3);
 
+var query4 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A62:A69,C62:C69,D62:D690&pli=1'); 
+
+query4.send(handleQueryResponse4);
 
 
+var query5 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A62:A69,B62:B69,D62:D69&pli=1'); 
 
+query5.send(handleQueryResponse5);
 }
 
 
@@ -71,9 +78,30 @@ var data_table=response.getDataTable();
 }
 
 
+function handleQueryResponse4(response){
+var dataTable=response.getDataTable();
+
+dataTable.setColumnLabel(1,"Costi Extra Terapia");
+dataTable.setColumnLabel(2,"Pazienti");
+
+var j={"view":{"columns":[{"sourceColumn":0},1,2]},"dataTable":dataTable,"options":{"hAxis":{"gridlines":{"color":"#FFFFFF"}},"backgroundColor":{"fill":"#FFFFFF"},"vAxes":{"0":{"textStyle":{"fontSize":9,"bold":false,"italic":false}},"1":{"textStyle":{"fontSize":9,"bold":false,"italic":false},"gridlines":{"count":0}}},"legend":"top","series":{"0":{"type":"bars"},"1":{"dataLabel":"value","annotations":{"highContrast":false,"textStyle":{"fontSize":9}},"targetAxisIndex":1,"lineWidth":2}},"useFirstColumnAsDomain":true,"width":699,"is3D":false,"height":312},"chartType":"ComboChart"}
+
+google.visualization.drawChart(j, document.getElementById('chart3')); 
+
+}
 
 
+function handleQueryResponse5(response){
+var dataTable=response.getDataTable();
 
+dataTable.setColumnLabel(1,"Costi Medi Terapia");
+dataTable.setColumnLabel(2,"Pazienti");
+
+
+var j={"view":{"columns":[{"sourceColumn":0},1,2]},"dataTable":dataTable,"options":{"hAxis":{"gridlines":{"color":"#FFFFFF"}},"backgroundColor":{"fill":"#FFFFFF"},"vAxes":{"0":{"textStyle":{"fontSize":9,"bold":false,"italic":false}},"1":{"textStyle":{"fontSize":9,"bold":false,"italic":false},"gridlines":{"count":0}}},"legend":"top","series":{"0":{"type":"bars"},"1":{"dataLabel":"value","annotations":{"highContrast":false,"textStyle":{"fontSize":9}},"targetAxisIndex":1,"lineWidth":2}},"useFirstColumnAsDomain":true,"width":699,"is3D":false,"height":312},"chartType":"ComboChart"}
+google.visualization.drawChart(j, document.getElementById('chart4')); 
+
+}
 
 
 
@@ -98,26 +126,25 @@ drawCharts(data.record,activeSheetName);
       <div class="panel panel-default">
       <i class="fa pull-right" >&nbsp;</i>
       <div class="panel-body">
-        <div id="chart1" >
+        <div id="chart3" >
 
           <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
     </div>
     </div>
  </div>
-<div class="row">
-  <div class="col-md-12">
+
+   <div class="col-md-12">
       <div class="panel panel-default">
       <i class="fa pull-right" >&nbsp;</i>
       <div class="panel-body">
-        <div id="chart2" >
+        <div id="chart4" >
 
           <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
     </div>
     </div>
  </div>
-
 
 <div class="row">
   <div class="col-md-12">

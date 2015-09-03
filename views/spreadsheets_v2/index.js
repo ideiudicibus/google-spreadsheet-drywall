@@ -264,6 +264,29 @@ console.log('3 readPopulateActiveSheet');
   });
 };
 
+exports.readPopulateInitActiveSheet = function(req, res, next){
+  console.log('1 readPopulateInitActiveSheet');
+  req.app.db.models.Spreadsheet.findOne({_id:req.params.id}).populate('sheetsList').exec(function(err, spreadsheet) {
+    
+   
+   spreadsheet.activeSheet=spreadsheet.sheetsList[0]._id;
+    if (err) {
+      return next(err);
+    }
+
+    if (req.xhr) {
+     
+      res.send(spreadsheet);
+    }
+    else {
+
+
+
+      res.render('spreadsheets_v2/dashboard/index-dashboard', { data: { record: spreadsheet,title:spreadsheet.name} });
+    }
+  });
+};
+
 
 exports.getPrintablePage = function(req, res, next){
   

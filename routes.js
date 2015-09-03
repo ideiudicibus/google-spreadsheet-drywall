@@ -209,6 +209,7 @@ exports = module.exports = function(app, passport) {
   app.all('/spreadsheets_v2*',ensureAuthenticated);
   app.get('/spreadsheets_v2/',require('./views/spreadsheets_v2/index').init);
   app.get('/spreadsheets_v2',require('./views/spreadsheets_v2/index').init);
+  app.get('/spreadsheets_v2/:id/init/',require('./views/spreadsheets_v2/index').readPopulateInitActiveSheet);
   app.get('/spreadsheets_v2/:id/',require('./views/spreadsheets_v2/index').readPopulateActiveSheet);
   app.post('/spreadsheets_v2/:id/:sheetId/params',require('./views/spreadsheets_v2/index').updateParams);
   app.post('/spreadsheets_v2/:id/s/simulation',require('./views/spreadsheets_v2/index').saveSimulationOnDb);

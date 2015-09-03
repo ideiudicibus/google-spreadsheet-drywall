@@ -21,8 +21,8 @@ if(array.length==0){
 for(var i=0;i<array.length;i++){
 	
 	if(array[i].googleId.length>0){
-		console.log(array[i]);
-	var li='<li ><a href="'+window.location.pathname+array[i].apiVersion+'/'+array[i]._id+'/" id="'+array[i]._id+'"><i class="fa fa-bar-chart-o fa-fw"></i>'+array[i].name+'</a></li>';
+		
+	var li='<li ><a href="'+window.location.pathname+array[i].apiVersion+'/'+array[i]._id+'/init/" id="'+array[i]._id+'"><i class="fa fa-bar-chart-o fa-fw"></i>'+array[i].name+'</a></li>';
 	$(li).appendTo(root);}
 	else{
 	var li='<li ><a href="#" id="'+array[i]._id+'" class="unactive"><i class="fa fa-bar-chart-o fa-fw"></i>'+array[i].name+'</a></li>';
