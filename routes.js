@@ -221,6 +221,8 @@ exports = module.exports = function(app, passport) {
   app.post('/spreadsheets_v2/activesheet/r/:sheetId',require('./views/spreadsheets_v2/index').resetActiveSheet);
 
   app.get('/spreadsheets_v2/:id/printable',require('./views/spreadsheets_v2/index').getPrintablePage);
+  app.get('/spreadsheets_v2/:id/init/printable',require('./views/spreadsheets_v2/index').getPrintablePage);
+
 
   
 //route not found
