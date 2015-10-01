@@ -787,6 +787,54 @@ if($(this).attr('class').indexOf('checkPercentage')>0){
 function loadButtonsBehaviourDefaultOpz(){
 
     
+   $('.resetAllParameters').click(function(event){
+  event.preventDefault();
+
+var params={};
+
+
+  
+params.googleId=data.record.googleId;
+params.activeSheet=data.record.activeSheet;
+
+console.log(params);
+ $.ajax({
+        
+        data:params,
+        type: "POST",
+        url: '/spreadsheets_v2/'+data.record._id+'/'+data.record.activeSheet+'/reset',
+        dataType:"json",
+        success:  function (response) {
+          
+          switch(response.success)
+          {
+            case  false:
+              var errs=response.errors;
+              for(var j=0;j<errs.length;j++){
+                alertify.error(errs[j]);
+      }
+              break;
+            case  true:
+              var infos=response.infos;
+              for(var j=0;j<infos.length;j++){
+                alertify.log(infos[j]);
+      }    // console.log('4');
+            loadActiveSheet(data.record);
+           
+          }
+        }
+
+    })
+   
+    return false;
+
+})
+
+
+
+
+
+
 
     $('.updateParameterBtnFull').click(function(event){
   event.preventDefault();

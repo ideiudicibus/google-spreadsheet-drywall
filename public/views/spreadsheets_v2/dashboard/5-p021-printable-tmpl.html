@@ -3,33 +3,28 @@
 function drawCharts(spreadsheet,activeSheet) {
 var activeSheetName=activeSheet;
 
-/*var query1 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A62:A69,C62:D69&pli=1'); 
-
-
-
+var query1 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A71:E88&pli=1'); 
 query1.send(handleQueryResponse1);
 
 
-var query2 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A62:B69,D62:D69&pli=1'); 
-
-query2.send(handleQueryResponse2);
-*/
 var query3 = new google.visualization.Query(
       'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=A6:H47&pli=1'); 
 query3.send(handleQueryResponse3);
 
+
+var query2 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A60:E68&pli=1'); 
+
+query2.send(handleQueryResponse2);
+
+
+
 var query4 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A62:A69,C62:C69,D62:D690&pli=1'); 
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A80:E88&pli=1'); 
 
 query4.send(handleQueryResponse4);
 
-
-var query5 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A62:A69,B62:B69,D62:D69&pli=1'); 
-
-query5.send(handleQueryResponse5);
 }
 
 
@@ -41,10 +36,14 @@ function handleQueryResponse1(response) {
     return;
   }
   var dataTable=response.getDataTable();
-dataTable.setColumnLabel(1,"Costi Medi Terapia");
-dataTable.setColumnLabel(2,"Numero Pazienti");
-var j= {"view":{"columns":[0,1,2]},"chartName":"Gr12","dataTable":dataTable,"options":{"hasHiddenData":false,"treatLabelsAsText":true,"vAxes":[{"useFormatFromData":true,"minValue":null,"maxValue":null,"title":null,"viewWindow":{"min":null,"max":null}},{"useFormatFromData":true,"minValue":null,"maxValue":null,"viewWindow":{"min":null,"max":null}}],"legend":"right","isStacked":false,"tooltip":{},"legacyScatterChartLabels":true,"title":"Costi medi terapia e numero pazienti","titleTextStyle":{"color":"#000","fontSize":16,"bold":true},"hAxis":{"useFormatFromData":true,"textStyle":{"color":"#222","fontSize":"8"}},"width":699,"legacyContinuousAxisRemoved":true,"booleanRole":"certainty","height":371},"chartType":"ColumnChart","state":{},"isDefaultVisualization":true}
-google.visualization.drawChart(j, document.getElementById('chart1')); 
+dataTable.setColumnLabel(1,"t0");
+dataTable.setColumnLabel(2,"t1");
+dataTable.setColumnLabel(3,"t2");
+dataTable.setColumnLabel(4,"t3");
+
+
+var j={"view":{"columns":[0,1,2,3,4]},"chartName":"Grafico 24","dataTable":dataTable,"options":{"hasHiddenData":false,"treatLabelsAsText":true,"vAxes":[{"useFormatFromData":true,"minValue":null,"maxValue":null,"title":null,"viewWindow":{"min":null,"max":null}},{"useFormatFromData":true,"minValue":null,"maxValue":null,"viewWindow":{"min":null,"max":null}}],"legend":"right","isStacked":false,"tooltip":{},"legacyScatterChartLabels":true,"title":"Costi medi terapia per paziente","titleTextStyle":{"color":"#000","fontSize":16,"bold":true},"hAxis":{"useFormatFromData":true,"textStyle":{"color":"#222","fontSize":"10"}},"width":699,"legacyContinuousAxisRemoved":true,"booleanRole":"certainty","height":371},"chartType":"ColumnChart","state":{},"isDefaultVisualization":true};
+google.visualization.drawChart(j, document.getElementById('chart1P021')); 
 
 }
 
@@ -56,10 +55,14 @@ function handleQueryResponse2(response) {
   }
 var dataTable=response.getDataTable();
 
-dataTable.setColumnLabel(1,"Costi Extra Terapie");
-dataTable.setColumnLabel(2,"Numero Pazienti");
-var j=  {"view":{"columns":[0,1,2]},"chartName":"Grafico 24","dataTable":dataTable,"options":{"hasHiddenData":false,"treatLabelsAsText":false,"vAxes":[{"useFormatFromData":true,"minValue":null,"maxValue":null,"title":"","viewWindow":{"min":null,"max":null}},{"useFormatFromData":true,"minValue":null,"maxValue":null,"viewWindow":{"min":null,"max":null}}],"legend":"right","isStacked":false,"tooltip":{},"legacyScatterChartLabels":true,"title":"Costi extra terapie e numero pazienti","titleTextStyle":{"color":"#000","fontSize":16,"bold":true},"hAxis":{"useFormatFromData":true,"textStyle":{"color":"#222","fontSize":"8"},"title":""},"useFirstColumnAsDomain":true,"width":698,"legacyContinuousAxisRemoved":true,"booleanRole":"certainty","height":371},"chartType":"ColumnChart","state":{},"isDefaultVisualization":true};
-google.visualization.drawChart(j, document.getElementById('chart2')); 
+dataTable.setColumnLabel(1,"t0");
+dataTable.setColumnLabel(2,"t1");
+dataTable.setColumnLabel(3,"t2");
+dataTable.setColumnLabel(4,"t3");
+
+var j={"view":{"columns":[0,1,2,3,4]},"chartName":"Grafico 24","dataTable":dataTable,"options":{"hasHiddenData":false,"treatLabelsAsText":false,"vAxes":[{"useFormatFromData":true,"minValue":null,"logScale":false,"maxValue":null,"title":null,"viewWindow":{"min":null,"max":null}},{"useFormatFromData":true,"minValue":null,"logScale":false,"maxValue":null,"viewWindow":{"min":null,"max":null}}],"legend":"right","isStacked":false,"legacyScatterChartLabels":true,"title":"Costi extra terapie per paziente","titleTextStyle":{"color":"#000","fontSize":16,"bold":true},"hAxis":{"useFormatFromData":true},"useFirstColumnAsDomain":true,"width":699,"legacyContinuousAxisRemoved":true,"booleanRole":"certainty","height":371},"chartType":"ColumnChart","state":{},"isDefaultVisualization":true};
+
+google.visualization.drawChart(j, document.getElementById('chart2P021')); 
 
 }
 
@@ -81,33 +84,16 @@ var data_table=response.getDataTable();
 function handleQueryResponse4(response){
 var dataTable=response.getDataTable();
 
-dataTable.setColumnLabel(1,"Costi Extra Terapia");
-dataTable.setColumnLabel(2,"Pazienti");
+dataTable.setColumnLabel(1,"t0");
+dataTable.setColumnLabel(2,"t1");
+dataTable.setColumnLabel(3,"t2");
+dataTable.setColumnLabel(4,"t3");
 
-var j={"view":{"columns":[{"sourceColumn":0},1,2]},"dataTable":dataTable,"options":{"hAxis":{"gridlines":{"color":"#FFFFFF"}},"backgroundColor":{"fill":"#FFFFFF"},"vAxes":{"0":{"textStyle":{"fontSize":9,"bold":false,"italic":false}},"1":{"textStyle":{"fontSize":9,"bold":false,"italic":false},"gridlines":{"count":0}}},"legend":"top","series":{"0":{"type":"bars"},"1":{"dataLabel":"value","annotations":{"highContrast":false,"textStyle":{"fontSize":9}},"targetAxisIndex":1,"lineWidth":2}},"useFirstColumnAsDomain":true,"width":699,"is3D":false,"height":312},"chartType":"ComboChart"}
+var j={"view":{"columns":[0,1,2,3,4]},"chartName":"Grafico 24","dataTable":dataTable,"options":{"hasHiddenData":false,"treatLabelsAsText":false,"vAxes":[{"useFormatFromData":true,"minValue":null,"logScale":false,"maxValue":null,"title":null,"viewWindow":{"min":null,"max":null}},{"useFormatFromData":true,"minValue":null,"logScale":false,"maxValue":null,"viewWindow":{"min":null,"max":null}}],"legend":"right","isStacked":false,"legacyScatterChartLabels":true,"title":"Costi extra terapie per paziente","titleTextStyle":{"color":"#000","fontSize":16,"bold":true},"hAxis":{"useFormatFromData":true},"useFirstColumnAsDomain":true,"width":699,"legacyContinuousAxisRemoved":true,"booleanRole":"certainty","height":371},"chartType":"ColumnChart","state":{},"isDefaultVisualization":true};
 
-google.visualization.drawChart(j, document.getElementById('chart3P021')); 
-
-}
-
-
-function handleQueryResponse5(response){
-var dataTable=response.getDataTable();
-
-dataTable.setColumnLabel(1,"Costi Medi Terapia");
-dataTable.setColumnLabel(2,"Pazienti");
-
-
-var j={"view":{"columns":[{"sourceColumn":0},1,2]},"dataTable":dataTable,"options":{"hAxis":{"gridlines":{"color":"#FFFFFF"}},"backgroundColor":{"fill":"#FFFFFF"},"vAxes":{"0":{"textStyle":{"fontSize":9,"bold":false,"italic":false}},"1":{"textStyle":{"fontSize":9,"bold":false,"italic":false},"gridlines":{"count":0}}},"legend":"top","series":{"0":{"type":"bars"},"1":{"dataLabel":"value","annotations":{"highContrast":false,"textStyle":{"fontSize":9}},"targetAxisIndex":1,"lineWidth":2}},"useFirstColumnAsDomain":true,"width":699,"is3D":false,"height":312},"chartType":"ComboChart"}
 google.visualization.drawChart(j, document.getElementById('chart4P021')); 
 
 }
-
-
-
-
-
-
 drawCharts(data.record,activeSheetName);
 %>
 <div class="row">
@@ -126,7 +112,7 @@ drawCharts(data.record,activeSheetName);
       <div class="panel panel-default">
       <i class="fa pull-right" >&nbsp;</i>
       <div class="panel-body">
-        <div id="chart3P021" >
+        <div id="chart1P021" >
 
           <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
@@ -135,6 +121,18 @@ drawCharts(data.record,activeSheetName);
  </div>
 
    <div class="col-md-12">
+      <div class="panel panel-default">
+      <i class="fa pull-right" >&nbsp;</i>
+      <div class="panel-body">
+        <div id="chart2P021" >
+
+          <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+    </div>
+ </div>
+
+    <div class="col-md-12">
       <div class="panel panel-default">
       <i class="fa pull-right" >&nbsp;</i>
       <div class="panel-body">

@@ -219,7 +219,7 @@ exports = module.exports = function(app, passport) {
   app.post('/spreadsheets_v2/activesheet/g/:sheetId',require('./views/spreadsheets_v2/index').getActiveSheet);
   app.post('/spreadsheets_v2/activesheet/:sheetId',require('./views/spreadsheets_v2/index').setActiveSheet);
   app.post('/spreadsheets_v2/activesheet/r/:sheetId',require('./views/spreadsheets_v2/index').resetActiveSheet);
-
+  app.post('/spreadsheets_v2/:id/:sheetId/reset',require('./views/spreadsheets_v2/index').resetSpreadsheet);
   app.get('/spreadsheets_v2/:id/printable',require('./views/spreadsheets_v2/index').getPrintablePage);
   app.get('/spreadsheets_v2/:id/init/printable',require('./views/spreadsheets_v2/index').getPrintablePage);
 

@@ -3,6 +3,7 @@ var sys=require('sys');
 var _=require('underscore');
 var moment = require('moment');
 var mongoose = require('mongoose');
+var fs=require('fs');
 'use strict';
 
 
@@ -69,6 +70,7 @@ function copyPureData(src_rows,mapping_col_idx,src_val_idx,src_label_idx,src_vec
     if(obj!=null){   
      i=setProperty(i,_.keys(i)[0] ,obj);}
 });
+  console.log(src_rows);
 return src_vect;
 
 }
@@ -192,8 +194,8 @@ workflow.on('updateGoogleSpreadsheet',function(p){
   var activeSheet=p.activeSheet;
 
 if(activeSheet.indexOf('default')>0) sheetName='OPZ';
-console.log('params to tranform are: '+ sys.inspect(params));
-console.log('params to send are: '+ sys.inspect(prepareParamsForExcel(params)));
+//console.log('params to tranform are: '+ sys.inspect(params));
+//console.log('params to send are: '+ sys.inspect(prepareParamsForExcel(params)));
   
 updateSheet(p.googleId,prepareParamsForExcel(params),sheetName,workflow,req);
 
@@ -221,7 +223,7 @@ Spreadsheet.load({
           
           if (err) {
             //throw err;
-            
+           
         return workflow.emit('exception', err);
           }
           
@@ -234,6 +236,7 @@ Spreadsheet.load({
           
           spreadsheet.send(function(err) {
             if(err) {
+               console.log(sys.inspect(err));
             return workflow.emit('exception', err);
             }
            workflow.outcome.infos.push('i dati sono stati aggiornati, attendere l\' aggiornamento della pagina');
@@ -299,6 +302,89 @@ exports.getPrintablePage = function(req, res, next){
   });
 };
 
+exports.resetSpreadsheet= function(req, res, next){
+  
+  var workflow = req.app.utility.workflow(req, res);
+
+
+workflow.on('resetSpreadhsheet', function(req,p) {
+  var googleId=req.body.googleId;
+  var sheetName='INPUT';
+    var fieldsToSet = {
+      params: JSON.stringify(p)
+    };
+
+
+  
+       req.app.db.models.Sheet.findById(req.params.sheetId, function(err, sheet) {
+      if (err) {
+        return workflow.emit('exception', err);
+      }
+      workflow.outcome.sheet=sheet;
+      updateSheet(googleId,prepareParamsForExcel(p),sheetName,workflow,req);
+
+  
+    });
+
+  });
+
+
+ workflow.on('synchActiveSheetWithGoogleSpreadsheet',function(req){
+console.log(req.body);
+var activeSheet=req.body.activeSheet;
+var googleId=req.body.googleId;
+var sheetName='INPUT';
+
+        Spreadsheet.load({
+    debug: true,
+    spreadsheetId: googleId,
+    worksheetName: sheetName,
+
+   oauth : {
+                email: '36923579256-7pv511lb1odrijg1mtatnc0v5bsaeiiv@developer.gserviceaccount.com',
+                keyFile: './views/spreadsheets/nodejs-gdata-key-file.pem'
+            }
+
+}, function sheetReady(err, spreadsheet) {
+
+    if (err) {
+         return workflow.emit('exception', err);
+    }
+
+    spreadsheet.receive({getValues:true},function(err, rows, info) {
+        if (err) {
+
+            return workflow.emit('exception', err);
+        }
+        var updatedParams={};
+       //updatedParams=copyData(rows,3,4,2,JSON.parse(sheet.params));
+       
+        if(sheetName=='INPUT') {
+          var file = __dirname + '/mega-reset.json';
+          var mockParams=JSON.parse(fs.readFileSync(file));
+          // console.log(sys.inspect(mockParams));
+          updatedParams=copyPureData(rows,3,13,2,mockParams);
+          
+          //console.log(sys.inspect(updatedParams));
+         
+        }
+        
+        return workflow.emit('resetSpreadhsheet',req,updatedParams);
+       //return workflow.emit('response')
+    });
+});
+
+
+ 
+});
+
+
+  workflow.emit('synchActiveSheetWithGoogleSpreadsheet',req);
+
+
+
+}
+
 
 
 exports.resetActiveSheet= function(req, res, next){
@@ -357,10 +443,10 @@ var sheetName='INPUT';
         }
         var updatedParams={};
        //updatedParams=copyData(rows,3,4,2,JSON.parse(sheet.params));
-
+       console.log('-------sheet.params------'+sheet.params);
         if(sheetName=='INPUT') {
           updatedParams=copyPureData(rows,3,13,2,JSON.parse(sheet.params));
-          console.log('----reset to patch----- '+sys.inspect(updatedParams));
+         
          
         }
         
@@ -406,13 +492,15 @@ var activeSheet=req.body.record.activeSheet;
 var googleId=req.body.record.googleId;
 var sheetName='INPUT';
 
+
+
 if(activeSheet.indexOf('default')>=0) sheetName='OPZ';
 
   req.app.db.models.Sheet.findById(req.params.sheetId).select('-textNote').exec(function(err, sheet) {
     if (err) {
     return  workflow.emit('exception',err);
     }
-  
+ 
     Spreadsheet.load({
     debug: true,
     spreadsheetId: googleId,
@@ -436,13 +524,15 @@ if(activeSheet.indexOf('default')>=0) sheetName='OPZ';
         var updatedParams={};
         //if(sheetName=='VV_UT') updatedParams=copyData(rows,1,4,3,JSON.parse(sheet.params));
         //if(sheetName=='VV_UT') updatedParams=copyData(rows,1,4,3,JSON.parse(sheet.params));
-        if(sheetName=='OPZ')  updatedParams=synchDataParamsWithExcel(rows,JSON.parse(sheet.params),3,2,4);
+        if(sheetName=='OPZ') {updatedParams=synchDataParamsWithExcel(rows,JSON.parse(sheet.params),3,2,4); 
+        //  console.log(sys.inspect(sheet.params));
+        }
         //copiare i valori dell'excel nei parametri definiti nel DB 
         if(sheetName=='INPUT') {
           
           //src_rows,mapping_col_idx,src_val_idx,src_label_idx,src_vect
           updatedParams=copyData(rows,3,4,2,JSON.parse(sheet.params));
-          console.log(sys.inspect(updatedParams));
+         
           
         }
 
