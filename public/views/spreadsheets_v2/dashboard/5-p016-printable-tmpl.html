@@ -31,7 +31,7 @@ function handleQueryResponse1(response) {
   }
 var dataTable=response.getDataTable();
 
-var j={"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"series":{"0":{"color":"#0070C0"}},"animation":{"duration":0},"width":380,"is3D":false,"hAxis":{"useFormatFromData":true,"textStyle":{"color":"#222","fontSize":"9"}},"vAxes":[{"useFormatFromData":true,"minValue":null,"gridlines":{"color":"#B7B7B7"},"viewWindow":{"min":null,"max":null},"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null}],"booleanRole":"certainty","title":"Costo medio annuo. Valori in €.","height":290,"legend":{"position":"none"},"useFirstColumnAsDomain":true,"isStacked":false,"tooltip":{}}};
+var j={"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"series":{"0":{"color":"#0070C0"}},"animation":{"duration":0},"width":380,"is3D":false,"hAxis":{"useFormatFromData":true,"textStyle":{"color":"#222","fontSize":"9"}},"vAxes":[{"useFormatFromData":true,"minValue":null,"gridlines":{"color":"#B7B7B7"},"viewWindow":{"min":null,"max":null},"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null}],"booleanRole":"certainty","title":"Costo medio teorico annuo. Valori in €.","height":290,"legend":{"position":"none"},"useFirstColumnAsDomain":true,"isStacked":false,"tooltip":{}}};
 google.visualization.drawChart(j, document.getElementById('chart1P016')); 
 
 }

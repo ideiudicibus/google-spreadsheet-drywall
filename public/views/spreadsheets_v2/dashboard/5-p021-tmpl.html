@@ -4,7 +4,7 @@ function drawCharts(spreadsheet,activeSheet) {
 var activeSheetName=activeSheet;
 
 var query1 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A71:E88&pli=1'); 
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A71:E79&pli=1'); 
 query1.send(handleQueryResponse1);
 
 
@@ -89,7 +89,7 @@ dataTable.setColumnLabel(2,"t1");
 dataTable.setColumnLabel(3,"t2");
 dataTable.setColumnLabel(4,"t3");
 
-var j={"view":{"columns":[0,1,2,3,4]},"chartName":"Grafico 24","dataTable":dataTable,"options":{"hasHiddenData":false,"treatLabelsAsText":false,"vAxes":[{"useFormatFromData":true,"minValue":null,"logScale":false,"maxValue":null,"title":null,"viewWindow":{"min":null,"max":null}},{"useFormatFromData":true,"minValue":null,"logScale":false,"maxValue":null,"viewWindow":{"min":null,"max":null}}],"legend":"right","isStacked":false,"legacyScatterChartLabels":true,"title":"Costi extra terapie per paziente","titleTextStyle":{"color":"#000","fontSize":16,"bold":true},"hAxis":{"useFormatFromData":true},"useFirstColumnAsDomain":true,"width":699,"legacyContinuousAxisRemoved":true,"booleanRole":"certainty","height":371},"chartType":"ColumnChart","state":{},"isDefaultVisualization":true};
+var j={"view":{"columns":[0,1,2,3,4]},"chartName":"Grafico 24","dataTable":dataTable,"options":{"hasHiddenData":false,"treatLabelsAsText":false,"vAxes":[{"useFormatFromData":true,"minValue":null,"logScale":false,"maxValue":null,"title":null,"viewWindow":{"min":null,"max":null}},{"useFormatFromData":true,"minValue":null,"logScale":false,"maxValue":null,"viewWindow":{"min":null,"max":null}}],"legend":"right","isStacked":false,"legacyScatterChartLabels":true,"title":"Numero Pazienti","titleTextStyle":{"color":"#000","fontSize":16,"bold":true},"hAxis":{"useFormatFromData":true},"useFirstColumnAsDomain":true,"width":699,"legacyContinuousAxisRemoved":true,"booleanRole":"certainty","height":371},"chartType":"ColumnChart","state":{},"isDefaultVisualization":true};
 
 google.visualization.drawChart(j, document.getElementById('chart4')); 
 
