@@ -1,5 +1,10 @@
 'use strict';
 
+var auth = require('./api/routes/auth.js');
+var products = require('./api/routes/products.js');
+var user = require('./api/routes/users.js');
+var spreadsheets = require('./api/routes/spreadsheets.js');
+
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
@@ -224,6 +229,34 @@ exports = module.exports = function(app, passport) {
   app.get('/spreadsheets_v2/:id/init/printable',require('./views/spreadsheets_v2/index').getPrintablePage);
 
 
+app.post('/api/v1/login', auth.login);
+app.all('/api/v1/*', [require('./api/middlewares/validateRequest')]);
+/*
+ * Routes that can be accessed by any one
+ */
+
+
+/*
+ * Routes that can be accessed only by autheticated users
+ */
+app.get('/api/v1/products', products.getAll);
+app.get('/api/v1/product/:id', products.getOne);
+app.post('/api/v1/product/', products.create);
+app.put('/api/v1/product/:id', products.update);
+app.delete('/api/v1/product/:id', products.delete);
+
+app.get('api/v1/spreadsheets',spreadsheets.getAllSpreadsheetsByUser);
+
+/*
+ * Routes that can be accessed only by authenticated & authorized users
+ */
+app.get('/api/v1/admin/users', user.getAll);
+app.get('/api/v1/admin/user/:id', user.getOne);
+app.post('/api/v1/admin/user/', user.create);
+app.put('/api/v1/admin/user/:id', user.update);
+app.delete('/api/v1/admin/user/:id', user.delete);
+
+  
   
 //route not found
   app.all('*', require('./views/http/index').http404);

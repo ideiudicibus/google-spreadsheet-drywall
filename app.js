@@ -8,6 +8,7 @@ var config = require('./config'),
     path = require('path'),
     passport = require('passport'),
     mongoose = require('mongoose'),
+    cors = require('cors'),
     helmet = require('helmet');
 
 //create express app
@@ -92,6 +93,21 @@ app.configure(function(){
     res.locals.user.username = req.user && req.user.username;
     next();
   });
+  app.all('/*', function(req, res, next) {
+  // CORS headers
+  res.header("Access-Control-Allow-Origin", "*"); // restrict it to the required domain
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  // Set custom headers for CORS
+  res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key');
+  if (req.method == 'OPTIONS') {
+    res.status(200).end();
+  } else {
+    next();
+  }
+});
+
+
+ 
 
   //mount the routes
   app.use(app.router);
@@ -116,6 +132,7 @@ require('./passport')(app, passport);
 
 //route requests
 require('./routes')(app, passport);
+
 
 //setup utilities
 app.utility = {};
