@@ -1,6 +1,7 @@
 'use strict';
 
 var getReturnUrl = function(req) {
+
   var returnUrl = req.user.defaultReturnUrl();
   if (req.session.returnUrl) {
     returnUrl = req.session.returnUrl;
@@ -10,6 +11,7 @@ var getReturnUrl = function(req) {
 };
 
 exports.init = function(req, res){
+ 
   if (req.isAuthenticated()) {
     res.redirect(getReturnUrl(req));
   }
@@ -101,11 +103,12 @@ exports.login = function(req, res){
         });
       }
       else {
+        
         req.login(user, function(err) {
           if (err) {
             return workflow.emit('exception', err);
           }
-
+          console.log('user is: '+user);
           workflow.emit('response');
         });
       }

@@ -69,7 +69,7 @@ exports.read = function(req, res, next){
       res.send(spreadsheet);
     }
     else {
-
+      console.log(JSON.stringify(spreadsheet));
       res.render('crud/spreadsheets/details', { data: { record: escape(JSON.stringify(spreadsheet)) } });
     }
   });

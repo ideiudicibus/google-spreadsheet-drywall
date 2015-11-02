@@ -20,6 +20,7 @@ exports = module.exports = function(app, mongoose) {
     search: [String]
   });
   userSchema.methods.canPlayRoleOf = function(role) {
+    //console.trace();
     if (role === "admin" && this.roles.admin) {
       return true;
     }
@@ -32,6 +33,7 @@ exports = module.exports = function(app, mongoose) {
   };
   userSchema.methods.defaultReturnUrl = function() {
     var returnUrl = '/';
+    
     if (this.canPlayRoleOf('account')) {
       returnUrl = '/account/';
     }

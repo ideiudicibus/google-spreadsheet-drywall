@@ -34,7 +34,7 @@ exports = module.exports = function(app, passport) {
           if (!isValid) {
             return done(null, false, { message: 'Invalid password' });
           }
-
+          
           return done(null, user);
         });
       });

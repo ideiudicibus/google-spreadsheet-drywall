@@ -10,9 +10,12 @@ function ensureAuthenticated(req, res, next) {
 }
 
 function ensureAdmin(req, res, next) {
+
   if (req.user.canPlayRoleOf('admin')) {
+    
     return next();
   }
+  
   res.redirect('/');
 
 
