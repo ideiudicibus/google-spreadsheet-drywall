@@ -229,6 +229,26 @@ exports = module.exports = function(app, passport) {
   app.get('/spreadsheets_v2/:id/init/printable',require('./views/spreadsheets_v2/index').getPrintablePage);
 
 
+  //show > sheets
+  app.all('/spreadsheets_v3*',ensureAuthenticated);
+  app.get('/spreadsheets_v3/',require('./views/spreadsheets_v3/index').init);
+  app.get('/spreadsheets_v3',require('./views/spreadsheets_v3/index').init);
+  app.get('/spreadsheets_v3/:id/init/',require('./views/spreadsheets_v3/index').readPopulateInitActiveSheet);
+  app.get('/spreadsheets_v3/:id/',require('./views/spreadsheets_v3/index').readPopulateActiveSheet);
+  app.post('/spreadsheets_v3/:id/:sheetId/params',require('./views/spreadsheets_v3/index').updateParams);
+  app.post('/spreadsheets_v3/:id/s/simulation',require('./views/spreadsheets_v3/index').saveSimulationOnDb);
+  app.post('/spreadsheets_v3/:id/g/simulations',require('./views/spreadsheets_v3/index').getSimulations);
+  app.post('/spreadsheets_v3/:id/l/simulation/:simulationId',require('./views/spreadsheets_v3/index').getSimulation);
+
+  app.post('/spreadsheets_v3/activesheet/g/:sheetId',require('./views/spreadsheets_v3/index').getActiveSheet);
+  app.post('/spreadsheets_v3/activesheet/:sheetId',require('./views/spreadsheets_v3/index').setActiveSheet);
+  app.post('/spreadsheets_v3/activesheet/r/:sheetId',require('./views/spreadsheets_v3/index').resetActiveSheet);
+  app.post('/spreadsheets_v3/:id/:sheetId/reset',require('./views/spreadsheets_v3/index').resetSpreadsheet);
+  app.get('/spreadsheets_v3/:id/printable',require('./views/spreadsheets_v3/index').getPrintablePage);
+  app.get('/spreadsheets_v3/:id/init/printable',require('./views/spreadsheets_v3/index').getPrintablePage);
+
+
+
 app.post('/api/v1/login', auth.login);
 app.all('/api/v1/*', [require('./api/middlewares/validateRequest')]);
 /*
@@ -245,7 +265,8 @@ app.post('/api/v1/product/', products.create);
 app.put('/api/v1/product/:id', products.update);
 app.delete('/api/v1/product/:id', products.delete);
 
-app.get('api/v1/spreadsheets',spreadsheets.getAllSpreadsheetsByUser);
+app.post('/api/v1/spreadsheets',spreadsheets.getAllSpreadsheetsByUser);
+app.post('/api/v1/spreadsheet/sheets',spreadsheets.getSheetsBySpreadsheet);
 
 /*
  * Routes that can be accessed only by authenticated & authorized users

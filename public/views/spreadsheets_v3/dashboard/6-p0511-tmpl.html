@@ -1,0 +1,172 @@
+<%
+function drawCharts(spreadsheet,activeSheet) {
+var activeSheetName=activeSheet;
+
+var query2 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=1&range=F5:F6&pli=1');
+query2.send(handleQueryResponse2);
+
+
+var query3 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=1&range=F8:F10&pli=1'); 
+query3.send(handleQueryResponse3);
+
+
+var query4 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=1&range=E11:E14,F11:F14&pli=1'); 
+query4.send(handleQueryResponse4);
+
+
+var query5 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=1&range=F15:F20&pli=1'); 
+query5.send(handleQueryResponse5);
+
+}
+
+
+function handleQueryResponse5(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+var datatable=response.getDataTable();
+
+
+datatable.setColumnLabel(0,"%F0");
+datatable.setColumnLabel(0,"%F1");
+datatable.setColumnLabel(0,"%F2");
+datatable.setColumnLabel(0,"%F3");
+
+
+var j={"view":{"columns":[{"calc":"emptyString","type":"string","sourceColumn":0},0,{"calc":"stringify","type":"string","properties":{"role":"annotation"},"sourceColumn":0},1,{"calc":"stringify","type":"string","properties":{"role":"annotation"},"sourceColumn":1},2,{"calc":"stringify","type":"string","properties":{"role":"annotation"},"sourceColumn":2},3,{"calc":"stringify","type":"string","properties":{"role":"annotation"},"sourceColumn":3},4,{"calc":"stringify","type":"string","properties":{"role":"annotation"},"sourceColumn":4},5,{"calc":"stringify","type":"string","properties":{"role":"annotation"},"sourceColumn":5}]},"chartName":"Grafico 24","dataTable":datatable,"options":{"hasHiddenData":false,"treatLabelsAsText":true,"vAxes":[{"useFormatFromData":true,"minValue":null,"logScale":false,"maxValue":null,"title":"","viewWindow":{"min":null,"max":null}},{"useFormatFromData":true,"minValue":null,"logScale":false,"maxValue":null,"viewWindow":{"min":null,"max":null}}],"legend":"bottom","isStacked":true,"annotations":{"domain":{}},"legacyScatterChartLabels":true,"title":"Soggetti HCV RNA+ per Metavir Score","titleTextStyle":{"color":"#000","fontSize":9,"bold":true},"hAxis":{"useFormatFromData":true,"title":""},"useFirstColumnAsDomain":false,"domainAxis":{"direction":1},"series":{"0":{"dataLabel":"value","annotations":{"stemColor":"none"}},"1":{"dataLabel":"value","annotations":{"stemColor":"none"}},"2":{"dataLabel":"value","annotations":{"stemColor":"none"}},"3":{"dataLabel":"value","annotations":{"stemColor":"none"}},"4":{"dataLabel":"value","annotations":{"stemColor":"none"}},"5":{"dataLabel":"value","annotations":{"stemColor":"none"}}},"width":400,"legacyContinuousAxisRemoved":true,"booleanRole":"certainty","height":369},"chartType":"ColumnChart","state":{},"isDefaultVisualization":true};
+
+
+
+google.visualization.drawChart(j, document.getElementById('chart4')); 
+
+}
+
+
+
+function handleQueryResponse4(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+
+
+var j={"view":{"columns":[{"calc":"emptyString","type":"string","sourceColumn":0},0,{"calc":"stringify","type":"string","properties":{"role":"annotation"},"sourceColumn":0},1,{"calc":"stringify","type":"string","properties":{"role":"annotation"},"sourceColumn":1},2,{"calc":"stringify","type":"string","properties":{"role":"annotation"},"sourceColumn":2},3,{"calc":"stringify","type":"string","properties":{"role":"annotation"},"sourceColumn":3}]},"chartName":"Grafico 23","dataTable":response.getDataTable(),"options":{"hasHiddenData":false,"treatLabelsAsText":true,"vAxes":[{"useFormatFromData":true,"minValue":null,"logScale":false,"maxValue":null,"title":"","viewWindow":{"min":null,"max":null}},{"useFormatFromData":true,"minValue":null,"logScale":false,"maxValue":null,"viewWindow":{"min":null,"max":null}}],"legend":"right","isStacked":true,"annotations":{"domain":{}},"legacyScatterChartLabels":true,"title":"Soggetti HCV RNA+ per genotipo","titleTextStyle":{"color":"#000","fontSize":16,"bold":true},"hAxis":{"useFormatFromData":true,"title":""},"useFirstColumnAsDomain":false,"series":{"0":{"errorBars":{"errorType":"none"},"dataLabel":"value","annotations":{"highContrast":true,"stemColor":"none","textStyle":{"fontSize":"7"}}},"1":{"errorBars":{"errorType":"none"},"dataLabel":"value","annotations":{"highContrast":true,"stemColor":"none","textStyle":{"fontSize":"7"}}},"2":{"errorBars":{"errorType":"none"},"dataLabel":"value","annotations":{"highContrast":true,"stemColor":"none","textStyle":{"fontSize":"7"}}},"3":{"errorBars":{"errorType":"none"},"dataLabel":"value","annotations":{"highContrast":true,"stemColor":"none","textStyle":{"fontSize":"9"}}}},"width":400,"legacyContinuousAxisRemoved":true,"booleanRole":"certainty","height":369},"chartType":"ColumnChart","state":{},"isDefaultVisualization":true};
+
+
+google.visualization.drawChart(j, document.getElementById('chart3')); 
+
+}
+
+function handleQueryResponse3(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+var datatable=response.getDataTable();
+
+
+datatable.setColumnLabel(0,"%Giovani");
+datatable.setColumnLabel(1,"%Adulti");
+datatable.setColumnLabel(2,"%Anziani");
+
+var j={"view":{"columns":[{"calc":"emptyString","type":"string","sourceColumn":0},0,{"calc":"stringify","type":"string","properties":{"role":"annotation"},"sourceColumn":0},1,{"calc":"stringify","type":"string","properties":{"role":"annotation"},"sourceColumn":1},2,{"calc":"stringify","type":"string","properties":{"role":"annotation"},"sourceColumn":2}]},"chartName":"Grafico 22","dataTable":datatable,"options":{"hasHiddenData":false,"treatLabelsAsText":true,"vAxes":[{"useFormatFromData":true,"minValue":null,"logScale":false,"maxValue":null,"title":"","viewWindow":{"min":null,"max":null}},{"useFormatFromData":true,"minValue":null,"logScale":false,"maxValue":null,"viewWindow":{"min":null,"max":null}}],"legend":"bottom","isStacked":true,"annotations":{"domain":{}},"legacyScatterChartLabels":true,"title":"Soggetti HCV RNA+  per fasce di età","titleTextStyle":{"color":"#000","fontSize":9,"bold":true},"hAxis":{"useFormatFromData":true,"title":""},"useFirstColumnAsDomain":false,"series":{"0":{"dataLabel":"value","annotations":{"stemColor":"none"}},"1":{"dataLabel":"value","annotations":{"stemColor":"none"}},"2":{"dataLabel":"value","annotations":{"stemColor":"none"}}},"width":400,"legacyContinuousAxisRemoved":true,"booleanRole":"certainty","height":369},"chartType":"ColumnChart","state":{},"isDefaultVisualization":true};
+
+
+
+google.visualization.drawChart(j, document.getElementById('chart2')); 
+
+}
+
+
+
+
+function handleQueryResponse2(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+var datatable=response.getDataTable();
+datatable.setColumnLabel(0,"%F");
+datatable.setColumnLabel(1,"%M");
+
+var j={"view":{"columns":[{"calc":"emptyString","type":"string","sourceColumn":0},0,{"calc":"stringify","type":"string","properties":{"role":"annotation"},"sourceColumn":0},1,{"calc":"stringify","type":"string","properties":{"role":"annotation"},"sourceColumn":1}]},"chartName":"Grafico 21","dataTable":datatable,"options":{"hasHiddenData":false,"treatLabelsAsText":true,"vAxes":[{"useFormatFromData":true,"minValue":null,"logScale":false,"maxValue":null,"formatOptions":{"scaleFactor":null,"source":"data"},"title":"","viewWindow":{"min":null,"max":null}},{"useFormatFromData":true,"minValue":null,"logScale":false,"maxValue":null,"viewWindow":{"min":null,"max":null}}],"legend":"bottom","isStacked":true,"annotations":{"domain":{}},"legacyScatterChartLabels":true,"title":"Soggetti HCV RNA+ per sesso","titleTextStyle":{"color":"#000","fontSize":16,"bold":true},"hAxis":{"useFormatFromData":true,"title":""},"domainAxis":{"direction":1},"series":{"0":{"dataLabel":"value","annotations":{"stemColor":"none"}},"1":{"errorBars":{"errorType":"none"},"dataLabel":"value","annotations":{"stemColor":"none"}}},"useFirstColumnAsDomain":false,"width":400,"legacyContinuousAxisRemoved":true,"booleanRole":"certainty","height":369},"chartType":"ColumnChart","state":{},"isDefaultVisualization":true}
+
+
+google.visualization.drawChart(j, document.getElementById('chart1')); 
+
+}
+
+function handleQueryResponse1(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+ var datatable = new google.visualization.DataView(response.getDataTable());
+  var table = new google.visualization.Table(document.getElementById('dataTable'));
+  table.draw(datatable,{'sort':'disable'});
+
+}
+
+drawCharts(data.record,activeSheetName.substring(0,4));
+
+%>
+<div class="row">
+  <div class="col-md-12">
+        <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='textNote'><%print(textNote);%></div>
+      </div>
+    </div>
+</div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='chart1' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+  </div>
+    <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='chart2' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='chart3' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+  </div>
+    <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='chart4' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+  </div>
+
+</div>

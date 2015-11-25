@@ -1,0 +1,48 @@
+  <div class='row'>
+  <div class="col-xs-6 col-sm6 col-md-6 col-lg-6">
+        <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='textNote-default'><%print(textNote);%></div>
+      </div>
+    </div>
+</div>
+<div id='paramInputs' class="col-xs-6 col-sm6 col-md-6 col-lg-6">
+          <div class="panel panel-default">
+      <div class="panel-body">
+                <div class="table-responsive">
+              <table class="table table-striped table-bordered table-hover fixed" >
+                <thead>
+              <tr><th>Parametro</th><th>Valore</th></tr>
+               </thead>
+               <tbody>
+                             <%
+                  _.each(params,function(item){
+                            _.each(item,function(e,k){
+                              %>
+                              <tr>
+                              <td><%= e.label %></td>
+                               <td> 
+                          
+
+                                <%= e.value %>
+                              
+                               </td> 
+
+                              </tr>
+                         
+                              
+                              <%})
+
+                    })
+              %>
+            </tbody>
+         </div>
+      </div>
+</tbody>
+</table>
+</div>
+</div>
+    </div>
+</div>
+</div>
+

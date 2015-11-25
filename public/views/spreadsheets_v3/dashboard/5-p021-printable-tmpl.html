@@ -1,0 +1,159 @@
+<%
+
+function drawCharts(spreadsheet,activeSheet) {
+var activeSheetName=activeSheet;
+
+var query1 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A71:E79&pli=1'); 
+query1.send(handleQueryResponse1);
+
+
+var query3 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=A6:H47&pli=1'); 
+query3.send(handleQueryResponse3);
+
+
+var query2 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A60:E68&pli=1'); 
+
+query2.send(handleQueryResponse2);
+
+
+
+var query4 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A80:E88&pli=1'); 
+
+query4.send(handleQueryResponse4);
+
+}
+
+
+
+function handleQueryResponse1(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+  var dataTable=response.getDataTable();
+dataTable.setColumnLabel(1,"t0");
+dataTable.setColumnLabel(2,"t1");
+dataTable.setColumnLabel(3,"t2");
+dataTable.setColumnLabel(4,"t3");
+
+
+var j={"view":{"columns":[0,1,2,3,4]},"chartName":"Grafico 24","dataTable":dataTable,"options":{"hasHiddenData":false,"treatLabelsAsText":true,"vAxes":[{"useFormatFromData":true,"minValue":null,"maxValue":null,"title":null,"viewWindow":{"min":null,"max":null}},{"useFormatFromData":true,"minValue":null,"maxValue":null,"viewWindow":{"min":null,"max":null}}],"legend":"right","isStacked":false,"tooltip":{},"legacyScatterChartLabels":true,"title":"Costi medi terapia per paziente","titleTextStyle":{"color":"#000","fontSize":16,"bold":true},"hAxis":{"useFormatFromData":true,"textStyle":{"color":"#222","fontSize":"10"}},"width":699,"legacyContinuousAxisRemoved":true,"booleanRole":"certainty","height":371},"chartType":"ColumnChart","state":{},"isDefaultVisualization":true};
+google.visualization.drawChart(j, document.getElementById('chart1P021')); 
+
+}
+
+function handleQueryResponse2(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+dataTable.setColumnLabel(1,"t0");
+dataTable.setColumnLabel(2,"t1");
+dataTable.setColumnLabel(3,"t2");
+dataTable.setColumnLabel(4,"t3");
+
+var j={"view":{"columns":[0,1,2,3,4]},"chartName":"Grafico 24","dataTable":dataTable,"options":{"hasHiddenData":false,"treatLabelsAsText":false,"vAxes":[{"useFormatFromData":true,"minValue":null,"logScale":false,"maxValue":null,"title":null,"viewWindow":{"min":null,"max":null}},{"useFormatFromData":true,"minValue":null,"logScale":false,"maxValue":null,"viewWindow":{"min":null,"max":null}}],"legend":"right","isStacked":false,"legacyScatterChartLabels":true,"title":"Costi extra terapie per paziente","titleTextStyle":{"color":"#000","fontSize":16,"bold":true},"hAxis":{"useFormatFromData":true},"useFirstColumnAsDomain":true,"width":699,"legacyContinuousAxisRemoved":true,"booleanRole":"certainty","height":371},"chartType":"ColumnChart","state":{},"isDefaultVisualization":true};
+
+google.visualization.drawChart(j, document.getElementById('chart2P021')); 
+
+}
+
+function handleQueryResponse3(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var data_table=response.getDataTable();
+
+ var datatable = new google.visualization.DataView(data_table);
+  var table = new google.visualization.Table(document.getElementById('dataTable1P021'));
+  table.draw(datatable,{'sort':'disable'});
+
+}
+
+
+function handleQueryResponse4(response){
+var dataTable=response.getDataTable();
+
+dataTable.setColumnLabel(1,"t0");
+dataTable.setColumnLabel(2,"t1");
+dataTable.setColumnLabel(3,"t2");
+dataTable.setColumnLabel(4,"t3");
+
+var j={"view":{"columns":[0,1,2,3,4]},"chartName":"Grafico 24","dataTable":dataTable,"options":{"hasHiddenData":false,"treatLabelsAsText":false,"vAxes":[{"useFormatFromData":true,"minValue":null,"logScale":false,"maxValue":null,"title":null,"viewWindow":{"min":null,"max":null}},{"useFormatFromData":true,"minValue":null,"logScale":false,"maxValue":null,"viewWindow":{"min":null,"max":null}}],"legend":"right","isStacked":false,"legacyScatterChartLabels":true,"title":"Numero Pazienti","titleTextStyle":{"color":"#000","fontSize":16,"bold":true},"hAxis":{"useFormatFromData":true},"useFirstColumnAsDomain":true,"width":699,"legacyContinuousAxisRemoved":true,"booleanRole":"certainty","height":371},"chartType":"ColumnChart","state":{},"isDefaultVisualization":true};
+
+google.visualization.drawChart(j, document.getElementById('chart4P021')); 
+
+}
+drawCharts(data.record,activeSheetName);
+%>
+<div class="row">
+  <div class="col-md-12">
+        <div class="panel panel-default">
+        <div class="panel-body">
+        <div id='textNote'><%print(textNote)%></div>
+      </div>
+    </div>
+ </div>
+</div>
+
+
+<div class="row">
+  <div class="col-md-12">
+      <div class="panel panel-default">
+      <i class="fa pull-right" >&nbsp;</i>
+      <div class="panel-body">
+        <div id="chart1P021" >
+
+          <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+    </div>
+ </div>
+
+   <div class="col-md-12">
+      <div class="panel panel-default">
+      <i class="fa pull-right" >&nbsp;</i>
+      <div class="panel-body">
+        <div id="chart2P021" >
+
+          <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+    </div>
+ </div>
+
+    <div class="col-md-12">
+      <div class="panel panel-default">
+      <i class="fa pull-right" >&nbsp;</i>
+      <div class="panel-body">
+        <div id="chart4P021" >
+
+          <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+    </div>
+ </div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id="dataTable1P021" >
+          <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+

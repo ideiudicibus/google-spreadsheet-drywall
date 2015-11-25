@@ -86,6 +86,7 @@ var auth = {
 
   validateUser: function(username,req,callback) {
     // spoofing the DB response for simplicity
+     console.log(JSON.stringify(username));
 
      var conditions = { isActive: 'yes' };
      if (username.indexOf('@') === -1) {
@@ -95,6 +96,7 @@ var auth = {
         conditions.email = username;
       }
      req.app.db.models.User.findOne(conditions, function(err, user) {
+
       callback(user,err);
 
      })

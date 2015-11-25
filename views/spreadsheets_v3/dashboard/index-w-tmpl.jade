@@ -1,0 +1,27 @@
+extends ../../../layouts/account
+
+block head
+  title Dashboard Area
+
+block neck
+  link(rel='stylesheet', href='/sidebar.css?#{cacheBreaker}')
+  link(rel='stylesheet', href='/vendor/alertify/alertify.core.css?#{cacheBreaker}')
+  link(rel='stylesheet', href='/vendor/alertify/alertify.default.css?#{cacheBreaker}')
+
+block feet
+  script(src='https://www.google.com/jsapi')
+  script(type='text/javascript').
+            var initData = function(){ return !{JSON.stringify(data)} ; }
+  script(src='/views/spreadsheets_v2/dashboard/underscore_template_loader.js?#{cacheBreaker}')
+  script(src='/views/spreadsheets_v2/dashboard/index.js?#{cacheBreaker}')
+  script(src='/vendor/alertify/alertify.min.js?#{cacheBreaker}')
+
+  
+block body
+ #wrapper
+    #sidebar-wrapper
+        ul#sheets.sidebar-nav
+          li.sidebar-brand
+      #page-content-wrapper
+        .page-content
+            #activeSheet

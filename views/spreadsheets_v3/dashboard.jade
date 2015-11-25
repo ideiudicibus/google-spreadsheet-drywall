@@ -1,0 +1,16 @@
+extends ../../layouts/account
+
+block head
+  title Dashboard
+
+block neck
+  link(rel='stylesheet', href='/views/spreadsheets/index.min.css?#{cacheBreaker}')
+
+block feet
+  
+  script(type='text/javascript').
+            var initData = function(){ return !{JSON.stringify(data)} ; }
+  script(src='/views/spreadsheets/dashboard/index.js?#{cacheBreaker}')
+
+  block body
+

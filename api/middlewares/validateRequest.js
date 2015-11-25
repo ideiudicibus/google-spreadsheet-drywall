@@ -28,7 +28,7 @@ module.exports = function(req, res, next) {
       }
 
       // Authorize the user to see if s/he can access our resources
-
+     
       validateUser(key,req,function(user,err){
 
       if (err) {
@@ -41,7 +41,6 @@ module.exports = function(req, res, next) {
       return;
           
         }
-
          if (user) {
 
        
