@@ -129,10 +129,16 @@ function synchDataParamsWithExcel(data,dataParam,excel_param_name_idx,label_idx,
    if(_.keys(i)[0] == getProperty(a,excel_param_name_idx)){
       obj.row=b;
       obj.col=value_col_idx.toString();
-      var tmpVal=getProperty(a,value_col_idx).trim();
-      
+      var tmpVal=getProperty(a,value_col_idx);
+      if(tmpVal!=undefined || tmpVal !=null) {tmpVal=tmpVal.trim();
       obj.value=tmpVal.indexOf('%')<0?tmpVal.split(".").join(""):tmpVal;
-      obj.label=getProperty(a,label_idx);
+      obj.label=getProperty(a,label_idx);}
+      else{
+        obj.value=tmpVal;
+        obj.label=getProperty(a,label_idx);
+
+      }
+
     }
     });
     if(obj!=null){   
@@ -489,6 +495,8 @@ workflow.on('patchSheet', function(req,p) {
 
 workflow.on('getActiveSheet',function(req){
   var activeSheet=req.body.record.activeSheet;
+  var synch=req.body.record.synch;
+  if(synch=='n'){
   req.app.db.models.Sheet.findById(req.params.sheetId).exec(function(err, sheet) {
     if (err) {
     return  workflow.emit('exception',err);
@@ -497,6 +505,10 @@ workflow.on('getActiveSheet',function(req){
     return workflow.emit('response');
   
  });
+}
+  if(synch=='y'){
+    workflow.emit('synchActiveSheetWithGoogleSpreadsheet',req);
+  }
 });
 
  workflow.on('synchActiveSheetWithGoogleSpreadsheet',function(req){
@@ -538,16 +550,18 @@ if(activeSheet.indexOf('default')>=0) sheetName='OPZ';
         var updatedParams={};
         //if(sheetName=='VV_UT') updatedParams=copyData(rows,1,4,3,JSON.parse(sheet.params));
         //if(sheetName=='VV_UT') updatedParams=copyData(rows,1,4,3,JSON.parse(sheet.params));
-        if(sheetName=='OPZ') {updatedParams=synchDataParamsWithExcel(rows,JSON.parse(sheet.params),3,2,4); 
+        if(sheetName=='OPZ') {
+          updatedParams=synchDataParamsWithExcel(rows,JSON.parse(sheet.params),3,2,4); 
         //  console.log(sys.inspect(sheet.params));
         }
         //copiare i valori dell'excel nei parametri definiti nel DB 
         if(sheetName=='INPUT') {
           
           //src_rows,mapping_col_idx,src_val_idx,src_label_idx,src_vect
+         
           updatedParams=copyData(rows,3,4,2,JSON.parse(sheet.params));
          
-          
+           console.log(updatedParams);
         }
 
 

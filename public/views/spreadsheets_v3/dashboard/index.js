@@ -78,7 +78,12 @@ loadActiveSheet(data.record);
 }
 
 function loadActiveSheet(spreadsheet){
+data.record.synch='n';
+if((data.record.activeSheet).indexOf('default')>0 || (data.record.activeSheet).indexOf('input')>0){
 
+  data.record.synch='y';
+
+}
 
 $('.active').toggleClass('active');
 var elem=$('#sheets').find('#'+spreadsheet.activeSheet);
@@ -128,9 +133,7 @@ elem.toggleClass('active');
                       loadSimulationLinkBehaviour();
                       //console.log(activeSheet.name);
                       if((activeSheet.name).indexOf('default')<0 ){
-                        if((activeSheet.name).indexOf('051')>=0 ){
-                            console.log('051');
-                            }
+                            loadButtonsBehaviourInput();
                         }
                       else {
                               loadButtonsBehaviourDefaultOpz();
@@ -737,7 +740,82 @@ if($(this).attr('class').indexOf('checkPercentage')>0){
 
 }
 
+function loadButtonsBehaviourInput(){
 
+      $('.updateParameterBtnFull').click(function(event){
+  event.preventDefault();
+var paramData = [];
+var params={};
+
+    $('#paramInputs').find('input, textarea, select').each(function(i, field) {
+    var obj={};
+            var v={};
+            v.row=$(field).attr('row');
+            v.col=$(field).attr('col');
+            v.value=field.value;
+            v.label=$(field).attr('label');
+            obj[field.name]=v
+            paramData.push(obj);
+  });
+  
+params.googleId=data.record.googleId;
+params.activeSheet=data.record.activeSheet;
+params.paramData=JSON.stringify(paramData);
+
+
+if($(this).attr('class').indexOf('checkPercentage')>0){
+
+  var i=0;
+ for (k in paramData){
+    var a=paramData[k];
+        for(kk in a ){
+          var v=a[kk];
+
+             if(v.value.indexOf('%')<0) { 
+              alertify.alert('il parametro '+v.label+' non contiene %'); 
+              return false;}
+
+    
+        }
+
+        }
+ 
+}
+
+
+
+ $.ajax({
+        
+        data:params,
+        type: "POST",
+        url: '/spreadsheets_v3/'+data.record._id+'/'+data.record.activeSheet+'/params',
+        dataType:"json",
+        success:  function (response) {
+          
+          switch(response.success)
+          {
+            case  false:
+              var errs=response.errors;
+              for(var j=0;j<errs.length;j++){
+                alertify.error(errs[j]);
+      }
+              break;
+            case  true:
+              var infos=response.infos;
+              for(var j=0;j<infos.length;j++){
+                alertify.log(infos[j]);
+      }    // console.log('4');
+            loadActiveSheet(data.record);
+           
+          }
+        }
+
+    })
+   
+    return false;
+
+})
+}
 
 function loadButtonsBehaviourDefaultOpz(){
 
