@@ -20,39 +20,39 @@
                             _.each(item,function(e,k){
                               %>
                               <tr>
-                              <td><%= e.label %></td>
+                              <td><%= e.label %> Valore attuale <i><%=e.value%></i></td>
                                <td> 
                               <% if(k.indexOf('[regione]')<0){
                                   %>
                                 <input id="<%= k %>" name="<%= k %>"  label="<%= e.label%>" row="<%= e.row%>" col="<%= e.col%>" type="text" value="<%= e.value %>" class="form-control "></input>
                                 <%} else {%>
 
-                                 <select id="<%= k %>" name="<%= k %>"  label="<%= e.label%>" row="<%= e.row%>" col="<%= e.col%>" type="text" placeholder="" value="<%= e.value %>" class="form-control ">
-<option>Italia</option>
-<option>Piemonte</option>
-<option>Valle d'Aosta</option>
-<option>Lombardia</option>
-<option>Trentino - Alto Adige</option>
-<option>Veneto</option>
-<option>Friuli Venezia Giulia</option>
-<option>Liguria</option>
-<option>Emilia Romagna</option>
-<option>Toscana</option>
-<option>Umbria</option>
-<option>Marche</option>
-<option>Lazio</option>
-<option>Abruzzo</option>
-<option>Molise</option>
-<option>Campania</option>
-<option>Puglia</option>
-<option>Basilicata</option>
-<option>Calabria</option>
-<option>Sicilia</option>
-<option>Sardegna</option>
-<option>Nord</option>
-<option>Centro</option>
-<option>Sud</option>
-                                 </select>
+                                 <select id="<%= k %>" name="<%= k %>"  label="<%= e.label%>" row="<%= e.row%>" col="<%= e.col%>" type="text"  class="form-control ">
+                                      <option>Italia</option>
+                                      <option>Piemonte</option>
+                                      <option>Valle d'Aosta</option>
+                                      <option>Lombardia</option>
+                                      <option>Trentino - Alto Adige</option>
+                                      <option>Veneto</option>
+                                      <option>Friuli Venezia Giulia</option>
+                                      <option>Liguria</option>
+                                      <option>Emilia Romagna</option>
+                                      <option>Toscana</option>
+                                      <option>Umbria</option>
+                                      <option>Marche</option>
+                                      <option>Lazio</option>
+                                      <option>Abruzzo</option>
+                                      <option>Molise</option>
+                                      <option>Campania</option>
+                                      <option>Puglia</option>
+                                      <option>Basilicata</option>
+                                      <option>Calabria</option>
+                                      <option>Sicilia</option>
+                                      <option>Sardegna</option>
+                                      <option>Nord</option>
+                                      <option>Centro</option>
+                                      <option>Sud</option>
+                                  </select>
                                 <% }
                                 %>
                                </td> 

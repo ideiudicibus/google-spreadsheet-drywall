@@ -17,6 +17,39 @@ obj[prop]=value;
 return obj;
 }
 
+
+function copyDataNoLabel(src_rows,mapping_col_idx,src_val_idx,src_vect){
+
+  _.each(src_vect,function(i,k){
+     var obj={};
+  _.each(src_rows,function(a,b){
+
+   if(_.keys(i)[0] == getProperty(a,mapping_col_idx)){
+      obj=_.clone(_.values(i)[0]);
+   
+      var tmpVal=getProperty(a,src_val_idx);
+
+      if(_.isString(tmpVal)){
+        tmpVal=tmpVal.trim();
+        obj.value=tmpVal.indexOf('%')<0?tmpVal.split(".").join(""):tmpVal;
+
+      }
+      else{
+           
+           obj.value=tmpVal;
+      }
+      
+    }
+
+    });
+    if(obj!=null){   
+     i=setProperty(i,_.keys(i)[0] ,obj);}
+
+});
+return src_vect;
+
+}
+
 /**
 copys the values from the column identified by the src_val_idx values into src_vect 
 the mapping_col_idx does the join 
@@ -191,20 +224,20 @@ function prepareParamsForExcel(params){
 exports.updateParams = function(req, res, next){
 var workflow = req.app.utility.workflow(req, res);
 var param= req.body;
+var sheetName=param.sheetName;
 
 workflow.on('updateGoogleSpreadsheet',function(p){
 
   var params=JSON.parse(p.paramData);
   //var sheetName='VV_UT';
-  var sheetName='INPUT';
+  //var sheetName='INPUT';
   var activeSheet=p.activeSheet;
 
-if(activeSheet.indexOf('default')>0) sheetName='OPZ';
+//if(activeSheet.indexOf('default')>0) sheetName='OPZ';
 //console.log('params to tranform are: '+ sys.inspect(params));
 //console.log('params to send are: '+ sys.inspect(prepareParamsForExcel(params)));
   
 updateSheet(p.googleId,prepareParamsForExcel(params),sheetName,workflow,req);
-
 });
 
 
@@ -478,10 +511,11 @@ exports.getActiveSheet= function(req, res, next){
 
 
 workflow.on('patchSheet', function(req,p) {
-  console.log('patchSheet');
+ console.log('patchSheet : '+sys.inspect(p));
     var fieldsToSet = {
       params: JSON.stringify(p)
     };
+     
     req.app.db.models.Sheet.findByIdAndUpdate(req.params.sheetId, fieldsToSet, function(err, sheet) {
       if (err) {
         return workflow.emit('exception', err);
@@ -497,6 +531,7 @@ workflow.on('getActiveSheet',function(req){
   var activeSheet=req.body.record.activeSheet;
   var synch=req.body.record.synch;
   if(synch=='n'){
+
   req.app.db.models.Sheet.findById(req.params.sheetId).exec(function(err, sheet) {
     if (err) {
     return  workflow.emit('exception',err);
@@ -516,9 +551,10 @@ workflow.on('getActiveSheet',function(req){
 var activeSheet=req.body.record.activeSheet;
 
 var googleId=req.body.record.googleId;
-var sheetName='INPUT';
+
+var sheetName=req.body.record.synchSheetName;
   
-if(activeSheet.indexOf('default')>=0) sheetName='OPZ';
+//if(activeSheet.indexOf('default')>=0) sheetName='OPZ';
 
   req.app.db.models.Sheet.findById(req.params.sheetId).select('-textNote').exec(function(err, sheet) {
     if (err) {
@@ -551,8 +587,13 @@ if(activeSheet.indexOf('default')>=0) sheetName='OPZ';
         //if(sheetName=='VV_UT') updatedParams=copyData(rows,1,4,3,JSON.parse(sheet.params));
         //if(sheetName=='VV_UT') updatedParams=copyData(rows,1,4,3,JSON.parse(sheet.params));
         if(sheetName=='OPZ') {
-          updatedParams=synchDataParamsWithExcel(rows,JSON.parse(sheet.params),3,2,4); 
+
+          //updatedParams=synchDataParamsWithExcel(rows,JSON.parse(sheet.params),3,2,4); 
+         
+          updatedParams=copyData(rows,3,4,2,JSON.parse(sheet.params));
+          console.log('patched updatedParams 1' +sys.inspect(updatedParams));
         //  console.log(sys.inspect(sheet.params));
+        
         }
         //copiare i valori dell'excel nei parametri definiti nel DB 
         if(sheetName=='INPUT') {
@@ -561,10 +602,22 @@ if(activeSheet.indexOf('default')>=0) sheetName='OPZ';
          
           updatedParams=copyData(rows,3,4,2,JSON.parse(sheet.params));
          
-           console.log(updatedParams);
+           
         }
+         if(sheetName=='TER') {
+          
+           //updatedParams=copyDataNoLabel(rows,19,6,JSON.parse(sheet.params));
+           updatedParams=copyData(rows,19,6,19,JSON.parse(sheet.params));
+           
+         }
+         if(sheetName=='COSTOF'){
+          updatedParams=copyData(rows,3,6,2,JSON.parse(sheet.params));
+          
+         }
 
 
+
+         console.log('now calling patchSheet 2'+sys.inspect(updatedParams));
         return workflow.emit('patchSheet',req,updatedParams);
        
 

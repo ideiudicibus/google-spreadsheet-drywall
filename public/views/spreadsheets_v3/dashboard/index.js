@@ -67,7 +67,7 @@ var li='<li ><a href="#" id="'+array[i]._id+'" class="sheetId '+checkActiveSheet
 $(li).appendTo(vroot);
 }
 else {
-  //console.log(array[i]._id);
+  console.log(array[i]._id);
   var li='<li ><a href="#" id="'+array[i]._id+'" class="sheetId '+checkActiveSheetClass(array[i]._id,spreadsheet.activeSheet)+'" >'+array[i].spreadsheetId+'</a></li>';
   $(li).appendTo(hroot);
 }
@@ -79,11 +79,37 @@ loadActiveSheet(data.record);
 
 function loadActiveSheet(spreadsheet){
 data.record.synch='n';
-if((data.record.activeSheet).indexOf('default')>0 || (data.record.activeSheet).indexOf('input')>0){
+if((data.record.activeSheet).indexOf('default')>0 ){
 
   data.record.synch='y';
+  data.record.synchSheetName='OPZ';
 
 }
+if((data.record.activeSheet).indexOf('input')>0){
+    data.record.synch='y';
+    data.record.synchSheetName='INPUT';
+
+}
+
+if((data.record.activeSheet).indexOf('ter')>0){
+    data.record.synch='y';
+    data.record.synchSheetName='TER';
+
+}
+
+if((data.record.activeSheet).indexOf('costof')>0){
+    data.record.synch='y';
+    data.record.synchSheetName='COSTOF';
+
+}
+
+if((data.record.activeSheet).indexOf('opz2')>0 ){
+
+  data.record.synch='y';
+  data.record.synchSheetName='OPZ';
+
+}
+
 
 $('.active').toggleClass('active');
 var elem=$('#sheets').find('#'+spreadsheet.activeSheet);
@@ -114,12 +140,11 @@ elem.toggleClass('active');
              activeSheet=response.sheet;
 
 
-           //console.log(data.record.pivot);
-           // console.log(activeSheet);
+          
            var pivot=data.record.pivot;
            var tmplFile=activeSheet._id;
           
-           console.log(activeSheet._id);
+          
            templateLoader.loadRemoteTemplate(activeSheet._id, "/views/spreadsheets_v3/dashboard/"+activeSheet._id+"-tmpl.html?", 
             function(data) {
               var compiled = _.template(data);
@@ -132,14 +157,26 @@ elem.toggleClass('active');
                       loadSavedSimulations();
                       loadSimulationLinkBehaviour();
                       //console.log(activeSheet.name);
-                      if((activeSheet.name).indexOf('default')<0 ){
+                      if((activeSheet.name).indexOf('input')==0 ){
                             loadButtonsBehaviourInput();
                         }
-                      else {
+                      if((activeSheet.name).indexOf('ter')==0 ){
+                           loadUpdateParameterBtnBehaviourFullTer();
+                        }
+                      if((activeSheet.name).indexOf('costof')==0 ){
+                           loadUpdateParameterBtnBehaviourFullCostof();
+                        }
+
+                      if((activeSheet.name).indexOf('default')==0 ) {
                               loadButtonsBehaviourDefaultOpz();
-                              setSelectedInputs();
-                              resetParamsActiveSheetBtnBehaviour();
+                              //setSelectedInputs();
+                              //resetParamsActiveSheetBtnBehaviour();
                              //saveSimulationBtnBehaviour();
+
+                      };
+                      if((activeSheet.name).indexOf('opz2')==0 ) {
+                              loadButtonsBehaviourDefaultOpz();
+
 
                       };
                     
@@ -169,9 +206,93 @@ function reloadParametersBtnBehaviour(){
 
 }
 
-function loadUpdateParameterBtnBehaviourFullP012() {
+function loadUpdateParameterBtnBehaviourFullCostof() {
 
+console.log('loadUpdateParameterBtnBehaviourFullCostof');
+  $('.updateParameterBtnFull').click(function(event){
+  event.preventDefault();
 
+   var tmp=$(this).parent().parent().parent().parent();
+   //console.log(tmp.attr('id'));
+
+   $(tmp).modal('toggle');
+
+var paramData = [];
+var params={};
+
+    $(tmp).find('input, textarea, select').each(function(i, field) {
+    var obj={};
+            var v={};
+            v.row=$(field).attr('row');
+            v.col=$(field).attr('col');
+            v.value=field.value;
+            v.label=$(field).attr('label');
+            obj[field.name]=v
+            paramData.push(obj);
+  });
+  
+params.googleId=data.record.googleId;
+params.activeSheet=data.record.activeSheet;
+params.paramData=JSON.stringify(paramData);
+
+if($(this).attr('class').indexOf('checkNumber')>0){
+
+  var i=0;
+ for (k in paramData){
+  
+    var a=paramData[k];
+        for(kk in a ){
+          var v=a[kk];
+   var reg1 = new RegExp(/^(?:\d*,\d{1,2}|\d+)$/);
+   v.value=v.value.trim();
+
+          if(v.value!=null && v.value.length>0 && !reg1.test(v.value)){
+             alertify.alert('il parametro '+v.value+' - '+v.label+' non è riconosciuto come numero decimale (es: 21,05)');
+             return false;
+            }
+    
+        }
+
+        }
+      }
+
+ params.sheetName='COSTOF';
+ $.ajax({
+        
+        data:params,
+        type: "POST",
+        url: '/spreadsheets_v3/'+data.record._id+'/'+data.record.activeSheet+'/params',
+        dataType:"json",
+        success:  function (response) {
+          
+          switch(response.success)
+          {
+            case  false:
+              var errs=response.errors;
+              for(var j=0;j<errs.length;j++){
+                alertify.error(errs[j]);
+      }
+              break;
+            case  true:
+              var infos=response.infos;
+              for(var j=0;j<infos.length;j++){
+                alertify.log(infos[j]);
+      }     //console.log('1');
+            loadActiveSheet(data.record);
+           
+          }
+        }
+
+    })
+   
+    return false;
+
+});
+}
+
+function loadUpdateParameterBtnBehaviourFullTer() {
+
+console.log('loadUpdateParameterBtnBehaviourFullTer');
   $('.updateParameterBtnFull').click(function(event){
   event.preventDefault();
 
@@ -228,6 +349,7 @@ else{
  
 }
 
+ params.sheetName='TER';
  $.ajax({
         
         data:params,
@@ -262,487 +384,9 @@ else{
 
 }
 
-
-
-function loadUpdateParameterBtnBehaviourFullP013() {
-
-
-  $('.updateParameterBtnFull').click(function(event){
-  event.preventDefault();
-
-   var tmp=$(this).parent().parent().parent().parent();
-   //console.log(tmp.attr('id'));
-
-   $(tmp).modal('toggle');
-
-var paramData = [];
-var params={};
-
-    $(tmp).find('input, textarea, select').each(function(i, field) {
-    var obj={};
-            var v={};
-            v.row=$(field).attr('row');
-            v.col=$(field).attr('col');
-            v.value=field.value;
-            v.label=$(field).attr('label');
-            obj[field.name]=v
-            paramData.push(obj);
-  });
-  
-params.googleId=data.record.googleId;
-params.activeSheet=data.record.activeSheet;
-params.paramData=JSON.stringify(paramData);
-
-
-if($(this).attr('class').indexOf('checkPercentage')>0){
-
-  var i=0;
- for (k in paramData){
-    var a=paramData[k];
-        for(kk in a ){
-          var v=a[kk];
-
-             if(v.value.indexOf('%')<0) { 
-              alertify.alert('il parametro '+v.label+' non contiene %'); 
-              return false;}
-else{
-   v.value=v.value.indexOf(',')>0?v.value.replace(/,/g, '.'):v.value;
-   v.value=v.value.trim();
-   var tmp=v.value.split("%").join("");
-   i=i+parseFloat(tmp);
-   }
-    
-        }
-
-        }
-
- 
-  if(i>100.00){ alertify.alert('Attenzione parametri non validi: la somma dei parametri è maggiore del 100% ');
-  return false;}
-   if(Math.ceil(i)!=100.00){ alertify.alert('Attenzione parametri non validi: la somma dei parametri è diversa dal 100% ');
-  return false;}
-}
-
-
- $.ajax({
-        
-        data:params,
-        type: "POST",
-        url: '/spreadsheets_v3/'+data.record._id+'/'+data.record.activeSheet+'/params',
-        dataType:"json",
-        success:  function (response) {
-          
-          switch(response.success)
-          {
-            case  false:
-              var errs=response.errors;
-              for(var j=0;j<errs.length;j++){
-                alertify.error(errs[j]);
-      }
-              break;
-            case  true:
-              var infos=response.infos;
-              for(var j=0;j<infos.length;j++){
-                alertify.log(infos[j]);
-      }     //console.log('2');
-            loadActiveSheet(data.record);
-           
-          }
-        }
-
-    })
-   
-    return false;
-
-})
-
-}
-
-function loadUpdateParameterBtnBehaviourFullP015() {
-
-  $('.updateParameterBtnFull').click(function(event){
-  event.preventDefault();
-
-   var tmp=$(this).parent().parent().parent().parent();
-   //console.log(tmp.attr('id'));
-
-   $(tmp).modal('toggle');
-
-var paramData = [];
-var params={};
-
-    $(tmp).find('input, textarea, select').each(function(i, field) {
-    var obj={};
-            var v={};
-            v.row=$(field).attr('row');
-            v.col=$(field).attr('col');
-            v.value=field.value;
-            v.label=$(field).attr('label');
-            obj[field.name]=v
-            paramData.push(obj);
-  });
-  
-params.googleId=data.record.googleId;
-params.activeSheet=data.record.activeSheet;
-params.paramData=JSON.stringify(paramData);
-
-
-if($(this).attr('class').indexOf('checkPercentage')>0){
-
-  var i=0;
- for (k in paramData){
-  
-    var a=paramData[k];
-        for(kk in a ){
-          var reg = new RegExp(/Prezzo|scat/);
-          var v=a[kk];
-          if(v.label.indexOf('%')>=0){  
-
-             if(v.value!=null && v.value.length>0 && v.value.indexOf('%')<0) { 
-              alertify.alert('il parametro '+v.label+' non contiene %'); 
-              return false;}
-          else{
-             v.value=v.value.indexOf(',')>0?v.value.replace(/,/g, '.'):v.value;
-             v.value=v.value.trim();
-             var tmp=v.value.split("%").join("");
-             i=parseFloat(tmp);
-            if(i>100.00){ alertify.alert('Attenzione parametri non validi: il valore '+i+'% inserito per '+v.label+' è maggiore del 100% ');
-            return false;}
-             }
- }
- else {
-   var reg1 = new RegExp(/^(?:\d*,\d{1,2}|\d+)$/);
-   v.value=v.value.trim();
-
-          if(v.value!=null && v.value.length>0 && !reg1.test(v.value)){
-             alertify.alert('il parametro '+v.value+' - '+v.label+' non è riconosciuto come numero decimale (es: 21,05)');
-             return false;
-            }
-
- }
-
-    
-        }
-
-        }
- 
-
-}
-
- $.ajax({
-        
-        data:params,
-        type: "POST",
-        url: '/spreadsheets_v3/'+data.record._id+'/'+data.record.activeSheet+'/params',
-        dataType:"json",
-        success:  function (response) {
-          
-          switch(response.success)
-          {
-            case  false:
-              var errs=response.errors;
-              for(var j=0;j<errs.length;j++){
-                alertify.error(errs[j]);
-      }
-              break;
-            case  true:
-              var infos=response.infos;
-              for(var j=0;j<infos.length;j++){
-                alertify.log(infos[j]);
-      }     //console.log('2');
-            loadActiveSheet(data.record);
-           
-          }
-        }
-
-    })
-   
-    return false;
-
-})
-
-}
-
-
-
-
-function loadUpdateParameterBtnBehaviourFullP017() {
-
- $('.updateParameterBtnFull').click(function(event){
-  event.preventDefault();
-
-   var tmp=$(this).parent().parent().parent().parent();
-   //console.log(tmp.attr('id'));
-
-   $(tmp).modal('toggle');
-
-var paramData = [];
-var params={};
-
-    $(tmp).find('input, textarea, select').each(function(i, field) {
-    var obj={};
-            var v={};
-            v.row=$(field).attr('row');
-            v.col=$(field).attr('col');
-            v.value=field.value;
-            v.label=$(field).attr('label');
-            obj[field.name]=v
-            paramData.push(obj);
-  });
-  
-params.googleId=data.record.googleId;
-params.activeSheet=data.record.activeSheet;
-params.paramData=JSON.stringify(paramData);
-
-
-if($(this).attr('class').indexOf('checkNumber')>0){
-
-  var i=0;
- for (k in paramData){
-  
-    var a=paramData[k];
-        for(kk in a ){
-          var v=a[kk];
-   var reg1 = new RegExp(/^(?:\d*,\d{1,2}|\d+)$/);
-   v.value=v.value.trim();
-
-          if(v.value!=null && v.value.length>0 && !reg1.test(v.value)){
-             alertify.alert('il parametro '+v.value+' - '+v.label+' non è riconosciuto come numero decimale (es: 21,05)');
-             return false;
-            }
-    
-        }
-
-        }
- 
-
-}
-
- $.ajax({
-        
-        data:params,
-        type: "POST",
-        url: '/spreadsheets_v3/'+data.record._id+'/'+data.record.activeSheet+'/params',
-        dataType:"json",
-        success:  function (response) {
-          
-          switch(response.success)
-          {
-            case  false:
-              var errs=response.errors;
-              for(var j=0;j<errs.length;j++){
-                alertify.error(errs[j]);
-      }
-              break;
-            case  true:
-              var infos=response.infos;
-              for(var j=0;j<infos.length;j++){
-                alertify.log(infos[j]);
-      }     //console.log('2');
-            loadActiveSheet(data.record);
-           
-          }
-        }
-
-    })
-   
-    return false;
-
-})
-
-
-}
-
-
-
-
-
-
-
-function loadUpdateParameterBtnBehaviourFullP014() {
-
-
-  $('.updateParameterBtnFull').click(function(event){
-  event.preventDefault();
-
-   var tmp=$(this).parent().parent().parent().parent();
-   //console.log(tmp.attr('id'));
-
-   $(tmp).modal('toggle');
-
-var paramData = [];
-var params={};
-
-    $(tmp).find('input, textarea, select').each(function(i, field) {
-    var obj={};
-            var v={};
-            v.row=$(field).attr('row');
-            v.col=$(field).attr('col');
-            v.value=field.value;
-            v.label=$(field).attr('label');
-            obj[field.name]=v
-            paramData.push(obj);
-  });
-  
-params.googleId=data.record.googleId;
-params.activeSheet=data.record.activeSheet;
-params.paramData=JSON.stringify(paramData);
-
-
-if($(this).attr('class').indexOf('checkPercentage')>0){
-
-  var i=0;
- for (k in paramData){
-  
-    var a=paramData[k];
-        for(kk in a ){
-          var v=a[kk];
-
-             if(v.value.indexOf('%')<0) { 
-              alertify.alert('il parametro '+v.label+' non contiene %'); 
-              return false;}
-else{
-   v.value=v.value.indexOf(',')>0?v.value.replace(/,/g, '.'):v.value;
-   v.value=v.value.trim();
-   var tmp=v.value.split("%").join("");
-   i=parseFloat(tmp);
-  if(i>100.00){ alertify.alert('Attenzione parametri non validi: il valore '+i+'% inserito per '+v.label+' è maggiore del 100% ');
-  return false;}
-   }
-    
-        }
-
-        }
- 
-
-}
-
- $.ajax({
-        
-        data:params,
-        type: "POST",
-        url: '/spreadsheets_v3/'+data.record._id+'/'+data.record.activeSheet+'/params',
-        dataType:"json",
-        success:  function (response) {
-          
-          switch(response.success)
-          {
-            case  false:
-              var errs=response.errors;
-              for(var j=0;j<errs.length;j++){
-                alertify.error(errs[j]);
-      }
-              break;
-            case  true:
-              var infos=response.infos;
-              for(var j=0;j<infos.length;j++){
-                alertify.log(infos[j]);
-      }     //console.log('2');
-            loadActiveSheet(data.record);
-           
-          }
-        }
-
-    })
-   
-    return false;
-
-})
-
-}
-
-
-function loadUpdateParameterBtnBehaviourFullP016() {
-
-
-  $('.updateParameterBtnFull').click(function(event){
-  event.preventDefault();
-
-   var tmp=$(this).parent().parent().parent().parent();
-   //console.log(tmp.attr('id'));
-
-   $(tmp).modal('toggle');
-
-var paramData = [];
-var params={};
-
-    $(tmp).find('input, textarea, select').each(function(i, field) {
-    var obj={};
-            var v={};
-            v.row=$(field).attr('row');
-            v.col=$(field).attr('col');
-            v.value=field.value;
-            v.label=$(field).attr('label');
-            obj[field.name]=v
-            paramData.push(obj);
-  });
-  
-params.googleId=data.record.googleId;
-params.activeSheet=data.record.activeSheet;
-params.paramData=JSON.stringify(paramData);
-
-
-if($(this).attr('class').indexOf('checkPercentage')>0){
-  for (k in paramData){
-    var a=paramData[k];
-        for(kk in a ){
-          var v=a[kk];
-               if(v.value.indexOf('%')<0) { 
-                  alertify.alert('il parametro '+v.label+' non contiene %'); 
-                  return false;}
-                v.value=v.value.indexOf(',')>0?v.value.replace(/,/g, '.'):v.value;
-                v.value=v.value.trim();
-                var tmp=v.value.split("%").join("");
-                tmp=parseFloat(tmp); 
-                if (isNaN(tmp)) { 
-                  alertify.alert('il parametro '+v.label+' non è riconosciuto come numero (es: 21.5 oppure 21,5) '); 
-                  return false; 
-                }
-                if(tmp>100.00){
-                   alertify.alert('il parametro '+v.label+' è superiore a 100.00'); 
-                  return false; 
-                }
-        }
-}
-}
-
- $.ajax({
-        
-        data:params,
-        type: "POST",
-        url: '/spreadsheets_v3/'+data.record._id+'/'+data.record.activeSheet+'/params',
-        dataType:"json",
-        success:  function (response) {
-          
-          switch(response.success)
-          {
-            case  false:
-              var errs=response.errors;
-              for(var j=0;j<errs.length;j++){
-                alertify.error(errs[j]);
-      }
-              break;
-            case  true:
-              var infos=response.infos;
-              for(var j=0;j<infos.length;j++){
-                alertify.log(infos[j]);
-      }     //console.log('2');
-            loadActiveSheet(data.record);
-           
-          }
-        }
-
-    })
-   
-    return false;
-
-})
-
-}
-
 function loadButtonsBehaviourInput(){
 
-      $('.updateParameterBtnFull').click(function(event){
+$('.updateParameterBtnFull').click(function(event){
   event.preventDefault();
 var paramData = [];
 var params={};
@@ -783,7 +427,7 @@ if($(this).attr('class').indexOf('checkPercentage')>0){
 }
 
 
-
+console.log('now calling loadButtonsBehaviourInput');
  $.ajax({
         
         data:params,
@@ -829,8 +473,8 @@ var params={};
   
 params.googleId=data.record.googleId;
 params.activeSheet=data.record.activeSheet;
+params.sheetName='OPZ';
 
-console.log(params);
  $.ajax({
         
         data:params,
@@ -864,11 +508,6 @@ console.log(params);
 })
 
 
-
-
-
-
-
     $('.updateParameterBtnFull').click(function(event){
   event.preventDefault();
 var paramData = [];
@@ -888,6 +527,7 @@ var params={};
 params.googleId=data.record.googleId;
 params.activeSheet=data.record.activeSheet;
 params.paramData=JSON.stringify(paramData);
+params.sheetName='OPZ';
 
  $.ajax({
         
@@ -949,7 +589,7 @@ var params={};
 params.googleId=data.record.googleId;
 params.activeSheet=data.record.activeSheet;
 params.paramData=JSON.stringify(paramData);
-
+console.log('now calling loadUpdateParameterBtnBehaviourFull');
  $.ajax({
         
         data:params,
@@ -1087,104 +727,7 @@ return false;
 
 
 
-function loadUpdateParameterBtnBehaviourSingleP011(){
 
-
-  $('.updateParameterBtn').click(function(event){
-  event.preventDefault();
-  $('#paramInputs').modal('toggle');
-  var paramData = [];
-  var params={};
-
-  $(this).parent().parent().find('input').each(function(i,field){
-        var obj={};
-            var v={};
-            v.row=$(field).attr('row');
-            v.col=$(field).attr('col');
-            v.value=field.value;
-            v.label=$(field).attr('label');
-            obj[$(field).attr('name')]=v;
-            paramData.push(obj); 
-  });
-  
-params.googleId=data.record.googleId;
-params.activeSheet=data.record.activeSheet;
-params.paramData=JSON.stringify(paramData);
-
-
-if($(this).attr('class').indexOf('checkNumber')>0){
-  for (k in paramData){
-    var a=paramData[k];
-        for(kk in a ){
-          var v=a[kk];
-          var reg = new RegExp('^[0-9]+$');
-          if(!reg.test(v.value)){
-             alertify.alert('il parametro '+v.label+' non è riconosciuto come numero intero (es: 21)');
-             return false;
-            }
-        }
-}
-}
-
-if($(this).attr('class').indexOf('checkPercentage')>0){
-  for (k in paramData){
-    var a=paramData[k];
-        for(kk in a ){
-          var v=a[kk];
-               if(v.value.indexOf('%')<0) { 
-                  alertify.alert('il parametro '+v.label+' non contiene %'); 
-                  return false;}
-                v.value=v.value.indexOf(',')>0?v.value.replace(/,/g, '.'):v.value;
-                v.value=v.value.trim();
-                var tmp=v.value.split("%").join("");
-                tmp=parseFloat(tmp); 
-                if (isNaN(tmp)) { 
-                  alertify.alert('il parametro '+v.label+' non è riconosciuto come numero (es: 21.5 oppure 21,5) '); 
-                  return false; 
-                }
-                if(tmp>100.00){
-                   alertify.alert('il parametro '+v.label+' è superiore a 100.00'); 
-                  return false; 
-                }
-        }
-}
-}
-
- $.ajax({
-        
-        data:params,
-        type: "POST",
-        url: '/spreadsheets_v3/'+data.record._id+'/'+data.record.activeSheet+'/params',
-        dataType:"json",
-        success:  function (response) {
-          
-          switch(response.success)
-          {
-            case  false:
-              var errs=response.errors;
-              for(var j=0;j<errs.length;j++){
-                alertify.error(errs[j]);
-      }
-              break;
-            case  true:
-              var infos=response.infos;
-              for(var j=0;j<infos.length;j++){
-                alertify.log(infos[j]);
-      }       //console.log('7')
-            loadActiveSheet(data.record);
-         
-          }
-        }
-
-    })
-   
-    return false;
-
-})
-
-
-  
-}
 
 
 function loadUpdateParameterBtnBehaviour() {
@@ -1239,7 +782,7 @@ else{
   return false;}
  
 }
-
+console.log('now calling loadUpdateParameterBtnBehaviour')
  $.ajax({
         
         data:params,
