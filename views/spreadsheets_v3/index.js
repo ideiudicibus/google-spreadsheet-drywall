@@ -511,7 +511,7 @@ exports.getActiveSheet= function(req, res, next){
 
 
 workflow.on('patchSheet', function(req,p) {
- console.log('patchSheet : '+sys.inspect(p));
+
     var fieldsToSet = {
       params: JSON.stringify(p)
     };
@@ -530,6 +530,21 @@ workflow.on('patchSheet', function(req,p) {
 workflow.on('getActiveSheet',function(req){
   var activeSheet=req.body.record.activeSheet;
   var synch=req.body.record.synch;
+
+  req.params.opzGenSheetId='6-opz2';
+  req.params.opzRegSheetId='6-default';
+
+  req.app.db.models.Sheet.findById('6-opz2').exec(function(err, sheet) {
+      
+      
+     workflow.outcome.opzGen=sheet;
+  });
+    req.app.db.models.Sheet.findById('6-default').exec(function(err, sheet) {
+      
+      
+     workflow.outcome.opzReg=sheet;
+  });
+
   if(synch=='n'){
 
   req.app.db.models.Sheet.findById(req.params.sheetId).exec(function(err, sheet) {
@@ -617,7 +632,7 @@ var sheetName=req.body.record.synchSheetName;
 
 
 
-         console.log('now calling patchSheet 2'+sys.inspect(updatedParams));
+        
         return workflow.emit('patchSheet',req,updatedParams);
        
 

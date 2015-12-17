@@ -41,6 +41,7 @@ app.configure(function(){
   app.set('view engine', 'jade');
   app.set('strict routing', true);
   app.set('project-name', config.projectName);
+  app.set('project-name-v3', config.projectNameV3);
   app.set('company-name', config.companyName);
   app.set('system-email', config.systemEmail);
   app.set('crypto-key', config.cryptoKey);
@@ -116,6 +117,7 @@ app.configure(function(){
 
   //global locals
   app.locals.projectName = app.get('project-name');
+  app.locals.projectNameV3 = app.get('project-name-v3');
   app.locals.copyrightYear = new Date().getFullYear();
   app.locals.copyrightName = app.get('company-name');
   app.locals.cacheBreaker = 'br34k-01';

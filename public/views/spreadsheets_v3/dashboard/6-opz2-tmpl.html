@@ -20,10 +20,9 @@
                             _.each(item,function(e,k){
                               %>
                               <tr>
-                              <td><%= e.label %> Valore attuale <i><%=e.value%></i></td>
+                              <td><%= e.label %></i></td>
                                <td> 
-                                <input id="<%= k %>" name="<%= k %>"  label="<%= e.label%>" row="<%= e.row%>" col="<%= e.col%>" type="text" value="<%= e.value %>" class="form-control "></input>
-                              
+                                <input type="checkbox"  id="<%= k %>" name="<%= k %>"  label="<%= e.label%>" row="<%= e.row%>" col="<%= e.col%>" type="text" <%= e.value!== 'X' ?  '' : 'checked="checked" ' %>></input> 
                                </td> 
 
                               </tr>

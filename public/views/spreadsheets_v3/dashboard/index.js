@@ -3,6 +3,8 @@ google.load("visualization", '1.1', {packages:['corechart','table']});
 
 var data=initData();
 var activeSheet;
+var opzGen;
+var opzReg;
 
 
 
@@ -138,6 +140,8 @@ elem.toggleClass('active');
                 alertify.log(infos[j]);
                 }   
              activeSheet=response.sheet;
+             opzGen=response.opzGen;
+             opzReg=response.opzReg;
 
 
           
@@ -148,8 +152,8 @@ elem.toggleClass('active');
            templateLoader.loadRemoteTemplate(activeSheet._id, "/views/spreadsheets_v3/dashboard/"+activeSheet._id+"-tmpl.html?", 
             function(data) {
               var compiled = _.template(data);
-             
-              $('#activeSheet').html(compiled({textNote:activeSheet.textNote,activeSheetName:activeSheet.name,params:JSON.parse(activeSheet.params)}));
+             console.log(activeSheet._id);
+              $('#activeSheet').html(compiled({opzRegParams:JSON.parse(opzReg.params),opzGenParams:JSON.parse(opzGen.params),textNote:activeSheet.textNote,activeSheetName:activeSheet.name,params:JSON.parse(activeSheet.params)}));
                       var aname=activeSheet._id;
                       
                       resetHtmlTemplates();
@@ -463,6 +467,8 @@ console.log('now calling loadButtonsBehaviourInput');
 
 function loadButtonsBehaviourDefaultOpz(){
 
+
+
     
    $('.resetAllParameters').click(function(event){
   event.preventDefault();
@@ -518,12 +524,13 @@ var params={};
             var v={};
             v.row=$(field).attr('row');
             v.col=$(field).attr('col');
-            v.value=field.value;
+            v.value=(field.value=='on'?'X':'');
             v.label=$(field).attr('label');
             obj[field.name]=v
             paramData.push(obj);
+
   });
-  
+
 params.googleId=data.record.googleId;
 params.activeSheet=data.record.activeSheet;
 params.paramData=JSON.stringify(paramData);

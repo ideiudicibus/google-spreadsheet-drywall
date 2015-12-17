@@ -3,7 +3,7 @@ function drawCharts(spreadsheet,activeSheet) {
 var activeSheetName=activeSheet;
 
 var query1 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=A30:R94&pli=1'); 
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=A30:G94&pli=1'); 
 query1.send(handleQueryResponse1);
 
 }
@@ -40,6 +40,73 @@ function handleQueryResponse1(response) {
 drawCharts(data.record,activeSheetName);
 
 %>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+
+       <div class="table-responsive">
+              <table class="table" >
+              <thead>
+              Parametri Regione
+              </thead>
+                             <tbody>
+ <%
+                     
+                  _.each(opzRegParams,function(item){
+                            _.each(item,function(e,k){
+                             
+                              %>
+                              
+                              <td><%= e.label %>:<%= e.value %>
+                                
+                           
+                               </td> 
+
+                             
+                         
+                              
+                              <%})
+
+                    })
+              %>
+                            </tbody>
+              </table>
+
+      </div>
+      <div class="table-responsive">
+              <table class="table" >
+              <thead>
+              Parametri genotipo
+              </thead>
+                             <tbody>
+ <%
+                     
+                  _.each(opzGenParams,function(item){
+                            _.each(item,function(e,k){
+                             
+                              %>
+                              
+                              <td><%= e.label %>:
+                                
+                                <input disabled="disabled"  type="checkbox"  id="<%= k %>" name="<%= k %>"  label="<%= e.label%>" row="<%= e.row%>" col="<%= e.col%>" type="text" <%= e.value!== 'X' ?  '' : 'checked="checked" ' %>></input> 
+                               </td> 
+
+                             
+                         
+                              
+                              <%})
+
+                    })
+              %>
+                            </tbody>
+              </table>
+
+      </div>
+    </div>
+</div>
+</div>
+</div>
 <div class="row">
   <div class="col-md-12">
         <div class="panel panel-default">

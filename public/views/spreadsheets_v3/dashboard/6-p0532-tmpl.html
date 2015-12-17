@@ -48,7 +48,7 @@ var datatable=response.getDataTable();
 
 //remissioni annui
 
-var j={"view":{"columns":[{"sourceColumn":0},1,2,3]},"dataTable":datatable,"options":{"hAxis":{"textStyle":{"bold":true,"italic":false},"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"gridlines":{"color":"#FFFFFF"}}},"legend":{"position":"bottom"},"series":{"0":{"color":"#002060","dataLabel":"value"},"1":{"color":"#8F98A6","dataLabel":"value"},"2":{"color":"#00B0F0","dataLabel":"value"}},"useFirstColumnAsDomain":true,"width":700,"is3D":false,"title":"Remissioni (annui)","titleTextStyle":{"bold":true,"italic":false},"height":369},"chartType":"ColumnChart"};
+var j={"view":{"columns":[{"sourceColumn":0},1,2,3]},"dataTable":datatable,"options":{"hAxis":{"textStyle":{"bold":true,"italic":false},"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"gridlines":{"color":"#FFFFFF"}}},"legend":{"position":"bottom"},"series":{"0":{"color":"#002060","dataLabel":"value"},"1":{"color":"#8F98A6","dataLabel":"value"},"2":{"color":"#00B0F0","dataLabel":"value"}},"useFirstColumnAsDomain":true,"width":700,"is3D":false,"title":"Esiti","titleTextStyle":{"bold":true,"italic":false},"height":369},"chartType":"ColumnChart"};
 
 google.visualization.drawChart(j, document.getElementById('chart4')); 
 
@@ -83,7 +83,7 @@ var datatable=response.getDataTable();
 
 
 //remissioni annui
-var j={"view":{"columns":[{"sourceColumn":0},1]},"dataTable":{"rows":[{"c":[{"v":"Anno 0"},{"v":316655.2861165971,"f":"316.655"}]},{"c":[{"v":"Anno 1"},{"v":143206.5466038637,"f":"143.207"}]},{"c":[{"v":"Anno 2"},{"v":78209.5287655514,"f":"78.210"}]},{"c":[{"v":"Anno 3"},{"v":49558.108790903934,"f":"49.558"}]},{"c":[{"v":"Anno 4"},{"v":34912.59636252129,"f":"34.913"}]},{"c":[{"v":"Anno 5"},{"v":26416.95720337052,"f":"26.417"}]},{"c":[{"v":"Anno 6-10 media"},{"v":14882.042326296098,"f":"14.882"}]},{"c":[{"v":"Anno 11-15 media"},{"v":6534.389521976584,"f":"6.534"}]},{"c":[{"v":"Anno 16-20 media"},{"v":3127.9222777087243,"f":"3.128"}]},{"c":[{"v":"Anno 21-25 media"},{"v":1559.0495298550463,"f":"1.559"}]},{"c":[{"v":"Anno 26-30 media"},{"v":807.3988684038166,"f":"807"}]}],"cols":[{"id":"Col0","label":"","type":"string"},{"pattern":"#,##0","id":"Col1","label":"","type":"number"}]},"chartType":"ColumnChart","options":{"hAxis":{"textStyle":{"bold":true,"italic":false},"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"gridlines":{"color":"#FFFFFF"}}},"legend":{"position":"none"},"series":{"0":{"color":"#002060","dataLabel":"value"}},"useFirstColumnAsDomain":true,"width":700,"is3D":false,"title":"Remissioni (annue)","chartArea":{"backgroundColor":{"fill":"#FFFFFF"}},"titleTextStyle":{"bold":true,"italic":false},"height":369}};
+var j={"view":{"columns":[{"sourceColumn":0},1]},"dataTable":datatable,"chartType":"ColumnChart","options":{"hAxis":{"textStyle":{"bold":true,"italic":false},"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"gridlines":{"color":"#FFFFFF"}}},"legend":{"position":"none"},"series":{"0":{"color":"#002060","dataLabel":"value"}},"useFirstColumnAsDomain":true,"width":700,"is3D":false,"title":"Remissioni (annue)","chartArea":{"backgroundColor":{"fill":"#FFFFFF"}},"titleTextStyle":{"bold":true,"italic":false},"height":369}};
 
 google.visualization.drawChart(j, document.getElementById('chart2')); 
 
@@ -160,17 +160,7 @@ drawCharts(data.record,activeSheetName.substring(0,4),activeSheetName);
     </div>
 </div>
 
-
-<div class="row">
-  <div class="col-md-12">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <div id='chart3' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
-      </div>
-    </div>
-  </div>
-  </div>
-  <div class="row">
+ <div class="row">
     <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-body">
