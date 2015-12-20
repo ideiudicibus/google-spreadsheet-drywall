@@ -522,14 +522,17 @@ var params={};
     $('#paramInputs').find('input, textarea, select').each(function(i, field) {
     var obj={};
             var v={};
+            console.log();
             v.row=$(field).attr('row');
             v.col=$(field).attr('col');
-            v.value=(field.value=='on'?'X':'');
+            if(field.type=='checkbox') {v.value=(field.value=='on'?'X':'');}
+            else {v.value=field.value};
             v.label=$(field).attr('label');
             obj[field.name]=v
             paramData.push(obj);
 
   });
+
 
 params.googleId=data.record.googleId;
 params.activeSheet=data.record.activeSheet;
