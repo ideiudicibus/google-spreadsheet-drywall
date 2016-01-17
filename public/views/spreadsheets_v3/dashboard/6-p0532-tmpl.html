@@ -15,9 +15,9 @@ query1.send(handleQueryResponse1);
 
 var query2 = new google.visualization.Query(
       'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=C5:C15,D5:D15&pli=1');
-query2.send(handleQueryResponse2);
+//query2.send(handleQueryResponse2);
 
-
+//Remissioni Annue
 var query3 = new google.visualization.Query(
       'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=C5:C15,G5:G15&pli=1'); 
 query3.send(handleQueryResponse3);
@@ -25,7 +25,7 @@ query3.send(handleQueryResponse3);
 
 var query4 = new google.visualization.Query(
       'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=C5:15,E5:E15&pli=1'); 
-query4.send(handleQueryResponse4);
+//query4.send(handleQueryResponse4);
 
 
 var query5 = new google.visualization.Query(
@@ -46,9 +46,14 @@ var datatable=response.getDataTable();
 
 
 
-//remissioni annui
+//remissioni annui rinominato Esiti
 
-var j={"view":{"columns":[{"sourceColumn":0},1,2,3]},"dataTable":datatable,"options":{"hAxis":{"textStyle":{"bold":true,"italic":false},"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"gridlines":{"color":"#FFFFFF"}}},"legend":{"position":"bottom"},"series":{"0":{"color":"#002060","dataLabel":"value"},"1":{"color":"#8F98A6","dataLabel":"value"},"2":{"color":"#00B0F0","dataLabel":"value"}},"useFirstColumnAsDomain":true,"width":700,"is3D":false,"title":"Esiti","titleTextStyle":{"bold":true,"italic":false},"height":369},"chartType":"ColumnChart"};
+
+datatable.setColumnLabel(1,"Morti specifiche ");
+datatable.setColumnLabel(2,"Epatocarcinomi ");
+datatable.setColumnLabel(3,"Trapianti");
+
+var j={"view":{"columns":[{"sourceColumn":0},1,2,3]},"dataTable":datatable,"options":{"hAxis":{"textStyle":{"bold":true,"italic":false},"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"gridlines":{"color":"#FFFFFF"}}},"legend":{"position":"right"},"series":{"0":{"color":"#002060","dataLabel":"value"},"1":{"color":"#8F98A6","dataLabel":"value"},"2":{"color":"#00B0F0","dataLabel":"value"}},"useFirstColumnAsDomain":true,"width":600,"is3D":false,"title":"Esiti","titleTextStyle":{"bold":true,"italic":false},"height":369},"chartType":"ColumnChart"};
 
 google.visualization.drawChart(j, document.getElementById('chart4')); 
 
@@ -139,6 +144,75 @@ function handleQueryResponse0(response) {
 drawCharts(data.record,activeSheetName.substring(0,4),activeSheetName);
 
 %>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+
+       <div class="table-responsive">
+              <table class="table" >
+              <thead>
+              Parametri
+              </thead>
+                             <tbody>
+ <%
+                     
+                  _.each(opzRegParams,function(item){
+                            _.each(item,function(e,k){
+                             
+                              %>
+                              
+                              <td><%= e.label %>:<%= e.value %>
+                                
+                           
+                               </td> 
+
+                             
+                         
+                              
+                              <%})
+
+                    })
+              %>
+                            </tbody>
+              </table>
+
+      </div>
+      <div class="table-responsive">
+              <table class="table" >
+              <thead>
+              Parametri genotipo
+              </thead>
+                             <tbody>
+ <%
+                     
+                  _.each(opzGenParams,function(item){
+                            _.each(item,function(e,k){
+                             
+                              %>
+                              
+                              <td><%= e.label %>:
+                                
+                                <input disabled="disabled"  type="checkbox"  id="<%= k %>" name="<%= k %>"  label="<%= e.label%>" row="<%= e.row%>" col="<%= e.col%>" type="text" <%= e.value!== 'X' ?  '' : 'checked="checked" ' %>></input> 
+                               </td> 
+
+                             
+                         
+                              
+                              <%})
+
+                    })
+              %>
+                            </tbody>
+              </table>
+
+      </div>
+    </div>
+</div>
+</div>
+</div>
+
 <div class="row">
   <div class="col-md-12">
         <div class="panel panel-default">
@@ -158,6 +232,17 @@ drawCharts(data.record,activeSheetName.substring(0,4),activeSheetName);
       </div>
 </div>
     </div>
+</div>
+
+ <div class="row">
+    <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='chart2' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
  <div class="row">

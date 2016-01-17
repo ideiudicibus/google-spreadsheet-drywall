@@ -627,7 +627,7 @@ var sheetName=req.body.record.synchSheetName;
            
          }
          if(sheetName=='COSTOF'){
-          updatedParams=copyData(rows,3,6,2,JSON.parse(sheet.params));
+          updatedParams=copyData(rows,3,7,2,JSON.parse(sheet.params));
           
          }
 

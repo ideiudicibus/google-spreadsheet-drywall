@@ -14,6 +14,7 @@ var query1 = new google.visualization.Query(
       'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=C4:C15,D4:D15,E4:E15,F4:F15&pli=1'); 
 query1.send(handleQueryResponse1);
 
+//P053!C5:C15, P053!D5:D15 trattamenti annui
 var query2 = new google.visualization.Query(
       'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=C5:C15,D5:D15&pli=1');
 query2.send(handleQueryResponse2);
@@ -21,9 +22,9 @@ query2.send(handleQueryResponse2);
 
 var query3 = new google.visualization.Query(
       'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=C5:C15,G5:G15&pli=1'); 
-query3.send(handleQueryResponse3);
+//query3.send(handleQueryResponse3);
 
-
+//P053!C5:C15, P053!E5:E15 costi annui
 var query4 = new google.visualization.Query(
       'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=C5:C15,E5:E15&pli=1'); 
 query4.send(handleQueryResponse4);
@@ -31,8 +32,8 @@ query4.send(handleQueryResponse4);
 
 var query5 = new google.visualization.Query(
       'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=C6:C15,H6:H15,I6:I15,J6:J15&pli=1'); 
-//P053!C5:C15, P053!E5:E15
-query5.send(handleQueryResponse5);
+
+//query5.send(handleQueryResponse5);
 
 }
 
@@ -57,7 +58,7 @@ google.visualization.drawChart(j, document.getElementById('chart4'));
 }
 
 
-
+//costi annui
 function handleQueryResponse4(response) {
    
   if (response.isError()) {
@@ -94,7 +95,7 @@ google.visualization.drawChart(j, document.getElementById('chart2'));
 
 
 
-
+//trattamenti annui
 function handleQueryResponse2(response) {
    
   if (response.isError()) {
@@ -103,7 +104,7 @@ function handleQueryResponse2(response) {
   }
 
 var datatable=response.getDataTable();
-//trattamenti annui
+
 var j={"view":{"columns":[{"sourceColumn":0},1]},"dataTable":datatable,"chartType":"ColumnChart","options":{"hAxis":{"textStyle":{"bold":true,"italic":false},"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"gridlines":{"color":"#FFFFFF"}}},"legend":{"position":"none"},"series":{"0":{"color":"#002060","dataLabel":"value"}},"useFirstColumnAsDomain":true,"width":700,"is3D":false,"title":"Trattamenti (annui)","chartArea":{"backgroundColor":{"fill":"#FFFFFF"}},"titleTextStyle":{"bold":true,"italic":false},"height":369}}
 
 
@@ -142,6 +143,74 @@ function handleQueryResponse0(response) {
 drawCharts(data.record,activeSheetName.substring(0,4),activeSheetName);
 
 %>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+
+       <div class="table-responsive">
+              <table class="table" >
+              <thead>
+              Parametri
+              </thead>
+                             <tbody>
+ <%
+                     
+                  _.each(opzRegParams,function(item){
+                            _.each(item,function(e,k){
+                             
+                              %>
+                              
+                              <td><%= e.label %>:<%= e.value %>
+                                
+                           
+                               </td> 
+
+                             
+                         
+                              
+                              <%})
+
+                    })
+              %>
+                            </tbody>
+              </table>
+
+      </div>
+      <div class="table-responsive">
+              <table class="table" >
+              <thead>
+              Parametri genotipo
+              </thead>
+                             <tbody>
+ <%
+                     
+                  _.each(opzGenParams,function(item){
+                            _.each(item,function(e,k){
+                             
+                              %>
+                              
+                              <td><%= e.label %>:
+                                
+                                <input disabled="disabled"  type="checkbox"  id="<%= k %>" name="<%= k %>"  label="<%= e.label%>" row="<%= e.row%>" col="<%= e.col%>" type="text" <%= e.value!== 'X' ?  '' : 'checked="checked" ' %>></input> 
+                               </td> 
+
+                             
+                         
+                              
+                              <%})
+
+                    })
+              %>
+                            </tbody>
+              </table>
+
+      </div>
+    </div>
+</div>
+</div>
+</div>
 <div class="row">
   <div class="col-md-12">
         <div class="panel panel-default">
@@ -172,15 +241,6 @@ drawCharts(data.record,activeSheetName.substring(0,4),activeSheetName);
     </div>
   </div>
   </div>
-    <div class="row">
-    <div class="col-md-12">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <div id='chart2' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
-      </div>
-    </div>
-  </div>
-</div>
   <div class="row">
     <div class="col-md-12">
     <div class="panel panel-default">

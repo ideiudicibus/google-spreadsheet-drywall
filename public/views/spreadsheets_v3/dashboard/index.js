@@ -142,6 +142,8 @@ elem.toggleClass('active');
              activeSheet=response.sheet;
              opzGen=response.opzGen;
              opzReg=response.opzReg;
+             data.record.opzGen=opzGen;
+             data.record.opzReg=opzReg;
 
 
           
@@ -160,6 +162,7 @@ elem.toggleClass('active');
                      
                       loadSavedSimulations();
                       loadSimulationLinkBehaviour();
+                      loadPrintThisPageBehaviour(activeSheet.name);
                       //console.log(activeSheet.name);
                       if((activeSheet.name).indexOf('input')==0 ){
                             loadButtonsBehaviourInput();
@@ -190,6 +193,18 @@ elem.toggleClass('active');
 
         }
     })
+ }
+
+ function loadPrintThisPageBehaviour(pageName){
+
+ 
+/*
+  $('#print-this-page').click(function(event){
+ 
+$('.sidebar-collapse').toggleClass('collapse');
+     $("#activeSheet").width($(window).width());
+  })
+ */
  }
 
 function reloadParametersBtnBehaviour(){

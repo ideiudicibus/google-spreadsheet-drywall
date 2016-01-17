@@ -66,8 +66,8 @@ var auth = {
       return;
           }
 
-          if (!isValid) {
-            return done(null, false, { message: 'Invalid password' });
+      if (!isValid) {
+            //return done(null, false, { message: 'Invalid password' });
             res.status(401);
       res.json({
         "status": 401,

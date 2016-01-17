@@ -12,7 +12,7 @@ var query1 = new google.visualization.Query(
 query1.send(handleQueryResponse1);
 
 
-
+//trattamenti cumulata
 var query2 = new google.visualization.Query(
       'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=C5:C15,D5:D15&pli=1');
 query2.send(handleQueryResponse2);
@@ -20,9 +20,9 @@ query2.send(handleQueryResponse2);
 
 var query3 = new google.visualization.Query(
       'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=C5:C15,G5:G15&pli=1'); 
-query3.send(handleQueryResponse3);
+//query3.send(handleQueryResponse3);
 
-
+//P052!C5:C15, P052!E5:E15
 var query4 = new google.visualization.Query(
       'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=C5:15,E5:E15&pli=1'); 
 query4.send(handleQueryResponse4);
@@ -30,7 +30,7 @@ query4.send(handleQueryResponse4);
 
 var query5 = new google.visualization.Query(
       'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=C6:C15,H6:H15,I6:I15,J6:J15&pli=1'); 
-query5.send(handleQueryResponse5);
+//query5.send(handleQueryResponse5);
 
 }
 
@@ -57,7 +57,7 @@ google.visualization.drawChart(j, document.getElementById('chart4'));
 }
 
 
-
+//costi cumulata P052!C5:C15, P052!E5:E15
 function handleQueryResponse4(response) {
    
   if (response.isError()) {
@@ -67,7 +67,7 @@ function handleQueryResponse4(response) {
 var datatable=response.getDataTable();
 
 //costi cumulata
-var j={"view":{"columns":[{"sourceColumn":0},1]},"dataTable":datatable,"chartType":"ColumnChart","options":{"hAxis":{"textStyle":{"bold":true,"italic":false},"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"gridlines":{"color":"#FFFFFF"}}},"legend":{"position":"none"},"series":{"0":{"color":"#002060","dataLabel":"value"}},"useFirstColumnAsDomain":true,"width":400,"is3D":false,"title":"Costi (cumulata)","chartArea":{"backgroundColor":{"fill":"#FFFFFF"}},"titleTextStyle":{"bold":true,"italic":false},"height":369}};
+var j={"view":{"columns":[{"sourceColumn":0},1]},"dataTable":datatable,"chartType":"ColumnChart","options":{"hAxis":{"textStyle":{"bold":true,"italic":false},"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"gridlines":{"color":"#FFFFFF"}}},"legend":{"position":"none"},"series":{"0":{"color":"#002060","dataLabel":"value"}},"useFirstColumnAsDomain":true,"width":609,"is3D":false,"title":"Costi (cumulata)","chartArea":{"backgroundColor":{"fill":"#FFFFFF"}},"titleTextStyle":{"bold":true,"italic":false},"height":275}};
 
 
 
@@ -107,8 +107,8 @@ function handleQueryResponse2(response) {
   }
 
 var datatable=response.getDataTable();
-//trattamenti 
-var j={"view":{"columns":[{"sourceColumn":0},1]},"dataTable":datatable,"chartType":"ColumnChart","options":{"hAxis":{"textStyle":{"bold":true,"italic":false},"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"gridlines":{"color":"#FFFFFF"}}},"legend":{"position":"none"},"series":{"0":{"color":"#002060","dataLabel":"value"}},"useFirstColumnAsDomain":true,"width":400,"is3D":false,"title":"Trattamenti (cumulata)","chartArea":{"backgroundColor":{"fill":"#FFFFFF"}},"titleTextStyle":{"bold":true,"italic":false},"height":369}};
+//trattamenti cumulata
+var j={"view":{"columns":[{"sourceColumn":0},1]},"dataTable":datatable,"chartType":"ColumnChart","options":{"hAxis":{"textStyle":{"bold":true,"italic":false},"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"gridlines":{"color":"#FFFFFF"}}},"legend":{"position":"none"},"series":{"0":{"color":"#002060","dataLabel":"value"}},"useFirstColumnAsDomain":true,"width":609,"is3D":false,"title":"Trattamenti (cumulata)","chartArea":{"backgroundColor":{"fill":"#FFFFFF"}},"titleTextStyle":{"bold":true,"italic":false},"height":275}};
 
 
   google.visualization.drawChart(j, document.getElementById('chart1')); 
@@ -125,7 +125,7 @@ function handleQueryResponse0(response) {
     return;
   }
 var dt=response.getDataTable();
-console.log(dt.toJSON());
+
  var datatable = new google.visualization.DataView(dt);
  
   var table = new google.visualization.Table(document.getElementById('dataTable0'));
@@ -150,6 +150,75 @@ function handleQueryResponse1(response) {
 drawCharts(data.record,activeSheetName.substring(0,4));
 
 %>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+
+       <div class="table-responsive">
+              <table class="table" >
+              <thead>
+              Parametri
+              </thead>
+                             <tbody>
+ <%
+                     
+                  _.each(opzRegParams,function(item){
+                            _.each(item,function(e,k){
+                             
+                              %>
+                              
+                              <td><%= e.label %>:<%= e.value %>
+                                
+                           
+                               </td> 
+
+                             
+                         
+                              
+                              <%})
+
+                    })
+              %>
+                            </tbody>
+              </table>
+
+      </div>
+      <div class="table-responsive">
+              <table class="table" >
+              <thead>
+              Parametri genotipo
+              </thead>
+                             <tbody>
+ <%
+                     
+                  _.each(opzGenParams,function(item){
+                            _.each(item,function(e,k){
+                             
+                              %>
+                              
+                              <td><%= e.label %>:
+                                
+                                <input disabled="disabled"  type="checkbox"  id="<%= k %>" name="<%= k %>"  label="<%= e.label%>" row="<%= e.row%>" col="<%= e.col%>" type="text" <%= e.value!== 'X' ?  '' : 'checked="checked" ' %>></input> 
+                               </td> 
+
+                             
+                         
+                              
+                              <%})
+
+                    })
+              %>
+                            </tbody>
+              </table>
+
+      </div>
+    </div>
+</div>
+</div>
+</div>
+
 <div class="row">
   <div class="col-md-12">
         <div class="panel panel-default">
@@ -175,14 +244,16 @@ drawCharts(data.record,activeSheetName.substring(0,4));
 
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-body">
         <div id='chart1' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
     </div>
   </div>
-    <div class="col-md-6">
+  </div>
+  <div class="row">
+    <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-body">
         <div id='chart3' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
@@ -193,8 +264,8 @@ drawCharts(data.record,activeSheetName.substring(0,4));
   
   </div>-->
 
-</div>
 
+<!--
 <div class="row">
     <div class="col-md-6">
     <div class="panel panel-default">
@@ -202,6 +273,7 @@ drawCharts(data.record,activeSheetName.substring(0,4));
         <div id='chart2' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
     </div>
+    -->
 
   <!--
 

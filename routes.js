@@ -246,6 +246,10 @@ exports = module.exports = function(app, passport) {
   app.post('/spreadsheets_v3/:id/:sheetId/reset',require('./views/spreadsheets_v3/index').resetSpreadsheet);
   app.get('/spreadsheets_v3/:id/printable',require('./views/spreadsheets_v3/index').getPrintablePage);
   app.get('/spreadsheets_v3/:id/init/printable',require('./views/spreadsheets_v3/index').getPrintablePage);
+  
+  //app.get('/spreadsheets_v3/:id/init/printpage',require('./views/spreadsheets_v3/index').getSinglePrintablePage);
+  //app.get('/spreadsheets_v3/:id/printpage',require('./views/spreadsheets_v3/index').getSinglePrintablePage);
+
 
 
 
