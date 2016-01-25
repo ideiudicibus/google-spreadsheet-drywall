@@ -540,7 +540,9 @@ var params={};
             console.log();
             v.row=$(field).attr('row');
             v.col=$(field).attr('col');
-            if(field.type=='checkbox') {v.value=(field.value=='on'?'X':'');}
+            if(field.type=='checkbox') {
+              
+              v.value=(field.checked==true?'X':'');}
             else {v.value=field.value};
             v.label=$(field).attr('label');
             obj[field.name]=v
@@ -553,6 +555,8 @@ params.googleId=data.record.googleId;
 params.activeSheet=data.record.activeSheet;
 params.paramData=JSON.stringify(paramData);
 params.sheetName='OPZ';
+
+
 
  $.ajax({
         
