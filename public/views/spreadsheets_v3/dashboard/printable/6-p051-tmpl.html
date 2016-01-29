@@ -1,0 +1,132 @@
+<%
+
+function drawCharts(spreadsheet,activeSheet) {
+var activeSheetName=activeSheet;
+
+var query0 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=C3&pli=1'); 
+query0.send(handleQueryResponse0);
+
+
+
+var query1 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=C4:D7&pli=1'); 
+query1.send(handleQueryResponse1);
+
+
+
+var query2 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=E4:F20&pli=1'); 
+query2.send(handleQueryResponse2);
+
+
+
+var query3 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=G4:H20&pli=1'); 
+query3.send(handleQueryResponse3);
+
+}
+
+function handleQueryResponse0(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+ var datatable = new google.visualization.DataView(response.getDataTable());
+  var table = new google.visualization.Table(document.getElementById('dataTable0-p051'));
+  table.draw(datatable,{'sort':'disable'});
+
+}
+
+function handleQueryResponse1(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+ var datatable = new google.visualization.DataView(response.getDataTable());
+  var table = new google.visualization.Table(document.getElementById('dataTable1-p051'));
+  table.draw(datatable,{'sort':'disable'});
+
+}
+
+function handleQueryResponse2(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+ var datatable = new google.visualization.DataView(response.getDataTable());
+  var table = new google.visualization.Table(document.getElementById('dataTable2-p051'));
+  table.draw(datatable,{'sort':'disable'});
+
+}
+
+function handleQueryResponse3(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+ var datatable = new google.visualization.DataView(response.getDataTable());
+  var table = new google.visualization.Table(document.getElementById('dataTable3-p051'));
+  table.draw(datatable,{'sort':'disable'});
+
+}
+
+
+drawCharts(data.record,activeSheetName);
+
+%>
+<div class="row">
+  <div class="col-md-12">
+        <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='textNote'><%print(textNote);%></div>
+      </div>
+    </div>
+</div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+
+          <div id='dataTable0-p051' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+</div>
+    </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+        <div class="panel panel-default">
+        <div class="panel-heading">Pazienti HCV+</div>
+          <div class="panel-body">
+          <div id='dataTable1-p051' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+</div>
+    </div>
+      <div class="col-md-4">
+        <div class="panel panel-default">
+        <div class="panel-heading">Pazienti HCV RNA+ </div>
+          <div class="panel-body">
+          <div id='dataTable2-p051' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+</div>
+    </div>
+      <div class="col-md-4">
+        <div class="panel panel-default">
+        <div class="panel-heading">Pazienti HCV RNA+ emersi </div>
+          <div class="panel-body">
+          <div id='dataTable3-p051' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+</div>
+    </div>
+</div>

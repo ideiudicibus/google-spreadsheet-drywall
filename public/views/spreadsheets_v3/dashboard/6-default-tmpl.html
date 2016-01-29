@@ -20,7 +20,7 @@
                             _.each(item,function(e,k){
                               %>
                               <tr>
-                              <td><%= e.label %> Valore attuale <i><%=e.value%></i></td>
+                              <td><%= e.label %></i></td>
                                <td> 
                               <% if(k.indexOf('[regione]')<0){
                                   %>
@@ -28,30 +28,10 @@
                                 <%} else {%>
 
                                  <select id="<%= k %>" name="<%= k %>"  label="<%= e.label%>" row="<%= e.row%>" col="<%= e.col%>" type="text"  class="form-control ">
-                                      <option>Italia</option>
-                                      <option>Piemonte</option>
-                                      <option>Valle d'Aosta</option>
-                                      <option>Lombardia</option>
-                                      <option>Trentino - Alto Adige</option>
-                                      <option>Veneto</option>
-                                      <option>Friuli Venezia Giulia</option>
-                                      <option>Liguria</option>
-                                      <option>Emilia Romagna</option>
-                                      <option>Toscana</option>
-                                      <option>Umbria</option>
-                                      <option>Marche</option>
-                                      <option>Lazio</option>
-                                      <option>Abruzzo</option>
-                                      <option>Molise</option>
-                                      <option>Campania</option>
-                                      <option>Puglia</option>
-                                      <option>Basilicata</option>
-                                      <option>Calabria</option>
-                                      <option>Sicilia</option>
-                                      <option>Sardegna</option>
-                                      <option>Nord</option>
-                                      <option>Centro</option>
-                                      <option>Sud</option>
+                                  <% var regions=['Italia','Piemonte','Valle d\'Aosta','Lombardia','Trentino - Alto Adige','Veneto','Friuli Venezia Giulia','Emilia Romagna','Toscana','Umbria','Marche','Lazio','Abruzzo','Molise','Campania','Puglia','Basilicata','Calabria','Sicilia','Sardegna','Nord','Centro','Sud']; 
+                                   _.each(regions,function(item){%>
+                                      <option <%= item== e.value ?  'selected' : '' %> ><%=item %></option>
+                                      <%})  %>
                                   </select>
                                 <% }
                                 %>

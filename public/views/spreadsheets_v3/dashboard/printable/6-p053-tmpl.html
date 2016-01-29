@@ -1,0 +1,254 @@
+<%
+function drawCharts(spreadsheet,activeSheet,activeSheetTable) {
+var activeSheetName=activeSheet;
+var activeSheetTableName=activeSheetTable;
+console.log(activeSheetName);
+
+var query0 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=C3&pli=1'); 
+query0.send(handleQueryResponse0);
+
+
+
+var query1 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=C4:C15,D4:D15,E4:E15,F4:F15&pli=1'); 
+query1.send(handleQueryResponse1);
+
+//P053!C5:C15, P053!D5:D15 trattamenti annui
+var query2 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=C5:C15,D5:D15&pli=1');
+query2.send(handleQueryResponse2);
+
+
+var query3 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=C5:C15,G5:G15&pli=1'); 
+//query3.send(handleQueryResponse3);
+
+//P053!C5:C15, P053!E5:E15 costi annui
+var query4 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=C5:C15,E5:E15&pli=1'); 
+query4.send(handleQueryResponse4);
+
+
+var query5 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=C6:C15,H6:H15,I6:I15,J6:J15&pli=1'); 
+
+//query5.send(handleQueryResponse5);
+
+}
+
+function handleQueryResponse5(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+var datatable=response.getDataTable();
+
+
+
+
+//remissioni annui
+
+var j={"view":{"columns":[{"sourceColumn":0},1,2,3]},"dataTable":datatable,"options":{"hAxis":{"textStyle":{"bold":true,"italic":false},"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"gridlines":{"color":"#FFFFFF"}}},"legend":{"position":"bottom"},"series":{"0":{"color":"#002060","dataLabel":"value"},"1":{"color":"#8F98A6","dataLabel":"value"},"2":{"color":"#00B0F0","dataLabel":"value"}},"useFirstColumnAsDomain":true,"width":700,"is3D":false,"title":"Remissioni (annui)","titleTextStyle":{"bold":true,"italic":false},"height":369},"chartType":"ColumnChart"};
+
+google.visualization.drawChart(j, document.getElementById('chart4-p053')); 
+
+}
+
+
+//costi annui
+function handleQueryResponse4(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var datatable=response.getDataTable();
+
+//costi annui
+var j= {"view":{"columns":[{"sourceColumn":0},1]},"dataTable":datatable,"chartType":"ColumnChart","options":{"hAxis":{"textStyle":{"bold":true,"italic":false},"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"gridlines":{"color":"#FFFFFF"}}},"legend":{"position":"none"},"series":{"0":{"color":"#002060","dataLabel":"value","annotations":{"textStyle":{"fontSize":7}}}},"useFirstColumnAsDomain":true,"width":609,"is3D":false,"title":"Costi (annui)","chartArea":{"backgroundColor":{"fill":"#FFFFFF"}},"titleTextStyle":{"bold":true,"italic":false},"height":275}};
+
+
+google.visualization.drawChart(j, document.getElementById('chart3-p053')); 
+
+}
+
+function handleQueryResponse3(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+var datatable=response.getDataTable();
+
+
+
+//remissioni annui
+var j={"view":{"columns":[{"sourceColumn":0},1]},"dataTable":datatable,"chartType":"ColumnChart","options":{"hAxis":{"textStyle":{"bold":true,"italic":false},"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"gridlines":{"color":"#FFFFFF"}}},"legend":{"position":"none"},"series":{"0":{"color":"#002060","dataLabel":"value"}},"useFirstColumnAsDomain":true,"width":700,"is3D":false,"title":"Remissioni (annue)","chartArea":{"backgroundColor":{"fill":"#FFFFFF"}},"titleTextStyle":{"bold":true,"italic":false},"height":369}};
+
+google.visualization.drawChart(j, document.getElementById('chart2-p053')); 
+
+}
+
+
+
+//trattamenti annui
+function handleQueryResponse2(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+var datatable=response.getDataTable();
+
+var j={"view":{"columns":[{"sourceColumn":0},1]},"dataTable":datatable,"chartType":"ColumnChart","options":{"hAxis":{"textStyle":{"bold":true,"italic":false},"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"gridlines":{"color":"#FFFFFF"}}},"legend":{"position":"none"},"series":{"0":{"color":"#002060","dataLabel":"value"}},"useFirstColumnAsDomain":true,"width":700,"is3D":false,"title":"Trattamenti (annui)","chartArea":{"backgroundColor":{"fill":"#FFFFFF"}},"titleTextStyle":{"bold":true,"italic":false},"height":369}}
+
+
+  google.visualization.drawChart(j, document.getElementById('chart1-p053')); 
+
+}
+
+function handleQueryResponse1(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+ var datatable = new google.visualization.DataView(response.getDataTable());
+  var table = new google.visualization.Table(document.getElementById('dataTable-p053'));
+  table.draw(datatable,{'sort':'disable'});
+
+}
+
+
+function handleQueryResponse0(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+ var datatable = new google.visualization.DataView(response.getDataTable());
+  var table = new google.visualization.Table(document.getElementById('dataTable0-p053'));
+  table.draw(datatable,{'sort':'disable'});
+
+}
+
+
+drawCharts(data.record,activeSheetName.substring(0,4),activeSheetName);
+
+%>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+
+       <div class="table-responsive">
+              <table class="table" >
+              <thead>
+              Parametri
+              </thead>
+                             <tbody>
+ <%
+                     
+                  _.each(opzRegParams,function(item){
+                            _.each(item,function(e,k){
+                             
+                              %>
+                              
+                              <td><%= e.label %>:<%= e.value %>
+                                
+                           
+                               </td> 
+
+                             
+                         
+                              
+                              <%})
+
+                    })
+              %>
+                            </tbody>
+              </table>
+
+      </div>
+      <div class="table-responsive">
+              <table class="table" >
+              <thead>
+              Parametri genotipo
+              </thead>
+                             <tbody>
+ <%
+                     
+                  _.each(opzGenParams,function(item){
+                            _.each(item,function(e,k){
+                             
+                              %>
+                              
+                              <td><%= e.label %>:
+                                
+                                <input disabled="disabled"  type="checkbox"  id="<%= k %>" name="<%= k %>"  label="<%= e.label%>" row="<%= e.row%>" col="<%= e.col%>" type="text" <%= e.value!== 'X' ?  '' : 'checked="checked" ' %>></input> 
+                               </td> 
+
+                             
+                         
+                              
+                              <%})
+
+                    })
+              %>
+                            </tbody>
+              </table>
+
+      </div>
+    </div>
+</div>
+</div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+        <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='textNote'><%print(textNote);%></div>
+      </div>
+    </div>
+</div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+           <div id='dataTable0-p053' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+          <div id='dataTable-p053' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+</div>
+    </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='chart1-p053' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='chart3-p053' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>

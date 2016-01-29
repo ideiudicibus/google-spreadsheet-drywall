@@ -1,0 +1,164 @@
+<%
+function drawCharts(spreadsheet,activeSheet,activeSheetTable) {
+var activeSheetName=activeSheet;
+var activeSheetTableName=activeSheetTable;
+
+var query2 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=C5:C15,D5:D15&pli=1');
+query2.send(handleQueryResponse2);
+
+
+var query3 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=C5:C15,G5:G15&pli=1'); 
+query3.send(handleQueryResponse3);
+
+
+var query4 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=C5:15,E5:E15&pli=1'); 
+query4.send(handleQueryResponse4);
+
+
+var query5 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=C6:C15,H6:H15,I6:I15,J6:J15&pli=1'); 
+query5.send(handleQueryResponse5);
+
+}
+
+function handleQueryResponse5(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+var datatable=response.getDataTable();
+
+
+
+
+//remissioni cumulata
+
+var j={"view":{"columns":[{"sourceColumn":0},1,2,3]},"dataTable":{"rows":[{"c":[{"v":"Anno 1"},{"v":10208.370241999259,"f":"10.208"},{"v":6356.155056339161,"f":"6.356"},{"v":1540.8860742640388,"f":"1.541"}]},{"c":[{"v":"Anno 2"},{"v":2997.870707618824,"f":"2.998"},{"v":1866.5987424796458,"f":"1.867"},{"v":452.5087860556721,"f":"453"}]},{"c":[{"v":"Anno 3"},{"v":1033.1961362211423,"f":"1.033"},{"v":643.3108017980703,"f":"643"},{"v":155.95413376922943,"f":"156"}]},{"c":[{"v":"Anno 4"},{"v":440.50047183549395,"f":"441"},{"v":274.2738786900245,"f":"274"},{"v":66.49063725818723,"f":"66"}]},{"c":[{"v":"Anno 5"},{"v":235.89461249149826,"f":"236"},{"v":146.87777758904485,"f":"147"},{"v":35.60673396098127,"f":"36"}]},{"c":[{"v":"Anno 6-10 media"},{"v":105.44159316632212,"f":"105"},{"v":65.65231272620039,"f":"66"},{"v":15.91571217604851,"f":"16"}]},{"c":[{"v":"Anno 11-15 media"},{"v":61.16287060089162,"f":"61"},{"v":38.08254207225364,"f":"38"},{"v":9.232131411455338,"f":"9"}]},{"c":[{"v":"Anno 16-20 media"},{"v":43.307074086492506,"f":"43"},{"v":26.964781978382234,"f":"27"},{"v":6.536916843244216,"f":"7"}]},{"c":[{"v":"Anno 21-25 media"},{"v":30.455839136570283,"f":"30"},{"v":18.963069651071784,"f":"19"},{"v":4.597107794199201,"f":"5"}]},{"c":[{"v":"Anno 26-30 media"},{"v":21.187029556238848,"f":"21"},{"v":13.19192406331822,"f":"13"},{"v":3.1980421971682516,"f":"3"}]}],"cols":[{"id":"Col0","label":"","type":"string"},{"pattern":"#,##0","id":"Col1","label":"","type":"number"},{"pattern":"#,##0","id":"Col2","label":"","type":"number"},{"pattern":"#,##0","id":"Col3","label":"","type":"number"}]},"options":{"hAxis":{"textStyle":{"bold":true,"italic":false},"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"gridlines":{"color":"#FFFFFF"}}},"legend":{"position":"bottom"},"series":{"0":{"color":"#002060","dataLabel":"value"},"1":{"color":"#8F98A6","dataLabel":"value"},"2":{"color":"#00B0F0","dataLabel":"value"}},"useFirstColumnAsDomain":true,"width":700,"is3D":false,"title":"Remissioni (annui)","titleTextStyle":{"bold":true,"italic":false},"height":369},"chartType":"ColumnChart"};
+
+google.visualization.drawChart(j, document.getElementById('chart4')); 
+
+}
+
+
+
+function handleQueryResponse4(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var datatable=response.getDataTable();
+
+//costi annui
+var j={"view":{"columns":[{"sourceColumn":0},1]},"dataTable":{"rows":[{"c":[{"v":"Anno 0"},{"v":1.2791335951164589E10,"f":"12.791.335.951"}]},{"c":[{"v":"Anno 1"},{"v":5.380036203808472E9,"f":"5.380.036.204"}]},{"c":[{"v":"Anno 2"},{"v":2.6774045808824615E9,"f":"2.677.404.581"}]},{"c":[{"v":"Anno 3"},{"v":1.5400941338379517E9,"f":"1.540.094.134"}]},{"c":[{"v":"Anno 4"},{"v":9.96446698874691E8,"f":"996.446.699"}]},{"c":[{"v":"Anno 5"},{"v":7.06209709727684E8,"f":"706.209.710"}]},{"c":[{"v":"Anno 6-10 media"},{"v":3.6828304241036224E8,"f":"368.283.042"}]},{"c":[{"v":"Anno 11-15 media"},{"v":1.5801283861371917E8,"f":"158.012.839"}]},{"c":[{"v":"Anno 16-20 media"},{"v":7.748894611409149E7,"f":"77.488.946"}]},{"c":[{"v":"Anno 21-25 media"},{"v":4.000059852723465E7,"f":"40.000.599"}]},{"c":[{"v":"Anno 26-30 media"},{"v":2.1564013235095214E7,"f":"21.564.013"}]}],"cols":[{"id":"Col0","label":"","type":"string"},{"pattern":"#,##0","id":"Col1","label":"","type":"number"}]},"chartType":"ColumnChart","options":{"hAxis":{"textStyle":{"bold":true,"italic":false},"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"gridlines":{"color":"#FFFFFF"}}},"legend":{"position":"none"},"series":{"0":{"color":"#002060","dataLabel":"value","annotations":{"textStyle":{"fontSize":7}}}},"useFirstColumnAsDomain":true,"width":700,"is3D":false,"title":"Costi (annui)","titleTextStyle":{"bold":true,"italic":false},"height":369}};
+
+google.visualization.drawChart(j, document.getElementById('chart3')); 
+
+}
+
+function handleQueryResponse3(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+var datatable=response.getDataTable();
+
+
+
+//remissioni annui
+var j={"view":{"columns":[{"sourceColumn":0},1]},"dataTable":{"rows":[{"c":[{"v":"Anno 0"},{"v":316655.2861165971,"f":"316.655"}]},{"c":[{"v":"Anno 1"},{"v":143206.5466038637,"f":"143.207"}]},{"c":[{"v":"Anno 2"},{"v":78209.5287655514,"f":"78.210"}]},{"c":[{"v":"Anno 3"},{"v":49558.108790903934,"f":"49.558"}]},{"c":[{"v":"Anno 4"},{"v":34912.59636252129,"f":"34.913"}]},{"c":[{"v":"Anno 5"},{"v":26416.95720337052,"f":"26.417"}]},{"c":[{"v":"Anno 6-10 media"},{"v":14882.042326296098,"f":"14.882"}]},{"c":[{"v":"Anno 11-15 media"},{"v":6534.389521976584,"f":"6.534"}]},{"c":[{"v":"Anno 16-20 media"},{"v":3127.9222777087243,"f":"3.128"}]},{"c":[{"v":"Anno 21-25 media"},{"v":1559.0495298550463,"f":"1.559"}]},{"c":[{"v":"Anno 26-30 media"},{"v":807.3988684038166,"f":"807"}]}],"cols":[{"id":"Col0","label":"","type":"string"},{"pattern":"#,##0","id":"Col1","label":"","type":"number"}]},"chartType":"ColumnChart","options":{"hAxis":{"textStyle":{"bold":true,"italic":false},"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"gridlines":{"color":"#FFFFFF"}}},"legend":{"position":"none"},"series":{"0":{"color":"#002060","dataLabel":"value"}},"useFirstColumnAsDomain":true,"width":700,"is3D":false,"title":"Remissioni (annue)","chartArea":{"backgroundColor":{"fill":"#FFFFFF"}},"titleTextStyle":{"bold":true,"italic":false},"height":369}};
+
+google.visualization.drawChart(j, document.getElementById('chart2')); 
+
+}
+
+
+
+
+function handleQueryResponse2(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+var datatable=response.getDataTable();
+//trattamenti annui
+var j={"view":{"columns":[{"sourceColumn":0},1]},"dataTable":{"rows":[{"c":[{"v":"Anno 0"},{"v":387308.5775346534,"f":"387.309"}]},{"c":[{"v":"Anno 1"},{"v":188502.25222368079,"f":"188.502"}]},{"c":[{"v":"Anno 2"},{"v":111757.74121099873,"f":"111.758"}]},{"c":[{"v":"Anno 3"},{"v":76707.13196390367,"f":"76.707"}]},{"c":[{"v":"Anno 4"},{"v":58045.16152292013,"f":"58.045"}]},{"c":[{"v":"Anno 5"},{"v":46716.144166288665,"f":"46.716"}]},{"c":[{"v":"Anno 6-10 media"},{"v":29872.76830587939,"f":"29.873"}]},{"c":[{"v":"Anno 11-15 media"},{"v":15988.222092761822,"f":"15.988"}]},{"c":[{"v":"Anno 16-20 media"},{"v":9256.379789273395,"f":"9.256"}]},{"c":[{"v":"Anno 21-25 media"},{"v":5584.169708901225,"f":"5.584"}]},{"c":[{"v":"Anno 26-30 media"},{"v":3475.1807881316636,"f":"3.475"}]}],"cols":[{"id":"Col0","label":"","type":"string"},{"pattern":"#,##0","id":"Col1","label":"","type":"number"}]},"chartType":"ColumnChart","options":{"hAxis":{"textStyle":{"bold":true,"italic":false},"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"gridlines":{"color":"#FFFFFF"}}},"legend":{"position":"none"},"series":{"0":{"color":"#002060","dataLabel":"value"}},"useFirstColumnAsDomain":true,"width":700,"is3D":false,"title":"Trattamenti (annui)","chartArea":{"backgroundColor":{"fill":"#FFFFFF"}},"titleTextStyle":{"bold":true,"italic":false},"height":369}}
+
+
+  google.visualization.drawChart(j, document.getElementById('chart1')); 
+
+}
+
+function handleQueryResponse1(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+ var datatable = new google.visualization.DataView(response.getDataTable());
+  var table = new google.visualization.Table(document.getElementById('dataTable'));
+  table.draw(datatable,{'sort':'disable'});
+
+}
+
+drawCharts(data.record,activeSheetName.substring(0,4),activeSheetName);
+
+%>
+<div class="row">
+  <div class="col-md-12">
+        <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='textNote'><%print(textNote);%></div>
+      </div>
+    </div>
+</div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='chart1' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='chart2' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='chart3' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='chart4' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
