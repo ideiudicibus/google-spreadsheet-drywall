@@ -103,7 +103,7 @@ function copyPureData(src_rows,mapping_col_idx,src_val_idx,src_label_idx,src_vec
     if(obj!=null){   
      i=setProperty(i,_.keys(i)[0] ,obj);}
 });
-  console.log(src_rows);
+  //console.log(src_rows);
 return src_vect;
 
 }
@@ -397,7 +397,7 @@ var sheetName='INPUT';
         }
         var updatedParams={};
        //updatedParams=copyData(rows,3,4,2,JSON.parse(sheet.params));
-       
+       /*
         if(sheetName=='INPUT') {
           var file = __dirname + '/mega-reset.json';
           var mockParams=JSON.parse(fs.readFileSync(file));
@@ -406,9 +406,15 @@ var sheetName='INPUT';
           
           //console.log(sys.inspect(updatedParams));
          
+        }*/
+        if(sheetName=='TER'){
+          var file = __dirname + '/mega-reset-ter.json';
+          var mockParams=JSON.parse(fs.readFileSync(file));
+          updatedParams=copyData(rows,19,6,19,mockParams);
+
         }
         
-        return workflow.emit('resetSpreadhsheet',req,updatedParams);
+        //return workflow.emit('resetSpreadhsheet',req,updatedParams);
        //return workflow.emit('response')
     });
 });
@@ -623,7 +629,7 @@ var sheetName=req.body.record.synchSheetName;
           
            //updatedParams=copyDataNoLabel(rows,19,6,JSON.parse(sheet.params));
            updatedParams=copyData(rows,19,6,19,JSON.parse(sheet.params));
-          
+           //console.log(rows);
            
          }
          if(sheetName=='COSTOF'){

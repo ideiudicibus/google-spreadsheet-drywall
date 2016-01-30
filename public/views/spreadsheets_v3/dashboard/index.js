@@ -63,18 +63,18 @@ $(brandHtml).appendTo(vroot);
 
 for(var i=0;i<array.length;i++){
 
- console.log(array[i]._id.indexOf('autori')<0);
+
 if(array[i]._id.indexOf('autori')<0  && array[i]._id.indexOf('biblio')<0 ){
-var li='<li ><a href="#" id="'+array[i]._id+'" class="sheetId '+checkActiveSheetClass(array[i]._id,spreadsheet.activeSheet)+'" >'+array[i].spreadsheetId+'</a></li>';
+var li='<li ><a href="#" id="'+array[i]._id+'" class=" sheetId '+checkActiveSheetClass(array[i]._id,spreadsheet.activeSheet)+'" >'+array[i].spreadsheetId+'</a></li>';
 $(li).appendTo(vroot);
 }
 else {
-  console.log(array[i]._id);
-  var li='<li ><a href="#" id="'+array[i]._id+'" class="sheetId '+checkActiveSheetClass(array[i]._id,spreadsheet.activeSheet)+'" >'+array[i].spreadsheetId+'</a></li>';
+ 
+  var li='<li ><a href="#" id="'+array[i]._id+'" class=" sheetId '+checkActiveSheetClass(array[i]._id,spreadsheet.activeSheet)+'" >'+array[i].spreadsheetId+'</a></li>';
   $(li).appendTo(hroot);
 }
 }
-console.log('8');
+
 loadActiveSheet(data.record);
 
 }
@@ -94,6 +94,7 @@ if((data.record.activeSheet).indexOf('input')>0){
 }
 
 if((data.record.activeSheet).indexOf('ter')>0){
+  console.log(data.record);
     data.record.synch='y';
     data.record.synchSheetName='TER';
 
@@ -129,7 +130,7 @@ elem.toggleClass('active');
             case  false:
               var errs=response.errors;
               for(var j=0;j<errs.length;j++){
-                console.log(errors[j]);
+                console.log(errs[j]);
                 alertify.error(errs[j]);
               }
             break;
