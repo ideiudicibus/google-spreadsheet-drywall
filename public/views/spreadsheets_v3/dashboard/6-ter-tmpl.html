@@ -3,7 +3,7 @@ function drawCharts(spreadsheet,activeSheet) {
 var activeSheetName=activeSheet;
 
 var query1 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=A30:G120,S30:S120&pli=1'); 
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=A30:G120&pli=1'); 
 query1.send(handleQueryResponse1);
 
 }
