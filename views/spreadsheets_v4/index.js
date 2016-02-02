@@ -17,39 +17,6 @@ obj[prop]=value;
 return obj;
 }
 
-
-function copyDataNoLabel(src_rows,mapping_col_idx,src_val_idx,src_vect){
-
-  _.each(src_vect,function(i,k){
-     var obj={};
-  _.each(src_rows,function(a,b){
-
-   if(_.keys(i)[0] == getProperty(a,mapping_col_idx)){
-      obj=_.clone(_.values(i)[0]);
-   
-      var tmpVal=getProperty(a,src_val_idx);
-
-      if(_.isString(tmpVal)){
-        tmpVal=tmpVal.trim();
-        obj.value=tmpVal.indexOf('%')<0?tmpVal.split(".").join(""):tmpVal;
-
-      }
-      else{
-           
-           obj.value=tmpVal;
-      }
-      
-    }
-
-    });
-    if(obj!=null){   
-     i=setProperty(i,_.keys(i)[0] ,obj);}
-
-});
-return src_vect;
-
-}
-
 /**
 copys the values from the column identified by the src_val_idx values into src_vect 
 the mapping_col_idx does the join 
@@ -103,7 +70,7 @@ function copyPureData(src_rows,mapping_col_idx,src_val_idx,src_label_idx,src_vec
     if(obj!=null){   
      i=setProperty(i,_.keys(i)[0] ,obj);}
 });
-  //console.log(src_rows);
+  console.log(src_rows);
 return src_vect;
 
 }
@@ -162,16 +129,10 @@ function synchDataParamsWithExcel(data,dataParam,excel_param_name_idx,label_idx,
    if(_.keys(i)[0] == getProperty(a,excel_param_name_idx)){
       obj.row=b;
       obj.col=value_col_idx.toString();
-      var tmpVal=getProperty(a,value_col_idx);
-      if(tmpVal!=undefined || tmpVal !=null) {tmpVal=tmpVal.trim();
+      var tmpVal=getProperty(a,value_col_idx).trim();
+      
       obj.value=tmpVal.indexOf('%')<0?tmpVal.split(".").join(""):tmpVal;
-      obj.label=getProperty(a,label_idx);}
-      else{
-        obj.value=tmpVal;
-        obj.label=getProperty(a,label_idx);
-
-      }
-
+      obj.label=getProperty(a,label_idx);
     }
     });
     if(obj!=null){   
@@ -224,20 +185,20 @@ function prepareParamsForExcel(params){
 exports.updateParams = function(req, res, next){
 var workflow = req.app.utility.workflow(req, res);
 var param= req.body;
-var sheetName=param.sheetName;
 
 workflow.on('updateGoogleSpreadsheet',function(p){
 
   var params=JSON.parse(p.paramData);
   //var sheetName='VV_UT';
-  //var sheetName='INPUT';
+  var sheetName='INPUT';
   var activeSheet=p.activeSheet;
 
-//if(activeSheet.indexOf('default')>0) sheetName='OPZ';
+if(activeSheet.indexOf('default')>0) sheetName='OPZ';
 //console.log('params to tranform are: '+ sys.inspect(params));
 //console.log('params to send are: '+ sys.inspect(prepareParamsForExcel(params)));
   
 updateSheet(p.googleId,prepareParamsForExcel(params),sheetName,workflow,req);
+
 });
 
 
@@ -301,7 +262,7 @@ exports.readPopulateActiveSheet = function(req, res, next){
     }
     else {
 console.log('3 readPopulateActiveSheet');
-      res.render('spreadsheets_v3/dashboard/index-dashboard', { data: { record: spreadsheet,title:spreadsheet.name} });
+      res.render('spreadsheets_v4/dashboard/index-dashboard', { data: { record: spreadsheet,title:spreadsheet.name} });
     }
   });
 };
@@ -324,7 +285,7 @@ exports.readPopulateInitActiveSheet = function(req, res, next){
 
 
 
-      res.render('spreadsheets_v3/dashboard/index-dashboard', { data: { record: spreadsheet,title:spreadsheet.name} });
+      res.render('spreadsheets_v4/dashboard/index-dashboard', { data: { record: spreadsheet,title:spreadsheet.name} });
     }
   });
 };
@@ -336,8 +297,8 @@ exports.getPrintablePage = function(req, res, next){
     if (err) {
       return next(err);
     }
-      console.log('getPrintablePage invoked spreadsheets_v3');
-      return res.render('spreadsheets_v3/dashboard/index-printable', { data: { record: spreadsheet,title:spreadsheet.name} });
+      console.log('getPrintablePage invoked spreadsheets_v4');
+      return res.render('spreadsheets_v4/dashboard/index-printable', { data: { record: spreadsheet,title:spreadsheet.name} });
   });
 };
 
@@ -397,7 +358,7 @@ var sheetName='INPUT';
         }
         var updatedParams={};
        //updatedParams=copyData(rows,3,4,2,JSON.parse(sheet.params));
-       /*
+       
         if(sheetName=='INPUT') {
           var file = __dirname + '/mega-reset.json';
           var mockParams=JSON.parse(fs.readFileSync(file));
@@ -406,15 +367,9 @@ var sheetName='INPUT';
           
           //console.log(sys.inspect(updatedParams));
          
-        }*/
-        if(sheetName=='TER'){
-          var file = __dirname + '/mega-reset-ter.json';
-          var mockParams=JSON.parse(fs.readFileSync(file));
-          updatedParams=copyData(rows,19,6,19,mockParams);
-
         }
         
-        //return workflow.emit('resetSpreadhsheet',req,updatedParams);
+        return workflow.emit('resetSpreadhsheet',req,updatedParams);
        //return workflow.emit('response')
     });
 });
@@ -513,15 +468,13 @@ var sheetName='INPUT';
 exports.getActiveSheet= function(req, res, next){
  
  var workflow = req.app.utility.workflow(req, res);
- var skipSynch=req.body.skipSynch;
 
 
 workflow.on('patchSheet', function(req,p) {
-
+  console.log('patchSheet');
     var fieldsToSet = {
       params: JSON.stringify(p)
     };
-     
     req.app.db.models.Sheet.findByIdAndUpdate(req.params.sheetId, fieldsToSet, function(err, sheet) {
       if (err) {
         return workflow.emit('exception', err);
@@ -533,49 +486,15 @@ workflow.on('patchSheet', function(req,p) {
   });
 
 
-workflow.on('getActiveSheet',function(req){
-  var activeSheet=req.body.record.activeSheet;
-  var synch=req.body.record.synch;
-
-  req.params.opzGenSheetId='6-opz2';
-  req.params.opzRegSheetId='6-default';
-
-  req.app.db.models.Sheet.findById('6-opz2').exec(function(err, sheet) {
-      
-      
-     workflow.outcome.opzGen=sheet;
-  });
-    req.app.db.models.Sheet.findById('6-default').exec(function(err, sheet) {
-      
-      
-     workflow.outcome.opzReg=sheet;
-  });
-
-  if(synch=='n'){
-
-  req.app.db.models.Sheet.findById(req.params.sheetId).exec(function(err, sheet) {
-    if (err) {
-    return  workflow.emit('exception',err);
-    }
-    workflow.outcome.sheet=sheet;
-    return workflow.emit('response');
-  
- });
-}
-  if(synch=='y'){
-    workflow.emit('synchActiveSheetWithGoogleSpreadsheet',req);
-  }
-});
-
  workflow.on('synchActiveSheetWithGoogleSpreadsheet',function(req){
 
 var activeSheet=req.body.record.activeSheet;
-
 var googleId=req.body.record.googleId;
+var sheetName='INPUT';
 
-var sheetName=req.body.record.synchSheetName;
-  
-//if(activeSheet.indexOf('default')>=0) sheetName='OPZ';
+
+
+if(activeSheet.indexOf('default')>=0) sheetName='OPZ';
 
   req.app.db.models.Sheet.findById(req.params.sheetId).select('-textNote').exec(function(err, sheet) {
     if (err) {
@@ -589,58 +508,35 @@ var sheetName=req.body.record.synchSheetName;
 
    oauth : {
                 email: '36923579256-7pv511lb1odrijg1mtatnc0v5bsaeiiv@developer.gserviceaccount.com',
-                keyFile: './views/spreadsheets_v3/nodejs-gdata-key-file.pem'
+                keyFile: './views/spreadsheets/nodejs-gdata-key-file.pem'
             }
 
 }, function sheetReady(err, spreadsheet) {
 
     if (err) {
-      console.log(err);
          return workflow.emit('exception', err);
     }
 
     spreadsheet.receive({getValues:true},function(err, rows, info) {
         if (err) {
-          console.log(err)
             return workflow.emit('exception', err);
         }
         var updatedParams={};
         //if(sheetName=='VV_UT') updatedParams=copyData(rows,1,4,3,JSON.parse(sheet.params));
         //if(sheetName=='VV_UT') updatedParams=copyData(rows,1,4,3,JSON.parse(sheet.params));
-        if(sheetName=='OPZ') {
-
-          //updatedParams=synchDataParamsWithExcel(rows,JSON.parse(sheet.params),3,2,4); 
-         
-          updatedParams=copyData(rows,3,4,2,JSON.parse(sheet.params));
-          console.log('patched updatedParams 1' +sys.inspect(updatedParams));
+        if(sheetName=='OPZ') {updatedParams=synchDataParamsWithExcel(rows,JSON.parse(sheet.params),3,2,4); 
         //  console.log(sys.inspect(sheet.params));
-        
         }
         //copiare i valori dell'excel nei parametri definiti nel DB 
         if(sheetName=='INPUT') {
           
           //src_rows,mapping_col_idx,src_val_idx,src_label_idx,src_vect
-         
           updatedParams=copyData(rows,3,4,2,JSON.parse(sheet.params));
          
-           
+          
         }
-         if(sheetName=='TER') {
-          
-           //updatedParams=copyDataNoLabel(rows,19,6,JSON.parse(sheet.params));
-           updatedParams=copyData(rows,19,6,19,JSON.parse(sheet.params));
-           //console.log(rows);
-           
-         }
-         if(sheetName=='COSTOF'){
-          updatedParams=copyData(rows,8,7,2,JSON.parse(sheet.params));
-          
-
-         }
 
 
-
-        
         return workflow.emit('patchSheet',req,updatedParams);
        
 
@@ -659,10 +555,9 @@ var sheetName=req.body.record.synchSheetName;
     
 });
 
-  /*if(skipSynch==0) {workflow.emit('synchActiveSheetWithGoogleSpreadsheet',req)}
-    else */
-      console.log('getActiveSheet');
-      workflow.emit('getActiveSheet',req);
+
+  workflow.emit('synchActiveSheetWithGoogleSpreadsheet',req);
+
 };
 
 exports.init = function(req,res,next){

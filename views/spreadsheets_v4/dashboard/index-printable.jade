@@ -1,0 +1,71 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title #{data.title}
+  link(rel='stylesheet', href='/layouts/core.min.css?#{cacheBreaker}')
+  link(rel='stylesheet'  media='print' href='/layouts/core.min.css?#{cacheBreaker}')
+  link(rel='stylesheet', href='/sb-admin.css?#{cacheBreaker}')
+  link(rel='stylesheet', href='/vendor/alertify/alertify.core.css?#{cacheBreaker}')
+  link(rel='stylesheet', href='/vendor/alertify/alertify.default.css?#{cacheBreaker}')
+
+  body
+    #wrapper
+      nav.navbar.navbar-default.navbar-fixed-top(style='margin-bottom: 0;', role='navigation')
+        .navbar-header
+          button.navbar-toggle(data-target='.sidebar-collapse', data-toggle='collapse', type='button')
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href='/')
+            img(src='/media/logo-w32.jpg')
+            span.navbar-brand-label #{projectName}
+      div#printable-homepage(style="margin:5px")
+      div.endpage
+      div#printable-default(style="margin:5px")
+      div.endpage
+      div#printable-p011(style="margin:5px")
+      div.endpage
+      div#printable-p012(style="margin:5px")
+      div.endpage
+      div#printable-p013(style="margin:5px")
+      div.endpage
+      div#printable-p014(style="margin:5px")
+      div.endpage
+      div#printable-p015(style="margin:5px")
+      div.endpage
+      div#printable-p016(style="margin:5px")
+      div.endpage
+      div#printable-p017(style="margin:5px")
+      div.endpage
+      div#printable-p018(style="margin:5px")
+      div.endpage
+      div#printable-p019(style="margin:5px")
+      div.endpage
+      div#printable-p021(style="margin:5px")
+      div.endpage
+
+    div.footer
+          div.container
+            div.inner
+              span.copyright.pull-right
+                |&#169; #{copyrightYear} #{copyrightName} #{projectName}
+     div.endpage
+    //
+       Core Scripts - Include with every page
+        //if lte IE 9
+    script(src='/layouts/ie-sucks.min.js?#{cacheBreaker}')
+    script(src='/layouts/core.min.js?#{cacheBreaker}')
+    
+    script(src='https://www.google.com/jsapi')
+    script(type='text/javascript').
+            var initData = function(){ return !{JSON.stringify(data)} ; }
+    script(src='/views/spreadsheets_v4/dashboard/underscore_template_loader.js?#{cacheBreaker}')
+    script(src='/views/spreadsheets_v4/dashboard/index-printable.js?#{cacheBreaker}')
+
+
+
+
+
