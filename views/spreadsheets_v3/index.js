@@ -611,8 +611,8 @@ var sheetName=req.body.record.synchSheetName;
 
           //updatedParams=synchDataParamsWithExcel(rows,JSON.parse(sheet.params),3,2,4); 
          
-          updatedParams=copyData(rows,3,4,2,JSON.parse(sheet.params));
-          console.log('patched updatedParams 1' +sys.inspect(updatedParams));
+          updatedParams=copyData(rows,3,4,3,JSON.parse(sheet.params));
+          //console.log('patched updatedParams 1' +sys.inspect(updatedParams));
         //  console.log(sys.inspect(sheet.params));
         
         }
@@ -634,7 +634,7 @@ var sheetName=req.body.record.synchSheetName;
          }
          if(sheetName=='COSTOF'){
           updatedParams=copyData(rows,8,7,2,JSON.parse(sheet.params));
-          
+          //console.log(rows);
 
          }
 
