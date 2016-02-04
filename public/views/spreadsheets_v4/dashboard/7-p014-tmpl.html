@@ -5,7 +5,7 @@ function drawCharts(spreadsheet,activeSheet) {
 var activeSheetName=activeSheet;
 
 var query1 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=C3:E12&pli=1'); 
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=C3:E10&pli=1'); 
 query1.send(handleQueryResponse1);
 
 }
@@ -85,7 +85,21 @@ drawCharts(data.record,activeSheetName);
                </thead>
                <tbody>
 
-              <%
+               <%
+               var labelArray=[];
+  _.each(params,function(item,index){
+    var a={}; 
+    a.mol=((_.values(item)[0].label)).split('-')[1].trim()  ;
+    a.row=_.values(item)[0].row;
+    a.col=_.values(item)[0].col;
+    a.value=_.values(item)[0].value;
+    a.id=_.keys(item)[0];
+  
+    labelArray.push(a);
+
+  }); 
+
+
                var tmpRow1=_.filter(params,function(a,b,c){
                 return (_.keys(a)[0].indexOf("1")>=0); 
                 })
@@ -107,11 +121,15 @@ drawCharts(data.record,activeSheetName);
                   var tmpRow7=_.filter(params,function(a,b,c){
                 return (_.keys(a)[0].indexOf("7")>=0); 
                 })
-                  var tmpRow8=_.filter(params,function(a,b,c){
-                return (_.keys(a)[0].indexOf("8")>=0); 
-                })
+
+
+
+
+
+
+
                %>
-               <tr><td >Abatacept</td><%
+               <tr><td >Aripiprazolo (LAI)</td><%
                _.each(tmpRow1,function(a,b,c){
                 var t=_.values(a)[0];
                 var id=_.keys(a)[0];
@@ -119,7 +137,7 @@ drawCharts(data.record,activeSheetName);
                <td ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text"  value="<%= t.value %>" class="input-xs"></input></td>
             <% })   
               %>
-              </tr><tr><td>Adalimumab</td><%
+              </tr><tr><td>Olanzapina pamoato (LAI)</td><%
                _.each(tmpRow2,function(a,b,c){
                 var t=_.values(a)[0];
                 var id=_.keys(a)[0];
@@ -127,7 +145,7 @@ drawCharts(data.record,activeSheetName);
                <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
             <% })   
               %>
-              </tr><tr><td>Certolizumab</td><%
+              </tr><tr><td>Paliperidone palmitato (LAI)</td><%
                _.each(tmpRow3,function(a,b,c){
                 var t=_.values(a)[0];
                 var id=_.keys(a)[0];
@@ -135,7 +153,7 @@ drawCharts(data.record,activeSheetName);
                <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
             <% })   
               %>
-              </tr><tr><td>Etanercept</td><%
+              </tr><tr><td>Risperidone RP (LAI)</td><%
                _.each(tmpRow4,function(a,b,c){
                 var t=_.values(a)[0];
                 var id=_.keys(a)[0];
@@ -143,7 +161,7 @@ drawCharts(data.record,activeSheetName);
                <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
             <% })   
               %>
-              </tr><tr><td>Golimumab</td><%
+              </tr><tr><td>Tipici orali</td><%
                _.each(tmpRow5,function(a,b,c){
                 var t=_.values(a)[0];
                 var id=_.keys(a)[0];
@@ -151,7 +169,7 @@ drawCharts(data.record,activeSheetName);
                <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
             <% })   
               %>
-              </tr><tr><td>Infliximab</td><%
+              </tr><tr><td>Tipici depot</td><%
                _.each(tmpRow6,function(a,b,c){
                 var t=_.values(a)[0];
                 var id=_.keys(a)[0];
@@ -159,17 +177,8 @@ drawCharts(data.record,activeSheetName);
                <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
             <% })   
               %>
-              </tr><tr><td>Rituximab</td><%
+              </tr><tr><td>Altri atipici </td><%
                _.each(tmpRow7,function(a,b,c){
-                var t=_.values(a)[0];
-                var id=_.keys(a)[0];
-               %>
-               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
-            <% })   
-              %>
-              </tr>
-              <tr><td>Tocilizumab</td><%
-               _.each(tmpRow8,function(a,b,c){
                 var t=_.values(a)[0];
                 var id=_.keys(a)[0];
                %>

@@ -532,7 +532,7 @@ if(activeSheet.indexOf('default')>=0) sheetName='OPZ';
           
           //src_rows,mapping_col_idx,src_val_idx,src_label_idx,src_vect
           updatedParams=copyData(rows,3,4,2,JSON.parse(sheet.params));
-         
+          //console.log(rows);
           
         }
 

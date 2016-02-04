@@ -5,7 +5,7 @@ function drawCharts(spreadsheet,activeSheet) {
 var activeSheetName=activeSheet;
 
 var query1 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=B7:F19&pli=1'); 
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=J3:N15&pli=1'); 
 query1.send(handleQueryResponse1);
 
 }
@@ -101,7 +101,7 @@ drawCharts(data.record,activeSheetName);
               
               
              
-             <tr><td>Etanercept 25 mg</td><%
+             <tr><td></td><%
                _.each(tmpRow5,function(a,b,c){
                 var t=_.values(a)[0];
                 var id=_.keys(a)[0];
@@ -111,7 +111,7 @@ drawCharts(data.record,activeSheetName);
             <% })   
               %>
              </tr>
-              <tr><td>Etanercept 50 mg</td><%
+              <tr><td></td><%
                _.each(tmpRow5_1,function(a,b,c){
                 var t=_.values(a)[0];
                 var id=_.keys(a)[0];

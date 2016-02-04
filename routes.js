@@ -247,6 +247,26 @@ exports = module.exports = function(app, passport) {
   app.get('/spreadsheets_v3/:id/printable',require('./views/spreadsheets_v3/index').getPrintablePage);
   app.get('/spreadsheets_v3/:id/init/printable',require('./views/spreadsheets_v3/index').getPrintablePage);
   
+
+   //show > sheets
+  app.all('/spreadsheets_v4*',ensureAuthenticated);
+  app.get('/spreadsheets_v4/',require('./views/spreadsheets_v4/index').init);
+  app.get('/spreadsheets_v4',require('./views/spreadsheets_v4/index').init);
+  app.get('/spreadsheets_v4/:id/init/',require('./views/spreadsheets_v4/index').readPopulateInitActiveSheet);
+  app.get('/spreadsheets_v4/:id/',require('./views/spreadsheets_v4/index').readPopulateActiveSheet);
+  app.post('/spreadsheets_v4/:id/:sheetId/params',require('./views/spreadsheets_v4/index').updateParams);
+  app.post('/spreadsheets_v4/:id/s/simulation',require('./views/spreadsheets_v4/index').saveSimulationOnDb);
+  app.post('/spreadsheets_v4/:id/g/simulations',require('./views/spreadsheets_v4/index').getSimulations);
+  app.post('/spreadsheets_v4/:id/l/simulation/:simulationId',require('./views/spreadsheets_v4/index').getSimulation);
+
+  app.post('/spreadsheets_v4/activesheet/g/:sheetId',require('./views/spreadsheets_v4/index').getActiveSheet);
+  app.post('/spreadsheets_v4/activesheet/:sheetId',require('./views/spreadsheets_v4/index').setActiveSheet);
+  app.post('/spreadsheets_v4/activesheet/r/:sheetId',require('./views/spreadsheets_v4/index').resetActiveSheet);
+  app.post('/spreadsheets_v4/:id/:sheetId/reset',require('./views/spreadsheets_v4/index').resetSpreadsheet);
+  app.get('/spreadsheets_v4/:id/printable',require('./views/spreadsheets_v4/index').getPrintablePage);
+  
+
+
   //app.get('/spreadsheets_v3/:id/init/printpage',require('./views/spreadsheets_v3/index').getSinglePrintablePage);
   //app.get('/spreadsheets_v3/:id/printpage',require('./views/spreadsheets_v3/index').getSinglePrintablePage);
 
@@ -269,7 +289,7 @@ app.post('/api/v1/product/', products.create);
 app.put('/api/v1/product/:id', products.update);
 app.delete('/api/v1/product/:id', products.delete);
 
-app.post('/api/v1/spreadsheets',spreadsheets.getAllSpreadsheetsByUser);
+app.get('/api/v1/spreadsheets/:ownerId',spreadsheets.getAllSpreadsheetsByUser);
 app.post('/api/v1/spreadsheet/sheets',spreadsheets.getSheetsBySpreadsheet);
 
 /*
