@@ -1,0 +1,128 @@
+<%
+
+function drawCharts(spreadsheet,activeSheet) {
+var activeSheetName=activeSheet;
+
+var query1 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A17:A23,B17:B23&pli=1'); 
+query1.send(handleQueryResponse1);
+
+
+var query2 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A27:A33,B27:B33&pli=1'); 
+query1.send(handleQueryResponse2);
+
+
+var query3 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A5:H43&pli=1'); 
+query3.send(handleQueryResponse3);
+
+
+
+
+}
+
+
+function handleQueryResponse1(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+
+
+
+var j=
+{"view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"chartType":"ColumnChart","options":{"hAxis":{"textStyle":{"color":"#002060","fontSize":8,"bold":false,"italic":false},"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"textStyle":{"color":"#002060","fontSize":9,"bold":false,"italic":false},"gridlines":{"color":"#D9D9D9"}}},"legend":{"position":"none"},"series":{"0":{"color":"#4F81BD"}},"useFirstColumnAsDomain":true,"width":500,"is3D":false,"title":"Costi terapie pro-capite (\u20ac)","chartArea":{"backgroundColor":{"fill":"#FFFFFF"}},"titleTextStyle":{"color":"#002060","fontSize":18,"bold":true,"italic":false},"height":300}};
+
+google.visualization.drawChart(j, document.getElementById('chart1')); 
+
+}
+
+
+
+function handleQueryResponse2(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+
+
+
+var j=
+{"view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"chartType":"ColumnChart","options":{"hAxis":{"textStyle":{"color":"#002060","fontSize":8,"bold":false,"italic":false},"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"textStyle":{"color":"#002060","fontSize":9,"bold":false,"italic":false},"gridlines":{"color":"#D9D9D9"}}},"legend":{"position":"none"},"series":{"0":{"color":"#4F81BD"}},"useFirstColumnAsDomain":true,"width":500,"is3D":false,"title":"Costi extra terapie pro-capite (\u20ac)","chartArea":{"backgroundColor":{"fill":"#FFFFFF"}},"titleTextStyle":{"color":"#002060","fontSize":18,"bold":true,"italic":false},"height":300}};
+
+google.visualization.drawChart(j, document.getElementById('chart2')); 
+
+}
+
+
+function handleQueryResponse3(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+
+ var datatable = new google.visualization.DataView(response.getDataTable());
+  var table = new google.visualization.Table(document.getElementById('dataTable1'));
+  table.draw(datatable,{'sort':'disable'});
+
+}
+
+
+
+
+drawCharts(data.record,activeSheetName);
+
+%>
+<div class="row">
+  <div class="col-md-12">
+        <div class="panel panel-default">
+        <div class="panel-body">
+        <div id='textNote'><%print(textNote);%></div>
+      </div>
+    </div>
+ 
+</div>
+
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+        <div class="panel panel-default">
+        <div class="panel-body">
+         <div id="chart1" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id="chart2" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+        <div class="panel panel-default">
+        <div class="panel-body">
+         <div id="dataTable1" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+ 
+</div>
+</div>
