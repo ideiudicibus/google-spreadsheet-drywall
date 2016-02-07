@@ -138,110 +138,63 @@ drawCharts(data.record,activeSheetName);
         <div class="table-responsive">
               <table class="table table-striped table-bordered table-hover fixed" >
                 <thead>
-              <tr><th>&nbsp;</th><th>Aderenza</th>
+              <tr><th>Aderenza</th>
                </thead>
                <tbody>
 
               <%
-             
+               var rows=[];
                var tmpRow1=_.filter(params,function(a,b,c){
                 return (_.keys(a)[0].indexOf("1")>=0); 
                 })
+                rows.push(tmpRow1);
                 var tmpRow2=_.filter(params,function(a,b,c){
                 return (_.keys(a)[0].indexOf("2")>=0); 
                 })
+                 rows.push(tmpRow2);
                  var tmpRow3=_.filter(params,function(a,b,c){
                 return (_.keys(a)[0].indexOf("3")>=0); 
                 })
+                  rows.push(tmpRow3);
                 var tmpRow4=_.filter(params,function(a,b,c){
                 return (_.keys(a)[0].indexOf("4")>=0); 
                 })
+                 rows.push(tmpRow4);
                 var tmpRow5=_.filter(params,function(a,b,c){
                 return (_.keys(a)[0].indexOf("5")>=0); 
                 })
+                 rows.push(tmpRow5);
                 var tmpRow6=_.filter(params,function(a,b,c){
                 return (_.keys(a)[0].indexOf("6")>=0); 
                 })
+                 rows.push(tmpRow6);
                 var tmpRow7=_.filter(params,function(a,b,c){
                 return (_.keys(a)[0].indexOf("7")>=0); 
                 })
-                var tmpRow8=_.filter(params,function(a,b,c){
-                return (_.keys(a)[0].indexOf("8")>=0); 
-                })
-                
+                 rows.push(tmpRow7);
+               
                 
                %>
-               <tr><td >Abatacept</td><%
-               _.each(tmpRow1,function(a,b,c){
+
+                <%_.each(rows,function(item){
+
+              %>
+             
+              <tr>
+             <%
+               _.each(item,function(a,b,c){
                 var t=_.values(a)[0];
                 var id=_.keys(a)[0];
                %>
-               <td ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text"  value="<%= t.value %>" class="input-xs"></input></td>
+               
+               <td ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input>
+                <p style=" font-size:xx-small"><%=t.label%></p>
+               </td>
             <% })   
               %>
-              </tr><tr><td>Adalimumab</td><%
-               _.each(tmpRow2,function(a,b,c){
-                var t=_.values(a)[0];
-                var id=_.keys(a)[0];
-               %>
-               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
-            <% })   
-              %>
-              </tr><tr><td>Certolizumab</td><%
-               _.each(tmpRow3,function(a,b,c){
-                var t=_.values(a)[0];
-                var id=_.keys(a)[0];
-               %>
-               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
-            <% })   
-              %>
-              </tr>
-              <tr><td>Etanercept</td><%
-               _.each(tmpRow4,function(a,b,c){
-                var t=_.values(a)[0];
-                var id=_.keys(a)[0];
-               %>
-               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
-            <% })   
-              %>
-              </tr>
-              <tr><td>Golimumab</td><%
-               _.each(tmpRow5,function(a,b,c){
-                var t=_.values(a)[0];
-                var id=_.keys(a)[0];
-               %>
-               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
-            <% })   
-              %>
-              </tr>
-              <tr><td>Infliximab</td><%
-               _.each(tmpRow6,function(a,b,c){
-                var t=_.values(a)[0];
-                var id=_.keys(a)[0];
-               %>
-               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
-            <% })   
-              %>
-              </tr>
-              <tr><td>Rituximab</td><%
-               _.each(tmpRow7,function(a,b,c){
-                var t=_.values(a)[0];
-                var id=_.keys(a)[0];
-               %>
-               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
-            <% })   
-              %>
-              </tr>
-              <tr><td>Tocilizumab</td><%
-               _.each(tmpRow8,function(a,b,c){
-                var t=_.values(a)[0];
-                var id=_.keys(a)[0];
-               %>
-               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
-            <% })   
-              %>
-              </tr>
-              
+             </tr>
+             <%})%>
+
             </tbody>
           </table>
           </div>

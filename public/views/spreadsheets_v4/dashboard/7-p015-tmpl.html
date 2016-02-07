@@ -5,7 +5,7 @@ function drawCharts(spreadsheet,activeSheet) {
 var activeSheetName=activeSheet;
 
 var query1 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=J3:N15&pli=1'); 
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=I3:N15&pli=1'); 
 query1.send(handleQueryResponse1);
 
 }
@@ -83,47 +83,95 @@ drawCharts(data.record,activeSheetName);
         <div class="table-responsive">
               <table class="table table-striped table-bordered table-hover fixed" >
                 <thead>
-              <tr><th>&nbsp;</th><th>% Sconto</th><th> Sconto a Confezione € </th></tr>
+              <tr><th>Prezzo</th><th>% Sconto</th><th> Sconto a Confezione € </th></tr>
                </thead>
                <tbody>
 
               <%
-              
-                 var tmpRow5=_.filter(params,function(a,b,c){
-                return (_.keys(a)[0].indexOf("4C1")>=0); 
-                })
-                 var tmpRow5_1=_.filter(params,function(a,b,c){
-                return (_.keys(a)[0].indexOf("4C2")>=0); 
-                })
-                
-  
-               %>
-              
-              
-             
-             <tr><td></td><%
-               _.each(tmpRow5,function(a,b,c){
-                var t=_.values(a)[0];
-                var id=_.keys(a)[0];
-               %>
-               
-               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
-            <% })   
-              %>
-             </tr>
-              <tr><td></td><%
-               _.each(tmpRow5_1,function(a,b,c){
-                var t=_.values(a)[0];
-                var id=_.keys(a)[0];
-               %>
-               
-               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
-            <% })   
-              %>
-             </tr>
-             
+                var rows=[];
+                 var r1C1=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("1C1")>=0); 
+                });
 
-            </tbody>
+                 rows.push(r1C1);
+                  var r2C1=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("2C1")>=0); 
+                });
+
+                   rows.push(r2C1);
+                
+                 var r2C2=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("2C2")>=0); 
+                });
+                 rows.push(r2C2);
+                 var r2C3=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("2C3")>=0); 
+                });
+                  rows.push(r2C3);
+                var r3C1=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("3C1")>=0); 
+                });
+
+                rows.push(r3C1);
+                
+                var r3C2=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("3C2")>=0); 
+                });
+
+                rows.push(r3C2);
+
+                var r3C3=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("3C3")>=0); 
+                });
+
+                rows.push(r3C3);
+
+                var r3C4=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("3C4")>=0); 
+                });
+
+                rows.push(r3C4);
+
+                var r4C1=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("4C1")>=0); 
+                });
+
+                rows.push(r4C1);
+                
+                var r4C2=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("4C2")>=0); 
+                });
+
+                rows.push(r4C2);
+
+                var r4C3=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("4C3")>=0); 
+                });
+                rows.push(r4C3);  
+              
+              
+               %>
+              
+              
+             <%_.each(rows,function(item){
+
+              %>
+             
+              <tr>
+             <%
+               _.each(item,function(a,b,c){
+                var t=_.values(a)[0];
+                var id=_.keys(a)[0];
+               %>
+               
+               <td ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input>
+                <p style=" font-size:xx-small"><%=t.label%></p>
+               </td>
+            <% })   
+              %>
+             </tr>
+             <%})%>         
+           </tbody>
           </table>
           </div>
       </div>
