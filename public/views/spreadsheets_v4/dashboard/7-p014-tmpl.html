@@ -5,7 +5,7 @@ function drawCharts(spreadsheet,activeSheet) {
 var activeSheetName=activeSheet;
 
 var query1 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=C3:E10&pli=1'); 
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=C3:E7&pli=1'); 
 query1.send(handleQueryResponse1);
 
 }
@@ -81,7 +81,7 @@ drawCharts(data.record,activeSheetName);
         <div class="table-responsive">
               <table class="table table-striped table-bordered table-hover fixed" >
                 <thead>
-              <tr><th>&nbsp;</th><th>Quota pazienti de novo al biologico</th><th>Quota switch ad altro biologico</th></tr>
+              <tr><th>&nbsp;</th><th>Quota pazienti de novo</th><th>Quota switch ad altro biologico</th></tr>
                </thead>
                <tbody>
 

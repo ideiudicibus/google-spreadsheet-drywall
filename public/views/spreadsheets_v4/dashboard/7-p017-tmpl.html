@@ -122,6 +122,14 @@ drawCharts(data.record,activeSheetName);
                 return (_.keys(a)[0].indexOf("cuafarm")>=0); 
                 })
                rows.push(tmpRow5);
+                var tmpRow6=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("cuasan")>=0); 
+                })
+               rows.push(tmpRow6);
+                var tmpRow7=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("cuansan")>=0); 
+                })
+               rows.push(tmpRow7);
                %>
                <%_.each(rows,function(item){
 
