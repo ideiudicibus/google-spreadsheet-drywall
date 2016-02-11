@@ -194,8 +194,8 @@ workflow.on('updateGoogleSpreadsheet',function(p){
   var activeSheet=p.activeSheet;
 
 if(activeSheet.indexOf('default')>0) sheetName='OPZ';
-//console.log('params to tranform are: '+ sys.inspect(params));
-//console.log('params to send are: '+ sys.inspect(prepareParamsForExcel(params)));
+console.log('params to tranform are: '+ sys.inspect(params));
+console.log('params to send are: '+ sys.inspect(prepareParamsForExcel(params)));
   
 updateSheet(p.googleId,prepareParamsForExcel(params),sheetName,workflow,req);
 

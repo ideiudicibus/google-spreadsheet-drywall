@@ -290,7 +290,8 @@ app.put('/api/v1/product/:id', products.update);
 app.delete('/api/v1/product/:id', products.delete);
 
 app.get('/api/v1/spreadsheets/:ownerId',spreadsheets.getAllSpreadsheetsByUser);
-app.post('/api/v1/spreadsheet/sheets',spreadsheets.getSheetsBySpreadsheet);
+app.get('/api/v1/spreadsheets/s/:id',spreadsheets.getSpreadsheetById);
+
 
 /*
  * Routes that can be accessed only by authenticated & authorized users

@@ -5,17 +5,37 @@
 
 exports.getAllSpreadsheetsByUser = function(req,res,next){
 var fieldsToQuery={};
- 
-    fieldsToQuery.ownersList=req.body._id;
-    console.log(fieldsToQuery);
+    
+    fieldsToQuery.ownersList=req.params.ownerId;
+   
 
        req.app.db.models.Spreadsheet.find(fieldsToQuery).select('-ownersList').exec(function(err, spreadsheets) {
        	var result={};
-       	result.result=spreadsheets;
+       	result=spreadsheets;
+
        	res.send(result);
        });
 
   }
+
+ 
+
+
+exports.getSpreadsheetById = function(req, res, next){
+  
+  req.app.db.models.Spreadsheet.findOne({_id:req.params.id}).populate('sheetsList').exec(function(err, spreadsheet) {
+    if (err) {
+      res.status(500);
+      res.json({
+        "status": 500,
+        "message": JSON.stringify(err)
+      });
+      return; 
+    }
+    res.send(spreadsheet);
+
+  });
+};
 
 
 
