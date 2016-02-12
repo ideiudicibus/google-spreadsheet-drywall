@@ -118,18 +118,22 @@ drawCharts(data.record,activeSheetName);
                 return (_.keys(a)[0].indexOf("cuvis")>=0); 
                 })
                rows.push(tmpRow4);
-               var tmpRow5=_.filter(params,function(a,b,c){
-                return (_.keys(a)[0].indexOf("cuafarm")>=0); 
+               var tmpRow4=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("cudia")>=0); 
                 })
-               rows.push(tmpRow5);
-                var tmpRow6=_.filter(params,function(a,b,c){
-                return (_.keys(a)[0].indexOf("cuasan")>=0); 
+               rows.push(tmpRow4);
+               var tmpRow6=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("cuafarm")>=0); 
                 })
                rows.push(tmpRow6);
                 var tmpRow7=_.filter(params,function(a,b,c){
-                return (_.keys(a)[0].indexOf("cuansan")>=0); 
+                return (_.keys(a)[0].indexOf("cuasan")>=0); 
                 })
                rows.push(tmpRow7);
+                var tmpRow8=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("cuansan")>=0); 
+                })
+               rows.push(tmpRow8);
                %>
                <%_.each(rows,function(item){
 
