@@ -75,6 +75,7 @@ function loadTemplate(sheet,sheetName,opzReg,opzGen){
 }
 
 
+
 $(function() {
 var sheetsList=data.record.sheetsList;
 
@@ -114,3 +115,4 @@ loadTemplate(sheetsList[13],sheetsList[13]._id,opzReg,opzGen);
 //loadTemplateSingle(data.record);
 
 });
+

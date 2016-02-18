@@ -28,7 +28,7 @@
                                 <%} else {%>
 
                                  <select id="<%= k %>" name="<%= k %>"  label="<%= e.label%>" row="<%= e.row%>" col="<%= e.col%>" type="text"  class="form-control ">
-                                  <% var regions=['Italia','Piemonte','Valle d\'Aosta','Lombardia','Trentino - Alto Adige','Veneto','Friuli Venezia Giulia','Emilia Romagna','Toscana','Umbria','Marche','Lazio','Abruzzo','Molise','Campania','Puglia','Basilicata','Calabria','Sicilia','Sardegna','Nord','Centro','Sud']; 
+                                  <% var regions=['Italia','Piemonte','Valle d\'Aosta','Lombardia','Trentino - Alto Adige','Veneto','Friuli Venezia Giulia','Emilia Romagna','Toscana','Umbria','Marche','Lazio','Abruzzo','Molise','Campania','Puglia','Basilicata','Calabria','Sicilia','Sardegna']; 
                                    _.each(regions,function(item){%>
                                       <option <%= item== e.value ?  'selected' : '' %> ><%=item %></option>
                                       <%})  %>

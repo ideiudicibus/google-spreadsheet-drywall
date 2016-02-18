@@ -65,16 +65,25 @@ for(var i=0;i<array.length;i++){
 
 
 if(array[i]._id.indexOf('autori')<0  && array[i]._id.indexOf('biblio')<0 ){
-var li='<li ><a href="#" id="'+array[i]._id+'" class=" sheetId '+checkActiveSheetClass(array[i]._id,spreadsheet.activeSheet)+'" >'+array[i].spreadsheetId+'</a></li>';
+var li=null;
+if(array[i]._id.indexOf('6-p0522')>=0 || array[i]._id.indexOf('6-p0532')>=0 || array[i]._id.indexOf('6-p0521')>=0 || array[i]._id.indexOf('6-p053')>=0 ){
+  li='<li ><a href="#" id="'+array[i]._id+'" class="sheetId left-border-blue'+checkActiveSheetClass(array[i]._id,spreadsheet.activeSheet)+'" >'+array[i].spreadsheetId+'</a></li>';
+
+}
+else{
+  li='<li ><a href="#" id="'+array[i]._id+'" class="sheetId left-border-blue'+checkActiveSheetClass(array[i]._id,spreadsheet.activeSheet)+'" >'+array[i].spreadsheetId+'</a></li>';
+
+}
+
 $(li).appendTo(vroot);
 }
 else {
- 
-  var li='<li ><a href="#" id="'+array[i]._id+'" class=" sheetId '+checkActiveSheetClass(array[i]._id,spreadsheet.activeSheet)+'" >'+array[i].spreadsheetId+'</a></li>';
+  
+  var li='<li ><a href="#" id="'+array[i]._id+'" class="sheetId" >'+array[i].spreadsheetId+'</a></li>';
   $(li).appendTo(hroot);
 }
 }
-
+console.log('8');
 loadActiveSheet(data.record);
 
 }
@@ -187,6 +196,10 @@ elem.toggleClass('active');
 
 
                       };
+                       if((activeSheet.name).indexOf('p051')==0 ){
+                            loadDirectLoadBehaviour();
+
+                      }
                     
             }
             )
@@ -194,6 +207,47 @@ elem.toggleClass('active');
 
         }
     })
+ }
+
+ function loadDirectLoadBehaviour(){
+    $('.directLoad').click(function(event){
+
+   
+  
+
+    var activeSheetID=$(this).attr('sheet');
+
+
+ $.ajax({
+        data:data.record,
+        type: "POST",
+        url: '/spreadsheets_v3/activesheet/'+activeSheetID,
+        dataType:"json",
+        success:  function (response) {
+          
+          switch(response.success)
+          {
+            case  false:
+              var errs=response.errors;
+              for(var j=0;j<errs.length;j++){
+                alertify.error(errs[j]);
+              }
+              break;
+            
+            case  true:
+              var infos=response.infos;
+              for(var j=0;j<infos.length;j++){
+                alertify.log(infos[j]);
+                }
+             data.record=response.spreadsheet; 
+             console.log('loadDirectLoadBehaviour');       
+             loadActiveSheet(data.record);
+          }
+        }
+    })
+
+
+  });
  }
 
  function loadPrintThisPageBehaviour(pageName){
@@ -956,6 +1010,8 @@ function loadSimulationLinkBehaviour(){
 $(function() {
 
 
+
+
  $('#simList').hide();
 
  alertify.set({ labels: {
@@ -1012,7 +1068,7 @@ var activeSheetID=$(this).attr('id');
                 alertify.log(infos[j]);
                 }
              data.record=response.spreadsheet; 
-             console.log('12');       
+                   
              loadActiveSheet(data.record);
           }
         }

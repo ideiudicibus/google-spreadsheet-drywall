@@ -400,3 +400,15 @@ color:#fff;
             page-break-after: always;
         }
 }
+
+
+a.left-border-blue {
+ background-color:#428BCA;
+ color:#f2f2f2;
+
+}
+.nav>li>a:hover.left-border-blue, .nav>li>a:focus.left-border-blue{
+    text-decoration: none;
+    color:#ffffff;
+    background-color: #2D6CA2;
+}
