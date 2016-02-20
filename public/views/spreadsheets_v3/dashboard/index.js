@@ -66,15 +66,7 @@ for(var i=0;i<array.length;i++){
 
 if(array[i]._id.indexOf('autori')<0  && array[i]._id.indexOf('biblio')<0 ){
 var li=null;
-if(array[i]._id.indexOf('6-p0522')>=0 || array[i]._id.indexOf('6-p0532')>=0 || array[i]._id.indexOf('6-p0521')>=0 || array[i]._id.indexOf('6-p053')>=0 ){
-  li='<li ><a href="#" id="'+array[i]._id+'" class="sheetId left-border-blue'+checkActiveSheetClass(array[i]._id,spreadsheet.activeSheet)+'" >'+array[i].spreadsheetId+'</a></li>';
-
-}
-else{
-  li='<li ><a href="#" id="'+array[i]._id+'" class="sheetId left-border-blue'+checkActiveSheetClass(array[i]._id,spreadsheet.activeSheet)+'" >'+array[i].spreadsheetId+'</a></li>';
-
-}
-
+li='<li ><a href="#" id="'+array[i]._id+'" class="sheetId left-border-blue" >'+array[i].spreadsheetId+'</a></li>';
 $(li).appendTo(vroot);
 }
 else {

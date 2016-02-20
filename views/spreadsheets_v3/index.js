@@ -695,7 +695,7 @@ fieldsToQuery.ownersList='';
     }
     else {
 
-      res.render('spreadsheets/index', { data: { records: spreadsheets } });
+      res.render('spreadsheets_v3/index', { data: { records: spreadsheets } });
     }
   });
 
