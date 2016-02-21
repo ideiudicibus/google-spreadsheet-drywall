@@ -798,6 +798,7 @@ params.googleId=data.record.googleId;
 params.activeSheet=data.record.activeSheet;
 
 console.log(params);
+
  $.ajax({
         
         data:params,

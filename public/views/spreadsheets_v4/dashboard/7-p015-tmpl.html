@@ -21,6 +21,7 @@ var dataTable=response.getDataTable();
 
 
  var datatable = new google.visualization.DataView(response.getDataTable());
+ datatable.setColumns([0,1,2,3]);
   var table = new google.visualization.Table(document.getElementById('dataTable'));
   table.draw(datatable,{'sort':'disable'});
 
@@ -164,7 +165,7 @@ drawCharts(data.record,activeSheetName);
                 var id=_.keys(a)[0];
                %>
                
-               <td ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs <%= (t.label).indexOf('%')>=0?  'checkIsPercentage' : '' %>"></input>
+               <td ><input disabled id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs <%= (t.label).indexOf('%')>=0?  'checkIsPercentage' : '' %>"></input>
                 <p style=" font-size:xx-small"><%=t.label%></p>
                </td>
             <% })   

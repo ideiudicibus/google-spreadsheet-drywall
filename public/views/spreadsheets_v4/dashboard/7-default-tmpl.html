@@ -27,7 +27,7 @@
                                   <select id="<%= k %>" name="<%= k %>"  label="<%= e.label%>" row="<%= e.row%>" col="<%= e.col%>" type="text"  class="form-control ">
                                   <% var tsimTypes=['P','R']; 
                                    _.each(tsimTypes,function(item){%>
-                                      <option <%= item== e.value ?  'selected' : '' %> ><%=item=='P' ? 'Regionale': 'Reparto' %></option>
+                                      <option <%= item== e.value ?  'selected' : '' %> value='<%=item%>' > <%=item=='P' ? 'Regionale': 'Reparto' %></option>
                                       <%})  %>
                                   </select>
                                 <%} else {%>

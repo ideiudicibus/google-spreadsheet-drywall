@@ -39,7 +39,7 @@ function handleQueryResponse1(response) {
 
 var j=
 
-{"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3,4,5,6,7]},"dataTable":response.getDataTable(),"options":{"title":"Pazienti per terapia.","height":400,"width":600,"legendTextStyle":{"color":"#222","fontSize":"9"},"legend":{"position":"right", textStyle: {fontSize: 9}},"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{},"isStacked":true}};
+{"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3,4,5,6,7]},"dataTable":response.getDataTable(),"options":{chartArea: {  width: "50%", height: "70%" },"title":"Pazienti per terapia.","height":400,"width":600,"legendTextStyle":{"color":"#222","fontSize":"9"},"legend":{"position":"right", textStyle: {fontSize: 9}},"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{},"isStacked":true}};
 google.visualization.drawChart(j, document.getElementById('chart1')); 
 
 }

@@ -57,7 +57,7 @@ var dataTable=response.getDataTable();
 var j=
 {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"title":"","height":400,"legend":{"position":"labeled",maxLines: 10},"width":800,"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
 
-j.options.title="Distribuzione % dei pazienti per tipologia di terapia";
+j.options.title="Distribuzione % dei pazienti";
 j.options.pieSliceText="none";
 google.visualization.drawChart(j, document.getElementById('chart1')); 
 

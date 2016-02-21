@@ -360,7 +360,7 @@ var sheetName='INPUT';
        //updatedParams=copyData(rows,3,4,2,JSON.parse(sheet.params));
        
         if(sheetName=='INPUT') {
-          var file = __dirname + '/mega-reset.json';
+          var file = __dirname + '/mega-reset-v4.json';
           var mockParams=JSON.parse(fs.readFileSync(file));
           // console.log(sys.inspect(mockParams));
           updatedParams=copyPureData(rows,3,13,2,mockParams);

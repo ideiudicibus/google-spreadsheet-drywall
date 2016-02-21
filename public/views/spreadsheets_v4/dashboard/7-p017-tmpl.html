@@ -25,6 +25,7 @@ var dataTable=response.getDataTable();
 
 
   var datatable = new google.visualization.DataView(response.getDataTable());
+   
   var table = new google.visualization.Table(document.getElementById('dataTable'));
   table.draw(datatable,{'sort':'disable'});
 }

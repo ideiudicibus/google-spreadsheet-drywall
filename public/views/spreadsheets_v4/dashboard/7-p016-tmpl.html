@@ -55,6 +55,7 @@ function handleQueryResponse3(response) {
     return;
   }
   var datatable = new google.visualization.DataView(response.getDataTable());
+  
   var table = new google.visualization.Table(document.getElementById('P015-dataTable'));
   table.draw(datatable,{'sort':'disable'});
 
