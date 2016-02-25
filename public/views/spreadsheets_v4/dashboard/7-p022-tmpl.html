@@ -14,9 +14,20 @@ query2.send(handleQueryResponse2);
 
 
 var query3 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A5:H43&pli=1'); 
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A5:H13&pli=1'); 
 query3.send(handleQueryResponse3);
 
+var query4 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A15:H23&pli=1'); 
+query4.send(handleQueryResponse4);
+
+var query5 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A25:H33&pli=1'); 
+query5.send(handleQueryResponse5);
+
+var query6 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A35:H43&pli=1'); 
+query6.send(handleQueryResponse6);
 
 
 
@@ -74,12 +85,56 @@ var dataTable=response.getDataTable();
 
 
  var datatable = new google.visualization.DataView(response.getDataTable());
-  var table = new google.visualization.Table(document.getElementById('dataTable1'));
+  var table = new google.visualization.Table(document.getElementById('dataTable1P022'));
   table.draw(datatable,{'sort':'disable'});
 
 }
 
 
+function handleQueryResponse4(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+
+ var datatable = new google.visualization.DataView(response.getDataTable());
+  var table = new google.visualization.Table(document.getElementById('dataTable2P022'));
+  table.draw(datatable,{'sort':'disable'});
+
+}
+
+function handleQueryResponse5(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+
+ var datatable = new google.visualization.DataView(response.getDataTable());
+  var table = new google.visualization.Table(document.getElementById('dataTable3P022'));
+  table.draw(datatable,{'sort':'disable'});
+
+}
+
+function handleQueryResponse6(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+
+ var datatable = new google.visualization.DataView(response.getDataTable());
+  var table = new google.visualization.Table(document.getElementById('dataTable4P022'));
+  table.draw(datatable,{'sort':'disable'});
+
+}
 
 
 drawCharts(data.record,activeSheetName);
@@ -125,7 +180,40 @@ drawCharts(data.record,activeSheetName);
   <div class="col-md-12">
         <div class="panel panel-default">
         <div class="panel-body">
-         <div id="dataTable1" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+         <div id="dataTable1P022" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+ 
+</div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+        <div class="panel panel-default">
+        <div class="panel-body">
+         <div id="dataTable2P022" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+ 
+</div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+        <div class="panel panel-default">
+        <div class="panel-body">
+         <div id="dataTable3P022" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+ 
+</div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+        <div class="panel panel-default">
+        <div class="panel-body">
+         <div id="dataTable4P022" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
     </div>
  

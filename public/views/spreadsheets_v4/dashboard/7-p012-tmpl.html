@@ -53,11 +53,39 @@ function handleQueryResponse2(response){
   }
 
 var dataTable=response.getDataTable();
+var data=dataTable;
+/*
+ var total = 0;
+        for (var i = 0; i < data.getNumberOfRows(); i++) {
+            total += data.getValue(i, 1);
+        }
+        
+        var legend = document.getElementById("legend-chart2");
+        var legItem = [];
 
-var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"pieSliceText": "","title":"","height":400,"legend":{"position":"labeled",maxLines: 10},"width":800,"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
+        for (var i = 0; i < data.getNumberOfRows(); i++) {
+            var label = data.getValue(i, 0);
+            var value = data.getValue(i, 1);
+            var percent = Number(100 * value / total).toFixed(1);
+
+            // This will create legend list for the display
+            legItem[i] = document.createElement('li');
+            legItem[i].id = 'legend_' + data.getValue(i, 0);
+            legItem[i].innerHTML = '<div class="list-group-item"> <span >' + label + ':(' + percent + '%)</span></div>';
+
+            legend.appendChild(legItem[i]);
+        }
+*/
+
+var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"height":500,"legend":{"position":"right",textStyle: {fontSize: 9}},"width":800,"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
 
 j.options.title="Distribuzione % dei pazienti per terapia. Anno t0.";
-j.options.pieSliceText="none";
+//j.options.pieSliceText="none";
+//j.options.slices={  0: {offset: 0.2}};
+          
+//j.options.legend.textStyle={color: 'black', fontSize: 6};
+//j.options.pieStartAngle=174;
+//j.options.sliceVisibilityThreshold= 1/25000;
 google.visualization.drawChart(j, document.getElementById('chart2')); 
 
 
@@ -73,7 +101,7 @@ function handleQueryResponse3(response){
 
 var dataTable=response.getDataTable();
 
-var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"title":"","height":400,"legend":{"position":"labeled",maxLines: 10},"width":800,"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
+var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"title":"","height":400,"legend":{"position":"right",maxLines: 10,textStyle: {fontSize: 9}},"width":800,"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
 
 j.options.title="Distribuzione % dei pazienti per terapia. Anno t1.";
 j.options.pieSliceText="none";
@@ -92,7 +120,7 @@ function handleQueryResponse4(response){
 
 var dataTable=response.getDataTable();
 
-var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"title":"","height":400,"legend":{"position":"labeled",maxLines: 10},"width":800,"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
+var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"title":"","height":400,"legend":{"position":"right",maxLines: 10, textStyle: {fontSize: 9}},"width":800,"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
 
 j.options.title="Distribuzione % dei pazienti per terapia. Anno t2.";
 j.options.pieSliceText="none";
@@ -110,7 +138,7 @@ function handleQueryResponse5(response){
 
 var dataTable=response.getDataTable();
 
-var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"title":"","height":400,"legend":{"position":"labeled",maxLines: 10},"width":800,"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
+var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"title":"","height":400,"legend":{"position":"right",maxLines: 10},"width":800,"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
 
 j.options.title="Distribuzione % dei pazienti per terapia. Anno t3.";
 j.options.pieSliceText="none";
@@ -162,6 +190,9 @@ drawCharts(data.record,activeSheetName);
     <div class="panel panel-default">
       <div class="panel-body">
         <div id="chart2" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+         
+        <div id="legend-chart2" class="list-group-horizontal"> </div>
+       
       </div>
     </div>
   </div>
