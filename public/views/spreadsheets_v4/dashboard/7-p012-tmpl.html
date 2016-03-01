@@ -77,10 +77,10 @@ var data=dataTable;
         }
 */
 
-var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"height":500,"legend":{"position":"right",textStyle: {fontSize: 9}},"width":800,"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
+var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"title":"","height":400,"legend":{"position":"right",maxLines: 10,textStyle: {fontSize: 9}},"width":800,"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
 
 j.options.title="Distribuzione % dei pazienti per terapia. Anno t0.";
-//j.options.pieSliceText="none";
+j.options.pieSliceText="none";
 //j.options.slices={  0: {offset: 0.2}};
           
 //j.options.legend.textStyle={color: 'black', fontSize: 6};
