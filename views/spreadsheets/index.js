@@ -458,7 +458,7 @@ fieldsToQuery.ownersList='';
       res.send(spreadsheets);
     }
     else {
-
+     
       res.render('spreadsheets/index', { data: { records: spreadsheets } });
     }
   });
