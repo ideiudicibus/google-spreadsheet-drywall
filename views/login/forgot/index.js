@@ -59,6 +59,7 @@ exports.send = function(req, res, next){
   });
 
   workflow.on('sendEmail', function(token, user) {
+
     req.app.utility.sendmail(req, res, {
       from: req.app.get('smtp-from-name') +' <'+ req.app.get('smtp-from-address') +'>',
       to: user.email,
@@ -74,6 +75,7 @@ exports.send = function(req, res, next){
         workflow.emit('response');
       },
       error: function(err) {
+        console.log(err);
         workflow.outcome.errors.push('Error Sending: '+ err);
         workflow.emit('response');
       }

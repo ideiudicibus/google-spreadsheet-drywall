@@ -31,6 +31,8 @@
       errors: [],
       errfor: {},
       isActive: '',
+      flagPasswordExpires:'',
+      passwordExpires:'',
       username: '',
       email: ''
     },
@@ -119,9 +121,12 @@
       this.render();
     },
     syncUp: function() {
+
       this.model.set({
         _id: app.mainView.model.id,
         isActive: app.mainView.model.get('isActive'),
+        flagPasswordExpires:app.mainView.model.get('flagPasswordExpires'),
+        passwordExpires:app.mainView.model.get('passwordExpires'),
         username: app.mainView.model.get('username'),
         email: app.mainView.model.get('email')
       });
@@ -130,14 +135,18 @@
       this.$el.html(this.template( this.model.attributes ));
 
       for (var key in this.model.attributes) {
+        
         if (this.model.attributes.hasOwnProperty(key)) {
           this.$el.find('[name="'+ key +'"]').val(this.model.attributes[key]);
         }
       }
     },
     update: function() {
+
       this.model.save({
         isActive: this.$el.find('[name="isActive"]').val(),
+        flagPasswordExpires:this.$el.find('[name="flagPasswordExpires"]').val(),
+        passwordExpires:this.$el.find('[name="passwordExpires"]').val(),
         username: this.$el.find('[name="username"]').val(),
         email: this.$el.find('[name="email"]').val()
       });

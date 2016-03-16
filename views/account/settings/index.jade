@@ -11,6 +11,10 @@ block body
     div.col-xs-12
       div.page-header
         h1 Impostazioni Account
+        p 
+         if locals.user.passwordExpires <0 
+           div.alert.alert-danger.alert-dismissable la tua password è scaduta si prega di rinnovarla tramite la funzionalità "imposta password" presente in questa pagina
+            button.close(type='button', data-dismiss='alert') &times;
   div.row
     div.col-sm-9
       div#details

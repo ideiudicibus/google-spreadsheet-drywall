@@ -4,7 +4,7 @@ block head
   title Users / Details
 
 block feet
-  script(src='/views/admin/users/details.min.js?#{cacheBreaker}')
+  script(src='/views/admin/users/details.js?#{cacheBreaker}')
 
 block body
   div.row
@@ -41,6 +41,12 @@ block body
           option(value='yes') yes
           option(value='no') no
         span.help-block <%- errfor.isActive %>
+      div.form-group
+        label flag password expires:
+        input.form-control(type='text', name='flagPasswordExpires', value!='<%= flagPasswordExpires %>')
+      div.form-group
+        label flag password expires:
+        input.form-control(type='text', name='passwordExpires', value!='<%= passwordExpires %>')
       div.form-group(class!='<%- errfor.username ? "has-error" : "" %>')
         label Username:
         input.form-control(type='text', name='username', value!='<%= username %>')

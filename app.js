@@ -2,13 +2,16 @@
 
 //dependencies
 var config = require('./config'),
+    paramAuth = require('./paramAuth'),
     express = require('express'),
     mongoStore = require('connect-mongo')(express),
     http = require('http'),
     path = require('path'),
     passport = require('passport'),
     mongoose = require('mongoose'),
+    moment = require('moment'),
     helmet = require('helmet');
+
 
 //create express app
 var app = express();
@@ -80,7 +83,8 @@ app.configure(function(){
   app.use(express.cookieParser());
   app.use(express.session({
     secret: config.cryptoKey,
-    store: app.sessionStore
+    store: app.sessionStore,
+    cookie:{_expires : paramAuth .sessionCookieExpires},
   }));
   app.use(passport.initialize());
   app.use(passport.session());
@@ -88,9 +92,15 @@ app.configure(function(){
 
   //response locals
   app.use(function(req, res, next) {
+    var oneDay = 24*60*60*1000; 
     res.locals.user = {};
     res.locals.user.defaultReturnUrl = req.user && req.user.defaultReturnUrl();
     res.locals.user.username = req.user && req.user.username;
+    res.locals.user.passwordExpires=req.user && req.user.passwordExpires!=undefined?Math.round(( req.user.passwordExpires.getTime()-new Date().getTime())/(oneDay)):false;
+    res.locals.user.flagPasswordExpires=req.user &&  req.user.flagPasswordExpires;
+    res.locals.passwordValidationRegex=paramAuth.passwordValidationRegex;
+    res.locals.passwordExpirationDays=paramAuth.passwordExpirationDays;
+
     next();
   });
   app.all('/*', function(req, res, next) {
@@ -105,6 +115,7 @@ app.configure(function(){
     next();
   }
 });
+
 
 
  

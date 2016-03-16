@@ -111,7 +111,6 @@
       var ownersList=this.$el.find('[name="owners"]').val();
       ownersList=ownersList.split(',');
       ownersList=_.uniq(ownersList);
-console.log(this.$el.find('[name="apiVersion"]').val());
       this.model.save({
         sheetsList: sheetsList,
         ownersList:ownersList,

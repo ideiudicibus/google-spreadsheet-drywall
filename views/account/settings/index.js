@@ -1,3 +1,5 @@
+var passwordGenerator=require('../../../utils/password-generator');
+
 'use strict';
 
 var renderSettings = function(req, res, next, oauthMessage) {
@@ -387,20 +389,34 @@ exports.identity = function(req, res, next){
   workflow.emit('validate');
 };
 
+
+
 exports.password = function(req, res, next){
   var workflow = req.app.utility.workflow(req, res);
 
   workflow.on('validate', function() {
+      
+
+
     if (!req.body.newPassword) {
-      workflow.outcome.errfor.newPassword = 'required';
+      workflow.outcome.errfor.newPassword = 'campo richiesto';
     }
+    
+    var regex=res.locals.passwordValidationRegex;
+    var password=req.body.newPassword;
+    var result= password.match(regex);
+
+    if (!result) {
+      workflow.outcome.errfor.newPassword = 'La password deve contenere nell\'ordine una lettere maiuscola un carattere speciale un numero e restanti caratteri, fino ad arrivare ad una lughezza complessiva di 8 caratteri. Es: '+passwordGenerator.generate();
+    }
+
 
     if (!req.body.confirm) {
       workflow.outcome.errfor.confirm = 'required';
     }
 
     if (req.body.newPassword !== req.body.confirm) {
-      workflow.outcome.errors.push('Passwords do not match.');
+      workflow.outcome.errors.push('le password non corrispondono');
     }
 
     if (workflow.hasErrors()) {
@@ -415,8 +431,11 @@ exports.password = function(req, res, next){
       if (err) {
         return workflow.emit('exception', err);
       }
-
-      var fieldsToSet = { password: hash };
+      var days=res.locals.passwordExpirationDays;
+      var date=new Date();
+      
+      var passwordExpiresDate=new Date(date.setTime( date.getTime() + days * 86400000 )); 
+      var fieldsToSet = { password: hash,passwordExpires:passwordExpiresDate };
       req.app.db.models.User.findByIdAndUpdate(req.user.id, fieldsToSet, function(err, user) {
         if (err) {
           return workflow.emit('exception', err);

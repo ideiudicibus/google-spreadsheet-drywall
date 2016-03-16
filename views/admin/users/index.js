@@ -120,6 +120,11 @@ exports.update = function(req, res, next){
     if (!req.body.isActive) {
       req.body.isActive = 'no';
     }
+   
+
+     if (!req.body.flagPasswordExpires) {
+      req.body.flagPasswordExpires =false;
+    }
 
     if (!req.body.username) {
       workflow.outcome.errfor.username = 'required';
@@ -175,6 +180,8 @@ exports.update = function(req, res, next){
   workflow.on('patchUser', function() {
     var fieldsToSet = {
       isActive: req.body.isActive,
+      flagPasswordExpires:req.body.flagPasswordExpires,
+      passwordExpires:req.body.passwordExpires,
       username: req.body.username,
       email: req.body.email.toLowerCase(),
       search: [

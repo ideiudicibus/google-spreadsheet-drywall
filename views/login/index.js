@@ -89,6 +89,10 @@ exports.login = function(req, res){
         return workflow.emit('exception', err);
       }
 
+      console.log(user);
+
+      
+
       if (!user) {
         var fieldsToSet = { ip: req.ip, user: req.body.username };
         req.app.db.models.LoginAttempt.create(fieldsToSet, function(err, doc) {

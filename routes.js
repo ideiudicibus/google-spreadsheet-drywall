@@ -9,6 +9,8 @@ function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
+   
+
   res.set('X-Auth-Required', 'true');
   req.session.returnUrl = req.originalUrl;
   res.redirect('/login/');
@@ -25,10 +27,13 @@ function ensureAdmin(req, res, next) {
 
 function ensureAccount(req, res, next) {
   if (req.user.canPlayRoleOf('account')) {
+   
+
     if (req.app.get('require-account-verification')) {
       if (req.user.roles.account.isVerified !== 'yes' && !/^\/account\/verification\//.test(req.url)) {
         return res.redirect('/account/verification/');
       }
+
     }
     return next();
   }
@@ -39,6 +44,7 @@ exports = module.exports = function(app, passport) {
   //front end
   app.get('/', require('./views/login/index').init);
   app.get('/about/', require('./views/about/index').init);
+ 
   app.get('/contact/', require('./views/contact/index').init);
   app.post('/contact/', require('./views/contact/index').sendMessage);
 
@@ -290,8 +296,9 @@ app.put('/api/v1/product/:id', products.update);
 app.delete('/api/v1/product/:id', products.delete);
 
 app.get('/api/v1/spreadsheets/:ownerId',spreadsheets.getAllSpreadsheetsByUser);
-app.get('/api/v1/spreadsheets/s/:id',spreadsheets.getSpreadsheetById);
+app.get('/api/v1/spreadsheets/ws/:id',spreadsheets.getSpreadsheetById);
 
+app.get('/api/v1/spreadsheets/ws/:id/s/:name',spreadsheets.getSheetByName);
 
 /*
  * Routes that can be accessed only by authenticated & authorized users
