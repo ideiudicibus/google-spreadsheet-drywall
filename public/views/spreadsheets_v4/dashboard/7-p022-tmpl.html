@@ -21,7 +21,7 @@ var query5 = new google.visualization.Query(
 query5.send(handleQueryResponse5);
 
 var query6 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A35:H43&pli=1'); 
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A45:D52&pli=1'); 
 query6.send(handleQueryResponse6);
 
 
@@ -44,25 +44,6 @@ dataTable.setColumnLabel(2,"Extra Terapia");
 var j=
 {"view":{"columns":[0,1,2]},"chartName":"Grafico 25","dataTable":dataTable,"options":{"hasHiddenData":false,"treatLabelsAsText":false,"vAxes":[{"useFormatFromData":true,"minValue":null,"logScale":false,"maxValue":null,"title":null,"viewWindow":{"min":null,"max":null}},{"useFormatFromData":true,"minValue":null,"logScale":false,"maxValue":null,"viewWindow":{"min":null,"max":null}}],"legend":"bottom","isStacked":true,"legacyScatterChartLabels":true,"title":"Costi medi pro-capite","titleTextStyle":{"color":"#000","fontSize":16,"bold":true},"hAxis":{"useFormatFromData":true,"textStyle":{"color":"#222","fontSize":"9"},"title":""},"useFirstColumnAsDomain":true,"width":500,"legacyContinuousAxisRemoved":true,"booleanRole":"certainty","height":300},"chartType":"ColumnChart","state":{},"isDefaultVisualization":true};
 
-/*var jj={"chartName":"Grafico 25","chartType":"ColumnChart","state":{},"isDefaultVisualization":true};
-
-var options={height:300,width:500,hasHiddenData:false,treatLabelsAsText:false,vAxes:[{useFormatFromData:true,minValue:null,logScale:false,maxValue:null,title:null,viewWindow:{min:null,max:null}},{useFormatFromData:true,minValue:null,logScale:false,maxValue:null,viewWindow:{min:null,max:null}}],legend:'bottom',isStacked:true,legacyScatterChartLabels:true,title:'Costi medi pro-capite',titleTextStyle:{color:'#000',fontSize:16,bold:true},hAxis:{useFormatFromData:true,textStyle:{color:'#222',fontSize:9}},useFirstColumnAsDomain:true,legacyContinuousAxisRemoved:true,booleanRole:'certainty'};
-
-_.extend(dataTable,jj);
-
-      var chart_div = document.getElementById('chart1');
-      var chart = new google.visualization.ColumnChart(chart_div);
-
-      // Wait for the chart to finish drawing before calling the getImageURI() method.
-      google.visualization.events.addListener(chart, 'ready', function () {
-        chart_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
-        
-      });
-
-
-      chart.draw(dataTable, options);
-
-*/
 
 
 google.visualization.drawChart(j, document.getElementById('chart1')); 

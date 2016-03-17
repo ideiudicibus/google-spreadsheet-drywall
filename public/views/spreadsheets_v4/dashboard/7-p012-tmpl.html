@@ -25,8 +25,14 @@ var query5 = new google.visualization.Query(
 query5.send(handleQueryResponse5);
 
 var query6 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=B11:F29&pli=1'); 
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=B11:F18&pli=1'); 
 query6.send(handleQueryResponse6);
+
+
+
+var query7 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=B21:F27&pli=1'); 
+query7.send(handleQueryResponse7);
 
 }
 
@@ -54,38 +60,13 @@ function handleQueryResponse2(response){
 
 var dataTable=response.getDataTable();
 var data=dataTable;
-/*
- var total = 0;
-        for (var i = 0; i < data.getNumberOfRows(); i++) {
-            total += data.getValue(i, 1);
-        }
-        
-        var legend = document.getElementById("legend-chart2");
-        var legItem = [];
 
-        for (var i = 0; i < data.getNumberOfRows(); i++) {
-            var label = data.getValue(i, 0);
-            var value = data.getValue(i, 1);
-            var percent = Number(100 * value / total).toFixed(1);
-
-            // This will create legend list for the display
-            legItem[i] = document.createElement('li');
-            legItem[i].id = 'legend_' + data.getValue(i, 0);
-            legItem[i].innerHTML = '<div class="list-group-item"> <span >' + label + ':(' + percent + '%)</span></div>';
-
-            legend.appendChild(legItem[i]);
-        }
-*/
 
 var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"title":"","height":400,"legend":{"position":"right",maxLines: 10,textStyle: {fontSize: 9}},"width":800,"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
 
 j.options.title="Distribuzione % dei pazienti per terapia. Anno t0.";
 j.options.pieSliceText="none";
-//j.options.slices={  0: {offset: 0.2}};
-          
-//j.options.legend.textStyle={color: 'black', fontSize: 6};
-//j.options.pieStartAngle=174;
-//j.options.sliceVisibilityThreshold= 1/25000;
+
 google.visualization.drawChart(j, document.getElementById('chart2')); 
 
 
@@ -156,7 +137,20 @@ function handleQueryResponse6(response) {
   }
 
   var datatable = new google.visualization.DataView(response.getDataTable());
-  var table = new google.visualization.Table(document.getElementById('dataTable'));
+  var table = new google.visualization.Table(document.getElementById('dataTable1'));
+  table.draw(datatable,{'sort':'disable'});
+
+}
+
+function handleQueryResponse7(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+  var datatable = new google.visualization.DataView(response.getDataTable());
+  var table = new google.visualization.Table(document.getElementById('dataTable2'));
   table.draw(datatable,{'sort':'disable'});
 
 }
@@ -247,7 +241,9 @@ drawCharts(data.record,activeSheetName);
         </div>
       </div>
       <div class="panel-body">
-          <div id='dataTable' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+          <div id='dataTable1' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+          <hr/>
+           <div id='dataTable2' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
 </div>
 </div>
