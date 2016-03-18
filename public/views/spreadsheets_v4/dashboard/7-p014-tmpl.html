@@ -112,7 +112,7 @@ drawCharts(data.record,activeSheetName);
                   var tmpRow4=_.filter(params,function(a,b,c){
                 return (_.keys(a)[0].indexOf("4")>=0); 
                 })
-                  /*
+                
                    var tmpRow5=_.filter(params,function(a,b,c){
                 return (_.keys(a)[0].indexOf("5")>=0); 
                 })
@@ -123,7 +123,7 @@ drawCharts(data.record,activeSheetName);
                 return (_.keys(a)[0].indexOf("7")>=0); 
                 })
 
-*/
+
 
 
 
@@ -157,6 +157,36 @@ drawCharts(data.record,activeSheetName);
               %>
               </tr><tr><td>Risperidone RP (LAI)</td><%
                _.each(tmpRow4,function(a,b,c){
+                var t=_.values(a)[0];
+                var id=_.keys(a)[0];
+               %>
+               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
+            <% })   
+              %>
+              </tr>
+
+              <tr><td>Tipici Orali </td><%
+               _.each(tmpRow5,function(a,b,c){
+                var t=_.values(a)[0];
+                var id=_.keys(a)[0];
+               %>
+               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
+            <% })   
+              %>
+              </tr>
+
+              <tr><td>Altri Depot</td><%
+               _.each(tmpRow6,function(a,b,c){
+                var t=_.values(a)[0];
+                var id=_.keys(a)[0];
+               %>
+               <td  ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input></td>
+            <% })   
+              %>
+              </tr>
+
+              <tr><td>Altri atpici</td><%
+               _.each(tmpRow7,function(a,b,c){
                 var t=_.values(a)[0];
                 var id=_.keys(a)[0];
                %>
