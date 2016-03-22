@@ -2,7 +2,8 @@
 
 exports.init = function(req, res){
   //res.render('account/index');
-   if(res.locals.user.passwordExpires <= 0  ){
+  console.log(res.locals.user.passwordExpires);
+   if(res.locals.user.passwordExpires && res.locals.user.passwordExpires <= 0  ){
       
       return res.redirect('/account/settings/');
       
