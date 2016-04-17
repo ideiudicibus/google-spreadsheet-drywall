@@ -6,11 +6,17 @@ var user = require('./api/routes/users.js');
 var spreadsheets = require('./api/routes/spreadsheets.js');
 
 function ensureAuthenticated(req, res, next) {
+  if(!req.session.passport.user){
+  res.set('X-Auth-Required', 'true');
+  req.session.returnUrl = req.originalUrl;
+  res.redirect('/login/');
+}
+  
   if (req.isAuthenticated()) {
     return next();
   }
    
-
+  
   res.set('X-Auth-Required', 'true');
   req.session.returnUrl = req.originalUrl;
   res.redirect('/login/');
@@ -99,6 +105,9 @@ exports = module.exports = function(app, passport) {
   app.put('/admin/users/:id/role-account/', require('./views/admin/users/index').linkAccount);
   app.delete('/admin/users/:id/role-account/', require('./views/admin/users/index').unlinkAccount);
   app.delete('/admin/users/:id/', require('./views/admin/users/index').delete);
+
+  //create spreadsheet from a master
+  app.put('/admin/users/:id/createspreadheetfrommaster/', require('./views/admin/users/index').createSpreadheetFromMaster);
 
   //admin > administrators
   app.get('/admin/administrators/', require('./views/admin/administrators/index').find);
@@ -271,10 +280,46 @@ exports = module.exports = function(app, passport) {
   app.post('/spreadsheets_v4/:id/:sheetId/reset',require('./views/spreadsheets_v4/index').resetSpreadsheet);
   app.get('/spreadsheets_v4/:id/printable',require('./views/spreadsheets_v4/index').getPrintablePage);
   
+  
+
+  //show > sheets
+  app.all('/spreadsheets_v5*',ensureAuthenticated);
+  app.get('/spreadsheets_v5/',require('./views/spreadsheets_v5/index').init);
+  app.get('/spreadsheets_v5',require('./views/spreadsheets_v5/index').init);
+  app.get('/spreadsheets_v5/:id/init/',require('./views/spreadsheets_v5/index').readPopulateInitActiveSheet);
+  app.get('/spreadsheets_v5/:id/',require('./views/spreadsheets_v5/index').readPopulateActiveSheet);
+  app.post('/spreadsheets_v5/:id/:sheetId/params',require('./views/spreadsheets_v5/index').updateParams);
+  app.post('/spreadsheets_v5/:id/s/simulation',require('./views/spreadsheets_v5/index').saveSimulationOnDb);
+  app.post('/spreadsheets_v5/:id/g/simulations',require('./views/spreadsheets_v5/index').getSimulations);
+  app.post('/spreadsheets_v5/:id/l/simulation/:simulationId',require('./views/spreadsheets_v5/index').getSimulation);
+
+  app.post('/spreadsheets_v5/activesheet/g/:sheetId',require('./views/spreadsheets_v5/index').getActiveSheet);
+  app.post('/spreadsheets_v5/activesheet/:sheetId',require('./views/spreadsheets_v5/index').setActiveSheet);
+  app.post('/spreadsheets_v5/activesheet/r/:sheetId',require('./views/spreadsheets_v5/index').resetActiveSheet);
+  app.post('/spreadsheets_v5/:id/:sheetId/reset',require('./views/spreadsheets_v5/index').resetSpreadsheet);
+  app.get('/spreadsheets_v5/:id/printable',require('./views/spreadsheets_v5/index').getPrintablePage);
+  
+
+  //show > sheets
+  /*
+  app.all('/spreadsheets_v5beta*',ensureAuthenticated);
+  app.get('/spreadsheets_v5beta/',require('./views/spreadsheets_v5beta/index').init);
+  app.get('/spreadsheets_v5beta',require('./views/spreadsheets_v5beta/index').init);
+  app.get('/spreadsheets_v5beta/:id/init/',require('./views/spreadsheets_v5beta/index').readPopulateInitActiveSheet);
+  app.get('/spreadsheets_v5beta/:id/',require('./views/spreadsheets_v5beta/index').readPopulateActiveSheet);
+  app.post('/spreadsheets_v5beta/:id/:sheetId/params',require('./views/spreadsheets_v5beta/index').updateParams);
+  app.post('/spreadsheets_v5beta/:id/s/simulation',require('./views/spreadsheets_v5beta/index').saveSimulationOnDb);
+  app.post('/spreadsheets_v5beta/:id/g/simulations',require('./views/spreadsheets_v5beta/index').getSimulations);
+  app.post('/spreadsheets_v5beta/:id/l/simulation/:simulationId',require('./views/spreadsheets_v5beta/index').getSimulation);
+
+  app.post('/spreadsheets_v5beta/activesheet/g/:sheetId',require('./views/spreadsheets_v5beta/index').getActiveSheet);
+  app.post('/spreadsheets_v5beta/activesheet/:sheetId',require('./views/spreadsheets_v5beta/index').setActiveSheet);
+  app.post('/spreadsheets_v5beta/activesheet/r/:sheetId',require('./views/spreadsheets_v5beta/index').resetActiveSheet);
+  app.post('/spreadsheets_v5beta/:id/:sheetId/reset',require('./views/spreadsheets_v5beta/index').resetSpreadsheet);
+  app.get('/spreadsheets_v5beta/:id/printable',require('./views/spreadsheets_v5beta/index').getPrintablePage);
+  */
 
 
-  //app.get('/spreadsheets_v3/:id/init/printpage',require('./views/spreadsheets_v3/index').getSinglePrintablePage);
-  //app.get('/spreadsheets_v3/:id/printpage',require('./views/spreadsheets_v3/index').getSinglePrintablePage);
 
 
 

@@ -119,7 +119,8 @@ exports.create = function(req, res, next){
       name: req.body.name
       ,googleId: req.body.googleId
       ,activeSheet: req.body.activeSheet
-      ,sheets: req.body.sheets
+      ,sheets: req.body.sheets,
+      isMaster:req.body.isMaster
     };
 
     req.app.db.models.Spreadsheet.create(fieldsToSet, function(err, spreadsheet) {
@@ -165,7 +166,8 @@ exports.update = function(req, res, next){
       ,activeSheet: req.body.activeSheet
       ,sheetsList: req.body.sheetsList
       ,ownersList:req.body.ownersList,
-      apiVersion:req.body.apiVersion
+      apiVersion:req.body.apiVersion,
+      isMaster:req.body.isMaster
     };
    
 

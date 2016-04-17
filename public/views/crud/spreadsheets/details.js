@@ -39,7 +39,9 @@
 	  sheetsList: '',
         ownersList:'',
         name: '',
-        apiVersion:''
+        apiVersion:'',
+        parentId:'',
+        isMAster:''
     },
     url: function() {
       return '/crud/spreadsheets/'+ app.mainView.model.id +'/';
@@ -87,10 +89,12 @@
         sheets: app.mainView.model.get('sheetsList'),
         ownersList:app.mainView.model.get('ownersList'),
         apiVersion:app.mainView.model.get('apiVersion'),
-		activeSheet: app.mainView.model.get('activeSheet'),
-		googleId: app.mainView.model.get('googleId'),
-		pivot: app.mainView.model.get('pivot'),
-        name: app.mainView.model.get('name')
+		    activeSheet: app.mainView.model.get('activeSheet'),
+		    googleId: app.mainView.model.get('googleId'),
+		    pivot: app.mainView.model.get('pivot'),
+        name: app.mainView.model.get('name'),
+        parentId:app.mainView.model.get('parentId'),
+        isMaster:app.mainView.model.get('isMaster')
       });
     },
     render: function() {
@@ -118,7 +122,9 @@
 		googleId: this.$el.find('[name="googleId"]').val(),
 		pivot: this.$el.find('[name="pivot"]').val(),
     name: this.$el.find('[name="name"]').val(),
-    apiVersion:this.$el.find('[name="apiVersion"]').val()
+    apiVersion:this.$el.find('[name="apiVersion"]').val(),
+    parentId:this.$el.find('[name="parentId"]').val(),
+    isMaster:this.$el.find('[name="isMaster"]').val()
       });
     }
   });

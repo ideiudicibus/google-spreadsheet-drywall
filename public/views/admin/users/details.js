@@ -94,6 +94,28 @@
     }
   });
 
+  app.CreateSpreadsheetFromMaster = Backbone.Model.extend({
+    idAttribute: '_id',
+    defaults: {
+      success: false,
+      errors: [],
+      errfor: {},
+      googleId: '',
+      googleAuthAccount:''
+    },
+    url: function() {
+      return '/admin/users/'+ app.mainView.model.id +'/createspreadheetfrommaster/';
+    },
+    parse: function(response) {
+      if (response.user) {
+        app.mainView.model.set(response.user);
+        delete response.user;
+      }
+
+      return response;
+    }
+  });
+
   app.HeaderView = Backbone.View.extend({
     el: '#header',
     template: _.template( $('#tmpl-header').html() ),
@@ -296,6 +318,32 @@
     }
   });
 
+    app.CreateSpreadsheetView = Backbone.View.extend({
+    el: '#create-spreadsheet-from-master',
+    template: _.template( $('#tmpl-create-spreadsheet-from-master').html() ),
+    events: {
+      'click .btn-create-spreadsheet-from-master': 'create',
+    },
+    initialize: function() {
+      
+      this.model = new app.CreateSpreadsheetFromMaster({ _id: app.mainView.model.id });
+      this.listenTo(this.model, 'sync', this.render);
+      this.render();
+    },
+    render: function() {
+     
+      this.$el.html(this.template( this.model.attributes ));
+    },
+    create: function() {
+
+      this.model.save({
+        googleId: this.$el.find('[name="googleId"]').val(),
+        googleAuthAccount: this.$el.find('[name="googleAuthAccount"]').val()
+      });
+           
+    }
+  });
+
   app.MainView = Backbone.View.extend({
     el: '.page .container',
     initialize: function() {
@@ -307,6 +355,8 @@
       app.passwordView = new app.PasswordView();
       app.rolesView = new app.RolesView();
       app.deleteView = new app.DeleteView();
+      app.createSpreadsheetView= new app.CreateSpreadsheetView();
+
     }
   });
 

@@ -1,0 +1,172 @@
+<%
+
+
+function drawCharts(spreadsheet,activeSheet) {
+var activeSheetName=activeSheet;
+
+
+
+var query2 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=B4:G24&pli=1'); 
+query2.send(handleQueryResponse2);
+
+
+
+}
+
+
+function handleQueryResponse2(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+
+  var datatable = new google.visualization.DataView(response.getDataTable());
+   
+  var table = new google.visualization.Table(document.getElementById('dataTable'));
+  table.draw(datatable,{'sort':'disable'});
+}
+
+
+drawCharts(data.record,activeSheetName);
+
+%>
+
+<div class="row">
+  <div class="col-md-12">
+        <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='textNote'><%print(textNote);%></div>
+      </div>
+    </div>
+ 
+</div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading"><i class="fa fa-table fa-fw"></i> 
+        <div class="pull-right">
+          <div class="btn-group">
+            <button type="button" data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle">Azioni<span class="caret"></span></button>
+            <ul role="menu" class="dropdown-menu pull-right">
+              <li><a  data-toggle="modal" data-target="#paramInputs"><i class="fa fa-edit"></i>Modifica parametri</a></li>
+              <li><a  class="resetParamsBtn" data-toggle="modal" data-target="#"><i class="fa fa-eraser"></i>Reset parametri</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!--/.panel-heading 
+      -->
+      <div class="panel-body">
+          <div id='dataTable' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+<div class="col-md-12">
+<a href="#" id="force-reload-sheet" class='btn btn-default '><i class="fa fa-refresh"></i>&nbsp;Ricarica parametri</a>
+<!--<a href="#" class='btn btn-default saveSimulationBtn'><i class="fa fa-save"></i>&nbsp;Salva Simulazione</a>-->
+</div>
+</div>
+
+
+
+</br>
+
+
+
+    
+<!-- Modal -->
+<div  id="paramInputs"  class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modifica Parametri</h4>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive">
+              <table class="table  table-bordered table-hover fixed" >
+
+               <tbody>
+
+              <%
+               var rows=[];
+
+               /*
+                  ,,,,,,,
+               */
+               var tmpRow1=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("nric")>=0); 
+                })
+               rows.push(tmpRow1);
+
+               var tmpRow2=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("curic")>=0); 
+                })
+
+               rows.push(tmpRow2);
+
+               var tmpRow3=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("nvis")>=0); 
+                })
+               rows.push(tmpRow3);
+               var tmpRow4=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("cuvis")>=0); 
+                })
+               rows.push(tmpRow4);
+               var tmpRow5=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("ndia")>=0); 
+                })
+               rows.push(tmpRow5);
+              var tmpRow6=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("cudia")>=0); 
+                })
+               rows.push(tmpRow6);
+                var tmpRow7=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("nafarm")>=0); 
+                })
+               rows.push(tmpRow7);
+                var tmpRow8=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("cuafarm")>=0); 
+                })
+               rows.push(tmpRow8);         
+               %>
+               <%_.each(rows,function(item){
+
+              %>
+             
+              <tr>
+             <%
+               _.each(item,function(a,b,c){
+                var t=_.values(a)[0];
+                var id=_.keys(a)[0];
+               %>
+               
+               <td ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input>
+                <p style=" font-size:xx-small"><%=t.label%></p>
+               </td>
+            <% })   
+              %>
+             </tr>
+             <%})%>
+            </tbody>
+          </table>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Chiudi</button>
+        <button type="button" class="btn btn-primary update updateParameterBtnFull checkNumber">Salva</button>
+      </div>
+    </div>
+  </div>
+</div>
+ </div>
+

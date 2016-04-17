@@ -1,0 +1,292 @@
+<%
+
+
+function drawCharts(spreadsheet,activeSheet) {
+var activeSheetName=activeSheet;
+
+var query1 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=C3:K20&pli=1'); 
+query1.send(handleQueryResponse1);
+
+}
+
+
+function handleQueryResponse1(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+  dataTable.setProperty(0, 0, 'style', 'font-weight: bold');
+ 
+
+  dataTable.setProperty(3, 0, 'style', 'font-weight: bold');
+  dataTable.setProperty(6, 0, 'style', 'font-weight: bold');
+  dataTable.setProperty(8, 0, 'style', 'font-weight: bold');
+  
+ var datatable = new google.visualization.DataView(dataTable);
+ datatable.setColumns([0,1,8]);
+  //datatable.setRows([0,1,2,3,5,6]);
+
+  var table = new google.visualization.Table(document.getElementById('dataTable'));
+  table.draw(datatable,{'sort':'disable','allowHtml':true});
+
+}
+
+drawCharts(data.record,activeSheetName);
+
+%>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='textNote'><%print(textNote);%></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+   <div class="col-md-12">
+      <div class="panel panel-default">
+      <div class="panel-heading"><i class="fa fa-table fa-fw"></i> 
+        <div class="pull-right">
+          <div class="btn-group">
+            <button type="button" data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle">Azioni<span class="caret"></span></button>
+            <ul role="menu" class="dropdown-menu pull-right">
+             
+               <% 
+
+var labelArray=[];
+  _.each(params,function(item,index){
+    
+    var a=((_.values(item)[0].label).split('-')[1]).trim();
+   
+    labelArray.push(a);
+    
+  }); 
+
+labelArray=_.uniq(labelArray);
+
+               _.each(labelArray,function(item,index){
+                  index++;
+                %>
+                <li><a  href="#" data-toggle="modal" data-target="#paramInputs-Farmaco<%=index%>"><i class="fa fa-edit"></i>Modifica schema terapeutico <%=item%></a></li>
+                <%})%>
+
+
+              <li><a  class="resetParamsBtn" data-toggle="modal" data-target="#"><i class="fa fa-eraser"></i>Reset parametri</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="panel-body">
+          <div id='dataTable' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-md-12">
+<a href="#" id="force-reload-sheet" class='btn btn-default '><i class="fa fa-refresh"></i>&nbsp;Ricarica parametri</a>
+<!--<a href="#" class='btn btn-default saveSimulationBtn'><i class="fa fa-save"></i>&nbsp;Salva Simulazione</a>-->
+</div>
+</div>
+</br>
+
+<!-- Modal paramInputs-Farmaco1 -->
+<div  id="paramInputs-Farmaco1"  class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modifica Parametri</h4>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive">
+              <table class="table table-striped table-bordered table-hover fixed" >
+                <thead>
+              <tr><th>Confezione e Descrizione Terapia</th><th>Percentuale</th></tr>
+               </thead>
+               <tbody>
+
+              <%
+               var tmpRow1=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("q.1")>=0); 
+                })
+               %>
+               <%
+               _.each(tmpRow1,function(a,b,c){
+
+                var t=_.values(a)[0];
+                var id=_.keys(a)[0];
+                
+               %>
+               <tr>
+               <td ><%= t.label%></td>
+               <td ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text"  value="<%= t.value %>" class="input-xs"></input></td>
+               </tr>
+           <% })   
+              %>
+            </tbody>
+          </table>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default " data-dismiss="modal">Chiudi</button>
+        <button type="button" class="btn btn-primary update updateParameterBtnFull checkPercentage">Salva</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+ </div>
+
+
+ <!-- Modal paramInputs-Farmaco2 -->
+<div  id="paramInputs-Farmaco2"  class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modifica Parametri</h4>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive">
+              <table class="table table-striped table-bordered table-hover fixed" >
+                <thead>
+              <tr><th>Confezione e Descrizione Terapia</th><th>Percentuale</th></tr>
+               </thead>
+               <tbody>
+
+              <%
+               var tmpRow1=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("q.2")>=0); 
+                })
+               %>
+               <%
+               _.each(tmpRow1,function(a,b,c){
+
+                var t=_.values(a)[0];
+                var id=_.keys(a)[0];
+                
+               %>
+               <tr>
+               <td ><%= t.label%></td>
+               <td ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text"  value="<%= t.value %>" class="input-xs"></input></td>
+               </tr>
+           <% })   
+              %>
+            </tbody>
+          </table>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default " data-dismiss="modal">Chiudi</button>
+        <button type="button" class="btn btn-primary update updateParameterBtnFull checkPercentage">Salva</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+ </div>
+
+
+
+
+<!-- Modal paramInputsFarmaco4 -->
+<div  id="paramInputs-Farmaco3"  class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modifica Parametri</h4>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive">
+              <table class="table table-striped table-bordered table-hover fixed" >
+                <thead>
+              <tr><th>Confezione e Descrizione Terapia</th><th>Percentuale</th></tr>
+               </thead>
+               <tbody>
+
+              <%
+               var tmpRow1=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("q.3")>=0); 
+                })
+               %>
+               <%
+               _.each(tmpRow1,function(a,b,c){
+
+                var t=_.values(a)[0];
+                var id=_.keys(a)[0];
+                
+               %>
+               <tr>
+               <td ><%= t.label%></td>
+               <td ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text"  value="<%= t.value %>" class="input-xs"></input></td>
+               </tr>
+           <% })   
+              %>
+            </tbody>
+          </table>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Chiudi</button>
+        <button type="button" class="btn btn-primary update updateParameterBtnFull checkPercentage">Salva</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal paramInputsFarmaco4 -->
+<div  id="paramInputs-Farmaco4"  class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modifica Parametri</h4>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive">
+              <table class="table table-striped table-bordered table-hover fixed" >
+                <thead>
+              <tr><th>Confezione e Descrizione Terapia</th><th>Percentuale</th></tr>
+               </thead>
+               <tbody>
+
+              <%
+               var tmpRow1=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("q.4")>=0); 
+                })
+               %>
+               <%
+               _.each(tmpRow1,function(a,b,c){
+
+                var t=_.values(a)[0];
+                var id=_.keys(a)[0];
+                
+               %>
+               <tr>
+               <td ><%= t.label%></td>
+               <td ><input id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text"  value="<%= t.value %>" class="input-xs"></input></td>
+               </tr>
+           <% })   
+              %>
+            </tbody>
+          </table>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Chiudi</button>
+        <button type="button" class="btn btn-primary update updateParameterBtnFull checkPercentage">Salva</button>
+      </div>
+    </div>
+  </div>
+</div>

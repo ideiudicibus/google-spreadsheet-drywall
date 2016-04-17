@@ -14,6 +14,7 @@ block body
       div#roles
       div#password
       div#delete
+      div#create-spreadsheet-from-master
 
   script(type='text/template', id='tmpl-header')
     div.page-header
@@ -45,7 +46,7 @@ block body
         label flag password expires:
         input.form-control(type='text', name='flagPasswordExpires', value!='<%= flagPasswordExpires %>')
       div.form-group
-        label flag password expires:
+        label password expires on:
         input.form-control(type='text', name='passwordExpires', value!='<%= passwordExpires %>')
       div.form-group(class!='<%- errfor.username ? "has-error" : "" %>')
         label Username:
@@ -138,5 +139,21 @@ block body
           span.text-muted You may also create orphaned document relationships too.
       div.form-group
         button.btn.btn-danger.btn-delete(type='button') Delete
+  
+  script(type='text/template', id='tmpl-create-spreadsheet-from-master')
+    fieldset
+      legend Create a spreasheet from a master
+      div.form-group
+        label master id: 
+        select.form-control(name='googleId')
+          each ms in JSON.parse( unescape(data.masterSpreadsheetList))
+            option(value=ms._id) Spreadsheet #{ms._id}
+        span.help-block <%- errfor.googleId %>
+      div.form-group
+        label google auth email:
+        input.form-control(type='text', name='googleAuthAccount', value!='<%= googleAuthAccount  %>')
+        span.help-block <%- errfor.googleAuthAccount %>
+      div.form-group
+        button.btn.btn-default.btn-create-spreadsheet-from-master(type='button') Create
 
   script(type='text/template', id='data-record') !{data.record}

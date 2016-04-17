@@ -65,6 +65,16 @@ block body
         label.control-label apiVersion(_v2 , v3 etc) :
         input.form-control(type='text', name='apiVersion', value!='<%- apiVersion %>')
         span.help-block <%- errfor.apiVersion %>
+      div.control-group(class!='<%- errfor.parentId ? "has-error" : "" %>')
+        label.control-label parent Id (if cloned from a master) :
+        input.form-control(type='text', name='parentId', value!='<%- parentId %>')
+        span.help-block <%- errfor.parentId %>
+      div.form-group(class!='<%- errfor.isMaster ? "has-error" : "" %>')
+        label Is Master:
+        select.form-control(name='isMaster')
+          option(value='true') yes
+          option(value='false') no
+        span.help-block <%- errfor.isMaster %>
       div.form-group
         button.btn.btn-primary.btn-update(type='button') Update
 

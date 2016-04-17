@@ -10,7 +10,9 @@ exports = module.exports = function(app, mongoose) {
       ,ownersList: [{ type: String, ref:'User'}],
       sheetsList:[{ type: String, ref: 'Sheet' }],
       nextSaveCol:{type:Number,default:6},
-      apiVersion:{type:String,default:''}
+      apiVersion:{type:String,default:''},
+      parentId:{ type: String, ref: 'Spreadsheet' },
+      isMaster:[Boolean]
   });
   spreadsheetSchema.plugin(require('./plugins/pagedFind'));
   spreadsheetSchema.index({ pivot: 1 });

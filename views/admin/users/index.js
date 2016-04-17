@@ -1,3 +1,6 @@
+var uuid=require('request/node_modules/node-uuid'),
+paramAuth=require('../../../paramAuth.js'),
+request = require('request');
 'use strict';
 
 exports.find = function(req, res, next){
@@ -47,18 +50,66 @@ exports.find = function(req, res, next){
 };
 
 exports.read = function(req, res, next){
-  req.app.db.models.User.findById(req.params.id).populate('roles.admin', 'name.full').populate('roles.account', 'name.full').exec(function(err, user) {
+
+  var workflow = req.app.utility.workflow(req, res);
+
+
+   workflow.on('findUser', function() {
+
+
+      req.app.db.models.User.findById(req.params.id).populate('roles.admin', 'name.full').populate('roles.account', 'name.full').exec(function(err, user) {
     if (err) {
-      return next(err);
+      
+      return workflow.emit('exception',err);
+    }
+    else{
+
+      workflow.emit('findMasterSpreadsheetList',user);
     }
 
-    if (req.xhr) {
-      res.send(user);
-    }
-    else {
-      res.render('admin/users/details', { data: { record: escape(JSON.stringify(user)) } });
-    }
+   
   });
+   
+    
+  });
+
+   workflow.on('findMasterSpreadsheetList', function(user) {
+ 
+
+        var fieldsToQuery = {
+          isMaster:true
+          };
+  
+
+
+   req.app.db.models.Spreadsheet.find(fieldsToQuery).exec(function(err, spreadsheets) {
+
+     if (err) {
+      
+      return workflow.emit('exception',err);
+    }else {
+
+          var retval={ data: { record: escape(JSON.stringify(user)) } };
+          retval.data.masterSpreadsheetList=escape(JSON.stringify(spreadsheets)) ;
+     
+          res.render('admin/users/details', retval);
+
+    }
+
+
+
+   });
+
+   
+     
+    
+
+   
+    
+  });
+
+ workflow.emit('findUser');
+
 };
 
 exports.create = function(req, res, next){
@@ -250,6 +301,113 @@ exports.update = function(req, res, next){
       workflow.outcome.user = populatedUser;
       workflow.emit('response');
     });
+  });
+
+  workflow.emit('validate');
+};
+
+
+exports.createSpreadheetFromMaster = function(req, res, next){
+  var workflow = req.app.utility.workflow(req, res);
+  console.log(req.body);
+  workflow.on('validate', function() {
+    if (!req.body.googleId) {
+      workflow.outcome.errfor.googleId = 'required';
+    }
+
+    /*if (!req.body.googleAuthAccount) {
+      workflow.outcome.errfor.googleAuthAccount = 'required';
+    }*/
+    
+   
+    if (workflow.hasErrors()) {
+      return workflow.emit('response');
+    }
+    
+    workflow.emit('invokeGoogleAppsScriptMacro',req,res);
+  });
+
+  workflow.on('invokeGoogleAppsScriptMacro', function(req,res) {
+ 
+    req.app.db.models.User.findById(req.params.id, function(err, user) {
+        if (err) {
+          return workflow.emit('exception', err);
+        }
+
+        user.populate('roles.admin roles.account', 'name.full', function(err, user) {
+          if (err) {
+            return workflow.emit('exception', err);
+          }
+          
+
+           req.app.db.models.Spreadsheet.findById(req.body.googleId).exec(function(err, spreadsheet) {
+           
+              if(spreadsheet){
+
+                        var fieldsToSet = {
+                            _id:uuid.v4()
+                            ,pivot: spreadsheet.pivot
+                            ,name: spreadsheet.name+'_TEST'
+                            ,googleId: ''
+                            ,activeSheet: spreadsheet.activeSheet
+                            ,sheetsList: spreadsheet.sheetsList
+                            ,ownersList:[user._id]
+                            ,isMaster:false
+                            ,apiVersion:spreadsheet.apiVersion
+                            ,parentId:spreadsheet._id
+                          };
+
+                              var params = '?fileId='+spreadsheet.googleId+'&name='+fieldsToSet.name+'&editor='+paramAuth.googleAppEmailAccount;
+                              var cloneServiceUrl='https://script.google.com/macros/s/'+paramAuth.googleCloneServiceMacroId+'/exec';
+
+                                request.get({url:cloneServiceUrl+params}, function(err, response, body) {
+                                        
+                                        if(err){return workflow.emit('exception', err); }
+
+
+                                        var responseObj=JSON.parse(body);
+
+                                        fieldsToSet.googleId=responseObj.id;
+
+                                        req.app.db.models.Spreadsheet.create(fieldsToSet, function(err, spreadsheetCloned) {
+                                    
+                                                  if (err) {
+                                                    
+                                                    return workflow.emit('exception', err);
+                                                  }
+                                               
+                                                       workflow.outcome.spreadsheet= spreadsheetCloned;
+                                                       workflow.outcome.user = user;
+                                                       workflow.outcome.clonedServiceResponse=JSON.stringify(responseObj);
+                                                       workflow.emit('response');
+                                                });
+
+                                        
+                                      });    
+
+
+
+              
+
+              }
+             else{
+              workflow.outcome.errfor.googleId='cant clone, spreadsheet not found',
+              workflow.outcome.user = user;
+              workflow.emit('response');
+
+              return;
+             }
+
+        
+
+           });
+
+
+
+        });
+      });
+
+
   });
 
   workflow.emit('validate');
