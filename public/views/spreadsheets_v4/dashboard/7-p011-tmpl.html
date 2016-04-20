@@ -38,7 +38,7 @@ function handleQueryResponse2(response){
     return;
   }
 
-var j = {"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":response.getDataTable(),"options":{"title":"Pazienti in terapia","height":400,"width":800,"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"series":{"0":{"color":"#1155cc"}},"legend":{"position":"none"},"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{}}};
+var j = {"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":response.getDataTable(),"options":{"title":"Proiezione annuale pazienti in terapia","height":400,"width":800,"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"series":{"0":{"color":"#1155cc"}},"legend":{"position":"none"},"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{}}};
 
 google.visualization.drawChart(j, document.getElementById('chart2')); 
 

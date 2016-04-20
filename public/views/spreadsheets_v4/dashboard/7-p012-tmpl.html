@@ -45,7 +45,7 @@ function handleQueryResponse1(response) {
 
 var j=
 
-{"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3,4,5,6,7]},"dataTable":response.getDataTable(),"options":{chartArea: {  width: "50%", height: "70%" },"title":"Pazienti per terapia.","height":400,"width":600,"legendTextStyle":{"color":"#222","fontSize":"9"},"legend":{"position":"right", textStyle: {fontSize: 9}},"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{},"isStacked":true}};
+{"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3,4,5,6,7]},"dataTable":response.getDataTable(),"options":{chartArea: {  width: "50%", height: "70%" },"title":"Numero di pazienti per farmaco","height":400,"width":600,"legendTextStyle":{"color":"#222","fontSize":"9"},"legend":{"position":"right", textStyle: {fontSize: 9}},"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{},"isStacked":true}};
 google.visualization.drawChart(j, document.getElementById('chart1')); 
 
 }
@@ -119,7 +119,7 @@ function handleQueryResponse5(response){
 
 var dataTable=response.getDataTable();
 
-var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"title":"","height":400,"legend":{"position":"right",maxLines: 10},"width":800,"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
+var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"title":"","height":400,"legend":{"position":"right",maxLines: 10,   textStyle: {fontSize: 9}},"width":800,"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
 
 j.options.title="Distribuzione % dei pazienti per terapia. Anno t3.";
 j.options.pieSliceText="none";
