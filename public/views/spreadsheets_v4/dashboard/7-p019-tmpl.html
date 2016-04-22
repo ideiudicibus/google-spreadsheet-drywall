@@ -10,6 +10,12 @@ var query1 = new google.visualization.Query(
 query1.send(handleQueryResponse1);
 
 
+
+var query3 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=A45:H53&pli=1'); 
+query3.send(handleQueryResponse3);
+
+
 var query2 = new google.visualization.Query(
       'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=1&range=A25:E30&pli=1'); 
 query2.send(handleQueryResponse2);
@@ -27,7 +33,7 @@ var dataTable=response.getDataTable();
 
 
 
-var j = {"view":{"columns":[0,1,2,3,4,5]},"chartName":"Grafico 24","dataTable":dataTable,"options":{"hasHiddenData":false,"treatLabelsAsText":false,"vAxes":[{"useFormatFromData":true,"minValue":null,"logScale":false,"maxValue":null,"viewWindow":{"min":null,"max":null}},{"useFormatFromData":true,"minValue":null,"logScale":false,"maxValue":null,"viewWindow":{"min":null,"max":null}}],"legend":"right","isStacked":true,"tooltip":{},"legacyScatterChartLabels":true,"title":"Costi annui. Valori in \u20ac","titleTextStyle":{"color":"#000","fontSize":9,"bold":true},"hAxis":{"useFormatFromData":true},"legendTextStyle":{"color":"#222","fontSize":"8"},"useFirstColumnAsDomain":true,"width":600,"legacyContinuousAxisRemoved":true,"booleanRole":"certainty","height":371},"chartType":"ColumnChart","state":{},"isDefaultVisualization":true};
+var j = {"view":{"columns":[0,1,2,3,4,5]},"chartName":"Grafico 24","dataTable":dataTable,"options":{"hasHiddenData":false,"treatLabelsAsText":false,"vAxes":[{"useFormatFromData":true,"minValue":null,"logScale":false,"maxValue":null,"viewWindow":{"min":null,"max":null}},{"useFormatFromData":true,"minValue":null,"logScale":false,"maxValue":null,"viewWindow":{"min":null,"max":null}}],"legend":"right","isStacked":true,"tooltip":{},"legacyScatterChartLabels":true,"title":"Costi annui. Valori in \u20ac","titleTextStyle":{"color":"#000","bold":true},"hAxis":{"useFormatFromData":true},"legendTextStyle":{"color":"#222","fontSize":"8"},"useFirstColumnAsDomain":true,"width":600,"legacyContinuousAxisRemoved":true,"booleanRole":"certainty","height":371},"chartType":"ColumnChart","state":{},"isDefaultVisualization":true};
 
 
 
@@ -47,7 +53,22 @@ function handleQueryResponse1(response) {
 var data_table=response.getDataTable();
 
  var datatable = new google.visualization.DataView(data_table);
-  var table = new google.visualization.Table(document.getElementById('dataTable'));
+  var table = new google.visualization.Table(document.getElementById('dataTable1P019'));
+  table.draw(datatable,{'sort':'disable'});
+
+}
+
+
+function handleQueryResponse3(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var data_table=response.getDataTable();
+
+ var datatable = new google.visualization.DataView(data_table);
+  var table = new google.visualization.Table(document.getElementById('dataTable2P019'));
   table.draw(datatable,{'sort':'disable'});
 
 }
@@ -82,7 +103,22 @@ drawCharts(data.record,activeSheetName);
 <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-body">
-        <div id="dataTable" >
+        <div id="dataTable1P019" >
+          <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+<div class="row">
+<div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id="dataTable2P019" >
           <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div>
         </div>
       </div>

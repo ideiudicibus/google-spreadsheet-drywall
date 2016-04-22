@@ -309,7 +309,7 @@ exports.update = function(req, res, next){
 
 exports.createSpreadheetFromMaster = function(req, res, next){
   var workflow = req.app.utility.workflow(req, res);
-  console.log(req.body);
+ 
   workflow.on('validate', function() {
     if (!req.body.googleId) {
       workflow.outcome.errfor.googleId = 'required';
