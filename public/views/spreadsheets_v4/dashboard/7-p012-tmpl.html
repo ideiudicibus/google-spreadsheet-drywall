@@ -31,7 +31,7 @@ query6.send(handleQueryResponse6);
 
 
 var query7 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=B21:F27&pli=1'); 
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=B11:F27&pli=1'); 
 query7.send(handleQueryResponse7);
 
 }
@@ -148,8 +148,9 @@ function handleQueryResponse7(response) {
     alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
     return;
   }
-
+  
   var datatable = new google.visualization.DataView(response.getDataTable());
+  datatable.setRows([0,8,9,10,11,12,13]);
   var table = new google.visualization.Table(document.getElementById('dataTable2'));
   table.draw(datatable,{'sort':'disable'});
 

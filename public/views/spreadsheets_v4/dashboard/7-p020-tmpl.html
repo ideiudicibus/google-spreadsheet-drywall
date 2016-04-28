@@ -28,11 +28,11 @@ query4.send(handleQueryResponse4);
 var query5 = new google.visualization.Query(
       'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=A6:H19&pli=1'); 
 query5.send(handleQueryResponse5);
-
+/*
 var query6 = new google.visualization.Query(
       'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=A21:H29&pli=1'); 
 query6.send(handleQueryResponse6);
-
+*/
 }
 
 
@@ -45,7 +45,7 @@ function handleQueryResponse1(response) {
 var dataTable=response.getDataTable();
 
 var j= {"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3,4]},"dataTable":dataTable,"options":{"title":"Budget Impact.Valori in €.","legend":{"position":"bottom"},"width":600,"height":400,"is3D":false,"useFirstColumnAsDomain":true}};
-google.visualization.drawChart(j, document.getElementById('chart1P019')); 
+google.visualization.drawChart(j, document.getElementById('chart1P020')); 
 
 }
 
@@ -58,7 +58,7 @@ function handleQueryResponse2(response) {
 var dataTable=response.getDataTable();
 
 var j={"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3]},"dataTable":dataTable,"options":{"title":"Budget impact - Var. %.","width":600,"height":400,"legend":{"position":"bottom"},"is3D":false,"useFirstColumnAsDomain":true}};
-google.visualization.drawChart(j, document.getElementById('chart2P019')); 
+google.visualization.drawChart(j, document.getElementById('chart2P020')); 
 
 }
 
@@ -74,7 +74,7 @@ var dataTable=response.getDataTable();
 var j={"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2]},"dataTable":dataTable,"options":{"chartArea":{"top":"10%","left":"10%","width":"80%","height":"80%"},"title":"Composizione costi.","width":600,"height":400,"legend":{"position":"bottom",maxLines: 10},"is3D":false,"useFirstColumnAsDomain":true,"isStacked":true}};
 
 
-google.visualization.drawChart(j, document.getElementById('chart3P019')); 
+google.visualization.drawChart(j, document.getElementById('chart3P020')); 
 
 }
 
@@ -96,7 +96,7 @@ dataTable.setColumnLabel(3,"Sim. Base t2/t1");
 var j = {"view":{"columns":[{"sourceColumn":0},1,2,3]},"dataTable":dataTable,"options":{"legend":{"position":"bottom"},"useFirstColumnAsDomain":true,"width":600,"is3D":false,"chartArea":{"top":"10%","left":"10%","width":"80%","height":"80%"},"title":"Budget impact - Val. %","titleTextStyle":{"bold":true,"italic":false},"height":400},"chartType":"ColumnChart"};
 
 
-//google.visualization.drawChart(j, document.getElementById('chart4P019')); 
+//google.visualization.drawChart(j, document.getElementById('chart4P020')); 
 
 }
 
@@ -112,11 +112,11 @@ var dataTable=response.getDataTable();
 
  var datatable = new google.visualization.DataView(response.getDataTable());
  datatable.setRows([0,1,2,3,4]);
-  var table = new google.visualization.Table(document.getElementById('dataTable1P019'));
+  var table = new google.visualization.Table(document.getElementById('dataTable1P020'));
   table.draw(datatable,{'sort':'disable'});
 
 }
-
+/*
 function handleQueryResponse6(response) {
    
   if (response.isError()) {
@@ -128,11 +128,11 @@ var dataTable=response.getDataTable();
 
  var datatable = new google.visualization.DataView(response.getDataTable());
  datatable.setRows([0,1,2,3,4]);
-  var table = new google.visualization.Table(document.getElementById('dataTable2P019'));
+  var table = new google.visualization.Table(document.getElementById('dataTable2P020'));
   table.draw(datatable,{'sort':'disable'});
 
 }
-
+*/
 
 
 drawCharts(data.record,activeSheetName);
@@ -156,7 +156,7 @@ drawCharts(data.record,activeSheetName);
     <div class="panel panel-default">
       <i class="fa fa-asterisk red-star pull-right" >&nbsp;</i>
       <div class="panel-body">
-        <div id="chart1P019">
+        <div id="chart1P020">
           <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
     </div>
@@ -168,7 +168,7 @@ drawCharts(data.record,activeSheetName);
         <div class="panel panel-default">
           <i class="fa fa-asterisk green-star pull-right" >&nbsp;</i>
         <div class="panel-body">
-        <div id="chart2P019" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+        <div id="chart2P020" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
     </div>
  
@@ -180,7 +180,7 @@ drawCharts(data.record,activeSheetName);
     <div class="panel panel-default">
       <i class="fa fa-asterisk blue-star pull-right" >&nbsp;</i>
       <div class="panel-body">
-        <div id="chart3P019" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+        <div id="chart3P020" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
     </div>
   </div>
@@ -203,25 +203,26 @@ drawCharts(data.record,activeSheetName);
   <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-body">
-        <div id="dataTable1P019" >
+        <div id="dataTable1P020" >
           <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
+<!--
 <div class="row">
   <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-body">
-        <div id="dataTable2P019" >
+        <div id="dataTable2P020" >
           <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div>
         </div>
       </div>
     </div>
   </div>
 </div>
+-->
 
 
 
