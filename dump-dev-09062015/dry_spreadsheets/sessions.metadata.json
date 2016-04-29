@@ -1,1 +1,0 @@
-{"options":{"flags":NumberInt(1)},"indexes":[{"v":NumberInt(1),"key":{"_id":NumberInt(1)},"name":"_id_","ns":"dry_spreadsheets.sessions"},{"v":NumberInt(1),"key":{"expires":1},"name":"expires_1","expireAfterSeconds":0,"ns":"dry_spreadsheets.sessions"}]}
