@@ -1,1 +1,0 @@
-{"options":{},"indexes":[{"v":NumberInt(1),"key":{"_id":NumberInt(1)},"name":"_id_","ns":"dry_spreadsheets.admingroups"},{"v":NumberInt(1),"unique":true,"key":{"name":1},"name":"name_1","ns":"dry_spreadsheets.admingroups","background":true}]}
