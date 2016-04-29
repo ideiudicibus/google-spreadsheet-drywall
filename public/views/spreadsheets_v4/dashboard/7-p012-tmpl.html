@@ -150,7 +150,7 @@ function handleQueryResponse7(response) {
   }
   
   var datatable = new google.visualization.DataView(response.getDataTable());
-  datatable.setRows([0,8,9,10,11,12,13]);
+  datatable.setRows([7,8,9,10,11,12,13]);
   var table = new google.visualization.Table(document.getElementById('dataTable2'));
   table.draw(datatable,{'sort':'disable'});
 

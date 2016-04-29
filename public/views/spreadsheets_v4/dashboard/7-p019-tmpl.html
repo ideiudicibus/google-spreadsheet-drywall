@@ -16,9 +16,7 @@ var query3 = new google.visualization.Query(
 query3.send(handleQueryResponse3);
 
 
-var query4 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=A6:H14&pli=1'); 
-query4.send(handleQueryResponse4);
+
 
 
 var query2 = new google.visualization.Query(
@@ -78,19 +76,7 @@ var data_table=response.getDataTable();
 
 }
 
-function handleQueryResponse4(response) {
-   
-  if (response.isError()) {
-    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
-    return;
-  }
-var data_table=response.getDataTable();
 
- var datatable = new google.visualization.DataView(data_table);
-  var table = new google.visualization.Table(document.getElementById('dataTable3P019'));
-  table.draw(datatable,{'sort':'disable'});
-
-}
 
 
 drawCharts(data.record,activeSheetName);
@@ -120,19 +106,7 @@ drawCharts(data.record,activeSheetName);
 </div>
 
 
-<div class="row">
-<div class="col-md-12">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <div id="dataTable3P019" >
-          <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div>
-        </div>
-      </div>
-    </div>
-  </div>
 
-
-</div>
 
 <div class="row">
 <div class="col-md-12">
