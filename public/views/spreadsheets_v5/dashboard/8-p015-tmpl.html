@@ -176,7 +176,7 @@ drawCharts(data.record,activeSheetName);
                 var id=_.keys(a)[0];
                %>
                
-               <td ><input disabled id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs <%= (t.label).indexOf('%')>=0?  'checkIsPercentage' : '' %>"></input>
+               <td ><input <%=id.indexOf('[prsp.1C1]')>=0?'':'disabled' %> id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input>
                 <p style=" font-size:xx-small"><%=t.label%></p>
                </td>
             <% })   
@@ -189,7 +189,7 @@ drawCharts(data.record,activeSheetName);
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Chiudi</button>
-        <button type="button" class="btn btn-primary update updateParameterBtnFull ">Salva</button>
+        <button type="button" class="btn btn-primary update updateParameterBtnFull checkInput">Salva</button>
       </div>
     </div>
   </div>

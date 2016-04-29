@@ -365,6 +365,67 @@ else{
   return false;}
 }
 
+if($(this).attr('class').indexOf('controlloPercentuale')>0){
+
+  var i=0;
+  var tmpParam1=_.filter(paramData,function(item){var k=_.keys(item)[0];return (k.indexOf('[q.2C]')  &&  k.indexOf('[q.2D]')) });
+  
+
+ for (k in tmpParam1){
+
+    var a=tmpParam1[k];
+    
+        for(kk in a ){
+          var v=a[kk];
+
+             if(v.value.indexOf('%')<0) { 
+              alertify.alert('il parametro '+v.label+' non contiene %'); 
+              return false;}
+else{
+   v.value=v.value.indexOf(',')>0?v.value.replace(/,/g, '.'):v.value;
+   v.value=v.value.trim();
+   var tmp=v.value.split("%").join("");
+   i=i+parseFloat(tmp);
+   }
+    
+        }
+
+        }
+
+ 
+  if(i>100.00){ alertify.alert('Attenzione parametri non validi: la somma dei parametri è maggiore del 100% ');
+  return false;}
+   if(Math.ceil(i)!=100.00){ alertify.alert('Attenzione parametri non validi: la somma dei parametri è diversa dal 100% ');
+  return false;}
+  
+ var tmpParam2=_.filter(paramData,function(item){var k=_.keys(item)[0];return (k.indexOf('[q.2A]')  &&  k.indexOf('[q.2B]')) });
+ 
+   for (k in tmpParam2){
+
+    var a=tmpParam2[k];
+    
+        for(kk in a ){
+          var v=a[kk];
+
+             if(v.value.indexOf('%')<0) { 
+              alertify.alert('il parametro '+v.label+' non contiene %'); 
+              return false;}
+else{
+   v.value=v.value.indexOf(',')>0?v.value.replace(/,/g, '.'):v.value;
+   v.value=v.value.trim();
+   var tmp=v.value.split("%").join("");
+   i=parseFloat(tmp);
+  if(i>100.00){ alertify.alert('Attenzione il parametro '+v.label+' è maggiore del 100% ');
+  return false;}
+   }
+   }
+  }
+
+  
+  return false;
+  
+}
+
 
  $.ajax({
         
@@ -428,8 +489,8 @@ params.googleId=data.record.googleId;
 params.activeSheet=data.record.activeSheet;
 params.paramData=JSON.stringify(paramData);
 
-
-if($(this).attr('class').indexOf('checkPercentage')>0){
+console.log($(this).attr('class'));
+if($(this).attr('class').indexOf('checkInput')>0){
 
   var i=0;
  for (k in paramData){
@@ -470,6 +531,7 @@ if($(this).attr('class').indexOf('checkPercentage')>0){
  
 
 }
+
 
  $.ajax({
         
@@ -559,6 +621,8 @@ if($(this).attr('class').indexOf('checkNumber')>0){
  
 
 }
+
+return ;
 
  $.ajax({
         

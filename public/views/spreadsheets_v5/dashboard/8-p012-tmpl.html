@@ -25,13 +25,13 @@ var query5 = new google.visualization.Query(
 query5.send(handleQueryResponse5);
 
 var query6 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=B11:F18&pli=1'); 
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=B11:F13&pli=1'); 
 query6.send(handleQueryResponse6);
 
 
 
 var query7 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=B21:F27&pli=1'); 
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=B11:F22&pli=1'); 
 query7.send(handleQueryResponse7);
 
 }
@@ -65,7 +65,7 @@ var data=dataTable;
 var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"title":"","height":400,"legend":{"position":"right",maxLines: 10,textStyle: {fontSize: 9}},"width":800,"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
 
 j.options.title="Distribuzione % dei pazienti per terapia. Anno t0.";
-j.options.pieSliceText="none";
+j.options.pieSliceText="percentage";
 
 google.visualization.drawChart(j, document.getElementById('chart2')); 
 
@@ -85,8 +85,7 @@ var dataTable=response.getDataTable();
 var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"title":"","height":400,"legend":{"position":"right",maxLines: 10,textStyle: {fontSize: 9}},"width":800,"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
 
 j.options.title="Distribuzione % dei pazienti per terapia. Anno t1.";
-j.options.pieSliceText="none";
-
+j.options.pieSliceText="percentage";
 google.visualization.drawChart(j, document.getElementById('chart3')); 
 
 
@@ -104,7 +103,7 @@ var dataTable=response.getDataTable();
 var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"title":"","height":400,"legend":{"position":"right",maxLines: 10, textStyle: {fontSize: 9}},"width":800,"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
 
 j.options.title="Distribuzione % dei pazienti per terapia. Anno t2.";
-j.options.pieSliceText="none";
+j.options.pieSliceText="percentage";
 google.visualization.drawChart(j, document.getElementById('chart4')); 
 
 
@@ -119,10 +118,10 @@ function handleQueryResponse5(response){
 
 var dataTable=response.getDataTable();
 
-var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"title":"","height":400,"legend":{"position":"right",maxLines: 10},"width":800,"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
+var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"title":"","height":400,"legend":{"position":"right",maxLines: 10},"width":800,"is3D":false,"useFirstColumnAsDomain":true}};
 
 j.options.title="Distribuzione % dei pazienti per terapia. Anno t3.";
-j.options.pieSliceText="none";
+j.options.pieSliceText="percentage";
 google.visualization.drawChart(j, document.getElementById('chart5')); 
 
 
@@ -137,7 +136,7 @@ function handleQueryResponse6(response) {
   }
 
   var datatable = new google.visualization.DataView(response.getDataTable());
-  var table = new google.visualization.Table(document.getElementById('dataTable1'));
+  var table = new google.visualization.Table(document.getElementById('dataTable1P012'));
   table.draw(datatable,{'sort':'disable'});
 
 }
@@ -148,9 +147,10 @@ function handleQueryResponse7(response) {
     alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
     return;
   }
-
+  
   var datatable = new google.visualization.DataView(response.getDataTable());
-  var table = new google.visualization.Table(document.getElementById('dataTable2'));
+  datatable.setRows([2,3]);
+  var table = new google.visualization.Table(document.getElementById('dataTable2P012'));
   table.draw(datatable,{'sort':'disable'});
 
 }
@@ -242,10 +242,10 @@ drawCharts(data.record,activeSheetName);
       </div>
       <div class="panel-body">
       Numero paz. per farmaco
-          <div id='dataTable1' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+          <div id='dataTable1P012' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
           <hr/>
           Distribuz. % dei paz. per farmaco
-           <div id='dataTable2' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+           <div id='dataTable2P012' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
 </div>
 </div>

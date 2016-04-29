@@ -364,7 +364,7 @@ var sheetName='INPUT';
           var mockParams=JSON.parse(fs.readFileSync(file));
           // console.log(sys.inspect(mockParams));
           updatedParams=copyPureData(rows,3,13,2,mockParams);
-          
+        
           //console.log(sys.inspect(updatedParams));
          
         }
@@ -533,10 +533,10 @@ console.log(req.params);
         }
         //copiare i valori dell'excel nei parametri definiti nel DB 
         if(sheetName=='INPUT') {
-          console.log(sheet.params);
+          //console.log(sheet.params);
           //src_rows,mapping_col_idx,src_val_idx,src_label_idx,src_vect
           updatedParams=copyData(rows,3,4,2,JSON.parse(sheet.params));
-         
+          //console.log(rows);
           
         }
 
