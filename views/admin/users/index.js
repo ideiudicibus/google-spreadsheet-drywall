@@ -347,7 +347,7 @@ exports.createSpreadheetFromMaster = function(req, res, next){
                         var fieldsToSet = {
                             _id:uuid.v4()
                             ,pivot: spreadsheet.pivot
-                            ,name: spreadsheet.name+'_TEST'
+                            ,name: spreadsheet.name+'_'+user.username
                             ,googleId: ''
                             ,activeSheet: spreadsheet.activeSheet
                             ,sheetsList: spreadsheet.sheetsList
@@ -356,6 +356,7 @@ exports.createSpreadheetFromMaster = function(req, res, next){
                             ,apiVersion:spreadsheet.apiVersion
                             ,parentId:spreadsheet._id
                           };
+                                
 
                               var params = '?fileId='+spreadsheet.googleId+'&name='+fieldsToSet.name+'&editor='+paramAuth.googleAppEmailAccount;
                               var cloneServiceUrl='https://script.google.com/macros/s/'+paramAuth.googleCloneServiceMacroId+'/exec';
