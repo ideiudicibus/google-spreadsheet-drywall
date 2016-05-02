@@ -4,7 +4,7 @@
 function drawCharts(spreadsheet,activeSheet) {
 var activeSheetName=activeSheet;
 
-console.log('https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=I3:M9&pli=1');
+
 
 var query1 = new google.visualization.Query(
       'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=I3:M9&pli=1'); 
@@ -176,7 +176,7 @@ drawCharts(data.record,activeSheetName);
                 var id=_.keys(a)[0];
                %>
                
-               <td ><input <%=id.indexOf('[prsp.1C1]')>=0?'':'disabled' %> id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input>
+               <td ><input <%=(id.indexOf('[prsp.1C1]')>=0) || (id.indexOf('[prsa.1C1]')>=0) ?'':'disabled' %> id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input>
                 <p style=" font-size:xx-small"><%=t.label%></p>
                </td>
             <% })   

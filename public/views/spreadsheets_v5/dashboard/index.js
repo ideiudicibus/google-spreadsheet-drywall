@@ -89,10 +89,15 @@ elem.toggleClass('active');
         data: data,
         url: '/spreadsheets_v5/activesheet/g/'+spreadsheet.activeSheet,
         dataType:"json",
+        statusCode:
+            {
+                302: function () { alert(' received redirect 302'); },
+                301: function () { alert(' received redirect 301'); }
+            },
         success:  function (response) {
-          
+         
           switch(response.success)
-          {
+          { 
             case  false:
               var errs=response.errors;
               for(var j=0;j<errs.length;j++){
@@ -622,7 +627,6 @@ if($(this).attr('class').indexOf('checkNumber')>0){
 
 }
 
-return ;
 
  $.ajax({
         

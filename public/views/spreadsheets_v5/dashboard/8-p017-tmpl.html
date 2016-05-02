@@ -24,11 +24,18 @@ function handleQueryResponse2(response) {
 var dataTable=response.getDataTable();
 
 
+
+
   var datatable = new google.visualization.DataView(response.getDataTable());
    
   var table = new google.visualization.Table(document.getElementById('dataTable'));
-  table.draw(datatable,{'sort':'disable'});
+  table.draw(datatable,{'sort':'disable',allowHtml: true,width:'100%'});
+  
+
+
+
 }
+
 
 
 drawCharts(data.record,activeSheetName);
