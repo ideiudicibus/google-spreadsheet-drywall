@@ -70,7 +70,7 @@ function copyPureData(src_rows,mapping_col_idx,src_val_idx,src_label_idx,src_vec
     if(obj!=null){   
      i=setProperty(i,_.keys(i)[0] ,obj);}
 });
-  console.log(src_rows);
+  //console.log(src_rows);
 return src_vect;
 
 }
@@ -194,8 +194,8 @@ workflow.on('updateGoogleSpreadsheet',function(p){
   var activeSheet=p.activeSheet;
 
 if(activeSheet.indexOf('default')>0) sheetName='OPZ';
-console.log('params to tranform are: '+ sys.inspect(params));
-console.log('params to send are: '+ sys.inspect(prepareParamsForExcel(params)));
+//console.log('params to tranform are: '+ sys.inspect(params));
+//console.log('params to send are: '+ sys.inspect(prepareParamsForExcel(params)));
   
 updateSheet(p.googleId,prepareParamsForExcel(params),sheetName,workflow,req);
 
@@ -250,25 +250,25 @@ Spreadsheet.load({
 
 
 exports.readPopulateActiveSheet = function(req, res, next){
-  console.log(__filename+' 1 readPopulateActiveSheet');
+  //console.log(__filename+' 1 readPopulateActiveSheet');
   req.app.db.models.Spreadsheet.findOne({_id:req.params.id}).populate('sheetsList').exec(function(err, spreadsheet) {
     if (err) {
       return next(err);
     }
 
     if (req.xhr) {
-      console.log('2 readPopulateActiveSheet');
+     //console.log('2 readPopulateActiveSheet');
       res.send(spreadsheet);
     }
     else {
-console.log('3 readPopulateActiveSheet');
+//console.log('3 readPopulateActiveSheet');
       res.render('spreadsheets_v5/dashboard/index-dashboard', { data: { record: spreadsheet,title:spreadsheet.name} });
     }
   });
 };
 
 exports.readPopulateInitActiveSheet = function(req, res, next){
-  console.log('1 readPopulateInitActiveSheet');
+  //console.log('1 readPopulateInitActiveSheet');
   req.app.db.models.Spreadsheet.findOne({_id:req.params.id}).populate('sheetsList').exec(function(err, spreadsheet) {
     
    
@@ -330,7 +330,7 @@ workflow.on('resetSpreadhsheet', function(req,p) {
 
 
  workflow.on('synchActiveSheetWithGoogleSpreadsheet',function(req){
-console.log(req.body);
+//console.log(req.body);
 var activeSheet=req.body.activeSheet;
 var googleId=req.body.googleId;
 var sheetName='INPUT';
@@ -360,13 +360,13 @@ var sheetName='INPUT';
        //updatedParams=copyData(rows,3,4,2,JSON.parse(sheet.params));
        
         if(sheetName=='INPUT') {
-          var file = __dirname + '/mega-reset-v4.json';
+          var file = __dirname + '/mega-reset-v5.json';
           var mockParams=JSON.parse(fs.readFileSync(file));
           // console.log(sys.inspect(mockParams));
           updatedParams=copyPureData(rows,3,13,2,mockParams);
-        
+          
           //console.log(sys.inspect(updatedParams));
-         
+         //console.log(updatedParams);
         }
         
         return workflow.emit('resetSpreadhsheet',req,updatedParams);
@@ -473,7 +473,7 @@ exports.getActiveSheet= function(req, res, next){
 
 
 workflow.on('patchSheet', function(req,p) {
-  console.log('patchSheet');
+  //console.log('patchSheet');
     var fieldsToSet = {
       params: JSON.stringify(p)
     };
@@ -489,7 +489,7 @@ workflow.on('patchSheet', function(req,p) {
 
 
  workflow.on('synchActiveSheetWithGoogleSpreadsheet',function(req){
-  console.log(req.session.cookie.expires);
+ // console.log(req.session.cookie.expires);
 
 var activeSheet=req.body.record.activeSheet;
 var googleId=req.body.record.googleId;
@@ -498,7 +498,7 @@ var sheetName='INPUT';
 
 
 if(activeSheet.indexOf('default')>=0) sheetName='OPZ';
-console.log(req.params);
+//console.log(req.params);
   req.app.db.models.Sheet.findById(req.params.sheetId).select('-textNote').exec(function(err, sheet) {
     if (err) {
     return  workflow.emit('exception',err);
@@ -536,7 +536,8 @@ console.log(req.params);
           //console.log(sheet.params);
           //src_rows,mapping_col_idx,src_val_idx,src_label_idx,src_vect
           updatedParams=copyData(rows,3,4,2,JSON.parse(sheet.params));
-          //console.log(rows);
+          //
+         //console.log(rows);
           
         }
 
@@ -755,7 +756,7 @@ function saveSimulationOnExcelAndDb(req,workflow,sprdsheet,simulationLabel,user,
        
        colToBeSaved.push(o3);
        
-         console.log(colToBeSaved);
+         //console.log(colToBeSaved);
 
        //return workflow.emit('exception', err);
 

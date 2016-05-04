@@ -65,7 +65,7 @@ var data=dataTable;
 var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"title":"","height":400,"legend":{"position":"labeled",maxLines: 10,textStyle: {fontSize: 9}},"width":800,"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
 
 j.options.title="Distribuzione % dei pazienti per terapia. Anno t0.";
-j.options.pieSliceText="percentage";
+j.options.pieSliceText="none";
 
 google.visualization.drawChart(j, document.getElementById('chart2')); 
 
@@ -85,7 +85,7 @@ var dataTable=response.getDataTable();
 var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"title":"","height":400,"legend":{"position":"labeled",maxLines: 10,textStyle: {fontSize: 9}},"width":800,"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
 
 j.options.title="Distribuzione % dei pazienti per terapia. Anno t1.";
-j.options.pieSliceText="percentage";
+j.options.pieSliceText="none";
 google.visualization.drawChart(j, document.getElementById('chart3')); 
 
 
@@ -103,7 +103,7 @@ var dataTable=response.getDataTable();
 var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"title":"","height":400,"legend":{"position":"labeled",maxLines: 10, textStyle: {fontSize: 9}},"width":800,"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
 
 j.options.title="Distribuzione % dei pazienti per terapia. Anno t2.";
-j.options.pieSliceText="percentage";
+j.options.pieSliceText="none";
 google.visualization.drawChart(j, document.getElementById('chart4')); 
 
 
@@ -121,7 +121,7 @@ var dataTable=response.getDataTable();
 var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"title":"","height":400,"legend":{"position":"labeled",maxLines: 10,textStyle: {fontSize: 9}},"width":800,"is3D":false,"useFirstColumnAsDomain":true}};
 
 j.options.title="Distribuzione % dei pazienti per terapia. Anno t3.";
-j.options.pieSliceText="percentage";
+j.options.pieSliceText="none";
 google.visualization.drawChart(j, document.getElementById('chart5')); 
 
 

@@ -344,10 +344,16 @@ params.paramData=JSON.stringify(paramData);
 if($(this).attr('class').indexOf('checkPercentage')>0){
 
   var i=0;
+  var labelArr=[];
+  _.each(paramData,function(item){labelArr.push(item[[_.keys(item)[0]]].label)});
  for (k in paramData){
+  
+
     var a=paramData[k];
         for(kk in a ){
+
           var v=a[kk];
+          
 
              if(v.value.indexOf('%')<0) { 
               alertify.alert('il parametro '+v.label+' non contiene %'); 
@@ -364,9 +370,9 @@ else{
         }
 
  
-  if(i>100.00){ alertify.alert('Attenzione parametri non validi: la somma dei parametri è maggiore del 100% ');
+  if(i>100.00){ alertify.alert('Attenzione parametri non validi: la somma dei parametri <strong>'+labelArr.toString()+'</strong> è maggiore del 100% ');
   return false;}
-   if(Math.ceil(i)!=100.00){ alertify.alert('Attenzione parametri non validi: la somma dei parametri è diversa dal 100% ');
+   if(Math.ceil(i)!=100.00){ alertify.alert('Attenzione parametri non validi: la somma dei parametri <strong>'+labelArr.toString()+'</strong> è diversa dal 100% ');
   return false;}
 }
 
@@ -374,14 +380,21 @@ if($(this).attr('class').indexOf('controlloPercentuale')>0){
 
   var i=0;
   var tmpParam1=_.filter(paramData,function(item){var k=_.keys(item)[0];return (k.indexOf('[q.2C]')  &&  k.indexOf('[q.2D]')) });
-  
+ 
+var labelArr=[];
 
- for (k in tmpParam1){
+_.each(tmpParam1,function(item){labelArr.push(item[[_.keys(item)[0]]].label)});
+
+ for (var k in tmpParam1){
 
     var a=tmpParam1[k];
     
+    
+
         for(kk in a ){
           var v=a[kk];
+         
+          
 
              if(v.value.indexOf('%')<0) { 
               alertify.alert('il parametro '+v.label+' non contiene %'); 
@@ -396,11 +409,11 @@ else{
         }
 
         }
-
  
-  if(i>100.00){ alertify.alert('Attenzione parametri non validi: la somma dei parametri è maggiore del 100% ');
+  
+  if(i>100.00){ alertify.alert('Attenzione parametri non validi: la somma dei parametri <strong>'+labelArr.toString()+'</strong> è maggiore del 100% ');
   return false;}
-   if(Math.ceil(i)!=100.00){ alertify.alert('Attenzione parametri non validi: la somma dei parametri è diversa dal 100% ');
+   if(Math.ceil(i)!=100.00){ alertify.alert('Attenzione parametri non validi: la somma dei parametri <strong>'+labelArr.toString()+'</strong> è diversa dal 100% ');
   return false;}
   
  var tmpParam2=_.filter(paramData,function(item){var k=_.keys(item)[0];return (k.indexOf('[q.2A]')  &&  k.indexOf('[q.2B]')) });
