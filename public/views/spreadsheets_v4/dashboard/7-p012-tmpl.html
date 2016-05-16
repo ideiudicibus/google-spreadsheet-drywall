@@ -49,7 +49,7 @@ var j=
 google.visualization.drawChart(j, document.getElementById('chart1')); 
 
 }
-//"","#A34441","#849F4C","#6D558A","#4092A8","#D2803C","#618EC4","#C6625F","#A5C26A"
+
 
 function handleQueryResponse2(response){
 
@@ -62,10 +62,12 @@ var dataTable=response.getDataTable();
 var data=dataTable;
 
 
+
 var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"colors":["#436EA1","#A34441","#849F4C","#6D558A","#4092A8","#D2803C","#618EC4","#C6625F","#A5C26A"],"title":"","height":400,"legend":{"position":"right",maxLines: 10,textStyle: {fontSize: 9}},"width":800,"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
 
 j.options.title="Distribuzione % dei pazienti per terapia. Anno t0.";
 j.options.pieSliceText="none";
+j.options.sliceVisibilityThreshold=0;
 
 google.visualization.drawChart(j, document.getElementById('chart2')); 
 
@@ -86,6 +88,7 @@ var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataT
 
 j.options.title="Distribuzione % dei pazienti per terapia. Anno t1.";
 j.options.pieSliceText="none";
+j.options.sliceVisibilityThreshold=0;
 
 google.visualization.drawChart(j, document.getElementById('chart3')); 
 
@@ -105,6 +108,7 @@ var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataT
 
 j.options.title="Distribuzione % dei pazienti per terapia. Anno t2.";
 j.options.pieSliceText="none";
+j.options.sliceVisibilityThreshold=0;
 google.visualization.drawChart(j, document.getElementById('chart4')); 
 
 
@@ -123,6 +127,7 @@ var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataT
 
 j.options.title="Distribuzione % dei pazienti per terapia. Anno t3.";
 j.options.pieSliceText="none";
+j.options.sliceVisibilityThreshold=0;
 google.visualization.drawChart(j, document.getElementById('chart5')); 
 
 
