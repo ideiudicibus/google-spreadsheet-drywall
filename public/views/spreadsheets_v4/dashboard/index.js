@@ -265,7 +265,7 @@ else{
  
 
 
-  if(Math.ceil(i)!=100.00){ alertify.alert('Attenzione la somma dei parametri è diversa dal 100% ');
+  if(Math.ceil(i)>100.10){ alertify.alert('Attenzione la somma dei parametri è diversa dal 100% ');
   return false;}
  
 }

@@ -1,7 +1,16 @@
 var uuid=require('request/node_modules/node-uuid'),
 paramAuth=require('../../../paramAuth.js'),
+_=require('underscore'),
 request = require('request');
 'use strict';
+
+
+
+
+function setProperty(obj,prop,value){
+obj[prop]=value;
+return obj;
+}
 
 exports.find = function(req, res, next){
   req.query.username = req.query.username ? req.query.username : '';
@@ -75,13 +84,10 @@ exports.read = function(req, res, next){
 
    workflow.on('findMasterSpreadsheetList', function(user) {
  
-
         var fieldsToQuery = {
           isMaster:true
           };
   
-
-
    req.app.db.models.Spreadsheet.find(fieldsToQuery).exec(function(err, spreadsheets) {
 
      if (err) {
@@ -89,17 +95,15 @@ exports.read = function(req, res, next){
       return workflow.emit('exception',err);
     }else {
 
-          var retval={ data: { record: escape(JSON.stringify(user)) } };
-          retval.data.masterSpreadsheetList=escape(JSON.stringify(spreadsheets)) ;
-     
-          res.render('admin/users/details', retval);
-
+        workflow.emit('findOwnedSpreadsheetList',user,spreadsheets);
     }
 
+   }
+
+   );
 
 
-   });
-
+ 
    
      
     
@@ -108,10 +112,150 @@ exports.read = function(req, res, next){
     
   });
 
+ workflow.on('findOwnedSpreadsheetList', function(user,masterSpreadsheetList) {
+   var fieldsToQuery = {
+          ownersList:{$in:[user._id]}
+        };
+
+   req.app.db.models.Spreadsheet.find(fieldsToQuery).select('_id name googleId').exec(function(err, spreadsheets) {
+
+     if (err) {
+      
+      return workflow.emit('exception',err);
+    }else {
+          
+          var u={};
+          u.ownedSpreadsheetList=spreadsheets;
+          u=_.extend(u,user);
+          
+          var retval={ data: { record: escape(JSON.stringify(u)) } };
+          retval.data.masterSpreadsheetList=escape(JSON.stringify(masterSpreadsheetList)) ;
+          retval.data.ownedSpreadsheetList=escape(JSON.stringify(spreadsheets));
+          res.render('admin/users/details', retval);
+
+    }
+
+
+
+   }
+
+   );
+
+
+ });
+
  workflow.emit('findUser');
 
 };
 
+
+
+exports.unlinkSpreadheetFromUser = function(req,res,next){
+
+
+
+   var workflow = req.app.utility.workflow(req, res);
+
+
+   workflow.on('findUser', function() {
+
+
+      req.app.db.models.User.findById(req.params.id).populate('roles.admin', 'name.full').populate('roles.account', 'name.full').exec(function(err, user) {
+    if (err) {
+      
+      return workflow.emit('exception',err);
+    }
+    else{
+
+      workflow.emit('findMasterSpreadsheetList',user);
+    }
+
+   
+  });
+   
+    
+  });
+
+   workflow.on('findMasterSpreadsheetList', function(user) {
+ 
+        var fieldsToQuery = {
+          isMaster:true
+          };
+  
+   req.app.db.models.Spreadsheet.find(fieldsToQuery).exec(function(err, spreadsheets) {
+
+     if (err) {
+      
+      return workflow.emit('exception',err);
+    }else {
+
+        workflow.emit('findOwnedSpreadsheetList',user,spreadsheets);
+    }
+
+   }
+
+   );
+
+    
+  });
+
+ workflow.on('findOwnedSpreadsheetList', function(user,masterSpreadsheetList) {
+   var fieldsToQuery = {
+          ownersList:{$in:[user._id]}
+        };
+
+   req.app.db.models.Spreadsheet.find(fieldsToQuery).select('_id name googleId').exec(function(err, spreadsheets) {
+
+     if (err) {
+      
+      return workflow.emit('exception',err);
+    }else {
+          
+          var u={};
+          u.ownedSpreadsheetList=spreadsheets;
+          u=_.extend(u,user);
+          
+          var retval={ data: { record: escape(JSON.stringify(u)) } };
+          retval.data.masterSpreadsheetList=escape(JSON.stringify(masterSpreadsheetList)) ;
+          retval.data.ownedSpreadsheetList=escape(JSON.stringify(spreadsheets));
+          res.render('admin/users/details', retval);
+
+    }
+
+
+
+   }
+
+   );
+
+
+ });
+
+
+ workflow.on('unlink', function() {
+
+        req.app.db.models.Spreadsheet.findByIdAndUpdate(req.params.sid, {$pull:{ownersList:{$in:[req.params.id]}}}, function(err, spreadsheet) {
+             if (err) {
+            return workflow.emit('exception', err);
+          }
+          else{
+
+             workflow.emit('findUser');
+            
+          }
+            
+           });
+
+ })
+
+
+ workflow.emit('unlink');
+
+
+
+
+
+}
 exports.create = function(req, res, next){
   var workflow = req.app.utility.workflow(req, res);
 
@@ -382,14 +526,7 @@ exports.createSpreadheetFromMaster = function(req, res, next){
                                                        workflow.outcome.clonedServiceResponse=JSON.stringify(responseObj);
                                                        workflow.emit('response');
                                                 });
-
-                                        
-                                      });    
-
-
-
-              
-
+                                      });
               }
              else{
               workflow.outcome.errfor.googleId='cant clone, spreadsheet not found',
@@ -398,17 +535,9 @@ exports.createSpreadheetFromMaster = function(req, res, next){
 
               return;
              }
-
-        
-
            });
-
-
-
         });
       });
-
-
   });
 
   workflow.emit('validate');

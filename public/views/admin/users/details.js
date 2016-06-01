@@ -94,6 +94,7 @@
     }
   });
 
+
   app.CreateSpreadsheetFromMaster = Backbone.Model.extend({
     idAttribute: '_id',
     defaults: {
@@ -115,6 +116,26 @@
       return response;
     }
   });
+
+    app.OnwnedSpreadsheetList = Backbone.Model.extend({
+    idAttribute: '_id',
+    defaults: {
+      success: false,
+      errors: [],
+      errfor: {},
+      ownedSpreadsheetList:[]
+    },
+   
+    parse: function(response) {
+      if (response.user) {
+        app.mainView.model.set(response.user);
+        delete response.user;
+      }
+      console.log(response);
+      return response;
+    }
+  });
+
 
   app.HeaderView = Backbone.View.extend({
     el: '#header',
@@ -318,6 +339,23 @@
     }
   });
 
+
+   app.OnwnedSpreadsheetListView = Backbone.View.extend({
+    el: '#owned-spreadsheet-list',
+    template: _.template( $('#tmpl-owned-spreadsheet-list').html() ),
+    initialize: function() {
+      
+      this.model = new app.OnwnedSpreadsheetList({ _id: app.mainView.model.id });
+      console.log(this.model.attributes);
+      this.listenTo(this.model, 'sync', this.render);
+      this.render();
+    },
+    render: function() {
+      
+      this.$el.html(this.template( this.model.attributes ));
+    }
+  });
+
     app.CreateSpreadsheetView = Backbone.View.extend({
     el: '#create-spreadsheet-from-master',
     template: _.template( $('#tmpl-create-spreadsheet-from-master').html() ),
@@ -349,14 +387,14 @@
     initialize: function() {
       app.mainView = this;
       this.model = new app.User( JSON.parse( unescape($('#data-record').html())) );
-
+   
       app.headerView = new app.HeaderView();
       app.identityView = new app.IdentityView();
       app.passwordView = new app.PasswordView();
       app.rolesView = new app.RolesView();
       app.deleteView = new app.DeleteView();
       app.createSpreadsheetView= new app.CreateSpreadsheetView();
-
+      app.OnwnedSpreadsheetListView= new app.OnwnedSpreadsheetListView();
     }
   });
 

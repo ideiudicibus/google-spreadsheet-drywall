@@ -15,6 +15,7 @@ block body
       div#password
       div#delete
       div#create-spreadsheet-from-master
+      div#owned-spreadsheet-list
 
   script(type='text/template', id='tmpl-header')
     div.page-header
@@ -155,5 +156,15 @@ block body
         span.help-block <%- errfor.googleAuthAccount %>
       div.form-group
         button.btn.btn-default.btn-create-spreadsheet-from-master(type='button') Create
+
+  script(type='text/template', id='tmpl-owned-spreadsheet-list')
+    fieldset
+      legend list of owned spreadsheets
+      div.form-group
+        ul 
+          each ms in JSON.parse( unescape(data.ownedSpreadsheetList))
+            li #{ms.name} 
+              a.btn(href='unlink/#{ms._id}') unlink
+                
 
   script(type='text/template', id='data-record') !{data.record}

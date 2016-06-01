@@ -1,0 +1,113 @@
+<%
+
+
+function drawCharts(spreadsheet,activeSheet) {
+var activeSheetName=activeSheet;
+var query1 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&headers=-1&merge=COLS&range=I6:I8,L6:L8&pli=1'); 
+query1.send(handleQueryResponse1);
+var query2 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=1&headers=-1&merge=ROWS&range=K3:N3,K8:N8&pli=1'); 
+query2.send(handleQueryResponse2);
+var query3 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=I3:N11&pli=1'); 
+query3.send(handleQueryResponse3);
+}
+
+
+function handleQueryResponse3(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+
+ var datatable = new google.visualization.DataView(response.getDataTable());
+  var table = new google.visualization.Table(document.getElementById('dataTable'+activeSheetName));
+  table.draw(datatable,{'sort':'disable'});
+
+}
+
+
+function handleQueryResponse2(response){
+
+ if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+
+var j = {"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":response.getDataTable(),"options":{"title":"Proiezione annuale pazienti in terapia","height":400,"width":800,"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"series":{"0":{"color":"#1155cc"}},"legend":{"position":"none"},"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{}}};
+
+google.visualization.drawChart(j, document.getElementById('chart2'+activeSheetName)); 
+
+
+}
+
+function handleQueryResponse1(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+
+var j=
+{"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"title":"","height":400,"legend":{"position":"labeled",maxLines: 10},"width":800,"is3D":false,"useFirstColumnAsDomain":true,"pieSliceText":"percentage"}};
+
+j.options.title="Distribuzione % dei pazienti";
+j.options.pieSliceText="none";
+google.visualization.drawChart(j, document.getElementById('chart1'+activeSheetName)); 
+
+}
+
+drawCharts(data.record,activeSheetName);
+
+%>
+<div class="row">
+  <div class="col-md-12">
+        <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='textNote'><%print(textNote);%></div>
+      </div>
+    </div>
+</div>
+</div>
+<div class="endpage"></div>
+<div class="row">
+    <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id="chart1<%=activeSheetName%>" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="endpage"></div>
+  <div class="row">
+      <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id="chart2<%=activeSheetName%>" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="endpage"></div>
+<div class="row">
+  <div class="row">
+   <div class="col-md-12">
+      <div class="panel panel-default">
+      <div class="panel-heading"><i class="fa fa-table fa-fw"></i> 
+      </div>
+      <div class="panel-body">
+          <div id='dataTable<%=activeSheetName%>' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+</div>
+</div>
+</div>
+</div>
+
