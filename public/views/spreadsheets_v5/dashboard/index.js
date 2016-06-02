@@ -1470,6 +1470,11 @@ var activeSheetID=$(this).attr('id');
         type: "POST",
         url: '/spreadsheets_v5/activesheet/'+activeSheetID,
         dataType:"json",
+        error:function(response,b,c){
+
+           alertify.error('<p>errore di connettività si procederà ad un ricaricamento </p>');
+           location.reload();
+        },
         success:  function (response) {
           
           switch(response.success)
