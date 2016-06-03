@@ -4,23 +4,18 @@ function drawCharts(spreadsheet,activeSheet) {
 var activeSheetName=activeSheet;
 
 var query1 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A19:A25,B19:B25&pli=1'); 
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A26:C28&pli=1'); 
 query1.send(handleQueryResponse1);
-
-
-var query2 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A29:A35,B29:B35&pli=1'); 
-query2.send(handleQueryResponse2);
 
 
 
 
 var query4 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A17:H20&pli=1'); 
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A17:H19&pli=1'); 
 query4.send(handleQueryResponse4);
 
 var query5 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A27:H30&pli=1'); 
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A26:D28&pli=1'); 
 query5.send(handleQueryResponse5);
 
 
@@ -41,8 +36,7 @@ var dataTable=response.getDataTable();
 
 
 
-var j = {"view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"chartType":"ColumnChart","options":{"hAxis":{"textStyle":{"fontSize":9,"bold":false,"italic":false},"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"textStyle":{"fontSize":9,"bold":false,"italic":false},"gridlines":{"color":"#D9D9D9"}}},"legend":{"position":"none"},"series":{"0":{"color":"#002060"}},"useFirstColumnAsDomain":true,"width":429,"is3D":false,"title":"Costi terapie pro-capite (\u20ac)","chartArea":{"backgroundColor":{"fill":"#FFFFFF"}},"height":273}};
-
+var j = {"view":{"columns":[0,1,2]},"chartName":"Grafico 23","dataTable":dataTable,"options":{"hasHiddenData":false,"treatLabelsAsText":false,"vAxes":[{"useFormatFromData":true,"minValue":null,"logScale":false,"maxValue":null,"title":null,"viewWindow":{"min":null,"max":null}},{"useFormatFromData":true,"minValue":null,"logScale":false,"maxValue":null,"viewWindow":{"min":null,"max":null}}],"legend":"bottom","isStacked":true,"tooltip":{},"legacyScatterChartLabels":true,"title":"Costo medio annuo effettivo (\u20ac)","titleTextStyle":{"color":"#000","fontSize":16,"bold":true},"hAxis":{"useFormatFromData":true},"useFirstColumnAsDomain":true,"width":699,"legacyContinuousAxisRemoved":true,"booleanRole":"certainty","height":371},"chartType":"ColumnChart","state":{},"isDefaultVisualization":true};
 
 
 
@@ -52,27 +46,6 @@ google.visualization.drawChart(j, document.getElementById('chart1P022'));
 }
 
 
-function handleQueryResponse2(response) {
-   
-  if (response.isError()) {
-    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
-    return;
-  }
-var dataTable=response.getDataTable();
-//dataTable.setColumnLabel(1,"Costi extra ter. Ivabradina on-top");
-//dataTable.setColumnLabel(2,"Costi extra Ter. standard");
-
-
-
-var j = {"view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"chartType":"ColumnChart","options":{"hAxis":{"textStyle":{"fontSize":9,"bold":false,"italic":false},"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"textStyle":{"fontSize":9,"bold":false,"italic":false},"gridlines":{"color":"#D9D9D9"}}},"legend":{"position":"none"},"series":{"0":{"color":"#002060"}},"useFirstColumnAsDomain":true,"width":416,"is3D":false,"title":"Costi extra terapie pro-capite (\u20ac)","chartArea":{"backgroundColor":{"fill":"#FFFFFF"}},"height":287}};
-
-
-
-
-
-google.visualization.drawChart(j, document.getElementById('chart2P022')); 
-
-}
 
 
 
@@ -89,7 +62,7 @@ var dataTable=response.getDataTable();
 
  var datatable = new google.visualization.DataView(response.getDataTable());
   var table = new google.visualization.Table(document.getElementById('dataTable2P022'));
-  table.draw(datatable,{'sort':'disable'});
+  table.draw(datatable,{'sort':'disable',cssClassNames: {headerCell: 'googleHeaderCell'}});
 
 }
 
@@ -104,7 +77,7 @@ var dataTable=response.getDataTable();
 
  var datatable = new google.visualization.DataView(response.getDataTable());
   var table = new google.visualization.Table(document.getElementById('dataTable3P022'));
-  table.draw(datatable,{'sort':'disable'});
+  table.draw(datatable,{'sort':'disable',cssClassNames: {headerCell: 'googleHeaderCell'}});
 
 }
 
@@ -132,17 +105,6 @@ drawCharts(data.record,activeSheetName);
     </div>
  
 </div>
-</div>
-
-<div class="row">
-  <div class="col-md-12">
-        <div class="panel panel-default">
-        <div class="panel-body">
-         <div id="chart2P022" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
-      </div>
-    </div>
-  </div>
-
 </div>
 
 
