@@ -3,6 +3,13 @@
 
 function drawCharts(spreadsheet,activeSheet) {
 var activeSheetName=activeSheet;
+
+var query0 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet=OPZ&range=E6:E7&pli=1');
+
+
+query0.send(handleQueryResponse0);
+
 var query1 = new google.visualization.Query(
       'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=1&headers=-1&merge=ROWS&range=B11:F11,B20:F20,B19:F19,B18:F18,B17:F17,B16:F16,B15:F15,B14:F14,B13:F13,B12:F12&pli=1'); 
 
@@ -36,6 +43,20 @@ query7.send(handleQueryResponse7);
 
 }
 
+function handleQueryResponse0(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+ var datatable = new google.visualization.DataView(response.getDataTable());
+
+  var table = new google.visualization.Table(document.getElementById('OPZ'+activeSheetName));
+  table.draw(datatable,{'sort':'disable',cssClassNames: {headerCell: 'googleHeaderCell'}});
+}
+
 function handleQueryResponse1(response) {
    
   if (response.isError()) {
@@ -46,7 +67,7 @@ function handleQueryResponse1(response) {
 var j=
 
 {"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2]},"dataTable":response.getDataTable(),"options":{chartArea: {  width: "50%", height: "70%" },"title":"Pazienti per terapia.","height":400,"width":600,"legendTextStyle":{"color":"#222","fontSize":"9"},"legend":{"position":"right", textStyle: {fontSize: 9}},"is3D":false,"useFirstColumnAsDomain":true,"hAxis":{},"isStacked":true}};
-google.visualization.drawChart(j, document.getElementById('chart1')); 
+google.visualization.drawChart(j, document.getElementById('chart1'+activeSheetName)); 
 
 }
 
@@ -67,7 +88,7 @@ var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataT
 j.options.title="Distribuzione % dei pazienti per terapia. Anno t0.";
 j.options.pieSliceText="none";
 
-google.visualization.drawChart(j, document.getElementById('chart2')); 
+google.visualization.drawChart(j, document.getElementById('chart2'+activeSheetName)); 
 
 
 }
@@ -86,7 +107,7 @@ var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataT
 
 j.options.title="Distribuzione % dei pazienti per terapia. Anno t1.";
 j.options.pieSliceText="none";
-google.visualization.drawChart(j, document.getElementById('chart3')); 
+google.visualization.drawChart(j, document.getElementById('chart3'+activeSheetName)); 
 
 
 }
@@ -104,7 +125,7 @@ var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataT
 
 j.options.title="Distribuzione % dei pazienti per terapia. Anno t2.";
 j.options.pieSliceText="none";
-google.visualization.drawChart(j, document.getElementById('chart4')); 
+google.visualization.drawChart(j, document.getElementById('chart4'+activeSheetName)); 
 
 
 }
@@ -122,7 +143,7 @@ var j = {"chartType":"PieChart","view":{"columns":[{"sourceColumn":0},1]},"dataT
 
 j.options.title="Distribuzione % dei pazienti per terapia. Anno t3.";
 j.options.pieSliceText="none";
-google.visualization.drawChart(j, document.getElementById('chart5')); 
+google.visualization.drawChart(j, document.getElementById('chart5'+activeSheetName)); 
 
 
 }
@@ -136,7 +157,7 @@ function handleQueryResponse6(response) {
   }
 
   var datatable = new google.visualization.DataView(response.getDataTable());
-  var table = new google.visualization.Table(document.getElementById('dataTable1P012'));
+  var table = new google.visualization.Table(document.getElementById('dataTable1'+activeSheetName));
   table.draw(datatable,{'sort':'disable',cssClassNames: {headerCell: 'googleHeaderCell'}});
 
 }
@@ -150,7 +171,7 @@ function handleQueryResponse7(response) {
   
   var datatable = new google.visualization.DataView(response.getDataTable());
   datatable.setRows([2,3]);
-  var table = new google.visualization.Table(document.getElementById('dataTable2P012'));
+  var table = new google.visualization.Table(document.getElementById('dataTable2'+activeSheetName));
   table.draw(datatable,{'sort':'disable',cssClassNames: {headerCell: 'googleHeaderCell'}});
 
 }
@@ -169,11 +190,22 @@ drawCharts(data.record,activeSheetName);
     </div>
 </div>
 </div>
+
+<div class="row">
+  <div class="col-md-12">
+        <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='OPZ<%=activeSheetName%>'></div>
+      </div>
+    </div>
+</div>
+</div>
+
 <div class="row">
     <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-body">
-        <div id="chart1" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+        <div id="chart1<%=activeSheetName%>" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
     </div>
   </div>
@@ -183,7 +215,7 @@ drawCharts(data.record,activeSheetName);
 <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-body">
-        <div id="chart2" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+        <div id="chart2<%=activeSheetName%>" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
          
         <div id="legend-chart2" class="list-group-horizontal"> </div>
        
@@ -196,7 +228,7 @@ drawCharts(data.record,activeSheetName);
   <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-body">
-        <div id="chart3" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+        <div id="chart3<%=activeSheetName%>" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
     </div>
   </div>
@@ -206,7 +238,7 @@ drawCharts(data.record,activeSheetName);
     <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-body">
-        <div id="chart4" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+        <div id="chart4<%=activeSheetName%>" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
     </div>
   </div>
@@ -216,7 +248,7 @@ drawCharts(data.record,activeSheetName);
   <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-body">
-        <div id="chart5" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+        <div id="chart5<%=activeSheetName%>" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
     </div>
   </div>
@@ -242,10 +274,10 @@ drawCharts(data.record,activeSheetName);
       </div>
       <div class="panel-body">
       Numero paz. per farmaco
-          <div id='dataTable1P012' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+          <div id='dataTable1<%=activeSheetName%>' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
           <hr/>
           Distribuz. % dei paz. per farmaco
-           <div id='dataTable2P012' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+           <div id='dataTable2<%=activeSheetName%>' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
 </div>
 </div>

@@ -23,7 +23,7 @@ var dataTable=response.getDataTable();
  var datatable = new google.visualization.DataView(response.getDataTable());
  datatable.setColumns([0,1,2]);
   var table = new google.visualization.Table(document.getElementById('dataTable'));
-  table.draw(datatable,{'sort':'disable'});
+  table.draw(datatable,{'sort':'disable',cssClassNames: {headerCell: 'googleHeaderCell'}});
 
 }
 

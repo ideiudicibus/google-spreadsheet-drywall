@@ -57,7 +57,7 @@ var data_table=response.getDataTable();
 
  var datatable = new google.visualization.DataView(data_table);
   var table = new google.visualization.Table(document.getElementById('dataTable1'+activeSheetName));
-  table.draw(datatable,{'sort':'disable'});
+  table.draw(datatable,{'sort':'disable',cssClassNames: {headerCell: 'googleHeaderCell'}});
 
 }
 
@@ -72,7 +72,7 @@ var data_table=response.getDataTable();
 
  var datatable = new google.visualization.DataView(data_table);
   var table = new google.visualization.Table(document.getElementById('dataTable2'+activeSheetName));
-  table.draw(datatable,{'sort':'disable'});
+  table.draw(datatable,{'sort':'disable',cssClassNames: {headerCell: 'googleHeaderCell'}});
 
 }
 

@@ -26,7 +26,7 @@ var dataTable=response.getDataTable();
 
  var datatable = new google.visualization.DataView(response.getDataTable());
   var table = new google.visualization.Table(document.getElementById('dataTable'+activeSheetName));
-  table.draw(datatable,{'sort':'disable'});
+  table.draw(datatable,{'sort':'disable',cssClassNames: {headerCell: 'googleHeaderCell'}});
 
 }
 

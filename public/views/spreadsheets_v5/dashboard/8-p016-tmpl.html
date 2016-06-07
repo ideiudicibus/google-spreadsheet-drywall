@@ -4,6 +4,13 @@
 function drawCharts(spreadsheet,activeSheet) {
 var activeSheetName=activeSheet;
 
+var query0 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet=OPZ&range=E6:E7&pli=1');
+
+
+query0.send(handleQueryResponse0);
+
+
 var query1 = new google.visualization.Query(
       'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&headers=-1&merge=COLS&range=L3:L12,M3:M12&pli=1'); 
 query1.send(handleQueryResponse1);
@@ -22,6 +29,20 @@ query3.send(handleQueryResponse3);
 
 }
 
+function handleQueryResponse0(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+ var datatable = new google.visualization.DataView(response.getDataTable());
+
+  var table = new google.visualization.Table(document.getElementById('OPZ'+activeSheetName));
+  table.draw(datatable,{'sort':'disable',cssClassNames: {headerCell: 'googleHeaderCell'}});
+}
+
 
 function handleQueryResponse1(response) {
    
@@ -32,7 +53,7 @@ function handleQueryResponse1(response) {
 var dataTable=response.getDataTable();
 
 var j={"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"options":{"width":800,"is3D":false,"hAxis":{"useFormatFromData":true,"textStyle":{"color":"#222","fontSize":"9"}},"vAxes":[{"useFormatFromData":true,"minValue":null,"gridlines":{"color":"#B7B7B7"},"viewWindow":{"min":null,"max":null},"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null}],"booleanRole":"certainty","title":"Costo medio teorico annuo per paziente. Valori in €","height":400,"legend":{"position":"none"},"useFirstColumnAsDomain":true,"isStacked":false}};
-google.visualization.drawChart(j, document.getElementById('P015-chart1')); 
+google.visualization.drawChart(j, document.getElementById('chart1'+activeSheetName)); 
 
 }
 
@@ -44,7 +65,7 @@ function handleQueryResponse2(response) {
   }
 
 var j={"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1]},"dataTable":response.getDataTable(),"options":{"vAxes":[{"useFormatFromData":true,"minValue":null,"gridlines":{"color":"#B7B7B7"},"viewWindow":{"min":null,"max":null},"maxValue":null},{"useFormatFromData":true,"minValue":null,"viewWindow":{"min":null,"max":null},"maxValue":null}],"booleanRole":"certainty","height":400,"legend":{"position":"none"},"width":800,"is3D":false,"useFirstColumnAsDomain":true,"title":"Aderenza.","hAxis":{"useFormatFromData":true,"textStyle":{"color":"#222","fontSize":"9"}},"tooltip":{},"isStacked":false}};
-google.visualization.drawChart(j, document.getElementById('P015-chart2')); 
+google.visualization.drawChart(j, document.getElementById('chart2'+activeSheetName)); 
 
 }
 
@@ -56,7 +77,7 @@ function handleQueryResponse3(response) {
   }
   var datatable = new google.visualization.DataView(response.getDataTable());
   
-  var table = new google.visualization.Table(document.getElementById('P015-dataTable'));
+  var table = new google.visualization.Table(document.getElementById('dataTable'+activeSheetName));
   table.draw(datatable,{'sort':'disable',cssClassNames: {headerCell: 'googleHeaderCell'}});
 
 }
@@ -75,12 +96,21 @@ drawCharts(data.record,activeSheetName);
   </div>
 </div>
 
+<div class="row">
+  <div class="col-md-12">
+        <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='OPZ<%=activeSheetName%>'></div>
+      </div>
+    </div>
+</div>
+</div>
 
 <div class="row">
   <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-body">
-        <div id='P015-chart1' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+        <div id='chart1<%=activeSheetName%>' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
     </div>
   </div>
@@ -89,7 +119,7 @@ drawCharts(data.record,activeSheetName);
     <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-body">
-        <div id='P015-chart2' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+        <div id='chart2<%=activeSheetName%>' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
     </div>
   </div>
@@ -110,7 +140,7 @@ drawCharts(data.record,activeSheetName);
         </div>
       </div>
       <div class="panel-body">
-          <div id='P015-dataTable' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+          <div id='dataTable<%=activeSheetName%>' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
 </div>
 </div>

@@ -113,7 +113,7 @@ var dataTable=response.getDataTable();
  var datatable = new google.visualization.DataView(response.getDataTable());
  datatable.setRows([0,1,2,3,4]);
   var table = new google.visualization.Table(document.getElementById('dataTable1P020'));
-  table.draw(datatable,{'sort':'disable'});
+  table.draw(datatable,{'sort':'disable',cssClassNames: {headerCell: 'googleHeaderCell'}});
 
 }
 /*
@@ -129,7 +129,7 @@ var dataTable=response.getDataTable();
  var datatable = new google.visualization.DataView(response.getDataTable());
  datatable.setRows([0,1,2,3,4]);
   var table = new google.visualization.Table(document.getElementById('dataTable2P020'));
-  table.draw(datatable,{'sort':'disable'});
+  table.draw(datatable,{'sort':'disable',cssClassNames: {headerCell: 'googleHeaderCell'}});
 
 }
 */

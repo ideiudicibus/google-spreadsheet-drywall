@@ -14,6 +14,8 @@ query3.send(handleQueryResponse3);
 
 var query4 = new google.visualization.Query(
       'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A25:H33&pli=1'); 
+
+
 query4.send(handleQueryResponse4);
 
 var query5 = new google.visualization.Query(
@@ -66,7 +68,7 @@ var dataTable=response.getDataTable();
 
  var datatable = new google.visualization.DataView(response.getDataTable());
   var table = new google.visualization.Table(document.getElementById('dataTable1P022'));
-  table.draw(datatable,{'sort':'disable'});
+  table.draw(datatable,{'sort':'disable',cssClassNames: {headerCell: 'googleHeaderCell'}});
 
 }
 
@@ -82,7 +84,7 @@ var dataTable=response.getDataTable();
 
  var datatable = new google.visualization.DataView(response.getDataTable());
  // var table = new google.visualization.Table(document.getElementById('dataTable2P022'));
- // table.draw(datatable,{'sort':'disable'});
+ // table.draw(datatable,{'sort':'disable',cssClassNames: {headerCell: 'googleHeaderCell'}});
 
 }
 
@@ -97,7 +99,7 @@ var dataTable=response.getDataTable();
 
  var datatable = new google.visualization.DataView(response.getDataTable());
  // var table = new google.visualization.Table(document.getElementById('dataTable3P022'));
- // table.draw(datatable,{'sort':'disable'});
+ // table.draw(datatable,{'sort':'disable',cssClassNames: {headerCell: 'googleHeaderCell'}});
 
 }
 
@@ -112,7 +114,7 @@ var dataTable=response.getDataTable();
 
  var datatable = new google.visualization.DataView(response.getDataTable());
   var table = new google.visualization.Table(document.getElementById('dataTable4P022'));
-  table.draw(datatable,{'sort':'disable'});
+  table.draw(datatable,{'sort':'disable',cssClassNames: {headerCell: 'googleHeaderCell'}});
 
 }
 

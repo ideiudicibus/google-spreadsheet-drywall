@@ -4,6 +4,19 @@
 function drawCharts(spreadsheet,activeSheet) {
 var activeSheetName=activeSheet;
 
+var query0 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet=OPZ&range=E6:E7&pli=1');
+
+
+query0.send(handleQueryResponse0);
+
+
+var query0 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet=OPZ&range=E6:E7&pli=1');
+
+
+query0.send(handleQueryResponse0);
+
 var query1 = new google.visualization.Query(
       'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&headers=-1&merge=COLS&range=A6:A9,B6:B9,C6:C9,D6:D9,E6:E9&pli=1'); 
 
@@ -34,6 +47,20 @@ query5.send(handleQueryResponse5);
 }
 
 
+function handleQueryResponse0(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+ var datatable = new google.visualization.DataView(response.getDataTable());
+
+  var table = new google.visualization.Table(document.getElementById('OPZ'+activeSheetName));
+  table.draw(datatable,{'sort':'disable',cssClassNames: {headerCell: 'googleHeaderCell'}});
+}
+
 function handleQueryResponse1(response) {
    
   if (response.isError()) {
@@ -43,7 +70,7 @@ function handleQueryResponse1(response) {
 var dataTable=response.getDataTable();
 
 var j= {"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3,4]},"dataTable":dataTable,"options":{"title":"Budget Impact.Valori in €.","legend":{"position":"bottom"},"width":600,"height":400,"is3D":false,"useFirstColumnAsDomain":true}};
-google.visualization.drawChart(j, document.getElementById('chart1P019')); 
+google.visualization.drawChart(j, document.getElementById('chart1'+activeSheetName)); 
 
 }
 
@@ -56,7 +83,7 @@ function handleQueryResponse2(response) {
 var dataTable=response.getDataTable();
 
 var j={"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2,3]},"dataTable":dataTable,"options":{"title":"Budget impact - Var. %.","width":600,"height":400,"legend":{"position":"bottom"},"is3D":false,"useFirstColumnAsDomain":true}};
-google.visualization.drawChart(j, document.getElementById('chart2P019')); 
+google.visualization.drawChart(j, document.getElementById('chart2'+activeSheetName)); 
 
 }
 
@@ -72,7 +99,7 @@ var dataTable=response.getDataTable();
 var j={"chartType":"ColumnChart","view":{"columns":[{"sourceColumn":0},1,2]},"dataTable":dataTable,"options":{"chartArea":{"top":"10%","left":"10%","width":"80%","height":"80%"},"title":"Composizione costi.","width":600,"height":400,"legend":{"position":"bottom",maxLines: 10},"is3D":false,"useFirstColumnAsDomain":true,"isStacked":true}};
 
 
-google.visualization.drawChart(j, document.getElementById('chart3P019')); 
+google.visualization.drawChart(j, document.getElementById('chart3'+activeSheetName)); 
 
 }
 
@@ -94,7 +121,7 @@ dataTable.setColumnLabel(3,"Sim. Base t2/t1");
 var j = {"view":{"columns":[{"sourceColumn":0},1,2,3]},"dataTable":dataTable,"options":{"legend":{"position":"bottom"},"useFirstColumnAsDomain":true,"width":600,"is3D":false,"chartArea":{"top":"10%","left":"10%","width":"80%","height":"80%"},"title":"Budget impact - Val. %","titleTextStyle":{"bold":true,"italic":false},"height":400},"chartType":"ColumnChart"};
 
 
-//google.visualization.drawChart(j, document.getElementById('chart4P019')); 
+//google.visualization.drawChart(j, document.getElementById('chart4'+activeSheetName)); 
 
 }
 
@@ -110,7 +137,7 @@ var dataTable=response.getDataTable();
 
  var datatable = new google.visualization.DataView(response.getDataTable());
  datatable.setRows([0,1,2,3,4]);
-  var table = new google.visualization.Table(document.getElementById('dataTableP019'));
+  var table = new google.visualization.Table(document.getElementById('dataTable'+activeSheetName));
   table.draw(datatable,{'sort':'disable',cssClassNames: {headerCell: 'googleHeaderCell'}});
 
 }
@@ -118,6 +145,8 @@ var dataTable=response.getDataTable();
 
 
 drawCharts(data.record,activeSheetName);
+
+
 
 %>
 <div class="row">
@@ -133,12 +162,23 @@ drawCharts(data.record,activeSheetName);
 
 </div>
 
+
+<div class="row">
+  <div class="col-md-12">
+        <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='OPZ<%=activeSheetName%>'></div>
+      </div>
+    </div>
+</div>
+</div>
+
 <div class="row">
 <div class="col-md-12">
     <div class="panel panel-default">
       <i class="fa fa-asterisk red-star pull-right" >&nbsp;</i>
       <div class="panel-body">
-        <div id="chart1P019">
+        <div id="chart1<%=activeSheetName%>">
           <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
     </div>
@@ -150,7 +190,7 @@ drawCharts(data.record,activeSheetName);
         <div class="panel panel-default">
           <i class="fa fa-asterisk green-star pull-right" >&nbsp;</i>
         <div class="panel-body">
-        <div id="chart2P019" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+        <div id="chart2<%=activeSheetName%>" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
     </div>
  
@@ -162,7 +202,7 @@ drawCharts(data.record,activeSheetName);
     <div class="panel panel-default">
       <i class="fa fa-asterisk blue-star pull-right" >&nbsp;</i>
       <div class="panel-body">
-        <div id="chart3P019" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+        <div id="chart3<%=activeSheetName%>" ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
     </div>
   </div>
@@ -185,7 +225,7 @@ drawCharts(data.record,activeSheetName);
   <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-body">
-        <div id="dataTableP019" >
+        <div id="dataTable<%=activeSheetName%>" >
           <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div>
         </div>
       </div>

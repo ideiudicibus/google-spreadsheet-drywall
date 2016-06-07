@@ -2,7 +2,13 @@
 
 function drawCharts(spreadsheet,activeSheet) {
 var activeSheetName=activeSheet;
-console.log(activeSheet);
+
+var query0 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet=OPZ&range=E6:E7&pli=1');
+
+
+query0.send(handleQueryResponse0);
+
 var query1 = new google.visualization.Query(
       'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A4:H16&pli=1'); 
       
@@ -17,7 +23,7 @@ function handleQueryResponse1(response) {
 var data_table=response.getDataTable();
 
  var datatable = new google.visualization.DataView(data_table);
-  var table = new google.visualization.Table(document.getElementById('dataTable1-P021'));
+  var table = new google.visualization.Table(document.getElementById('dataTable1'+activeSheetName));
   table.draw(datatable,{'sort':'disable',cssClassNames: {headerCell: 'googleHeaderCell'}});
 
 }
@@ -26,6 +32,22 @@ var data_table=response.getDataTable();
 var query3 = new google.visualization.Query(
       'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&range=A11:A16,B11:B16,C11:C16,D11:D16,E11:E16&pli=1'); 
 query3.send(handleQueryResponse3);
+
+
+
+function handleQueryResponse0(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+ var datatable = new google.visualization.DataView(response.getDataTable());
+
+  var table = new google.visualization.Table(document.getElementById('OPZ'+activeSheetName));
+  table.draw(datatable,{'sort':'disable',cssClassNames: {headerCell: 'googleHeaderCell'}});
+}
 
 
 function handleQueryResponse3(response) {
@@ -46,7 +68,7 @@ var j = {"view":{"columns":[{"sourceColumn":0},1,2,3,4]},"dataTable":dataTable,"
 
 
 
-google.visualization.drawChart(j, document.getElementById('chart1-P021')); 
+google.visualization.drawChart(j, document.getElementById('chart1'+activeSheetName)); 
 
 }
 
@@ -71,7 +93,7 @@ dataTable.setColumnLabel(3,"t3/t2");
 
 var j ={"view":{"columns":[{"sourceColumn":0},1,2,3]},"dataTable":dataTable,"options":{"hAxis":{"textStyle":{"fontSize":8,"bold":true,"italic":false},"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"legend":{"position":"bottom"},"series":{"0":{"color":"#00B0F0"},"1":{"color":"#0070C0"},"2":{"color":"#002060"}},"useFirstColumnAsDomain":true,"width":699,"is3D":false,"chartArea":{"backgroundColor":{"fill":"#FFFFFF"}},"title":"Impatto su outcome e utilizzo servizi Sim. base e a demogr. Costante","titleTextStyle":{"bold":true,"italic":false},"height":380},"chartType":"ColumnChart"};
 
-google.visualization.drawChart(j, document.getElementById('chart2-P021')); 
+google.visualization.drawChart(j, document.getElementById('chart2'+activeSheetName)); 
 
 }
 
@@ -95,7 +117,7 @@ function handleQueryResponse5(response) {
 var j ={"view":{"columns":[{"sourceColumn":0},1,2,3]},"dataTable":dataTable,"chartType":"ColumnChart","options":{"hAxis":{"textStyle":{"fontSize":8,"bold":true,"italic":false},"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"legend":{"position":"right"},"series":{"0":{"color":"#00B0F0"},"1":{"color":"#50FB33"},"2":{"color":"#0070C0"},"3":{"color":"#92D050"},"4":{"color":"#002060"},"5":{"color":"#00B050"}},"useFirstColumnAsDomain":true,"width":699,"is3D":false,"title":"Impatto su outcome e utilizzo dei servizi ","chartArea":{"backgroundColor":{"fill":"#FFFFFF"}},"titleTextStyle":{"bold":true,"italic":false},"height":373}};
 
 
-google.visualization.drawChart(j, document.getElementById('chart3-P021')); 
+google.visualization.drawChart(j, document.getElementById('chart3'+activeSheetName)); 
 
 }
 
@@ -113,13 +135,22 @@ drawCharts(data.record,activeSheetName);
  </div>
 </div>
 
+<div class="row">
+  <div class="col-md-12">
+        <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='OPZ<%=activeSheetName%>'></div>
+      </div>
+    </div>
+</div>
+</div>
 
 <div class="row">
   <div class="col-md-12">
       <div class="panel panel-default">
       <i class="fa pull-right" >&nbsp;</i>
       <div class="panel-body">
-        <div id="chart1-P021" >
+        <div id="chart1<%=activeSheetName%>" >
           <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
     </div>
@@ -130,7 +161,7 @@ drawCharts(data.record,activeSheetName);
       <div class="panel panel-default">
       <i class="fa pull-right" >&nbsp;</i>
       <div class="panel-body">
-        <div id="chart2-P021" >
+        <div id="chart2<%=activeSheetName%>" >
           <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
     </div>
@@ -141,7 +172,7 @@ drawCharts(data.record,activeSheetName);
       <div class="panel panel-default">
       <i class="fa pull-right" >&nbsp;</i>
       <div class="panel-body">
-        <div id="chart3-P021" >
+        <div id="chart3<%=activeSheetName%>" >
           <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
     </div>
@@ -152,7 +183,7 @@ drawCharts(data.record,activeSheetName);
   <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-body">
-        <div id="dataTable1-P021" >
+        <div id="dataTable1<%=activeSheetName%>" >
           <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div>
         </div>
       </div>

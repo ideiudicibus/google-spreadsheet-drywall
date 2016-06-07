@@ -143,7 +143,7 @@ function handleQueryResponse6(response) {
 
   var datatable = new google.visualization.DataView(response.getDataTable());
   var table = new google.visualization.Table(document.getElementById('dataTable1'+activeSheetName));
-  table.draw(datatable,{'sort':'disable'});
+  table.draw(datatable,{'sort':'disable',cssClassNames: {headerCell: 'googleHeaderCell'}});
 
 }
 
@@ -157,7 +157,7 @@ function handleQueryResponse7(response) {
   var datatable = new google.visualization.DataView(response.getDataTable());
   datatable.setRows([7,8,9,10,11,12,13]);
   var table = new google.visualization.Table(document.getElementById('dataTable2'+activeSheetName));
-  table.draw(datatable,{'sort':'disable'});
+  table.draw(datatable,{'sort':'disable',cssClassNames: {headerCell: 'googleHeaderCell'}});
 
 }
 
