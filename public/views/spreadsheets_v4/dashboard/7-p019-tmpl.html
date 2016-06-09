@@ -4,6 +4,10 @@
 function drawCharts(spreadsheet,activeSheet) {
 var activeSheetName=activeSheet;
 
+var query0 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?&headers=0&sheet=OPZ&range=E6:E7&pli=1');
+
+query0.send(handleQueryResponse0);
 
 var query1 = new google.visualization.Query(
       'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&range=A25:E31&pli=1'); 
@@ -26,6 +30,20 @@ query2.send(handleQueryResponse2);
 
 }
 
+function handleQueryResponse0(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+ var datatable = new google.visualization.DataView(response.getDataTable());
+
+  var table = new google.visualization.Table(document.getElementById('OPZ'+activeSheetName));
+  table.draw(datatable,{'sort':'disable',cssClassNames: {headerCell: 'googleHeaderCell'}});
+}
+
 function handleQueryResponse2(response) {
 
     if (response.isError()) {
@@ -43,7 +61,7 @@ var j = {"view":{"columns":[0,1,2,3,4,5]},"chartName":"Grafico 24","dataTable":d
 
 
 
-google.visualization.drawChart(j, document.getElementById('chart1')); 
+google.visualization.drawChart(j, document.getElementById('chart1'+activeSheetName)); 
 
 }
 
@@ -56,7 +74,7 @@ function handleQueryResponse1(response) {
 var data_table=response.getDataTable();
 
  var datatable = new google.visualization.DataView(data_table);
-  var table = new google.visualization.Table(document.getElementById('dataTable1P019'));
+  var table = new google.visualization.Table(document.getElementById('dataTable1'+activeSheetName));
   table.draw(datatable,{'sort':'disable',cssClassNames: {headerCell: 'googleHeaderCell'}});
 
 }
@@ -71,7 +89,7 @@ function handleQueryResponse3(response) {
 var data_table=response.getDataTable();
 
  var datatable = new google.visualization.DataView(data_table);
-  var table = new google.visualization.Table(document.getElementById('dataTable2P019'));
+  var table = new google.visualization.Table(document.getElementById('dataTable2'+activeSheetName));
   table.draw(datatable,{'sort':'disable',cssClassNames: {headerCell: 'googleHeaderCell'}});
 
 }
@@ -91,13 +109,23 @@ drawCharts(data.record,activeSheetName);
     </div>
  
 </div>
-
 </div>
+
+<div class="row">
+  <div class="col-md-12">
+        <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='OPZ<%=activeSheetName%>'></div>
+      </div>
+    </div>
+</div>
+</div>
+
 <div class="row">
      <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-body">
-        <div id="chart1" >
+        <div id="chart1<%=activeSheetName%>" >
           <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div>
         </div>
       </div>
@@ -112,7 +140,7 @@ drawCharts(data.record,activeSheetName);
 <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-body">
-        <div id="dataTable1P019" >
+        <div id="dataTable1<%=activeSheetName%>" >
           <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div>
         </div>
       </div>
@@ -127,7 +155,7 @@ drawCharts(data.record,activeSheetName);
 <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-body">
-        <div id="dataTable2P019" >
+        <div id="dataTable2<%=activeSheetName%>" >
           <div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div>
         </div>
       </div>

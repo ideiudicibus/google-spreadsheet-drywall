@@ -4,6 +4,10 @@
 function drawCharts(spreadsheet,activeSheet) {
 var activeSheetName=activeSheet;
 
+var query0 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?&headers=0&sheet=OPZ&range=E6:E7&pli=1');
+
+query0.send(handleQueryResponse0);
 
 
 var query2 = new google.visualization.Query(
@@ -14,6 +18,21 @@ query2.send(handleQueryResponse2);
 
 }
 
+
+
+function handleQueryResponse0(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+ var datatable = new google.visualization.DataView(response.getDataTable());
+
+  var table = new google.visualization.Table(document.getElementById('OPZ'+activeSheetName));
+  table.draw(datatable,{'sort':'disable',cssClassNames: {headerCell: 'googleHeaderCell'}});
+}
 
 function handleQueryResponse2(response) {
    
@@ -26,7 +45,7 @@ var dataTable=response.getDataTable();
 
   var datatable = new google.visualization.DataView(response.getDataTable());
    
-  var table = new google.visualization.Table(document.getElementById('dataTable'));
+  var table = new google.visualization.Table(document.getElementById('dataTable'+activeSheetName));
   table.draw(datatable,{'sort':'disable',cssClassNames: {headerCell: 'googleHeaderCell'}});
 }
 
@@ -48,6 +67,16 @@ drawCharts(data.record,activeSheetName);
 
 <div class="row">
   <div class="col-md-12">
+        <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='OPZ<%=activeSheetName%>'></div>
+      </div>
+    </div>
+</div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-heading"><i class="fa fa-table fa-fw"></i> 
         <div class="pull-right">
@@ -63,7 +92,7 @@ drawCharts(data.record,activeSheetName);
       <!--/.panel-heading 
       -->
       <div class="panel-body">
-          <div id='dataTable' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+          <div id='dataTable<%=activeSheetName%>' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
     </div>
   </div>
