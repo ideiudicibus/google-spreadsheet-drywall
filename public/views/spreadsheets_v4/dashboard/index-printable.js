@@ -91,7 +91,7 @@ loadTemplate(sheetsList[2],sheetsList[2]._id);
 loadTemplate(sheetsList[3],sheetsList[3]._id);
 loadTemplate(sheetsList[4],sheetsList[4]._id);
 loadTemplate(sheetsList[5],sheetsList[5]._id);
-loadTemplate(sheetsList[6],sheetsList[6]._id);
+//loadTemplate(sheetsList[6],sheetsList[6]._id);
 loadTemplate(sheetsList[7],sheetsList[7]._id);
 loadTemplate(sheetsList[8],sheetsList[8]._id);
 loadTemplate(sheetsList[9],sheetsList[9]._id);
