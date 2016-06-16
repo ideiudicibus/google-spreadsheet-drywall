@@ -181,7 +181,7 @@ elem.toggleClass('active');
                               loadButtonsBehaviourDefaultOpz();
                               setSelectedInputs();
                               resetParamsActiveSheetBtnBehaviour();
-                             //saveSimulationBtnBehaviour();
+                             saveSimulationBtnBehaviour();
 
                       };
                     
@@ -1351,7 +1351,7 @@ function loadSimulationLinkBehaviour(){
 $(function() {
 
 
- $('#simList').hide();
+ $('#simList').show();
 
  alertify.set({ labels: {
     ok     : "Procedi",

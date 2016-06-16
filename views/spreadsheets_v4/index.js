@@ -70,7 +70,7 @@ function copyPureData(src_rows,mapping_col_idx,src_val_idx,src_label_idx,src_vec
     if(obj!=null){   
      i=setProperty(i,_.keys(i)[0] ,obj);}
 });
-  console.log(src_rows);
+ //console.log(src_rows);
 return src_vect;
 
 }
@@ -194,8 +194,8 @@ workflow.on('updateGoogleSpreadsheet',function(p){
   var activeSheet=p.activeSheet;
 
 if(activeSheet.indexOf('default')>0) sheetName='OPZ';
-console.log('params to tranform are: '+ sys.inspect(params));
-console.log('params to send are: '+ sys.inspect(prepareParamsForExcel(params)));
+//console.log('params to tranform are: '+ sys.inspect(params));
+//console.log('params to send are: '+ sys.inspect(prepareParamsForExcel(params)));
   
 updateSheet(p.googleId,prepareParamsForExcel(params),sheetName,workflow,req);
 
@@ -250,7 +250,7 @@ Spreadsheet.load({
 
 
 exports.readPopulateActiveSheet = function(req, res, next){
-  console.log('1 readPopulateActiveSheet');
+  //console.log('1 readPopulateActiveSheet');
   req.app.db.models.Spreadsheet.findOne({_id:req.params.id}).populate('sheetsList').exec(function(err, spreadsheet) {
     if (err) {
       return next(err);
@@ -701,7 +701,7 @@ exports.saveSimulationOnDb = function(req,res,next){
 
  var firstSheet=spreadsheet.sheetsList[1];
 
- console.log('first-sheet-params are: '+firstSheet);
+ //console.log('first-sheet-params are: '+firstSheet);
 
   saveSimulationOnExcelAndDb(req,workflow,sprdsheet,simulationLabel,user,firstSheet.params);
 
@@ -747,11 +747,11 @@ function saveSimulationOnExcelAndDb(req,workflow,sprdsheet,simulationLabel,user,
         colToBeSaved.pop();
         var o3={},o4={};
        o4[2]=vv_opzParams;
-       o3[359]=o4;
+       o3['VAR_OPZ']=o4;
        
        colToBeSaved.push(o3);
        
-         console.log(colToBeSaved);
+       //console.log(colToBeSaved);
 
        //return workflow.emit('exception', err);
 
