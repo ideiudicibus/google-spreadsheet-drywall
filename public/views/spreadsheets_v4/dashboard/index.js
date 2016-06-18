@@ -62,7 +62,7 @@ $(brandHtml).appendTo(vroot);
 for(var i=0;i<array.length;i++){
 
  console.log(array[i]._id.indexOf('autori')<0);
-if(array[i]._id.indexOf('autori')<0  && array[i]._id.indexOf('biblio')<0 ){
+if(array[i]._id.indexOf('autori')<0  && array[i]._id.indexOf('biblio')<0 && array[i]._id.indexOf('home')<0){
 var li='<li ><a href="#" id="'+array[i]._id+'" class="sheetId '+checkActiveSheetClass(array[i]._id,spreadsheet.activeSheet)+'" >'+array[i].spreadsheetId+'</a></li>';
 $(li).appendTo(vroot);
 }
@@ -132,32 +132,32 @@ elem.toggleClass('active');
                            if((activeSheet.name).indexOf('P017')>=0 ){
                             loadUpdateParameterBtnBehaviourFullP017();
                             resetParamsActiveSheetBtnBehaviour();
-                            //saveSimulationBtnBehaviour();
+                            saveSimulationBtnBehaviour();
                             reloadParametersBtnBehaviour();
                             }
                            if((activeSheet.name).indexOf('P016')>=0 ){
                             loadUpdateParameterBtnBehaviourFullP016();
                             resetParamsActiveSheetBtnBehaviour();
-                            //saveSimulationBtnBehaviour();
+                            saveSimulationBtnBehaviour();
                             reloadParametersBtnBehaviour();
                             }
                           if((activeSheet.name).indexOf('P015')>=0 ){
                             loadUpdateParameterBtnBehaviourFullP015();
                             resetParamsActiveSheetBtnBehaviour();
-                            //saveSimulationBtnBehaviour();
+                            saveSimulationBtnBehaviour();
                             reloadParametersBtnBehaviour();
                             }
                            if((activeSheet.name).indexOf('P014')>=0 ){
                             loadUpdateParameterBtnBehaviourFullP014();
                             resetParamsActiveSheetBtnBehaviour();
-                            //saveSimulationBtnBehaviour();
+                            saveSimulationBtnBehaviour();
                             reloadParametersBtnBehaviour();
                             }
                             if((activeSheet.name).indexOf('P013')>=0 ){
 
                             loadUpdateParameterBtnBehaviourFullP013();
                             resetParamsActiveSheetBtnBehaviour();
-                            //saveSimulationBtnBehaviour();
+                            saveSimulationBtnBehaviour();
                             reloadParametersBtnBehaviour();
                            
                             }
@@ -165,7 +165,7 @@ elem.toggleClass('active');
                             
                             loadUpdateParameterBtnBehaviourFullP012();
                             resetParamsActiveSheetBtnBehaviour();
-                            //saveSimulationBtnBehaviour();
+                            saveSimulationBtnBehaviour();
                             reloadParametersBtnBehaviour();
                             }
                              
@@ -173,7 +173,7 @@ elem.toggleClass('active');
                             
                             loadUpdateParameterBtnBehaviourSingleP011();
                             resetParamsActiveSheetBtnBehaviour();
-                            //saveSimulationBtnBehaviour();
+                            saveSimulationBtnBehaviour();
                             reloadParametersBtnBehaviour();
                             }
                         }

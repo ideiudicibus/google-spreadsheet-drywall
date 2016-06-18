@@ -121,7 +121,7 @@ note:value_col_idx identifies current vertical parameter vector
 @returns the synched dataParam 
 */
 
-function synchDataParamsWithExcel(data,dataParam,excel_param_name_idx,label_idx,value_col_idx){
+function synchDataParamsWithExcelOpz(data,dataParam,excel_param_name_idx,label_idx,value_col_idx){
 
   _.each(dataParam,function(i,k){
      var obj={};
@@ -130,8 +130,10 @@ function synchDataParamsWithExcel(data,dataParam,excel_param_name_idx,label_idx,
       obj.row=b;
       obj.col=value_col_idx.toString();
       var tmpVal=getProperty(a,value_col_idx).trim();
+     
       
-      obj.value=tmpVal.indexOf('%')<0?tmpVal.split(".").join(""):tmpVal;
+      obj.value=tmpVal;
+      
       obj.label=getProperty(a,label_idx);
     }
     });
@@ -178,6 +180,7 @@ function prepareParamsForExcel(params){
                 paramArray.push(o1);
                }
             }
+            console.log('paramArray: '+ sys.inspect(paramArray));
             return paramArray;  
 
 }
@@ -257,18 +260,18 @@ exports.readPopulateActiveSheet = function(req, res, next){
     }
 
     if (req.xhr) {
-      console.log('2 readPopulateActiveSheet');
+      //console.log('2 readPopulateActiveSheet');
       res.send(spreadsheet);
     }
     else {
-console.log('3 readPopulateActiveSheet');
+      //console.log('3 readPopulateActiveSheet');
       res.render('spreadsheets_v4/dashboard/index-dashboard', { data: { record: spreadsheet,title:spreadsheet.name} });
     }
   });
 };
 
 exports.readPopulateInitActiveSheet = function(req, res, next){
-  console.log('1 readPopulateInitActiveSheet');
+  //console.log('1 readPopulateInitActiveSheet');
   req.app.db.models.Spreadsheet.findOne({_id:req.params.id}).populate('sheetsList').exec(function(err, spreadsheet) {
     
    
@@ -297,7 +300,7 @@ exports.getPrintablePage = function(req, res, next){
     if (err) {
       return next(err);
     }
-      console.log('getPrintablePage invoked spreadsheets_v4');
+      //console.log('getPrintablePage invoked spreadsheets_v4');
       return res.render('spreadsheets_v4/dashboard/index-printable', { data: { record: spreadsheet,title:spreadsheet.name} });
   });
 };
@@ -330,7 +333,7 @@ workflow.on('resetSpreadhsheet', function(req,p) {
 
 
  workflow.on('synchActiveSheetWithGoogleSpreadsheet',function(req){
-console.log(req.body);
+//console.log(req.body);
 var activeSheet=req.body.activeSheet;
 var googleId=req.body.googleId;
 var sheetName='INPUT';
@@ -443,7 +446,7 @@ var sheetName='INPUT';
         }
         var updatedParams={};
        //updatedParams=copyData(rows,3,4,2,JSON.parse(sheet.params));
-       console.log('-------sheet.params------'+sheet.params);
+       //console.log('-------sheet.params------'+sheet.params);
         if(sheetName=='INPUT') {
           updatedParams=copyPureData(rows,3,13,2,JSON.parse(sheet.params));
          
@@ -471,7 +474,7 @@ exports.getActiveSheet= function(req, res, next){
 
 
 workflow.on('patchSheet', function(req,p) {
-  console.log('patchSheet');
+  //console.log('patchSheet '+  JSON.stringify(p));
     var fieldsToSet = {
       params: JSON.stringify(p)
     };
@@ -524,8 +527,8 @@ if(activeSheet.indexOf('default')>=0) sheetName='OPZ';
         var updatedParams={};
         //if(sheetName=='VV_UT') updatedParams=copyData(rows,1,4,3,JSON.parse(sheet.params));
         //if(sheetName=='VV_UT') updatedParams=copyData(rows,1,4,3,JSON.parse(sheet.params));
-        if(sheetName=='OPZ') {updatedParams=synchDataParamsWithExcel(rows,JSON.parse(sheet.params),3,2,4); 
-        //  console.log(sys.inspect(sheet.params));
+        if(sheetName=='OPZ') {updatedParams=synchDataParamsWithExcelOpz(rows,JSON.parse(sheet.params),3,2,4); 
+        //console.log(sys.inspect(sheet.params));
         }
         //copiare i valori dell'excel nei parametri definiti nel DB 
         if(sheetName=='INPUT') {

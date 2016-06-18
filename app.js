@@ -84,7 +84,7 @@ app.configure(function(){
   app.use(express.session({
     secret: config.cryptoKey,
     store: app.sessionStore,
-    cookie:{_expires : paramAuth .sessionCookieExpires},
+    cookie:{_expires : paramAuth .sessionCookieExpires,httpOnly:false},
   }));
   app.use(passport.initialize());
   app.use(passport.session());
