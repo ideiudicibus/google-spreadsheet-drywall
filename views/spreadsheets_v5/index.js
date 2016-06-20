@@ -70,7 +70,7 @@ function copyPureData(src_rows,mapping_col_idx,src_val_idx,src_label_idx,src_vec
     if(obj!=null){   
      i=setProperty(i,_.keys(i)[0] ,obj);}
 });
-  //console.log(src_rows);
+ //console.log(src_rows);
 return src_vect;
 
 }
@@ -121,7 +121,7 @@ note:value_col_idx identifies current vertical parameter vector
 @returns the synched dataParam 
 */
 
-function synchDataParamsWithExcel(data,dataParam,excel_param_name_idx,label_idx,value_col_idx){
+function synchDataParamsWithExcelOpz(data,dataParam,excel_param_name_idx,label_idx,value_col_idx){
 
   _.each(dataParam,function(i,k){
      var obj={};
@@ -130,8 +130,10 @@ function synchDataParamsWithExcel(data,dataParam,excel_param_name_idx,label_idx,
       obj.row=b;
       obj.col=value_col_idx.toString();
       var tmpVal=getProperty(a,value_col_idx).trim();
+     
       
-      obj.value=tmpVal.indexOf('%')<0?tmpVal.split(".").join(""):tmpVal;
+      obj.value=tmpVal;
+      
       obj.label=getProperty(a,label_idx);
     }
     });
@@ -178,6 +180,7 @@ function prepareParamsForExcel(params){
                 paramArray.push(o1);
                }
             }
+            console.log('paramArray: '+ sys.inspect(paramArray));
             return paramArray;  
 
 }
@@ -250,18 +253,18 @@ Spreadsheet.load({
 
 
 exports.readPopulateActiveSheet = function(req, res, next){
-  //console.log(__filename+' 1 readPopulateActiveSheet');
+  //console.log('1 readPopulateActiveSheet');
   req.app.db.models.Spreadsheet.findOne({_id:req.params.id}).populate('sheetsList').exec(function(err, spreadsheet) {
     if (err) {
       return next(err);
     }
 
     if (req.xhr) {
-     //console.log('2 readPopulateActiveSheet');
+      //console.log('2 readPopulateActiveSheet');
       res.send(spreadsheet);
     }
     else {
-//console.log('3 readPopulateActiveSheet');
+      //console.log('3 readPopulateActiveSheet');
       res.render('spreadsheets_v5/dashboard/index-dashboard', { data: { record: spreadsheet,title:spreadsheet.name} });
     }
   });
@@ -297,7 +300,7 @@ exports.getPrintablePage = function(req, res, next){
     if (err) {
       return next(err);
     }
-      console.log('getPrintablePage invoked spreadsheets_v5');
+      //console.log('getPrintablePage invoked spreadsheets_v5');
       return res.render('spreadsheets_v5/dashboard/index-printable', { data: { record: spreadsheet,title:spreadsheet.name} });
   });
 };
@@ -366,7 +369,7 @@ var sheetName='INPUT';
           updatedParams=copyPureData(rows,3,13,2,mockParams);
           
           //console.log(sys.inspect(updatedParams));
-         //console.log(updatedParams);
+         
         }
         
         return workflow.emit('resetSpreadhsheet',req,updatedParams);
@@ -443,9 +446,7 @@ var sheetName='INPUT';
         }
         var updatedParams={};
        //updatedParams=copyData(rows,3,4,2,JSON.parse(sheet.params));
-       
-
-
+       //console.log('-------sheet.params------'+sheet.params);
         if(sheetName=='INPUT') {
           updatedParams=copyPureData(rows,3,13,2,JSON.parse(sheet.params));
          
@@ -473,7 +474,7 @@ exports.getActiveSheet= function(req, res, next){
 
 
 workflow.on('patchSheet', function(req,p) {
-  //console.log('patchSheet');
+  //console.log('patchSheet '+  JSON.stringify(p));
     var fieldsToSet = {
       params: JSON.stringify(p)
     };
@@ -489,7 +490,6 @@ workflow.on('patchSheet', function(req,p) {
 
 
  workflow.on('synchActiveSheetWithGoogleSpreadsheet',function(req){
- // console.log(req.session.cookie.expires);
 
 var activeSheet=req.body.record.activeSheet;
 var googleId=req.body.record.googleId;
@@ -498,7 +498,7 @@ var sheetName='INPUT';
 
 
 if(activeSheet.indexOf('default')>=0) sheetName='OPZ';
-//console.log(req.params);
+
   req.app.db.models.Sheet.findById(req.params.sheetId).select('-textNote').exec(function(err, sheet) {
     if (err) {
     return  workflow.emit('exception',err);
@@ -521,23 +521,21 @@ if(activeSheet.indexOf('default')>=0) sheetName='OPZ';
     }
 
     spreadsheet.receive({getValues:true},function(err, rows, info) {
-       //console.log(JSON.stringify(rows));
         if (err) {
             return workflow.emit('exception', err);
         }
         var updatedParams={};
         //if(sheetName=='VV_UT') updatedParams=copyData(rows,1,4,3,JSON.parse(sheet.params));
         //if(sheetName=='VV_UT') updatedParams=copyData(rows,1,4,3,JSON.parse(sheet.params));
-        if(sheetName=='OPZ') {updatedParams=synchDataParamsWithExcel(rows,JSON.parse(sheet.params),3,2,4); 
-        //  console.log(sys.inspect(sheet.params));
+        if(sheetName=='OPZ') {updatedParams=synchDataParamsWithExcelOpz(rows,JSON.parse(sheet.params),3,2,4); 
+        //console.log(sys.inspect(sheet.params));
         }
         //copiare i valori dell'excel nei parametri definiti nel DB 
         if(sheetName=='INPUT') {
-          //console.log(sheet.params);
+          
           //src_rows,mapping_col_idx,src_val_idx,src_label_idx,src_vect
           updatedParams=copyData(rows,3,4,2,JSON.parse(sheet.params));
-          //
-         //console.log(rows);
+          //console.log(rows);
           
         }
 
@@ -577,7 +575,7 @@ exports.init = function(req,res,next){
     
 
     if(spreadsheets.length==0){
-   fieldsToQuery.ownersList='';
+fieldsToQuery.ownersList='';
    req.app.db.models.Spreadsheet.find(fieldsToQuery).select('-ownersList').exec(function(err, sheets) {
  
     spreadsheets=sheets;
@@ -706,7 +704,7 @@ exports.saveSimulationOnDb = function(req,res,next){
 
  var firstSheet=spreadsheet.sheetsList[1];
 
- console.log('first-sheet-params are: '+firstSheet);
+ //console.log('first-sheet-params are: '+firstSheet);
 
   saveSimulationOnExcelAndDb(req,workflow,sprdsheet,simulationLabel,user,firstSheet.params);
 
@@ -752,11 +750,11 @@ function saveSimulationOnExcelAndDb(req,workflow,sprdsheet,simulationLabel,user,
         colToBeSaved.pop();
         var o3={},o4={};
        o4[2]=vv_opzParams;
-       o3[359]=o4;
+       o3['VAR_OPZ']=o4;
        
        colToBeSaved.push(o3);
        
-         //console.log(colToBeSaved);
+       //console.log(colToBeSaved);
 
        //return workflow.emit('exception', err);
 
