@@ -256,6 +256,7 @@ else{
    v.value=v.value.indexOf(',')>0?v.value.replace(/,/g, '.'):v.value;
    v.value=v.value.trim();
    var tmp=v.value.split("%").join("");
+   
    i=i+parseFloat(tmp);
    }
     
@@ -264,9 +265,9 @@ else{
         }
  
 
-
-  if(Math.ceil(i)>100.10){ alertify.alert('Attenzione la somma dei parametri è diversa dal 100% ');
+  if((Math.round(i * 100) / 100)>100.00){ alertify.alert('Attenzione la somma dei parametri è pari a '+(Math.round(i * 100) / 100)+' ed è diversa dal 100% ');
   return false;}
+  
  
 }
 
@@ -358,10 +359,12 @@ else{
 
         }
 
+
+  
  
-  if(i>100.00){ alertify.alert('Attenzione parametri non validi: la somma dei parametri è maggiore del 100% ');
+  if((Math.round(i * 100) / 100)>100.00){ alertify.alert('Attenzione parametri non validi: la somma è pari a '+(Math.round(i * 100) / 100)+' ed è  è maggiore del 100% ');
   return false;}
-   if(Math.ceil(i)!=100.00){ alertify.alert('Attenzione parametri non validi: la somma dei parametri è diversa dal 100% ');
+   if((Math.round(i * 100) / 100)!=100.00){ alertify.alert('Attenzione parametri non validi: la somma è pari a '+(Math.round(i * 100) / 100)+' ed è diversa dal 100% ');
   return false;}
 }
 
