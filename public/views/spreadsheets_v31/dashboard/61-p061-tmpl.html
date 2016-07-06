@@ -1,0 +1,201 @@
+<%
+
+
+function drawCharts(spreadsheet,activeSheet) {
+var activeSheetName=activeSheet;
+
+var query0 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&headers=-1&merge=COLS&range=A2&pli=1'); 
+
+
+query0.send(handleQueryResponse0);
+
+
+var query1 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName.substring(0,3)+'&transpose=0&headers=-1&merge=COLS&range=C8:C17,D8:D17&pli=1'); 
+
+
+query1.send(handleQueryResponse1);
+var query2 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName.substring(0,3)+'&transpose=0&headers=-1&merge=COLS&range=C8:C17,E8:E17&pli=1'); 
+
+
+query2.send(handleQueryResponse2);
+
+var query3 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName.substring(0,3)+'&transpose=0&headers=-1&merge=COLS&range=C8:C17,G8:G17,H8:H17,I8:I17&pli=1'); 
+
+
+query3.send(handleQueryResponse3);
+
+var query4 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName.substring(0,3)+'&transpose=0&headers=-1&merge=COLS&range=C8:C17,J8:J17,K8:K17&pli=1'); 
+
+
+query4.send(handleQueryResponse4);
+
+}
+
+
+function handleQueryResponse0(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+ var datatable = new google.visualization.DataView(response.getDataTable());
+
+  var table = new google.visualization.Table(document.getElementById('globalParamsTable'+activeSheetName));
+  table.draw(datatable,{'sort':'disable',cssClassNames: {headerCell: 'googleHeaderCell'}});
+}
+
+function handleQueryResponse1(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+
+
+
+var j ={"view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"chartType":"ColumnChart","options":{"hAxis":{"textStyle":{"bold":true,"italic":false},"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"gridlines":{"color":"#FFFFFF"}}},"legend":{"position":"none"},"series":{"0":{"color":"#002060","dataLabel":"value"}},"useFirstColumnAsDomain":true,"width":700,"is3D":false,"title":"","chartArea":{"backgroundColor":{"fill":"#FFFFFF"}},"titleTextStyle":{"bold":true,"italic":false},"height":300}};
+
+
+j.options.title="Trattamenti (annui)";
+
+google.visualization.drawChart(j, document.getElementById('chart1'+activeSheetName)); 
+}
+
+function handleQueryResponse2(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+
+
+ 
+var j = {"view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"chartType":"ColumnChart","options":{"hAxis":{"textStyle":{"bold":true,"italic":false},"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"gridlines":{"color":"#FFFFFF"}}},"legend":{"position":"none"},"series":{"0":{"color":"#5B9BD5","dataLabel":"value","annotations":{"textStyle":{"fontSize":7}}}},"useFirstColumnAsDomain":true,"width":700,"is3D":false,"title":"","chartArea":{"backgroundColor":{"fill":"#FFFFFF"}},"titleTextStyle":{"bold":true,"italic":false},"height":300}};
+
+j.options.title="Costi Farmaceutici (annui)";
+
+google.visualization.drawChart(j, document.getElementById('chart2'+activeSheetName)); 
+}
+
+
+
+function handleQueryResponse3(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+
+dataTable.setColumnLabel(1,"Ass. Fibrotici");
+dataTable.setColumnLabel(2,"Ass. Cirrotici");
+dataTable.setColumnLabel(3,"Ass. Cirr. Scompensati");
+
+
+ 
+var j = {"view":{"columns":[{"sourceColumn":0},1,2,3]},"dataTable":dataTable,"options":{"hAxis":{"textStyle":{"bold":true,"italic":false},"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"gridlines":{"color":"#FFFFFF"}}},"legend":{"position":"bottom"},"series":{"0":{"color":"#5B9BD5","dataLabel":"value"},"1":{"color":"#92D050","dataLabel":"value"},"2":{"color":"#FF0000","dataLabel":"value"}},"useFirstColumnAsDomain":true,"width":700,"is3D":false,"chartArea":{"backgroundColor":{"fill":"#FFFFFF"},"top":"","left":"20%","width":"","height":""},"title":"","titleTextStyle":{"bold":true,"italic":false},"height":300},"chartType":"ColumnChart"};
+
+
+
+
+j.options.title="Altri costi (annui)";
+
+google.visualization.drawChart(j, document.getElementById('chart3'+activeSheetName)); 
+}
+
+function handleQueryResponse4(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+
+dataTable.setColumnLabel(1,"Ass. Epatocarcinomi");
+dataTable.setColumnLabel(2,"Trapianti");
+
+
+ 
+var j ={"view":{"columns":[{"sourceColumn":0},1,2]},"dataTable":dataTable,"options":{"hAxis":{"textStyle":{"bold":true,"italic":false},"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"gridlines":{"color":"#FFFFFF"}}},"legend":{"position":"bottom"},"series":{"0":{"color":"#FFC000","dataLabel":"value"},"1":{"color":"#4472C4","dataLabel":"value"}},"useFirstColumnAsDomain":true,"width":701,"is3D":false,"chartArea":{"backgroundColor":{"fill":"#FFFFFF"},"top":"","left":"20%","width":"","height":""},"title":"","titleTextStyle":{"bold":true,"italic":false},"height":329},"chartType":"ColumnChart"};
+
+
+
+
+
+j.options.title="Altri Costi (annui)";
+
+google.visualization.drawChart(j, document.getElementById('chart4'+activeSheetName)); 
+}
+
+
+
+drawCharts(data.record,activeSheetName);
+
+%>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='textNote'><%print(textNote);%></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+       <div id='globalParamsTable<%=activeSheetName%>' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+       <div id='chart1<%=activeSheetName%>' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='chart2<%=activeSheetName%>' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+       <div id='chart3<%=activeSheetName%>' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+       <div id='chart4<%=activeSheetName%>' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+  </div>
+</div>

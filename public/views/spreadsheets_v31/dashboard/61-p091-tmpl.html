@@ -1,0 +1,130 @@
+<%
+
+
+function drawCharts(spreadsheet,activeSheet) {
+var activeSheetName=activeSheet;
+
+var query0 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName+'&transpose=0&headers=-1&merge=COLS&range=A2&pli=1'); 
+
+
+query0.send(handleQueryResponse0);
+
+
+var query1 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName.substring(0,3)+'&transpose=0&headers=-1&merge=COLS&range=D8:D17,E8:E17&pli=1'); 
+
+
+query1.send(handleQueryResponse1);
+
+
+var query2 = new google.visualization.Query(
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName.substring(0,3)+'&transpose=0&headers=-1&merge=COLS&range=F8:F17,G8:G17,H8:H17&pli=1'); 
+
+
+query2.send(handleQueryResponse2);
+
+
+
+}
+
+
+function handleQueryResponse0(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+ var datatable = new google.visualization.DataView(response.getDataTable());
+
+  var table = new google.visualization.Table(document.getElementById('globalParamsTable'+activeSheetName));
+  table.draw(datatable,{'sort':'disable',cssClassNames: {headerCell: 'googleHeaderCell'}});
+}
+
+function handleQueryResponse1(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+
+
+
+var j ={"view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"chartType":"ColumnChart","options":{"hAxis":{"textStyle":{"bold":true,"italic":false},"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"gridlines":{"color":"#FFFFFF"}}},"legend":{"position":"none"},"series":{"0":{"color":"#002060","dataLabel":"value"}},"useFirstColumnAsDomain":true,"width":700,"is3D":false,"title":"","chartArea":{"backgroundColor":{"fill":"#FFFFFF"}},"titleTextStyle":{"bold":true,"italic":false},"height":300}}
+
+
+j.options.title="Remissioni (cumulata)";
+
+google.visualization.drawChart(j, document.getElementById('chart1'+activeSheetName)); 
+}
+
+function handleQueryResponse2(response) {
+   
+  if (response.isError()) {
+    alertify.error('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+    return;
+  }
+var dataTable=response.getDataTable();
+
+dataTable.setColumnLabel(0,"Morti Specifiche");
+dataTable.setColumnLabel(1,"Epatocarcinomi");
+dataTable.setColumnLabel(2,"Trapianti");
+
+ 
+var j ={"view":{"columns":[{"calc":"emptyString","type":"string","sourceColumn":0},
+0,
+{"calc":"stringify","type":"string","properties":{"role":"annotation"},"sourceColumn":1}
+,1,
+{"calc":"stringify","type":"string","properties":{"role":"annotation"},"sourceColumn":2},
+2
+]},"dataTable":dataTable,"options":{"hAxis":{"textStyle":{"bold":true,"italic":false},"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"gridlines":{"color":"#FFFFFF"}}},"legend":{"position":"bottom"},"series":{"0":{"color":"#5B9BD5","dataLabel":"value"},"1":{"color":"#92D050","dataLabel":"value"},"2":{"color":"#FF0000","dataLabel":"value"}},"useFirstColumnAsDomain":false,"width":709,"is3D":false,"chartArea":{"backgroundColor":{"fill":"#FFFFFF"},"top":"","left":"20%","width":"","height":""},"title":"","titleTextStyle":{"bold":true,"italic":false},"height":301},"chartType":"ColumnChart"};
+
+
+j.options.title="Esiti (cumulata)";
+
+google.visualization.drawChart(j, document.getElementById('chart2'+activeSheetName)); 
+}
+
+drawCharts(data.record,activeSheetName);
+
+%>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='textNote'><%print(textNote);%></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+       <div id='globalParamsTable<%=activeSheetName%>' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+       <div id='chart1<%=activeSheetName%>' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div id='chart2<%=activeSheetName%>' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
+      </div>
+    </div>
+  </div>
+</div>

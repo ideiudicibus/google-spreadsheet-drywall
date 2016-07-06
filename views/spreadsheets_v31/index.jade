@@ -1,0 +1,81 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title #{data.title}
+  link(rel='stylesheet', href='/layouts/core.min.css?#{cacheBreaker}')
+  link(rel='stylesheet', href='/sb-admin.css?#{cacheBreaker}')
+  link(rel='stylesheet', href='/vendor/alertify/alertify.core.css?#{cacheBreaker}')
+  link(rel='stylesheet', href='/vendor/alertify/alertify.default.css?#{cacheBreaker}')
+
+  body
+    #wrapper
+      nav.navbar.navbar-default.navbar-fixed-top(style='margin-bottom: 0;', role='navigation')
+        .navbar-header
+          button.navbar-toggle(data-target='.sidebar-collapse', data-toggle='collapse', type='button')
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href='/')
+            img(src='/media/logo-w32.jpg')
+            span.navbar-brand-label #{projectName}
+        ul.nav.navbar-top-links.navbar-left
+          li
+            a(href="/spreadsheets") 
+               i.fa.fa-home.fa-fw
+               |Home
+        ul.nav.navbar-top-links.navbar-right
+          li.dropdown
+            a.dropdown-toggle(href='#', data-toggle='dropdown')
+                i.fa.fa-user.fa-fw
+                i.fa.fa-caret-down
+              ul.dropdown-menu.dropdown-user
+                li
+                  a(href='/account/settings/')
+                    i.fa.fa-gear.fa-fw
+                    | Impostazioni Account
+                li.divider
+                li
+                  a(href='/logout/')
+                    i.fa.fa-sign-out.fa-fw
+                    | Uscita
+      .navbar-default.navbar-static-side(role='navigation')
+        .sidebar-collapse
+          ul#spreadsheets.nav
+      #page-wrapper
+        div.row
+         div.col-md-12
+          br
+        div.row
+          div.col-md-12.panel.panel-default
+            h1 Budget Impact
+              img.pull-left.img-responsive(src='http://news.lent.az/upload/images/news/2013/august/29/big/b0f271bc87453deaa533a74d079fc75f.jpg', alt='')
+            div
+              p(style='margin-left:410px;padding-left:10px;line-height: 1.5; text-align: justify;')
+              |Benvenuto/a #{user.username}
+              |utilizza il menù a sinistra per selezionare il modello di Budget Impact di interesse
+           
+    div.footer
+          div.container
+            div.inner
+              span.copyright.pull-right
+                |&#169; #{copyrightYear} #{copyrightName} #{projectName}
+              ul.links
+                li: a(href='/') Home
+                li: a(href='/logout/') Uscita
+              div.clearfix
+   
+    div.ajax-spinner
+      img(src='/media/ajax-pulse.gif') 
+    //
+       Core Scripts - Include with every page
+        //if lte IE 9
+    script(src='/layouts/ie-sucks.min.js?#{cacheBreaker}')
+    script(src='/layouts/core.min.js?#{cacheBreaker}')
+    
+    script(type='text/javascript').
+            var initData = function(){ return !{JSON.stringify(data)} ; }
+    script(src='/views/spreadsheets/index.js?#{cacheBreaker}')
+    script(src='/vendor/alertify/alertify.min.js?#{cacheBreaker}')
