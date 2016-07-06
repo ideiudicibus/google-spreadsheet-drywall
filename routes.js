@@ -302,6 +302,23 @@ exports = module.exports = function(app, passport) {
   app.get('/spreadsheets_v5/:id/printable',require('./views/spreadsheets_v5/index').getPrintablePage);
   
 
+   //show > sheets
+  app.all('/spreadsheets_v31*',ensureAuthenticated);
+  app.get('/spreadsheets_v31/',require('./views/spreadsheets_v31/index').init);
+  app.get('/spreadsheets_v31',require('./views/spreadsheets_v31/index').init);
+  app.get('/spreadsheets_v31/:id/init/',require('./views/spreadsheets_v31/index').readPopulateInitActiveSheet);
+  app.get('/spreadsheets_v31/:id/',require('./views/spreadsheets_v31/index').readPopulateActiveSheet);
+  app.post('/spreadsheets_v31/:id/:sheetId/params',require('./views/spreadsheets_v31/index').updateParams);
+  app.post('/spreadsheets_v31/:id/s/simulation',require('./views/spreadsheets_v31/index').saveSimulationOnDb);
+  app.post('/spreadsheets_v31/:id/g/simulations',require('./views/spreadsheets_v31/index').getSimulations);
+  app.post('/spreadsheets_v31/:id/l/simulation/:simulationId',require('./views/spreadsheets_v31/index').getSimulation);
+
+  app.post('/spreadsheets_v31/activesheet/g/:sheetId',require('./views/spreadsheets_v31/index').getActiveSheet);
+  app.post('/spreadsheets_v31/activesheet/:sheetId',require('./views/spreadsheets_v31/index').setActiveSheet);
+  app.post('/spreadsheets_v31/activesheet/r/:sheetId',require('./views/spreadsheets_v31/index').resetActiveSheet);
+  app.post('/spreadsheets_v31/:id/:sheetId/reset',require('./views/spreadsheets_v31/index').resetSpreadsheet);
+  app.get('/spreadsheets_v31/:id/printable',require('./views/spreadsheets_v31/index').getPrintablePage);
+
   //show > sheets
   /*
   app.all('/spreadsheets_v5beta*',ensureAuthenticated);
