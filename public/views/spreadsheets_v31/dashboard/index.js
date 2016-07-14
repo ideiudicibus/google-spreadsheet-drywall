@@ -135,56 +135,34 @@ elem.toggleClass('active');
                       loadSimulationLinkBehaviour();
                       console.log(activeSheet.name);
                       if((activeSheet.name).indexOf('default')<0 ){
-                           if((activeSheet.name).indexOf('P017')>=0 ){
-                            loadUpdateParameterBtnBehaviourFullP017();
-                            resetParamsActiveSheetBtnBehaviour();
-                            saveSimulationBtnBehaviour();
-                            reloadParametersBtnBehaviour();
-                            }
-                           if((activeSheet.name).indexOf('P016')>=0 ){
-                            loadUpdateParameterBtnBehaviourFullP016();
-                            resetParamsActiveSheetBtnBehaviour();
-                            saveSimulationBtnBehaviour();
-                            reloadParametersBtnBehaviour();
-                            }
-                          if((activeSheet.name).indexOf('P015')>=0 ){
-                            loadUpdateParameterBtnBehaviourFullP015();
-                            resetParamsActiveSheetBtnBehaviour();
-                            saveSimulationBtnBehaviour();
-                            reloadParametersBtnBehaviour();
-                            }
-                           if((activeSheet.name).indexOf('P014')>=0 ){
-                            loadUpdateParameterBtnBehaviourFullP014();
-                            resetParamsActiveSheetBtnBehaviour();
-                            saveSimulationBtnBehaviour();
-                            reloadParametersBtnBehaviour();
-                            }
-                            if((activeSheet.name).indexOf('P013')>=0 ){
+                    
+                            if((activeSheet.name).indexOf('P08')>=0 ){
 
-                            loadUpdateParameterBtnBehaviourFullP013();
-                            resetParamsActiveSheetBtnBehaviour();
-                            saveSimulationBtnBehaviour();
-                            reloadParametersBtnBehaviour();
+                                loadDirectLoadBehaviour()
                            
                             }
-                            if((activeSheet.name).indexOf('P012')>=0 ){
+                            if((activeSheet.name).indexOf('P07')>=0 ){
                             
-                            loadUpdateParameterBtnBehaviourFullP012();
-                            resetParamsActiveSheetBtnBehaviour();
-                            saveSimulationBtnBehaviour();
-                            reloadParametersBtnBehaviour();
+                                loadDirectLoadBehaviour()
+                            }
+
+                            if((activeSheet.name).indexOf('P071')>=0 ){
+                            
+                                loadDirectLoadBehaviour()
+                            }
+
+                            if((activeSheet.name).indexOf('P061')>=0 ){
+                            
+                                loadDirectLoadBehaviour();
                             }
                              
-                            if((activeSheet.name).indexOf('P011')>=0 ){
+                            if((activeSheet.name).indexOf('P06')>=0 ){
                             
-                            loadUpdateParameterBtnBehaviourSingleP011();
-                            resetParamsActiveSheetBtnBehaviour();
-                            saveSimulationBtnBehaviour();
-                            reloadParametersBtnBehaviour();
+                                loadDirectLoadBehaviour();
                             }
 
                             if((activeSheet.name).indexOf('P05')>=0 ){
-                            console.log('P05');
+                           
                             
                             loadUpdateParameterBtnBehaviourFullP05();
                             resetParamsActiveSheetBtnBehaviour();
@@ -193,7 +171,6 @@ elem.toggleClass('active');
                             }
 
                             if((activeSheet.name).indexOf('P04')>=0 ){
-                            console.log('P03');
                             
                             loadUpdateParameterBtnBehaviourFullP04();
                             resetParamsActiveSheetBtnBehaviour();
@@ -202,7 +179,7 @@ elem.toggleClass('active');
                             }
 
                             if((activeSheet.name).indexOf('P03')>=0 ){
-                            console.log('P03');
+                           
                             
                             loadUpdateParameterBtnBehaviourFullP03();
                             resetParamsActiveSheetBtnBehaviour();
@@ -210,8 +187,18 @@ elem.toggleClass('active');
                             reloadParametersBtnBehaviour();
                             }
 
+                             if((activeSheet.name).indexOf('P021')>=0 ){
+                            
+                                loadDirectLoadBehaviour();
+                            }
+
+                            if((activeSheet.name).indexOf('P02')>=0 ){
+                            
+                                loadDirectLoadBehaviour();
+                            }
+
                             if((activeSheet.name).indexOf('P01')>=0 ){
-                              console.log('P01');
+                              
                             
                             loadUpdateParameterBtnBehaviourFullP01();
                             resetParamsActiveSheetBtnBehaviour();
@@ -254,6 +241,46 @@ function reloadParametersBtnBehaviour(){
 }
 
 
+function loadDirectLoadBehaviour(){
+    $('.directLoad').click(function(event){
+
+   
+  
+
+    var activeSheetID=$(this).attr('sheet');
+
+
+ $.ajax({
+        data:data.record,
+        type: "POST",
+        url: '/spreadsheets_v31/activesheet/'+activeSheetID,
+        dataType:"json",
+        success:  function (response) {
+          
+          switch(response.success)
+          {
+            case  false:
+              var errs=response.errors;
+              for(var j=0;j<errs.length;j++){
+                alertify.error(errs[j]);
+              }
+              break;
+            
+            case  true:
+              var infos=response.infos;
+              for(var j=0;j<infos.length;j++){
+                alertify.log(infos[j]);
+                }
+             data.record=response.spreadsheet; 
+             console.log('loadDirectLoadBehaviour');       
+             loadActiveSheet(data.record);
+          }
+        }
+    })
+
+
+  });
+ }
 
 
 function loadUpdateParameterBtnBehaviourFullP05() {

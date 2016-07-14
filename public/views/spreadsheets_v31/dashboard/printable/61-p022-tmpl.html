@@ -12,25 +12,25 @@ query0.send(handleQueryResponse0);
 
 
 var query1 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName.substring(0,3)+'&transpose=0&headers=-1&merge=COLS&range=F7,F8&pli=1'); 
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName.substring(0,3)+'&transpose=0&headers=-1&merge=COLS&range=H7,H8&pli=1'); 
 
 
 query1.send(handleQueryResponse1);
 
 var query2 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName.substring(0,3)+'&transpose=0&headers=-1&merge=COLS&range=F10,F11,F12&pli=1'); 
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName.substring(0,3)+'&transpose=0&headers=-1&merge=COLS&range=H10,H11,H12&pli=1'); 
 
 
 query2.send(handleQueryResponse2);
 
 var query3 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName.substring(0,3)+'&transpose=0&headers=-1&merge=COLS&range=E13:E16,F13:F16&pli=1'); 
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName.substring(0,3)+'&transpose=0&headers=-1&merge=COLS&range=G13:G16,H13:H16&pli=1'); 
 
 
 query3.send(handleQueryResponse3);
 
 var query4 = new google.visualization.Query(
-      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName.substring(0,3)+'&transpose=0&headers=-1&merge=COLS&range=F17,F18,F19,F20,F21,F22&pli=1'); 
+      'https://docs.google.com/spreadsheets/d/'+spreadsheet.googleId+'/gviz/tq?sheet='+activeSheetName.substring(0,3)+'&transpose=0&headers=-1&merge=COLS&range=H17,H18,H19,H20,H21,H22&pli=1'); 
 
 
 query4.send(handleQueryResponse4);
@@ -66,7 +66,7 @@ var dataTable=response.getDataTable();
 
 var j = {"view":{"columns":[{"calc":"emptyString","type":"string","sourceColumn":0},0,{"calc":"stringify","type":"string","properties":{"role":"annotation"},"sourceColumn":0},1,{"calc":"stringify","type":"string","properties":{"role":"annotation"},"sourceColumn":1}]},"dataTable":dataTable,"options":{"vAxes":[{"useFormatFromData":true,"minValue":null,"logScale":false,"maxValue":null,"gridlines":{"color":"#FFFFFF"},"viewWindow":{"min":null,"max":null}},{"useFormatFromData":true,"minValue":null,"logScale":false,"maxValue":null,"viewWindow":{"min":null,"max":null}}],"legend":{"position":"bottom"},"isStacked":true,"tooltip":{},"is3D":false,"legacyScatterChartLabels":true,"title":"","titleTextStyle":{"color":"#000","fontSize":12,"bold":true,"italic":false},"hAxis":{"useFormatFromData":true,"gridlines":{"color":"#FFFFFF"}},"series":{"0":{"color":"#5B9BD5","dataLabel":"value"},"1":{"color":"#92D050","dataLabel":"value"}},"useFirstColumnAsDomain":false,"width":721,"chartArea":{"backgroundColor":{"fill":"#FFFFFF"},"top":"","left":"","width":"","height":""},"booleanRole":"certainty","height":399},"chartType":"ColumnChart","state":{},"isDefaultVisualization":true};
 
-j.options.title="Soggetti HCV RNA+ ";
+j.options.title="Soggetti HCV RNA+ emersi ";
 
 google.visualization.drawChart(j, document.getElementById('chart1'+activeSheetName)); 
 }
@@ -94,7 +94,7 @@ var j = {"view":{"columns":[{"calc":"emptyString","type":"string","sourceColumn"
 {"calc":"stringify","type":"string","properties":{"role":"annotation"},"sourceColumn":2}
 ]},"dataTable":dataTable,"options":{"vAxes":[{"useFormatFromData":true,"minValue":null,"logScale":false,"maxValue":null,"gridlines":{"color":"#FFFFFF"},"viewWindow":{"min":null,"max":null}},{"useFormatFromData":true,"minValue":null,"logScale":false,"maxValue":null,"viewWindow":{"min":null,"max":null}}],"legend":{"position":"bottom"},"isStacked":true,"tooltip":{},"is3D":false,"legacyScatterChartLabels":true,"title":"","titleTextStyle":{"color":"#000","fontSize":12,"bold":true,"italic":false},"hAxis":{"useFormatFromData":true,"gridlines":{"color":"#FFFFFF"}},"series":{"0":{"color":"#5B9BD5","dataLabel":"value"},"1":{"color":"#92D050","dataLabel":"value"},"2":{"color":"#cccccc","dataLabel":"value"}},"useFirstColumnAsDomain":false,"width":721,"chartArea":{"backgroundColor":{"fill":"#FFFFFF"},"top":"","left":"","width":"","height":""},"booleanRole":"certainty","height":399},"chartType":"ColumnChart","state":{},"isDefaultVisualization":true};
 
-j.options.title="Soggetti HCV RNA+ ";
+j.options.title="Soggetti HCV RNA+ emersi ";
 
 google.visualization.drawChart(j, document.getElementById('chart2'+activeSheetName)); 
 }
@@ -117,7 +117,7 @@ var j = {"view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"chartT
 
 
 
-j.options.title="Soggetti HCV RNA+ ";
+j.options.title="Soggetti HCV RNA+ emersi ";
 
 google.visualization.drawChart(j, document.getElementById('chart3'+activeSheetName)); 
 }
@@ -157,12 +157,12 @@ var j ={"view":{"columns":[{"calc":"emptyString","type":"string","sourceColumn":
 {"calc":"stringify","type":"string","properties":{"role":"annotation"},"sourceColumn":4},
 5,
 {"calc":"stringify","type":"string","properties":{"role":"annotation"},"sourceColumn":5}
-]},"dataTable":dataTable,"chartType":"ColumnChart","options":{"hAxis":{"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"legend":{"position":"bottom"},"series":{"0":{"color":"#262626","dataLabel":"value"},"1":{"color":"#A5A5A5","dataLabel":"value"},"2":{"color":"#BDD7EE","dataLabel":"value"},"3":{"color":"#9DC3E6","dataLabel":"value"},"4":{"color":"#172735","dataLabel":"value"},"5":{"color":"#2E4E6B","dataLabel":"value","annotations":{"highContrast":false,"textStyle":{"color":"#FFFFFF"}}}},"useFirstColumnAsDomain":false,"isStacked":true,"width":717,"is3D":false,"title":"Soggetti HCV RNA+","chartArea":{"backgroundColor":{"fill":"#FFFFFF"}},"titleTextStyle":{"bold":true,"italic":false},"height":388}};
+]},"dataTable":dataTable,"chartType":"ColumnChart","options":{"hAxis":{"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"gridlines":{"color":"#B7B7B7"}}},"legend":{"position":"bottom"},"series":{"0":{"color":"#262626","dataLabel":"value"},"1":{"color":"#A5A5A5","dataLabel":"value"},"2":{"color":"#BDD7EE","dataLabel":"value"},"3":{"color":"#9DC3E6","dataLabel":"value"},"4":{"color":"#172735","dataLabel":"value"},"5":{"color":"#2E4E6B","dataLabel":"value","annotations":{"highContrast":true,"textStyle":{"color":"#cccccc"}}}},"useFirstColumnAsDomain":false,"isStacked":true,"width":717,"is3D":false,"title":"Soggetti HCV RNA+ emersi","chartArea":{"backgroundColor":{"fill":"#cccccc"}},"titleTextStyle":{"bold":true,"italic":false},"height":388}};
 
 
 
 
-j.options.title="Soggetti HCV RNA+ ";
+j.options.title="Soggetti HCV RNA+ emersi ";
 
 google.visualization.drawChart(j, document.getElementById('chart4'+activeSheetName)); 
 }
@@ -186,15 +186,6 @@ drawCharts(data.record,activeSheetName);
     <div class="panel panel-default">
       <div class="panel-body">
        <div id='globalParamsTable<%=activeSheetName%>' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <a href='#' class="directLoad" sheet="61-p02"><i class="fa fa-table fa-fw"></i><span>Tabelle</span></a>
       </div>
     </div>
   </div>

@@ -57,7 +57,7 @@ var dataTable=response.getDataTable();
 var j ={"view":{"columns":[{"sourceColumn":0},1]},"dataTable":dataTable,"chartType":"ColumnChart","options":{"hAxis":{"textStyle":{"bold":true,"italic":false},"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"gridlines":{"color":"#FFFFFF"}}},"legend":{"position":"none"},"series":{"0":{"color":"#002060","dataLabel":"value"}},"useFirstColumnAsDomain":true,"width":700,"is3D":false,"title":"","chartArea":{"backgroundColor":{"fill":"#FFFFFF"}},"titleTextStyle":{"bold":true,"italic":false},"height":300}}
 
 
-j.options.title="Remissioni (annui)";
+j.options.title="Remissioni (cumulata)";
 
 google.visualization.drawChart(j, document.getElementById('chart1'+activeSheetName)); 
 }
@@ -84,7 +84,7 @@ var j ={"view":{"columns":[{"calc":"emptyString","type":"string","sourceColumn":
 ]},"dataTable":dataTable,"options":{"hAxis":{"textStyle":{"bold":true,"italic":false},"gridlines":{"color":"#FFFFFF"}},"vAxes":{"0":{"gridlines":{"color":"#FFFFFF"}}},"legend":{"position":"bottom"},"series":{"0":{"color":"#5B9BD5","dataLabel":"value"},"1":{"color":"#92D050","dataLabel":"value"},"2":{"color":"#FF0000","dataLabel":"value"}},"useFirstColumnAsDomain":false,"width":709,"is3D":false,"chartArea":{"backgroundColor":{"fill":"#FFFFFF"},"top":"","left":"20%","width":"","height":""},"title":"","titleTextStyle":{"bold":true,"italic":false},"height":301},"chartType":"ColumnChart"};
 
 
-j.options.title="Esiti (annui)";
+j.options.title="Esiti (cumulata)";
 
 google.visualization.drawChart(j, document.getElementById('chart2'+activeSheetName)); 
 }
@@ -106,15 +106,6 @@ drawCharts(data.record,activeSheetName);
     <div class="panel panel-default">
       <div class="panel-body">
        <div id='globalParamsTable<%=activeSheetName%>' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <a href='#' class="directLoad" sheet="61-p08"><i class="fa fa-table fa-fw"></i><span>Tabelle</span></a>
       </div>
     </div>
   </div>

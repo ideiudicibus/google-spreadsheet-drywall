@@ -138,9 +138,7 @@ drawCharts(data.record,activeSheetName);
               <%
                var rows=[];
 
-               /*
-                  ,,,,,,,
-               */
+
                var tmpRow1=_.filter(params,function(a,b,c){
                 return (_.keys(a)[0].indexOf("nric")>=0); 
                 })
@@ -168,6 +166,16 @@ drawCharts(data.record,activeSheetName);
                 return (_.keys(a)[0].indexOf("cudia")>=0); 
                 })
                rows.push(tmpRow6);
+
+                var tmpRow9=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("nlab")>=0); 
+                })
+               rows.push(tmpRow9);
+               var tmpRow10=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("culab")>=0); 
+                })
+               rows.push(tmpRow10);
+
                 var tmpRow7=_.filter(params,function(a,b,c){
                 return (_.keys(a)[0].indexOf("nafarm")>=0); 
                 })
