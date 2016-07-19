@@ -1,4 +1,4 @@
-var Spreadsheet = require('edit-google-spreadsheet'); 
+  var Spreadsheet = require('edit-google-spreadsheet'); 
 var sys=require('sys'); 
 var _=require('underscore');
 var moment = require('moment');
@@ -180,7 +180,7 @@ function prepareParamsForExcel(params){
                 paramArray.push(o1);
                }
             }
-            console.log('paramArray: '+ sys.inspect(paramArray));
+            //console.log('paramArray: '+ sys.inspect(paramArray));
             return paramArray;  
 
 }
@@ -197,8 +197,8 @@ workflow.on('updateGoogleSpreadsheet',function(p){
   var activeSheet=p.activeSheet;
 
 if(activeSheet.indexOf('default')>0 || activeSheet.indexOf('p03')>=0) sheetName='OPZ';
-console.log('params to tranform are: '+ sys.inspect(params));
-console.log('params to send are: '+ sys.inspect(prepareParamsForExcel(params)));
+//console.log('params to tranform are: '+ sys.inspect(params));
+//console.log('params to send are: '+ sys.inspect(prepareParamsForExcel(params)));
   
 updateSheet(p.googleId,prepareParamsForExcel(params),sheetName,workflow,req);
 
@@ -528,11 +528,11 @@ if(activeSheet.indexOf('default')>=0 || activeSheet.indexOf('p03')>=0 ) sheetNam
         //if(sheetName=='VV_UT') updatedParams=copyData(rows,1,4,3,JSON.parse(sheet.params));
         //if(sheetName=='VV_UT') updatedParams=copyData(rows,1,4,3,JSON.parse(sheet.params));
         if(sheetName=='OPZ') {updatedParams=synchDataParamsWithExcelOpz(rows,JSON.parse(sheet.params),3,2,4); 
-        console.log(sys.inspect(sheet.params));
+        //console.log(sys.inspect(sheet.params));
         }
         //copiare i valori dell'excel nei parametri definiti nel DB 
         if(sheetName=='INPUT') {
-          
+          //console.log(sheet);
           //src_rows,mapping_col_idx,src_val_idx,src_label_idx,src_vect
           updatedParams=copyData(rows,3,4,2,JSON.parse(sheet.params));
           //console.log(rows);

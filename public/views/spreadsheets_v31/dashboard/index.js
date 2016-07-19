@@ -312,8 +312,7 @@ params.googleId=data.record.googleId;
 params.activeSheet=data.record.activeSheet;
 params.paramData=JSON.stringify(paramData);
 
-
-if($(this).attr('class').indexOf('checkPercentageValue')>0){
+if($(this).attr('class').indexOf('checkPercentage')>0){
 
   var i=0;
  for (k in paramData){
@@ -328,17 +327,24 @@ else{
    v.value=v.value.indexOf(',')>0?v.value.replace(/,/g, '.'):v.value;
    v.value=v.value.trim();
    var tmp=v.value.split("%").join("");
-  
+   
+   i=i+parseFloat(tmp);
    }
     
         }
 
         }
  
+
+  if((Math.round(i * 100) / 100)>100.00){ alertify.alert('Attenzione la somma dei parametri è pari a '+(Math.round(i * 100) / 100)+'% ed è diversa dal 100% ');
+  return false;}
   
  
 }
 
+
+
+return false;
 
  $.ajax({
         
