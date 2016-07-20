@@ -24,7 +24,7 @@
                               <tr>
                               <td><%= e.label %></i></td>
                                <td> 
-                                <input readonly type="checkbox"  id="<%= k %>" name="<%= k %>"  label="<%= e.label%>" row="<%= e.row%>" col="<%= e.col%>" type="text" <%= e.value!== 'X' ?  '' : 'checked="checked" ' %>></input> 
+                                <input disabled type="checkbox"  id="<%= k %>" name="<%= k %>"  label="<%= e.label%>" row="<%= e.row%>" col="<%= e.col%>" type="text" <%= e.value!== 'X' ?  '' : 'checked="checked" ' %>></input> 
                                </td> 
 
                               </tr>
@@ -40,12 +40,7 @@
 </tbody>
 </table>
 </div>
-<div >  
 
-
-<!--
-<a href="#" class='btn btn-default saveSimulationBtn'><i class="fa fa-save"></i>&nbsp;Salva Simulazione</a>-->
-</div>
 
   </div>
     </div>
