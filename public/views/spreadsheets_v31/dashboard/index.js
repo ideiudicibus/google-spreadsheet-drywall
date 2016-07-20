@@ -52,7 +52,11 @@ changeOptionValue($('#paramInputs'), $(arr[i]).attr('value'));
 function initSideNav(spreadsheet){
 
 
-var array=spreadsheet.sheetsList;
+//var array=spreadsheet.sheetsList;
+
+var array=_.filter(spreadsheet.sheetsList,function(item){ return (   item._id.indexOf('default')>0 || item._id.indexOf('homepage')>0 || item._id.indexOf('autori')>0  || item._id.indexOf('biblio')>0 || item._id.indexOf('home')>0 || item._id.length<7 )})
+
+console.log(array);
 
 var vroot=$('#v-sheets');
 var hroot=$('#h-sheets');
@@ -61,7 +65,7 @@ $(brandHtml).appendTo(vroot);
 
 for(var i=0;i<array.length;i++){
 
- console.log(array[i]._id.indexOf('autori')<0);
+
 if(array[i]._id.indexOf('autori')<0  && array[i]._id.indexOf('biblio')<0 && array[i]._id.indexOf('home')<0){
 var li='<li ><a href="#" id="'+array[i]._id+'" class="sheetId '+checkActiveSheetClass(array[i]._id,spreadsheet.activeSheet)+'" >'+array[i].spreadsheetId+'</a></li>';
 $(li).appendTo(vroot);

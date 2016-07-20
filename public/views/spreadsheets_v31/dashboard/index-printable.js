@@ -74,7 +74,7 @@ function loadTemplate(sheet,sheetName){
              
              
              var htmlDiv= compiled({textNote:activeSheet.textNote,activeSheetName:activeSheet.name,params:JSON.parse(activeSheet.params)});
-              console.log(tmplFile);
+              
               $(htmlDiv).appendTo('#printable-'+tmplFile); 
             });
 
@@ -105,5 +105,4 @@ loadTemplate(sheetsList[15],sheetsList[15]._id);
 loadTemplate(sheetsList[16],sheetsList[16]._id);
 loadTemplate(sheetsList[17],sheetsList[17]._id);
 loadTemplate(sheetsList[18],sheetsList[18]._id);
-loadTemplate(sheetsList[19],sheetsList[19]._id);
 });

@@ -23,7 +23,7 @@
                               <td><%= e.label %></td>
                                <td> 
 
-                                  <select id="<%= k %>" name="<%= k %>"  label="<%= e.label%>" row="<%= e.row%>" col="<%= e.col%>" type="text"  class="form-control ">
+                                  <select readonly id="<%= k %>" name="<%= k %>"  label="<%= e.label%>" row="<%= e.row%>" col="<%= e.col%>" type="text"  class="form-control ">
                                   <% var regions=['Italia','Nord','Centro','Sud','Piemonte','Valle d\'Aosta','Lombardia','Trentino - Alto Adige','Veneto','Friuli Venezia Giulia','Liguria','Emilia Romagna','Toscana','Umbria','Marche','Lazio','Abruzzo','Molise','Campania','Puglia','Basilicata','Calabria','Sicilia','Sardegna']; 
                                    _.each(regions,function(item){%>
                                       <option <%= item== e.value ?  'selected' : '' %> ><%=item %></option>
@@ -44,11 +44,6 @@
       </div>
 </tbody>
 </table>
-</div>
-<div >  
-<a   class="updateParameterBtnFull btn btn-primary ">Salva</a>
-<a   class="resetAllParameters btn btn-primary ">Reset Parametri</a>
-<a href="#" class='btn btn-default saveSimulationBtn'><i class="fa fa-save"></i>&nbsp;Salva Simulazione</a>
 </div>
 
   </div>

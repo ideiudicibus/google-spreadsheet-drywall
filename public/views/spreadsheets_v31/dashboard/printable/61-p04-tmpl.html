@@ -76,16 +76,7 @@ drawCharts(data.record,activeSheetName);
    <div class="col-md-12">
       <div class="panel panel-default">
       <div class="panel-heading">
-        <div class="pull-right">
-          <div class="btn-group">
-            <button type="button" data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle">Azioni<span class="caret"></span></button>
-            <ul role="menu" class="dropdown-menu pull-right">
-              <li><a  href="#" data-toggle="modal" data-target="#paramInputs-costiTerapie"><i class="fa fa-edit"></i>Modifica parametri</a></li>
-              
-              <li><a  href="#" class="resetParamsBtn" data-toggle="modal" data-target="#"><i class="fa fa-eraser"></i>Reset parametri</a></li>
-            </ul>
-          </div>
-        </div>
+
       </div>
       <div class="panel-body">
           <div id='dataTable1<%=activeSheetName%>' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
@@ -94,13 +85,6 @@ drawCharts(data.record,activeSheetName);
 </div>
 </div>
 
-
-<div class="row">
-<div class="col-md-12">
-<a href="#" id="force-reload-sheet" class='btn btn-default '><i class="fa fa-refresh"></i>&nbsp;Ricarica parametri</a>
-<a href="#" class='btn btn-default saveSimulationBtn'><i class="fa fa-save"></i>&nbsp;Salva Simulazione</a>
-</div>
-</div>
 
 
 
