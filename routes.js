@@ -109,7 +109,7 @@ exports = module.exports = function(app, passport) {
   //create spreadsheet from a master
   app.put('/admin/users/:id/createspreadheetfrommaster/', require('./views/admin/users/index').createSpreadheetFromMaster);
   //create spreadsheet from a master
-  app.put('/admin/users/:id/unlink/:sid', require('./views/admin/users/index').unlinkSpreadheetFromUser);
+  app.get('/admin/users/:id/unlink/:sid', require('./views/admin/users/index').unlinkSpreadheetFromUser);
 
   //admin > administrators
   app.get('/admin/administrators/', require('./views/admin/administrators/index').find);
