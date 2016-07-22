@@ -163,8 +163,8 @@ block body
       div.form-group
         ul 
           each ms in JSON.parse( unescape(data.ownedSpreadsheetList))
-            li #{ms.name} 
-              a.btn(href='unlink/#{ms._id}') unlink
-                
+            li #{ms.name}
+              a.btn(href='unlink/#{ms._id}') unlink 
+              
 
   script(type='text/template', id='data-record') !{data.record}

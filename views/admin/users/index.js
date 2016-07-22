@@ -1,4 +1,4 @@
-var uuid=require('request/node_modules/node-uuid'),
+var uuid=require('edit-google-spreadsheet/node_modules/request/node_modules/node-uuid'),
 paramAuth=require('../../../paramAuth.js'),
 _=require('underscore'),
 request = require('request');
