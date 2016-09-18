@@ -99,9 +99,9 @@ function handleQueryResponse3(response) {
 var dataTable=response.getDataTable();
 
 
-dataTable.setColumnLabel(1,"Ass. Fibrotici");
-dataTable.setColumnLabel(2,"Ass. Cirrotici");
-dataTable.setColumnLabel(3,"Ass. Cirr. Scompensati");
+dataTable.setColumnLabel(1,"Ass. F0-F3");
+dataTable.setColumnLabel(2,"Ass. F4");
+dataTable.setColumnLabel(3,"Ass. F4s");
 
 
  
@@ -110,7 +110,7 @@ var j = {"view":{"columns":[{"sourceColumn":0},1,2,3]},"dataTable":dataTable,"op
 
 
 
-j.options.title="Altri costi (annui)";
+j.options.title="Costi di gestione del pz (annui)";
 
 google.visualization.drawChart(j, document.getElementById('chart3'+activeSheetName)); 
 }
@@ -124,7 +124,7 @@ function handleQueryResponse4(response) {
 var dataTable=response.getDataTable();
 
 
-dataTable.setColumnLabel(1,"Ass. Epatocarcinomi");
+dataTable.setColumnLabel(1,"Epatocarcinomi");
 dataTable.setColumnLabel(2,"Trapianti");
 
 
@@ -135,7 +135,7 @@ var j ={"view":{"columns":[{"sourceColumn":0},1,2]},"dataTable":dataTable,"optio
 
 
 
-j.options.title="Altri Costi (annui)";
+j.options.title="Costi di gestione del pz (annui)";
 
 google.visualization.drawChart(j, document.getElementById('chart4'+activeSheetName)); 
 }
