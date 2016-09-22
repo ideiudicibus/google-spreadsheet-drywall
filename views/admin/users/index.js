@@ -239,6 +239,11 @@ exports.unlinkSpreadheetFromUser = function(req,res,next){
             return workflow.emit('exception', err);
           }
           else{
+             
+
+
+
+
 
              workflow.emit('findUser');
             
@@ -502,7 +507,7 @@ exports.createSpreadheetFromMaster = function(req, res, next){
                           };
                                 
 
-                              var params = '?fileId='+spreadsheet.googleId+'&name='+fieldsToSet.name+'&editor='+paramAuth.googleAppEmailAccount;
+                              var params = '?fileId='+spreadsheet.googleId+'&name='+fieldsToSet.name+'&editor='+paramAuth.googleAppEmailAccount+'&action=clone';
                               var cloneServiceUrl='https://script.google.com/macros/s/'+paramAuth.googleCloneServiceMacroId+'/exec';
 
                                 request.get({url:cloneServiceUrl+params}, function(err, response, body) {
