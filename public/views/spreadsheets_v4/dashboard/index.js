@@ -474,6 +474,8 @@ if($(this).attr('class').indexOf('checkPercentage')>0){
 
 }
 
+
+
  $.ajax({
         
         data:params,
@@ -1120,6 +1122,8 @@ if($(this).attr('class').indexOf('checkPercentage')>0){
         }
 }
 }
+
+
 
  $.ajax({
         

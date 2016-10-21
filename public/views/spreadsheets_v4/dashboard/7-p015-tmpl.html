@@ -73,7 +73,7 @@ drawCharts(data.record,activeSheetName);
 <div class="row">
    <div class="col-md-12">
       <div class="panel panel-default">
-      <!--
+      
       <div class="panel-heading"><i class="fa fa-table fa-fw"></i> 
         <div class="pull-right">
 <div class="btn-group">
@@ -84,7 +84,7 @@ drawCharts(data.record,activeSheetName);
            </ul>
           </div>
         </div>
-      </div>-->
+      </div>
       <div class="panel-body">
           <div id='dataTable<%=activeSheetName%>' ><div id="ajax-spinner" style="z-index: 100;"><img src="/media/ajax-pulse.gif"/></div></div>
       </div>
@@ -120,8 +120,16 @@ drawCharts(data.record,activeSheetName);
                <tbody>
 
               <%
+
+
+                var params2=[{"[pr.1C1]":{"row":880,"col":11,"value":"266,85|266,86","label":"Prezzo Aripiprazolo (LAI) - 400 mg"}},{"[pr.2C1]":{"row":882,"col":11,"value":"148,01","label":"Prezzo Olanzapina pamoato (LAI) - 210 mg"}},{"[pr.2C2]":{"row":883,"col":11,"value":"231,04|107,63","label":"Prezzo Olanzapina pamoato (LAI) - 300 mg"}},{"[pr.2C3]":{"row":884,"col":11,"value":"296,02","label":"Prezzo Olanzapina pamoato (LAI) - 405 mg"}},{"[pr.3C1]":{"row":885,"col":11,"value":"204,36","label":"Prezzo Paliperidone palmitato (LAI) - 50 mg"}},{"[pr.3C2]":{"row":886,"col":11,"value":"263,70","label":"Prezzo Paliperidone palmitato (LAI) - 75 mg"}},{"[pr.3C3]":{"row":887,"col":11,"value":"329,64","label":"Prezzo Paliperidone palmitato (LAI) - 100 mg"}},{"[pr.3C4]":{"row":888,"col":11,"value":"412,04","label":"Prezzo Paliperidone palmitato (LAI) - 150 mg"}},{"[pr.4C1]":{"row":889,"col":11,"value":"95,53","label":"Prezzo Risperidone RP (LAI) - 25 mg"}},{"[pr.4C2]":{"row":890,"col":11,"value":"123,06","label":"Prezzo Risperidone RP (LAI) - 37,5 mg"}},{"[pr.4C3]":{"row":891,"col":11,"value":"153,83","label":"Prezzo Risperidone RP (LAI) - 50 mg"}},{"[prsp.1C1]":{"row":897,"col":11,"value":"","label":"Sconto % prezzo Aripiprazolo (LAI) - 400 mg"}},{"[prsp.2C1]":{"row":899,"col":11,"value":"","label":"Sconto % prezzo Olanzapina pamoato (LAI) - 210 mg"}},{"[prsp.2C2]":{"row":900,"col":11,"value":"","label":"Sconto % prezzo Olanzapina pamoato (LAI) - 300 mg"}},{"[prsp.2C3]":{"row":901,"col":11,"value":"","label":"Sconto % prezzo Olanzapina pamoato (LAI) - 405 mg"}},{"[prsp.3C1]":{"row":902,"col":11,"value":"","label":"Sconto % prezzo Paliperidone palmitato (LAI) - 50 mg"}},{"[prsp.3C2]":{"row":903,"col":11,"value":"","label":"Sconto % prezzo Paliperidone palmitato (LAI) - 75 mg"}},{"[prsp.3C3]":{"row":904,"col":11,"value":"","label":"Sconto % prezzo Paliperidone palmitato (LAI) - 100 mg"}},{"[prsp.3C4]":{"row":905,"col":11,"value":"","label":"Sconto % prezzo Paliperidone palmitato (LAI) - 150 mg"}},{"[prsp.4C1]":{"row":906,"col":11,"value":"","label":"Sconto % prezzo Risperidone RP (LAI) - 25 mg"}},{"[prsp.4C2]":{"row":907,"col":11,"value":"","label":"Sconto % prezzo Risperidone RP (LAI) - 37,5 mg"}},{"[prsp.4C3]":{"row":908,"col":11,"value":"","label":"Sconto % prezzo Risperidone RP (LAI) - 50 mg"}},{"[prsa.1C1]":{"row":914,"col":11,"value":"","label":"Sconto prezzo € per scat. Aripiprazolo (LAI) - 400 mg"}},{"[prsa.2C1]":{"row":916,"col":11,"value":"","label":"Sconto prezzo € per scat. Olanzapina pamoato (LAI) - 210 mg"}},{"[prsa.2C2]":{"row":917,"col":11,"value":"","label":"Sconto prezzo € per scat. Olanzapina pamoato (LAI) - 300 mg"}},{"[prsa.2C3]":{"row":918,"col":11,"value":"","label":"Sconto prezzo € per scat. Olanzapina pamoato (LAI) - 405 mg"}},{"[prsa.3C1]":{"row":919,"col":11,"value":"","label":"Sconto prezzo € per scat. Paliperidone palmitato (LAI) - 50 mg"}},{"[prsa.3C2]":{"row":920,"col":11,"value":"","label":"Sconto prezzo € per scat. Paliperidone palmitato (LAI) - 75 mg"}},{"[prsa.3C3]":{"row":921,"col":11,"value":"","label":"Sconto prezzo € per scat. Paliperidone palmitato (LAI) - 100 mg"}},{"[prsa.3C4]":{"row":922,"col":11,"value":"","label":"Sconto prezzo € per scat. Paliperidone palmitato (LAI) - 150 mg"}},{"[prsa.4C1]":{"row":923,"col":11,"value":"","label":"Sconto prezzo € per scat. Risperidone RP (LAI) - 25 mg"}},{"[prsa.4C2]":{"row":924,"col":11,"value":"","label":"Sconto prezzo € per scat. Risperidone RP (LAI) - 37,5 mg"}},{"[prsa.4C3]":{"row":925,"col":11,"value":"","label":"Sconto prezzo € per scat. Risperidone RP (LAI) - 50 mg"}}];
+
+                
+
+
                 var rows=[];
-                 var r1C1=_.filter(params,function(a,b,c){
+
+                 var r1C1=_.filter(params2,function(a,b,c){
                 return (_.keys(a)[0].indexOf("1C1")>=0); 
                 });
 
@@ -179,9 +187,11 @@ drawCharts(data.record,activeSheetName);
                 var r4C3=_.filter(params,function(a,b,c){
                 return (_.keys(a)[0].indexOf("4C3")>=0); 
                 });
-                rows.push(r4C3);  
+                rows.push(r4C3);
+                
               
-              
+
+
                %>
               
               
@@ -192,12 +202,30 @@ drawCharts(data.record,activeSheetName);
               <tr>
              <%
                _.each(item,function(a,b,c){
+
                 var t=_.values(a)[0];
-                var id=_.keys(a)[0];
+                
+                var tmpOpts=(t.value).split('|');
+               
+                 t.value=tmpOpts;
+                 var id=_.keys(a)[0];
                %>
                
-               <td ><input disabled id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs <%= (t.label).indexOf('%')>=0?  'checkIsPercentage' : '' %>"></input>
-                <p style=" font-size:xx-small"><%=t.label%></p>
+               <td >
+               <p style=" font-size:xx-small"><%=t.label%></p>
+               
+               <select  id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" >
+                   <% if((t.value).length==2){%>
+                    <option value="<%= t.value[0] %>"><%= t.value[0] %></option>
+                    <option value="<%= t.value[1] %>"><%= t.value[1] %></option>
+                   <%} else {%>
+                    <option value="<%= t.value[0] %>"><%= t.value[0] %></option>
+                    <%}%>
+                </select>
+                
+
+
+
                </td>
             <% })   
               %>
