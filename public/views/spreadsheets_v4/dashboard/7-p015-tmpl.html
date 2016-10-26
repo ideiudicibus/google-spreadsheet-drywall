@@ -79,7 +79,8 @@ drawCharts(data.record,activeSheetName);
 <div class="btn-group">
             <button type="button" data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle">Azioni<span class="caret"></span></button>
             <ul role="menu" class="dropdown-menu pull-right">
-             <li><a  data-toggle="modal" data-target="#paramInputs" href='#'><i class="fa fa-edit"></i>Modifica parametri</a></li>               
+             <li><a  data-toggle="modal" data-target="#paramInputsGroup1" href='#'><i class="fa fa-edit"></i>Modifica parametri Prezzi Gruppo 1</a></li>
+            <li><a  data-toggle="modal" data-target="#paramInputsGroup2" href='#'><i class="fa fa-edit"></i>Modifica parametri Prezzi Gruppo 2</a></li>                
               <li><a  class="resetParamsBtn" data-toggle="modal" data-target="#" href='#'><i class="fa fa-eraser"></i>Reset parametri</a></li>
            </ul>
           </div>
@@ -102,7 +103,7 @@ drawCharts(data.record,activeSheetName);
 </br>
 
 <!-- Modal --> 
-<div  id="paramInputs"  class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div  id="paramInputsGroup1"  class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   
  
   <div class="modal-dialog modal-lg">
@@ -122,39 +123,39 @@ drawCharts(data.record,activeSheetName);
               <%
 
 
-                var params2=[{"[pr.1C1]":{"row":880,"col":11,"value":"266,85|266,86","label":"Prezzo Aripiprazolo (LAI) - 400 mg"}},{"[pr.2C1]":{"row":882,"col":11,"value":"148,01","label":"Prezzo Olanzapina pamoato (LAI) - 210 mg"}},{"[pr.2C2]":{"row":883,"col":11,"value":"231,04|107,63","label":"Prezzo Olanzapina pamoato (LAI) - 300 mg"}},{"[pr.2C3]":{"row":884,"col":11,"value":"296,02","label":"Prezzo Olanzapina pamoato (LAI) - 405 mg"}},{"[pr.3C1]":{"row":885,"col":11,"value":"204,36","label":"Prezzo Paliperidone palmitato (LAI) - 50 mg"}},{"[pr.3C2]":{"row":886,"col":11,"value":"263,70","label":"Prezzo Paliperidone palmitato (LAI) - 75 mg"}},{"[pr.3C3]":{"row":887,"col":11,"value":"329,64","label":"Prezzo Paliperidone palmitato (LAI) - 100 mg"}},{"[pr.3C4]":{"row":888,"col":11,"value":"412,04","label":"Prezzo Paliperidone palmitato (LAI) - 150 mg"}},{"[pr.4C1]":{"row":889,"col":11,"value":"95,53","label":"Prezzo Risperidone RP (LAI) - 25 mg"}},{"[pr.4C2]":{"row":890,"col":11,"value":"123,06","label":"Prezzo Risperidone RP (LAI) - 37,5 mg"}},{"[pr.4C3]":{"row":891,"col":11,"value":"153,83","label":"Prezzo Risperidone RP (LAI) - 50 mg"}},{"[prsp.1C1]":{"row":897,"col":11,"value":"","label":"Sconto % prezzo Aripiprazolo (LAI) - 400 mg"}},{"[prsp.2C1]":{"row":899,"col":11,"value":"","label":"Sconto % prezzo Olanzapina pamoato (LAI) - 210 mg"}},{"[prsp.2C2]":{"row":900,"col":11,"value":"","label":"Sconto % prezzo Olanzapina pamoato (LAI) - 300 mg"}},{"[prsp.2C3]":{"row":901,"col":11,"value":"","label":"Sconto % prezzo Olanzapina pamoato (LAI) - 405 mg"}},{"[prsp.3C1]":{"row":902,"col":11,"value":"","label":"Sconto % prezzo Paliperidone palmitato (LAI) - 50 mg"}},{"[prsp.3C2]":{"row":903,"col":11,"value":"","label":"Sconto % prezzo Paliperidone palmitato (LAI) - 75 mg"}},{"[prsp.3C3]":{"row":904,"col":11,"value":"","label":"Sconto % prezzo Paliperidone palmitato (LAI) - 100 mg"}},{"[prsp.3C4]":{"row":905,"col":11,"value":"","label":"Sconto % prezzo Paliperidone palmitato (LAI) - 150 mg"}},{"[prsp.4C1]":{"row":906,"col":11,"value":"","label":"Sconto % prezzo Risperidone RP (LAI) - 25 mg"}},{"[prsp.4C2]":{"row":907,"col":11,"value":"","label":"Sconto % prezzo Risperidone RP (LAI) - 37,5 mg"}},{"[prsp.4C3]":{"row":908,"col":11,"value":"","label":"Sconto % prezzo Risperidone RP (LAI) - 50 mg"}},{"[prsa.1C1]":{"row":914,"col":11,"value":"","label":"Sconto prezzo € per scat. Aripiprazolo (LAI) - 400 mg"}},{"[prsa.2C1]":{"row":916,"col":11,"value":"","label":"Sconto prezzo € per scat. Olanzapina pamoato (LAI) - 210 mg"}},{"[prsa.2C2]":{"row":917,"col":11,"value":"","label":"Sconto prezzo € per scat. Olanzapina pamoato (LAI) - 300 mg"}},{"[prsa.2C3]":{"row":918,"col":11,"value":"","label":"Sconto prezzo € per scat. Olanzapina pamoato (LAI) - 405 mg"}},{"[prsa.3C1]":{"row":919,"col":11,"value":"","label":"Sconto prezzo € per scat. Paliperidone palmitato (LAI) - 50 mg"}},{"[prsa.3C2]":{"row":920,"col":11,"value":"","label":"Sconto prezzo € per scat. Paliperidone palmitato (LAI) - 75 mg"}},{"[prsa.3C3]":{"row":921,"col":11,"value":"","label":"Sconto prezzo € per scat. Paliperidone palmitato (LAI) - 100 mg"}},{"[prsa.3C4]":{"row":922,"col":11,"value":"","label":"Sconto prezzo € per scat. Paliperidone palmitato (LAI) - 150 mg"}},{"[prsa.4C1]":{"row":923,"col":11,"value":"","label":"Sconto prezzo € per scat. Risperidone RP (LAI) - 25 mg"}},{"[prsa.4C2]":{"row":924,"col":11,"value":"","label":"Sconto prezzo € per scat. Risperidone RP (LAI) - 37,5 mg"}},{"[prsa.4C3]":{"row":925,"col":11,"value":"","label":"Sconto prezzo € per scat. Risperidone RP (LAI) - 50 mg"}}];
+                var paramsGroupPriceConst=[{"[pr.1C1]":{"row":880,"col":11,"value":"266,85","label":"Prezzo Aripiprazolo (LAI) - 400 mg"}},{"[pr.2C1]":{"row":882,"col":11,"value":"148,01","label":"Prezzo Olanzapina pamoato (LAI) - 210 mg"}},{"[pr.2C2]":{"row":883,"col":11,"value":"231,04","label":"Prezzo Olanzapina pamoato (LAI) - 300 mg"}},{"[pr.2C3]":{"row":884,"col":11,"value":"296,02","label":"Prezzo Olanzapina pamoato (LAI) - 405 mg"}},{"[pr.3C1]":{"row":885,"col":11,"value":"204,36","label":"Prezzo Paliperidone palmitato (LAI) - 50 mg"}},{"[pr.3C2]":{"row":886,"col":11,"value":"263,70","label":"Prezzo Paliperidone palmitato (LAI) - 75 mg"}},{"[pr.3C3]":{"row":887,"col":11,"value":"329,64","label":"Prezzo Paliperidone palmitato (LAI) - 100 mg"}},{"[pr.3C4]":{"row":888,"col":11,"value":"412,04","label":"Prezzo Paliperidone palmitato (LAI) - 150 mg"}},{"[pr.4C1]":{"row":889,"col":11,"value":"95,53","label":"Prezzo Risperidone RP (LAI) - 25 mg"}},{"[pr.4C2]":{"row":890,"col":11,"value":"123,06","label":"Prezzo Risperidone RP (LAI) - 37,5 mg"}},{"[pr.4C3]":{"row":891,"col":11,"value":"153,83","label":"Prezzo Risperidone RP (LAI) - 50 mg"}},{"[prsp.1C1]":{"row":897,"col":11,"value":"","label":"Sconto % prezzo Aripiprazolo (LAI) - 400 mg"}},{"[prsp.2C1]":{"row":899,"col":11,"value":"","label":"Sconto % prezzo Olanzapina pamoato (LAI) - 210 mg"}},{"[prsp.2C2]":{"row":900,"col":11,"value":"","label":"Sconto % prezzo Olanzapina pamoato (LAI) - 300 mg"}},{"[prsp.2C3]":{"row":901,"col":11,"value":"","label":"Sconto % prezzo Olanzapina pamoato (LAI) - 405 mg"}},{"[prsp.3C1]":{"row":902,"col":11,"value":"","label":"Sconto % prezzo Paliperidone palmitato (LAI) - 50 mg"}},{"[prsp.3C2]":{"row":903,"col":11,"value":"","label":"Sconto % prezzo Paliperidone palmitato (LAI) - 75 mg"}},{"[prsp.3C3]":{"row":904,"col":11,"value":"","label":"Sconto % prezzo Paliperidone palmitato (LAI) - 100 mg"}},{"[prsp.3C4]":{"row":905,"col":11,"value":"","label":"Sconto % prezzo Paliperidone palmitato (LAI) - 150 mg"}},{"[prsp.4C1]":{"row":906,"col":11,"value":"","label":"Sconto % prezzo Risperidone RP (LAI) - 25 mg"}},{"[prsp.4C2]":{"row":907,"col":11,"value":"","label":"Sconto % prezzo Risperidone RP (LAI) - 37,5 mg"}},{"[prsp.4C3]":{"row":908,"col":11,"value":"","label":"Sconto % prezzo Risperidone RP (LAI) - 50 mg"}},{"[prsa.1C1]":{"row":914,"col":11,"value":"","label":"Sconto prezzo € per scat. Aripiprazolo (LAI) - 400 mg"}},{"[prsa.2C1]":{"row":916,"col":11,"value":"","label":"Sconto prezzo € per scat. Olanzapina pamoato (LAI) - 210 mg"}},{"[prsa.2C2]":{"row":917,"col":11,"value":"","label":"Sconto prezzo € per scat. Olanzapina pamoato (LAI) - 300 mg"}},{"[prsa.2C3]":{"row":918,"col":11,"value":"","label":"Sconto prezzo € per scat. Olanzapina pamoato (LAI) - 405 mg"}},{"[prsa.3C1]":{"row":919,"col":11,"value":"","label":"Sconto prezzo € per scat. Paliperidone palmitato (LAI) - 50 mg"}},{"[prsa.3C2]":{"row":920,"col":11,"value":"","label":"Sconto prezzo € per scat. Paliperidone palmitato (LAI) - 75 mg"}},{"[prsa.3C3]":{"row":921,"col":11,"value":"","label":"Sconto prezzo € per scat. Paliperidone palmitato (LAI) - 100 mg"}},{"[prsa.3C4]":{"row":922,"col":11,"value":"","label":"Sconto prezzo € per scat. Paliperidone palmitato (LAI) - 150 mg"}},{"[prsa.4C1]":{"row":923,"col":11,"value":"","label":"Sconto prezzo € per scat. Risperidone RP (LAI) - 25 mg"}},{"[prsa.4C2]":{"row":924,"col":11,"value":"","label":"Sconto prezzo € per scat. Risperidone RP (LAI) - 37,5 mg"}},{"[prsa.4C3]":{"row":925,"col":11,"value":"","label":"Sconto prezzo € per scat. Risperidone RP (LAI) - 50 mg"}}];
 
                 
 
 
                 var rows=[];
 
-                 var r1C1=_.filter(params2,function(a,b,c){
+                 var r1C1=_.filter(paramsGroupPriceConst,function(a,b,c){
                 return (_.keys(a)[0].indexOf("1C1")>=0); 
                 });
 
                  rows.push(r1C1);
-                  var r2C1=_.filter(params,function(a,b,c){
+                  var r2C1=_.filter(paramsGroupPriceConst,function(a,b,c){
                 return (_.keys(a)[0].indexOf("2C1")>=0); 
                 });
 
                    rows.push(r2C1);
                 
-                 var r2C2=_.filter(params,function(a,b,c){
+                 var r2C2=_.filter(paramsGroupPriceConst,function(a,b,c){
                 return (_.keys(a)[0].indexOf("2C2")>=0); 
                 });
                  rows.push(r2C2);
-                 var r2C3=_.filter(params,function(a,b,c){
+                 var r2C3=_.filter(paramsGroupPriceConst,function(a,b,c){
                 return (_.keys(a)[0].indexOf("2C3")>=0); 
                 });
                   rows.push(r2C3);
-                var r3C1=_.filter(params,function(a,b,c){
+                var r3C1=_.filter(paramsGroupPriceConst,function(a,b,c){
                 return (_.keys(a)[0].indexOf("3C1")>=0); 
                 });
 
                 rows.push(r3C1);
                 
-                var r3C2=_.filter(params,function(a,b,c){
+                var r3C2=_.filter(paramsGroupPriceConst,function(a,b,c){
                 return (_.keys(a)[0].indexOf("3C2")>=0); 
                 });
 
@@ -166,25 +167,25 @@ drawCharts(data.record,activeSheetName);
 
                 rows.push(r3C3);
 
-                var r3C4=_.filter(params,function(a,b,c){
+                var r3C4=_.filter(paramsGroupPriceConst,function(a,b,c){
                 return (_.keys(a)[0].indexOf("3C4")>=0); 
                 });
 
                 rows.push(r3C4);
 
-                var r4C1=_.filter(params,function(a,b,c){
+                var r4C1=_.filter(paramsGroupPriceConst,function(a,b,c){
                 return (_.keys(a)[0].indexOf("4C1")>=0); 
                 });
 
                 rows.push(r4C1);
                 
-                var r4C2=_.filter(params,function(a,b,c){
+                var r4C2=_.filter(paramsGroupPriceConst,function(a,b,c){
                 return (_.keys(a)[0].indexOf("4C2")>=0); 
                 });
 
                 rows.push(r4C2);
 
-                var r4C3=_.filter(params,function(a,b,c){
+                var r4C3=_.filter(paramsGroupPriceConst,function(a,b,c){
                 return (_.keys(a)[0].indexOf("4C3")>=0); 
                 });
                 rows.push(r4C3);
@@ -195,42 +196,24 @@ drawCharts(data.record,activeSheetName);
                %>
               
               
-             <%_.each(rows,function(item){
+                <%_.each(rows,function(item){
 
               %>
              
               <tr>
              <%
                _.each(item,function(a,b,c){
-
                 var t=_.values(a)[0];
-                
-                var tmpOpts=(t.value).split('|');
-               
-                 t.value=tmpOpts;
-                 var id=_.keys(a)[0];
+                var id=_.keys(a)[0];
                %>
                
-               <td >
-               <p style=" font-size:xx-small"><%=t.label%></p>
-               
-               <select  id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" >
-                   <% if((t.value).length==2){%>
-                    <option value="<%= t.value[0] %>"><%= t.value[0] %></option>
-                    <option value="<%= t.value[1] %>"><%= t.value[1] %></option>
-                   <%} else {%>
-                    <option value="<%= t.value[0] %>"><%= t.value[0] %></option>
-                    <%}%>
-                </select>
-                
-
-
-
+               <td ><input disabled id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input>
+                <p style=" font-size:xx-small"><%=t.label%></p>
                </td>
             <% })   
               %>
              </tr>
-             <%})%>         
+             <%})%>       
            </tbody>
           </table>
           </div>
@@ -246,5 +229,130 @@ drawCharts(data.record,activeSheetName);
 
  </div>
 
+
+<!-- Modal --> 
+<div  id="paramInputsGroup2"  class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  
+ 
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modifica Parametri</h4>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive">
+              <table class="table table-striped table-bordered table-hover fixed" >
+                <thead>
+              <tr><th>Prezzo</th><th>% Sconto</th><th> Sconto a Confezione € </th></tr>
+               </thead>
+               <tbody>
+
+              <%
+
+
+                var paramsGroupPriceConst=[{"[pr.1C1]":{"row":880,"col":11,"value":"266,86","label":"Prezzo Aripiprazolo (LAI) - 400 mg"}},{"[pr.2C1]":{"row":882,"col":11,"value":"107,63","label":"Prezzo Olanzapina pamoato (LAI) - 210 mg"}},{"[pr.2C2]":{"row":883,"col":11,"value":"161,73","label":"Prezzo Olanzapina pamoato (LAI) - 300 mg"}},{"[pr.2C3]":{"row":884,"col":11,"value":"218,34","label":"Prezzo Olanzapina pamoato (LAI) - 405 mg"}},{"[pr.3C1]":{"row":885,"col":11,"value":"170,01","label":"Prezzo Paliperidone palmitato (LAI) - 50 mg"}},{"[pr.3C2]":{"row":886,"col":11,"value":"218,88","label":"Prezzo Paliperidone palmitato (LAI) - 75 mg"}},{"[pr.3C3]":{"row":887,"col":11,"value":"257,12","label":"Prezzo Paliperidone palmitato (LAI) - 100 mg"}},{"[pr.3C4]":{"row":888,"col":11,"value":"321,39","label":"Prezzo Paliperidone palmitato (LAI) - 150 mg"}},{"[pr.4C1]":{"row":889,"col":11,"value":"83,93","label":"Prezzo Risperidone RP (LAI) - 25 mg"}},{"[pr.4C2]":{"row":890,"col":11,"value":"108,29","label":"Prezzo Risperidone RP (LAI) - 37,5 mg"}},{"[pr.4C3]":{"row":891,"col":11,"value":"135,37","label":"Prezzo Risperidone RP (LAI) - 50 mg"}},{"[prsp.1C1]":{"row":897,"col":11,"value":"","label":"Sconto % prezzo Aripiprazolo (LAI) - 400 mg"}},{"[prsp.2C1]":{"row":899,"col":11,"value":"","label":"Sconto % prezzo Olanzapina pamoato (LAI) - 210 mg"}},{"[prsp.2C2]":{"row":900,"col":11,"value":"","label":"Sconto % prezzo Olanzapina pamoato (LAI) - 300 mg"}},{"[prsp.2C3]":{"row":901,"col":11,"value":"","label":"Sconto % prezzo Olanzapina pamoato (LAI) - 405 mg"}},{"[prsp.3C1]":{"row":902,"col":11,"value":"","label":"Sconto % prezzo Paliperidone palmitato (LAI) - 50 mg"}},{"[prsp.3C2]":{"row":903,"col":11,"value":"","label":"Sconto % prezzo Paliperidone palmitato (LAI) - 75 mg"}},{"[prsp.3C3]":{"row":904,"col":11,"value":"","label":"Sconto % prezzo Paliperidone palmitato (LAI) - 100 mg"}},{"[prsp.3C4]":{"row":905,"col":11,"value":"","label":"Sconto % prezzo Paliperidone palmitato (LAI) - 150 mg"}},{"[prsp.4C1]":{"row":906,"col":11,"value":"","label":"Sconto % prezzo Risperidone RP (LAI) - 25 mg"}},{"[prsp.4C2]":{"row":907,"col":11,"value":"","label":"Sconto % prezzo Risperidone RP (LAI) - 37,5 mg"}},{"[prsp.4C3]":{"row":908,"col":11,"value":"","label":"Sconto % prezzo Risperidone RP (LAI) - 50 mg"}},{"[prsa.1C1]":{"row":914,"col":11,"value":"","label":"Sconto prezzo € per scat. Aripiprazolo (LAI) - 400 mg"}},{"[prsa.2C1]":{"row":916,"col":11,"value":"","label":"Sconto prezzo € per scat. Olanzapina pamoato (LAI) - 210 mg"}},{"[prsa.2C2]":{"row":917,"col":11,"value":"","label":"Sconto prezzo € per scat. Olanzapina pamoato (LAI) - 300 mg"}},{"[prsa.2C3]":{"row":918,"col":11,"value":"","label":"Sconto prezzo € per scat. Olanzapina pamoato (LAI) - 405 mg"}},{"[prsa.3C1]":{"row":919,"col":11,"value":"","label":"Sconto prezzo € per scat. Paliperidone palmitato (LAI) - 50 mg"}},{"[prsa.3C2]":{"row":920,"col":11,"value":"","label":"Sconto prezzo € per scat. Paliperidone palmitato (LAI) - 75 mg"}},{"[prsa.3C3]":{"row":921,"col":11,"value":"","label":"Sconto prezzo € per scat. Paliperidone palmitato (LAI) - 100 mg"}},{"[prsa.3C4]":{"row":922,"col":11,"value":"","label":"Sconto prezzo € per scat. Paliperidone palmitato (LAI) - 150 mg"}},{"[prsa.4C1]":{"row":923,"col":11,"value":"","label":"Sconto prezzo € per scat. Risperidone RP (LAI) - 25 mg"}},{"[prsa.4C2]":{"row":924,"col":11,"value":"","label":"Sconto prezzo € per scat. Risperidone RP (LAI) - 37,5 mg"}},{"[prsa.4C3]":{"row":925,"col":11,"value":"","label":"Sconto prezzo € per scat. Risperidone RP (LAI) - 50 mg"}}];
+
+
+                var rows=[];
+
+                 var r1C1=_.filter(paramsGroupPriceConst,function(a,b,c){
+                return (_.keys(a)[0].indexOf("1C1")>=0); 
+                });
+
+                 rows.push(r1C1);
+                  var r2C1=_.filter(paramsGroupPriceConst,function(a,b,c){
+                return (_.keys(a)[0].indexOf("2C1")>=0); 
+                });
+
+                   rows.push(r2C1);
+                
+                 var r2C2=_.filter(paramsGroupPriceConst,function(a,b,c){
+                return (_.keys(a)[0].indexOf("2C2")>=0); 
+                });
+                 rows.push(r2C2);
+                 var r2C3=_.filter(paramsGroupPriceConst,function(a,b,c){
+                return (_.keys(a)[0].indexOf("2C3")>=0); 
+                });
+                  rows.push(r2C3);
+                var r3C1=_.filter(paramsGroupPriceConst,function(a,b,c){
+                return (_.keys(a)[0].indexOf("3C1")>=0); 
+                });
+
+                rows.push(r3C1);
+                
+                var r3C2=_.filter(paramsGroupPriceConst,function(a,b,c){
+                return (_.keys(a)[0].indexOf("3C2")>=0); 
+                });
+
+                rows.push(r3C2);
+
+                var r3C3=_.filter(params,function(a,b,c){
+                return (_.keys(a)[0].indexOf("3C3")>=0); 
+                });
+
+                rows.push(r3C3);
+
+                var r3C4=_.filter(paramsGroupPriceConst,function(a,b,c){
+                return (_.keys(a)[0].indexOf("3C4")>=0); 
+                });
+
+                rows.push(r3C4);
+
+                var r4C1=_.filter(paramsGroupPriceConst,function(a,b,c){
+                return (_.keys(a)[0].indexOf("4C1")>=0); 
+                });
+
+                rows.push(r4C1);
+                
+                var r4C2=_.filter(paramsGroupPriceConst,function(a,b,c){
+                return (_.keys(a)[0].indexOf("4C2")>=0); 
+                });
+
+                rows.push(r4C2);
+
+                var r4C3=_.filter(paramsGroupPriceConst,function(a,b,c){
+                return (_.keys(a)[0].indexOf("4C3")>=0); 
+                });
+                rows.push(r4C3);
+                
+              
+
+
+               %>
+              
+              
+                <%_.each(rows,function(item){
+
+              %>
+             
+              <tr>
+             <%
+               _.each(item,function(a,b,c){
+                var t=_.values(a)[0];
+                var id=_.keys(a)[0];
+               %>
+               
+               <td ><input disabled id="<%= id %>" name="<%= id %>"  label="<%= t.label%>" row="<%= t.row%>" col="<%= t.col%>" type="text" value="<%= t.value %>" class="input-xs"></input>
+                <p style=" font-size:xx-small"><%=t.label%></p>
+               </td>
+            <% })   
+              %>
+             </tr>
+             <%})%>       
+           </tbody>
+          </table>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Chiudi</button>
+        <button type="button" class="btn btn-primary update updateParameterBtnFull ">Salva</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+ </div>
 
 
